@@ -118,3 +118,27 @@ body {
   transition: transform .6s ease, filter .3s ease;
 }
 .cb-masonry .cb-tile:hover img { transform: scale(1.04); filter: brightness(1.05); }
+.cb-masonry .cb-tile { position: relative; }
+
+/* Selection control, only shown once downloads are unlocked */
+.cb-pick {
+  position: absolute;
+  top: 10px; right: 10px;
+  width: 28px; height: 28px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(255,255,255,.9);
+  background: rgba(0,0,0,.32);
+  backdrop-filter: blur(4px);
+  display: grid; place-items: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity .2s ease, background .2s ease;
+}
+.cb-tile:hover .cb-pick, .cb-tile.is-picked .cb-pick { opacity: 1; }
+.cb-pick .cb-check { color: #fff; font-size: 14px; line-height: 1; opacity: 0; }
+.cb-tile.is-picked .cb-pick { background: var(--color-accent); border-color: var(--color-accent); }
+.cb-tile.is-picked .cb-pick .cb-check { opacity: 1; }
+.cb-tile.is-picked img { filter: brightness(.82); }
+
+/* Leave room for the sticky download toolbar */
+body.cb-picking { padding-bottom: 84px; }
