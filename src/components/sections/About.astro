@@ -1,0 +1,36 @@
+---
+const paragraphs = [
+  "From a young age, I discovered my passion for photography and have been actively pursuing it ever since.",
+  "In life, I have been blessed to find love not just once, but twice. The first was with my camera, and the second was with my wonderful wife, whom I met while doing what I love. I consider myself fortunate to have found these two loves, as they have had a profound impact on my life.",
+  "I am thrilled to have the opportunity to capture your special day through photography.",
+];
+---
+
+<section class="bg-[#222] py-16 lg:py-24">
+  <div class="mx-auto grid max-w-[1368px] gap-0 px-6 lg:grid-cols-2">
+    <img
+      src="/images/about/john-lekan-shooting.png"
+      alt="John Lekan photographing a bride at a wedding"
+      class="h-80 w-full object-cover lg:h-auto"
+    />
+    <div class="flex flex-col justify-center bg-[#272727] px-8 py-14 text-center sm:px-16 lg:py-20">
+      <h2 class="font-display text-3xl leading-tight font-thin text-balance text-white sm:text-4xl lg:text-5xl">
+        Hi, I&rsquo;m John Lekan, a wedding, Lifestyle &amp; Portrait Photographer
+      </h2>
+      <p class="mt-6 text-sm font-medium tracking-[0.06em] text-white uppercase">
+        I am based in London Uk (Available to travel) | 07823714814
+      </p>
+
+      <div class="mx-auto mt-10 flex max-w-md flex-col gap-5">
+        {paragraphs.map((p) => <p class="text-sm leading-6 text-[#a0a0a0]">{p}</p>)}
+      </div>
+
+      <a
+        href="/about"
+        class="mx-auto mt-10 inline-block rounded-full border border-white px-10 py-4 text-sm font-semibold tracking-[0.1em] text-white uppercase transition-colors hover:bg-white hover:text-black"
+      >
+        Get to know me
+      </a>
+    </div>
+  </div>
+</section>

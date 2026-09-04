@@ -1,0 +1,52 @@
+---
+const items = [
+  { title: "Take a look at my work", subtitle: "Portfolio", href: "/galleries", image: "/images/explore/portfolio.png" },
+  { title: "Find out my process", subtitle: "Experience", href: "/about", image: "/images/explore/process.png" },
+  { title: "See my offerings", subtitle: "Pricing", href: "/pricing", image: "/images/explore/pricing.png" },
+];
+---
+
+<section class="relative bg-white" data-explore>
+  <div
+    class="pointer-events-none absolute inset-0 bg-cover bg-center opacity-0 transition-opacity duration-500"
+    style={`background-image: url(${items[0].image})`}
+    data-explore-bg
+  />
+
+  <div class="relative mx-auto max-w-[1368px] divide-y divide-[#d9d9d9] px-6 py-20 sm:grid sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+    {
+      items.map((item) => (
+        <a
+          href={item.href}
+          class="group block px-4 py-8 text-center transition-opacity sm:py-0"
+          data-explore-item
+          data-image={item.image}
+        >
+          <h3 class="font-display text-2xl font-thin text-[#434343] transition-opacity sm:text-3xl">
+            {item.title}
+          </h3>
+          <p class="mt-3 text-xs font-medium tracking-[0.1em] text-[#434343] uppercase">
+            {item.subtitle}
+          </p>
+        </a>
+      ))
+    }
+  </div>
+</section>
+
+<script>
+  const section = document.querySelector<HTMLElement>("[data-explore]");
+  const bg = section?.querySelector<HTMLElement>("[data-explore-bg]");
+  const items = section?.querySelectorAll<HTMLElement>("[data-explore-item]");
+
+  items?.forEach((item) => {
+    item.addEventListener("mouseenter", () => {
+      if (!bg) return;
+      bg.style.backgroundImage = `url(${item.dataset.image})`;
+      bg.style.opacity = "0.15";
+    });
+    item.addEventListener("mouseleave", () => {
+      if (bg) bg.style.opacity = "0";
+    });
+  });
+</script>

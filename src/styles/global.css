@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand palette — refine once brand guidelines / exact hex values are confirmed */
+  --color-ink: #1a1a1a;
+  --color-paper: #fafafa;
+  --color-accent: #b3242a; /* red accent from the "Camera BOSS" wordmark */
+
+  /* Typography
+     "Quincy CF" (display serif) is a licensed font used in the Figma file —
+     swap in the real @font-face once webfonts are supplied. Fraunces is a
+     free, visually close serif standing in for it until then. */
+  --font-display: "Fraunces", "Quincy CF", Georgia, serif;
+  --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}

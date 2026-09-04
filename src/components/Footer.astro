@@ -1,0 +1,97 @@
+---
+const nav = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Info", href: "#" },
+  { label: "Blog", href: "/blog" },
+  { label: "Galleries", href: "/galleries" },
+  { label: "Videos", href: "/videos" },
+  { label: "Contact", href: "/contact" },
+];
+
+const socials = [
+  { label: "Facebook", href: "https://facebook.com/cameraboss", icon: "/images/social/facebook.svg" },
+  { label: "Instagram (John Lekan)", href: "https://instagram.com/iamjohnlekan", icon: "/images/social/instagram-1.svg" },
+  { label: "Instagram (CameraBoss)", href: "https://instagram.com/thecameraboss", icon: "/images/social/instagram-2.svg" },
+  { label: "TikTok", href: "https://www.tiktok.com/@the_cameraboss", icon: "/images/social/tiktok.svg" },
+  { label: "Pinterest", href: "https://www.pinterest.co.uk/Cameraboss/", icon: "/images/social/pinterest.svg" },
+  { label: "YouTube", href: "https://www.youtube.com/@CameraBossMedia/featured", icon: "/images/social/youtube.svg" },
+];
+
+const instagramPhotos = [
+  "/images/footer/instagram-1.png",
+  "/images/footer/instagram-2.png",
+  "/images/footer/instagram-3.png",
+  "/images/footer/instagram-4.png",
+];
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-white">
+  <a
+    href="https://www.instagram.com/thecameraboss"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="group relative grid grid-cols-2 sm:grid-cols-4"
+  >
+    {
+      instagramPhotos.map((src) => (
+        <div class="aspect-square overflow-hidden">
+          <img
+            src={src}
+            alt="CameraBoss on Instagram"
+            loading="lazy"
+            class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        </div>
+      ))
+    }
+    <div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-[#fafafa]/70">
+      <h4 class="font-display text-3xl font-thin text-[#434343] sm:text-4xl">@thecameraboss</h4>
+    </div>
+  </a>
+
+  <div class="mx-auto max-w-[1368px] px-6 py-12">
+    <nav aria-label="Footer">
+      <ul class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="text-xs font-medium tracking-[0.2em] text-[#434343] uppercase transition-opacity hover:opacity-60"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="mt-10 flex flex-col items-center justify-between gap-6 border-t border-[#eee] pt-8 sm:flex-row">
+      <p class="text-[13px] text-[#797979]">© {year} Cameraboss</p>
+
+      <ul class="flex items-center gap-6">
+        {
+          socials.map((s) => (
+            <li>
+              <a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label} class="block opacity-70 transition-opacity hover:opacity-100">
+                <img src={s.icon} alt="" class="size-[18px]" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <a
+        href="#top"
+        aria-label="Back to top"
+        class="text-[#434343] opacity-70 transition-opacity hover:opacity-100"
+      >
+        <img src="/images/icons/arrow-up.svg" alt="" class="size-[18px]" />
+      </a>
+    </div>
+  </div>
+</footer>

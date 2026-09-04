@@ -1,0 +1,28 @@
+---
+// Static marketing page — prerendered to HTML at build time even though the
+// site runs in `server` output mode overall (see astro.config.mjs).
+export const prerender = true;
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/sections/Hero.astro";
+import About from "../components/sections/About.astro";
+import PortfolioGrid from "../components/sections/PortfolioGrid.astro";
+import BookingCta from "../components/sections/BookingCta.astro";
+import FilmCompany from "../components/sections/FilmCompany.astro";
+import Packages from "../components/sections/Packages.astro";
+import ExploreMore from "../components/sections/ExploreMore.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<BaseLayout title="CameraBoss | Nigeria & London Wedding Photographer">
+  <main id="top">
+    <Hero />
+    <About />
+    <PortfolioGrid />
+    <BookingCta />
+    <FilmCompany />
+    <Packages />
+    <ExploreMore />
+  </main>
+  <Footer />
+</BaseLayout>

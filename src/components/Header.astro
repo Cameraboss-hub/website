@@ -1,0 +1,65 @@
+---
+// Overlays the hero on the homepage; other pages can pass a solid background.
+const nav = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Blog", href: "/blog" },
+  { label: "Galleries", href: "/galleries" },
+  { label: "Videos", href: "/videos" },
+  { label: "Contact", href: "/contact" },
+];
+---
+
+<header class="absolute inset-x-0 top-0 z-30">
+  <nav
+    class="mx-auto flex h-25 max-w-[1368px] items-center justify-between px-6"
+    aria-label="Primary"
+  >
+    <ul class="hidden flex-1 items-center gap-8 lg:flex">
+      {
+        nav.slice(0, 3).map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="text-xs font-medium tracking-[0.2em] text-white uppercase transition-opacity hover:opacity-70"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <a href="/" class="shrink-0 px-6" aria-label="CameraBoss home">
+      <img
+        src="/images/brand/cameraboss-logo.png"
+        alt="CameraBoss"
+        class="h-6 w-auto"
+      />
+    </a>
+
+    <ul class="hidden flex-1 items-center justify-end gap-8 lg:flex">
+      {
+        nav.slice(3).map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="text-xs font-medium tracking-[0.2em] text-white uppercase transition-opacity hover:opacity-70"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <button
+      type="button"
+      class="ml-auto text-xs font-medium tracking-[0.2em] text-white uppercase lg:hidden"
+      aria-label="Open menu"
+      data-mobile-menu-toggle
+    >
+      Menu
+    </button>
+  </nav>
+</header>

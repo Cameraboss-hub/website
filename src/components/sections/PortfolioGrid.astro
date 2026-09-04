@@ -1,0 +1,49 @@
+---
+interface Item {
+  image: string;
+  title: string;
+  subtitle: string;
+  href: string;
+  span: "full" | "half";
+}
+
+const items: Item[] = [
+  { image: "/images/portfolio/01-moses-bliss-marie-wiseborn.png", title: "Moses Bliss and Marie Wiseborn", subtitle: "#MMbliss24", href: "/galleries", span: "full" },
+  { image: "/images/portfolio/02-the-wedding.png", title: "The Wedding", subtitle: "13 June 2021", href: "/galleries", span: "half" },
+  { image: "/images/portfolio/03-yoruba-wedding.png", title: "Yoruba Wedding", subtitle: "13 June 2023", href: "/galleries", span: "half" },
+  { image: "/images/portfolio/04-mayo-emmanuel.png", title: "Mayo and Emmanuel", subtitle: "13 July 2023", href: "/galleries", span: "full" },
+  { image: "/images/portfolio/05-dana-bridal-portraits.png", title: "Dana Bridal Portraits", subtitle: "The Shoot at Leicester", href: "/galleries", span: "half" },
+  { image: "/images/portfolio/06-bridal-look.png", title: "Bridal Look", subtitle: "Grand Hotel Leicester", href: "/galleries", span: "half" },
+  { image: "/images/portfolio/07-siri-bridal-portrait.png", title: "Siri Bridal Portrait", subtitle: "London Uk", href: "/galleries", span: "full" },
+  { image: "/images/portfolio/08-js-london-wedding.png", title: "J & S", subtitle: "London Wedding", href: "/galleries", span: "half" },
+  { image: "/images/portfolio/09-bridal-robe-arewa.png", title: "Bridal Robe", subtitle: "Arewa Wedding", href: "/galleries", span: "half" },
+];
+---
+
+<section class="bg-[#111] py-16 lg:py-24">
+  <div class="mx-auto grid max-w-[1454px] grid-cols-1 gap-8 px-6 sm:grid-cols-2">
+    {
+      items.map((item) => (
+        <a
+          href={item.href}
+          class:list={["group block", item.span === "full" && "sm:col-span-2"]}
+        >
+          <div class="aspect-[16/10] overflow-hidden">
+            <img
+              src={item.image}
+              alt={item.title}
+              loading="lazy"
+              class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </div>
+          <div class="mt-6 text-center">
+            <h4 class="font-display text-2xl font-thin tracking-wide text-white">
+              {item.title}
+            </h4>
+            <p class="mt-2 text-xs text-[#a0a0a0]">{item.subtitle}</p>
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</section>
