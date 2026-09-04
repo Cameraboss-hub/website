@@ -1,0 +1,62 @@
+---
+// Solid header for interior pages (blog, galleries, static pages).
+// The homepage keeps Header.astro, which overlays the hero.
+const nav = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Blog", href: "/blog" },
+  { label: "Galleries", href: "/galleries" },
+  { label: "Videos", href: "/videos" },
+  { label: "Contact", href: "/contact" },
+];
+const { current = "" } = Astro.props;
+---
+
+<header class="sticky top-0 z-40 border-b border-black/8 bg-[var(--color-paper)]/95 backdrop-blur">
+  <nav class="mx-auto flex h-20 max-w-[1368px] items-center justify-between px-6" aria-label="Primary">
+    <ul class="hidden flex-1 items-center gap-8 lg:flex">
+      {nav.slice(0, 3).map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class:list={[
+              "text-xs font-medium tracking-[0.2em] uppercase transition-colors hover:text-[var(--color-accent)]",
+              current === item.href ? "text-[var(--color-accent)]" : "text-[var(--color-ink)]",
+            ]}
+          >{item.label}</a>
+        </li>
+      ))}
+    </ul>
+
+    <a href="/" class="shrink-0 px-6" aria-label="CameraBoss home">
+      <img src="/images/brand/cameraboss-logo.png" alt="CameraBoss" class="h-6 w-auto brightness-0" />
+    </a>
+
+    <ul class="hidden flex-1 items-center justify-end gap-8 lg:flex">
+      {nav.slice(3).map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class:list={[
+              "text-xs font-medium tracking-[0.2em] uppercase transition-colors hover:text-[var(--color-accent)]",
+              current === item.href ? "text-[var(--color-accent)]" : "text-[var(--color-ink)]",
+            ]}
+          >{item.label}</a>
+        </li>
+      ))}
+    </ul>
+
+    <details class="relative ml-auto lg:hidden">
+      <summary class="cursor-pointer list-none text-xs font-medium tracking-[0.2em] uppercase">Menu</summary>
+      <ul class="absolute right-0 mt-4 w-52 border border-black/10 bg-[var(--color-paper)] py-2 shadow-xl">
+        {nav.map((item) => (
+          <li>
+            <a href={item.href} class="block px-5 py-3 text-xs tracking-[0.2em] uppercase hover:bg-black/5">
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </details>
+  </nav>
+</header>

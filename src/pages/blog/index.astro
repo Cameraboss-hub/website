@@ -1,0 +1,76 @@
+---
+export const prerender = true;
+
+import PageLayout from "../../layouts/PageLayout.astro";
+import { posts, formatDate, thumbFor, excerpt } from "../../lib/content";
+
+const featured = posts[0];
+const rest = posts.slice(1);
+---
+
+<PageLayout
+  title="Wedding Photography Insight & Tips | CameraBoss UK Blog"
+  description="Venue guides, planning advice and real weddings from a UK & Nigeria wedding photographer covering London, Leicester, Manchester, Birmingham and beyond."
+  current="/blog"
+  ogImage={thumbFor(featured) ?? undefined}
+>
+  <section class="mx-auto max-w-[1368px] px-6 pt-16 pb-10 md:pt-24">
+    <p class="text-[11px] tracking-[0.4em] text-black/45 uppercase">Journal</p>
+    <h1 class="mt-4 font-[family-name:var(--font-display)] text-4xl leading-tight font-light md:text-6xl">
+      Stories, venues &amp; planning notes
+    </h1>
+    <p class="mt-5 max-w-2xl text-[15px] leading-relaxed text-black/60">
+      {posts.length} pieces on weddings, venues and photography across the UK and Nigeria — written from
+      actually working these places, not researching them.
+    </p>
+  </section>
+
+  {featured && (
+    <section class="mx-auto max-w-[1368px] px-6 pb-16">
+      <a href={`/blog/${featured.slug}/`} class="group grid gap-8 md:grid-cols-2 md:items-center">
+        <div class="aspect-[4/3] overflow-hidden bg-black/5">
+          {thumbFor(featured) && (
+            <img
+              src={thumbFor(featured)}
+              alt=""
+              loading="eager"
+              class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          )}
+        </div>
+        <div>
+          <p class="text-[11px] tracking-[0.3em] text-[var(--color-accent)] uppercase">Latest</p>
+          <h2 class="mt-4 font-[family-name:var(--font-display)] text-2xl leading-snug font-light md:text-4xl">
+            {featured.title}
+          </h2>
+          <p class="mt-4 text-[15px] leading-relaxed text-black/60">{excerpt(featured, 190)}…</p>
+          <p class="mt-6 text-[11px] tracking-[0.25em] text-black/40 uppercase">{formatDate(featured.date)}</p>
+        </div>
+      </a>
+    </section>
+  )}
+
+  <section class="mx-auto max-w-[1368px] px-6 pb-28">
+    <div class="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+      {rest.map((p) => (
+        <a href={`/blog/${p.slug}/`} class="group block">
+          <div class="aspect-[4/3] overflow-hidden bg-black/5">
+            {thumbFor(p) && (
+              <img
+                src={thumbFor(p)}
+                alt=""
+                loading="lazy"
+                class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            )}
+          </div>
+          <h3 class="mt-5 font-[family-name:var(--font-display)] text-lg leading-snug font-light transition-colors group-hover:text-[var(--color-accent)]">
+            {p.title}
+          </h3>
+          <p class="mt-3 line-clamp-2 text-sm leading-relaxed text-black/55">{excerpt(p, 110)}…</p>
+          <p class="mt-4 text-[10px] tracking-[0.25em] text-black/40 uppercase">{formatDate(p.date)}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</PageLayout>

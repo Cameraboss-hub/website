@@ -1,0 +1,129 @@
+---
+export const prerender = true;
+
+import PageLayout from "../../layouts/PageLayout.astro";
+import { loadGalleries } from "../../lib/galleries";
+
+export async function getStaticPaths() {
+  const galleries = await loadGalleries();
+  return galleries.map((g) => ({ params: { slug: g.slug }, props: { gallery: g } }));
+}
+
+const { gallery } = Astro.props;
+---
+
+<PageLayout
+  title={`${gallery.name} | CameraBoss Client Gallery`}
+  description={`Private gallery — ${gallery.photos.length} photographs by CameraBoss.`}
+  current="/galleries"
+  ogImage={gallery.photos[0]?.url}
+>
+  <meta slot="head" name="robots" content="noindex, nofollow" />
+
+  <!-- PIN gate -->
+  <section id="gate" class="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-6 py-20 text-center">
+    <p class="text-[11px] tracking-[0.4em] text-black/45 uppercase">Private Gallery</p>
+    <h1 class="mt-5 font-[family-name:var(--font-display)] text-3xl leading-tight font-light md:text-4xl">
+      {gallery.name}
+    </h1>
+    <p class="mt-4 text-sm text-black/55">{gallery.photos.length} photographs</p>
+
+    <form id="pin-form" class="mt-10" autocomplete="off">
+      <label for="pin" class="block text-[11px] tracking-[0.25em] text-black/45 uppercase">
+        Enter your PIN
+      </label>
+      <input
+        id="pin" name="pin" type="text" inputmode="numeric" maxlength="4" required
+        class="mt-4 w-full border border-black/15 bg-white px-4 py-4 text-center text-2xl tracking-[0.6em] outline-none focus:border-[var(--color-accent)]"
+      />
+      <p id="pin-error" class="mt-3 hidden text-xs text-[var(--color-accent)]">
+        That PIN doesn’t match. Please check and try again.
+      </p>
+      <button
+        type="submit"
+        class="mt-6 w-full bg-[var(--color-ink)] py-4 text-[11px] tracking-[0.3em] text-white uppercase transition-opacity hover:opacity-85"
+      >
+        View Gallery
+      </button>
+    </form>
+    <p class="mt-8 text-xs text-black/40">Your PIN was included with your delivery email.</p>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery" class="hidden">
+    <div class="mx-auto max-w-[1368px] px-6 pt-14 pb-8">
+      <a href="/galleries" class="text-[11px] tracking-[0.3em] text-black/40 uppercase hover:text-[var(--color-accent)]">
+        &larr; All galleries
+      </a>
+      <h1 class="mt-5 font-[family-name:var(--font-display)] text-3xl font-light md:text-5xl">{gallery.name}</h1>
+      <p class="mt-3 text-[11px] tracking-[0.25em] text-black/40 uppercase">{gallery.photos.length} photographs</p>
+    </div>
+
+    <div class="mx-auto max-w-[1368px] px-6 pb-24">
+      <div class="cb-masonry">
+        {gallery.photos.map((p, i) => (
+          <figure class="cb-tile" data-i={i}>
+            <img src={p.thumb} alt="" loading="lazy" />
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div id="lb" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/96">
+    <button id="lb-close" class="absolute top-6 right-7 text-3xl text-white/60 hover:text-white" aria-label="Close">&times;</button>
+    <button id="lb-prev" class="absolute left-3 text-4xl text-white/50 hover:text-white" aria-label="Previous">&#8249;</button>
+    <img id="lb-img" src="" alt="" class="max-h-[86vh] max-w-[92vw] object-contain" />
+    <button id="lb-next" class="absolute right-3 text-4xl text-white/50 hover:text-white" aria-label="Next">&#8250;</button>
+    <p id="lb-meta" class="absolute bottom-6 w-full text-center text-[11px] tracking-[0.2em] text-white/50 uppercase"></p>
+  </div>
+
+  <script is:inline define:vars={{ pin: gallery.pin, photos: gallery.photos, slug: gallery.slug }}>
+    const KEY = "cb-gallery-" + slug;
+    const gate = document.getElementById("gate");
+    const grid = document.getElementById("gallery");
+
+    function unlock() {
+      gate.style.display = "none";
+      grid.classList.remove("hidden");
+      try { sessionStorage.setItem(KEY, "1"); } catch (e) {}
+    }
+    try { if (sessionStorage.getItem(KEY) === "1") unlock(); } catch (e) {}
+
+    document.getElementById("pin-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const val = document.getElementById("pin").value.trim();
+      if (val === String(pin)) unlock();
+      else document.getElementById("pin-error").classList.remove("hidden");
+    });
+
+    const lb = document.getElementById("lb");
+    const lbImg = document.getElementById("lb-img");
+    const lbMeta = document.getElementById("lb-meta");
+    let idx = 0;
+
+    function show(i) {
+      idx = (i + photos.length) % photos.length;
+      const p = photos[idx];
+      lbImg.src = p.url;
+      lbMeta.textContent = `${idx + 1} / ${photos.length}` + (p.resolution ? ` · ${p.resolution}` : "");
+      lb.classList.remove("hidden");
+      lb.classList.add("flex");
+    }
+    function hide() { lb.classList.add("hidden"); lb.classList.remove("flex"); }
+
+    document.querySelectorAll(".cb-tile").forEach((el) =>
+      el.addEventListener("click", () => show(Number(el.dataset.i)))
+    );
+    document.getElementById("lb-close").addEventListener("click", hide);
+    document.getElementById("lb-prev").addEventListener("click", () => show(idx - 1));
+    document.getElementById("lb-next").addEventListener("click", () => show(idx + 1));
+    document.addEventListener("keydown", (e) => {
+      if (lb.classList.contains("hidden")) return;
+      if (e.key === "Escape") hide();
+      if (e.key === "ArrowRight") show(idx + 1);
+      if (e.key === "ArrowLeft") show(idx - 1);
+    });
+  </script>
+</PageLayout>

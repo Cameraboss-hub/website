@@ -1,0 +1,37 @@
+---
+export const prerender = true;
+
+import PageLayout from "../layouts/PageLayout.astro";
+import { pages } from "../lib/content";
+
+export function getStaticPaths() {
+  // Routes handled by dedicated files — never let the catch-all shadow them.
+  const reserved = new Set(["/", "/blog/", "/galleries/", "/blog", "/galleries"]);
+  return pages
+    .filter((p) => !reserved.has(p.path))
+    .map((p) => ({
+      params: { path: p.path.replace(/^\/|\/$/g, "") },
+      props: { page: p },
+    }));
+}
+
+const { page } = Astro.props;
+---
+
+<PageLayout
+  title={page.title}
+  description={page.meta_description}
+  ogImage={page.og_image || undefined}
+  current={page.path}
+>
+  <article>
+    {page.h1 && (
+      <header class="mx-auto max-w-4xl px-6 pt-16 pb-8 text-center md:pt-24">
+        <h1 class="font-[family-name:var(--font-display)] text-3xl leading-tight font-light md:text-5xl">
+          {page.h1}
+        </h1>
+      </header>
+    )}
+    <div class="post-body mx-auto max-w-4xl px-6 pb-24" set:html={page.html} />
+  </article>
+</PageLayout>

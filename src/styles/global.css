@@ -19,3 +19,102 @@ body {
   color: var(--color-ink);
   font-family: var(--font-sans);
 }
+
+/* ---------------------------------------------------------------
+   Imported post & page bodies (migrated from Pixieset).
+   The HTML arrives with its own markup, so it is styled here
+   rather than with utility classes.
+   --------------------------------------------------------------- */
+.post-body {
+  font-size: 1.0625rem;
+  line-height: 1.85;
+  color: color-mix(in srgb, var(--color-ink) 82%, transparent);
+}
+.post-body > * + * { margin-top: 1.35em; }
+
+.post-body h1, .post-body h2, .post-body h3, .post-body h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--color-ink);
+  margin-top: 2.4em;
+  margin-bottom: 0.6em;
+}
+.post-body h1 { font-size: 2rem; }
+.post-body h2 { font-size: 1.65rem; }
+.post-body h3 { font-size: 1.3rem; }
+.post-body h4 { font-size: 1.1rem; }
+.post-body h1:first-child, .post-body h2:first-child, .post-body h3:first-child { margin-top: 0; }
+
+.post-body p { margin: 0 0 1.35em; }
+.post-body a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.post-body a:hover { text-decoration-thickness: 2px; }
+
+.post-body ul, .post-body ol { padding-left: 1.3em; margin: 0 0 1.35em; }
+.post-body ul { list-style: disc; }
+.post-body ol { list-style: decimal; }
+.post-body li { margin-bottom: 0.55em; }
+
+.post-body img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 2.5em 0;
+}
+.post-body figure { margin: 2.5em 0; }
+.post-body figcaption {
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: color-mix(in srgb, var(--color-ink) 50%, transparent);
+  text-align: center;
+  margin-top: 0.8em;
+}
+
+.post-body blockquote {
+  border-left: 2px solid var(--color-accent);
+  padding-left: 1.4em;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--color-ink);
+  margin: 2em 0;
+}
+.post-body strong { font-weight: 600; color: var(--color-ink); }
+.post-body hr { border: 0; border-top: 1px solid rgba(0,0,0,.12); margin: 3em 0; }
+
+.post-body table { width: 100%; border-collapse: collapse; margin: 2em 0; font-size: 0.95rem; }
+.post-body th, .post-body td { border: 1px solid rgba(0,0,0,.12); padding: 0.7em 0.9em; text-align: left; }
+.post-body th { background: rgba(0,0,0,.03); font-weight: 600; }
+
+/* Pixieset shipped inline layout classes we don't want to inherit */
+.post-body [class*="block-"],
+.post-body [class*="fb-"],
+.post-body [style*="position:absolute"] { position: static !important; }
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Client gallery masonry */
+.cb-masonry { columns: 4 260px; column-gap: 14px; }
+.cb-masonry .cb-tile {
+  break-inside: avoid;
+  margin: 0 0 14px;
+  overflow: hidden;
+  background: rgba(0,0,0,.05);
+  cursor: pointer;
+}
+.cb-masonry .cb-tile img {
+  width: 100%;
+  display: block;
+  transition: transform .6s ease, filter .3s ease;
+}
+.cb-masonry .cb-tile:hover img { transform: scale(1.04); filter: brightness(1.05); }

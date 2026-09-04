@@ -1,0 +1,50 @@
+---
+export const prerender = true;
+
+import PageLayout from "../../layouts/PageLayout.astro";
+import { loadGalleries } from "../../lib/galleries";
+
+const galleries = await loadGalleries();
+const total = galleries.reduce((n, g) => n + g.photos.length, 0);
+---
+
+<PageLayout
+  title="Client Galleries | CameraBoss"
+  description="Private client galleries from CameraBoss. Enter the PIN provided with your delivery to view and download your photos."
+  current="/galleries"
+  ogImage={galleries[0]?.photos[0]?.url}
+>
+  <section class="mx-auto max-w-[1368px] px-6 pt-16 pb-12 md:pt-24">
+    <p class="text-[11px] tracking-[0.4em] text-black/45 uppercase">Client Area</p>
+    <h1 class="mt-4 font-[family-name:var(--font-display)] text-4xl leading-tight font-light md:text-6xl">
+      Client Galleries
+    </h1>
+    <p class="mt-5 max-w-2xl text-[15px] leading-relaxed text-black/60">
+      {galleries.length} galleries &middot; {total.toLocaleString()} photographs. Each gallery is protected
+      by the PIN supplied with your delivery.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-[1368px] px-6 pb-28">
+    <div class="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+      {galleries.map((g) => (
+        <a href={`/galleries/${g.slug}/`} class="group block">
+          <div class="aspect-[4/3] overflow-hidden bg-black/5">
+            <img
+              src={g.photos[0].thumb}
+              alt=""
+              loading="lazy"
+              class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </div>
+          <h2 class="mt-5 font-[family-name:var(--font-display)] text-xl font-light transition-colors group-hover:text-[var(--color-accent)]">
+            {g.name}
+          </h2>
+          <p class="mt-2 text-[10px] tracking-[0.25em] text-black/40 uppercase">
+            {g.photos.length} photos &middot; PIN protected
+          </p>
+        </a>
+      ))}
+    </div>
+  </section>
+</PageLayout>
