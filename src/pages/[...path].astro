@@ -6,7 +6,10 @@ import { pages } from "../lib/content";
 
 export function getStaticPaths() {
   // Routes handled by dedicated files — never let the catch-all shadow them.
-  const reserved = new Set(["/", "/blog/", "/galleries/", "/blog", "/galleries"]);
+  const reserved = new Set([
+    "/", "/blog/", "/galleries/", "/blog", "/galleries",
+    "/contact/", "/contact",           // hand-built page
+  ]);
   return pages
     .filter((p) => !reserved.has(p.path))
     .map((p) => ({

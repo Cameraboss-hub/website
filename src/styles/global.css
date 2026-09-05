@@ -142,3 +142,74 @@ body {
 
 /* Leave room for the sticky download toolbar */
 body.cb-picking { padding-bottom: 84px; }
+
+/* ---------------------------------------------------------------
+   Contact page — hero carousel + booking form
+   --------------------------------------------------------------- */
+.cb-slider { position: relative; background: var(--color-paper); }
+.cb-slider__viewport { overflow: hidden; width: 100%; }
+.cb-slider__track {
+  display: flex;
+  gap: 4px;
+  will-change: transform;
+  transition: transform .7s cubic-bezier(.22,.61,.36,1);
+  cursor: grab;
+  touch-action: pan-y;
+}
+.cb-slider__track:active { cursor: grabbing; }
+.cb-slide {
+  flex: 0 0 auto;
+  margin: 0;
+  width: clamp(240px, 36vw, 460px);
+  height: clamp(300px, 42vw, 520px);
+  overflow: hidden;
+  background: rgba(0,0,0,.05);
+}
+.cb-slide img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.cb-slider__nav {
+  display: flex; justify-content: center; align-items: center;
+  gap: 2.5rem;
+  padding: 2.2rem 0 .5rem;
+}
+.cb-arrow {
+  background: none; border: 0; padding: .4rem;
+  color: color-mix(in srgb, var(--color-ink) 45%, transparent);
+  cursor: pointer; line-height: 0;
+  transition: color .25s ease, transform .25s ease;
+}
+.cb-arrow:hover { color: var(--color-ink); transform: scale(1.08); }
+
+/* Booking form fields */
+.cb-label {
+  display: block;
+  font-size: .8125rem;
+  color: color-mix(in srgb, var(--color-ink) 72%, transparent);
+  margin-bottom: .5rem;
+}
+.cb-req { color: var(--color-accent); }
+.cb-input {
+  width: 100%;
+  border: 1px solid rgba(0,0,0,.14);
+  background: #fbfbfc;
+  padding: .78rem .9rem;
+  font-family: var(--font-sans);
+  font-size: .9375rem;
+  color: var(--color-ink);
+  outline: none;
+  border-radius: 2px;
+  transition: border-color .2s ease, background .2s ease;
+}
+.cb-input::placeholder { color: rgba(0,0,0,.35); }
+.cb-input:focus { border-color: var(--color-accent); background: #fff; }
+.cb-select { appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23888' stroke-width='1.4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right .9rem center;
+  padding-right: 2.4rem;
+}

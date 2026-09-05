@@ -1,0 +1,244 @@
+---
+export const prerender = true;
+
+import PageLayout from "../layouts/PageLayout.astro";
+
+const B = "https://htwwyqfattodfaybqgev.supabase.co/storage/v1/object/public/blog/";
+
+// Six hero photos, in the same order as the Pixieset carousel.
+const slides = [
+  "2b443c3d_CBP09672Medium-0a2cdc32-1500.webp",
+  "1d94c5de_CBP01613Medium-f89b5ec1-1500.webp",
+  "cabedfc3_CBP07360Medium-4feac2b6-1500.webp",
+  "d6706d4f_CBP01616Medium-bd5d4045-1500.webp",
+  "e1f4cfb8_CBP01752Medium-94c3d04a-1500.webp",
+  "16957002_CBP01727Medium-3506965a-1500.webp",
+].map((f) => B + f);
+
+const cards = [
+  { title: "Check This Out", sub: "Our latest Production", href: "/gallery-a/", img: B + "93c68a36_eef1754dc3660b2137374f2f17f700b0-8df0b3f9.webp" },
+  { title: "Traditional Wedding", sub: "Culture and Class", href: "/Aworan/", img: B + "b7ca2439_b2f3a3b4c2dddcd84eb1e2d82c91f1c1-7a11d30b.webp" },
+];
+
+const explore = [
+  { title: "Take a look at my work", sub: "Portfolio", href: "/Wedding-Photographer/", img: B + "a19f3cf0_lCB54951-2060c8d6.webp" },
+  { title: "Find out my process", sub: "Experience", href: "/experience/", img: B + "35dc1e76_CB52795-9d4bb67d.webp" },
+];
+
+const jobTypes = [
+  "Wedding Photography", "Wedding Photography & Videography", "Traditional / Engagement Ceremony",
+  "Pre-Wedding Shoot", "Portrait Session", "Editorial / Brand Shoot",
+  "Event Coverage", "Birthday / Celebration", "Maternity / Family", "Other",
+];
+const sources = [
+  "Instagram", "Google Search", "Referral from a friend", "Previous client",
+  "Venue recommendation", "Facebook", "TikTok", "Other",
+];
+---
+
+<PageLayout
+  title="Contact the Best Photographer in Leicester & London | CameraBoss"
+  description="Get in touch with CameraBoss to check availability for your wedding, engagement or portrait shoot across the UK and Nigeria."
+  current="/contact"
+  ogImage={slides[0]}
+>
+  <!-- Hero carousel — full-bleed, matches the original dimensions -->
+  <section class="cb-slider" aria-roledescription="carousel" aria-label="Recent work">
+    <div class="cb-slider__viewport">
+      <div class="cb-slider__track" id="cb-track">
+        {slides.map((src, i) => (
+          <figure class="cb-slide">
+            <img src={src} alt="" loading={i < 2 ? "eager" : "lazy"} decoding="async" />
+          </figure>
+        ))}
+      </div>
+    </div>
+
+    <div class="cb-slider__nav">
+      <button class="cb-arrow" id="cb-prev" aria-label="Previous photos">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.2">
+          <path d="M15 5l-7 7 7 7" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+      <button class="cb-arrow" id="cb-next" aria-label="Next photos">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.2">
+          <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- Heading -->
+  <section class="mx-auto max-w-[1368px] px-6 pt-16 pb-14">
+    <h1 class="font-[family-name:var(--font-display)] text-3xl leading-[1.15] font-light md:text-5xl lg:text-[3.4rem]">
+      Say hello. Let's work together.&nbsp; Call me on{" "}
+      <a href="tel:+447823714814" class="whitespace-nowrap hover:text-[var(--color-accent)]">07823714814</a>
+    </h1>
+  </section>
+
+  <!-- Booking form -->
+  <section class="bg-white/70 py-16">
+    <div class="mx-auto max-w-[860px] px-6">
+      <form id="booking-form" class="border border-black/8 bg-white p-8 shadow-[0_1px_40px_rgba(0,0,0,0.04)] md:p-12">
+        <div class="mb-6">
+          <label for="name" class="cb-label">Your Name <span class="cb-req">*</span></label>
+          <input id="name" name="name" type="text" required placeholder="Enter your first name e.g Jane" class="cb-input" />
+        </div>
+
+        <div class="mb-6 grid gap-6 md:grid-cols-2">
+          <div>
+            <label for="email" class="cb-label">Email <span class="cb-req">*</span></label>
+            <input id="email" name="email" type="email" required placeholder="Enter your email" class="cb-input" />
+          </div>
+          <div>
+            <label for="phone" class="cb-label">Phone <span class="cb-req">*</span></label>
+            <input id="phone" name="phone" type="tel" required placeholder="Enter your phone" class="cb-input" />
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <label for="jobtype" class="cb-label">Job Type <span class="cb-req">*</span></label>
+          <select id="jobtype" name="jobtype" required class="cb-input cb-select">
+            <option value="" selected disabled>Select Job Type</option>
+            {jobTypes.map((j) => <option value={j}>{j}</option>)}
+          </select>
+        </div>
+
+        <div class="mb-6">
+          <label for="date" class="cb-label">Main Shoot \ Event Date <span class="cb-req">*</span></label>
+          <input id="date" name="date" type="date" required placeholder="Choose date" class="cb-input" />
+        </div>
+
+        <div class="mb-6 grid gap-6 md:grid-cols-2">
+          <div>
+            <label for="location" class="cb-label">Event / Shoot Location <span class="cb-req">*</span></label>
+            <input id="location" name="location" type="text" required placeholder="Enter Main Shoot location" class="cb-input" />
+          </div>
+          <div>
+            <label for="source" class="cb-label">How did you hear about us? <span class="cb-req">*</span></label>
+            <select id="source" name="source" required class="cb-input cb-select">
+              <option value="" selected disabled>Choose your option</option>
+              {sources.map((s) => <option value={s}>{s}</option>)}
+            </select>
+          </div>
+        </div>
+
+        <div class="mb-8">
+          <label for="info" class="cb-label">Addition Information <span class="cb-req">*</span></label>
+          <textarea id="info" name="info" required rows="4" placeholder="Kindly give us more details about your Booking." class="cb-input resize-y"></textarea>
+        </div>
+
+        <button type="submit" class="bg-[var(--color-ink)] px-9 py-3.5 text-sm text-white transition-opacity hover:opacity-85">
+          Submit
+        </button>
+        <p id="form-note" class="mt-5 hidden text-sm text-black/60"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Two-up feature cards -->
+  <section class="mx-auto max-w-[1368px] px-6 py-24">
+    <div class="grid gap-8 md:grid-cols-2">
+      {cards.map((c) => (
+        <a href={c.href} class="group relative block aspect-[4/5] overflow-hidden md:aspect-[3/4]">
+          <img src={c.img} alt="" loading="lazy"
+            class="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] group-hover:scale-105" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent"></div>
+          <div class="absolute inset-x-0 bottom-0 p-8 text-center text-white">
+            <h2 class="font-[family-name:var(--font-display)] text-2xl font-light md:text-3xl">{c.title}</h2>
+            <p class="mt-2 text-[11px] tracking-[0.3em] text-white/80 uppercase">{c.sub}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Explore -->
+  <section class="border-t border-black/8 bg-white/60">
+    <div class="mx-auto max-w-[1368px] px-6 py-24">
+      <div class="grid gap-8 md:grid-cols-2">
+        {explore.map((c) => (
+          <a href={c.href} class="group block">
+            <div class="aspect-[16/10] overflow-hidden bg-black/5">
+              <img src={c.img} alt="" loading="lazy"
+                class="h-full w-full object-cover transition-transform duration-[900ms] group-hover:scale-105" />
+            </div>
+            <h3 class="mt-6 font-[family-name:var(--font-display)] text-xl font-light transition-colors group-hover:text-[var(--color-accent)]">
+              {c.title}
+            </h3>
+            <p class="mt-2 text-[11px] tracking-[0.3em] text-black/45 uppercase">{c.sub}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    // Hero carousel: continuous horizontal track, one photo per step,
+    // mirroring the Pixieset behaviour (multiple photos visible at once).
+    (function () {
+      const track = document.getElementById("cb-track");
+      if (!track) return;
+      const slides = [...track.children];
+      let index = 0;
+
+      function step() {
+        return slides[0] ? slides[0].getBoundingClientRect().width + 4 : 0;
+      }
+      function maxIndex() {
+        const visible = Math.max(1, Math.round(track.parentElement.clientWidth / step()));
+        return Math.max(0, slides.length - visible);
+      }
+      function go(i) {
+        index = Math.min(Math.max(0, i), maxIndex());
+        track.style.transform = `translate3d(${-index * step()}px,0,0)`;
+      }
+      document.getElementById("cb-prev").addEventListener("click", () => go(index - 1));
+      document.getElementById("cb-next").addEventListener("click", () => go(index + 1));
+      window.addEventListener("resize", () => go(index));
+
+      // Drag / swipe
+      let startX = 0, startIdx = 0, dragging = false;
+      track.addEventListener("pointerdown", (e) => {
+        dragging = true; startX = e.clientX; startIdx = index;
+        track.style.transition = "none";
+      });
+      window.addEventListener("pointermove", (e) => {
+        if (!dragging) return;
+        track.style.transform = `translate3d(${-startIdx * step() + (e.clientX - startX)}px,0,0)`;
+      });
+      window.addEventListener("pointerup", (e) => {
+        if (!dragging) return;
+        dragging = false;
+        track.style.transition = "";
+        const moved = Math.round((startX - e.clientX) / step());
+        go(startIdx + moved);
+      });
+    })();
+
+    // Booking form — posts to the contact API route.
+    document.getElementById("booking-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const form = e.currentTarget;
+      const note = document.getElementById("form-note");
+      const btn = form.querySelector("button[type=submit]");
+      btn.disabled = true; btn.textContent = "Sending…";
+      try {
+        const res = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(Object.fromEntries(new FormData(form))),
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        note.textContent = "Thank you — your enquiry has been sent. I'll be in touch shortly.";
+        note.className = "mt-5 text-sm text-black/70";
+        form.reset();
+      } catch (err) {
+        note.innerHTML = 'Something went wrong sending that. Please email <a class="underline" href="mailto:camerabossmultimedia@gmail.com">camerabossmultimedia@gmail.com</a> or call 07823714814.';
+        note.className = "mt-5 text-sm text-[var(--color-accent)]";
+      } finally {
+        btn.disabled = false; btn.textContent = "Submit";
+      }
+    });
+  </script>
+</PageLayout>

@@ -57,15 +57,33 @@ export function isoDate(s: string): string {
   return d ? d.toISOString().slice(0, 10) : "";
 }
 
+/**
+ * Pixieset shipped its cookie-consent banner and a few other chrome
+ * fragments inside the page body. Strip them so they don't render as
+ * stray paragraphs at the top of every imported page.
+ */
+const JUNK_PATTERNS: RegExp[] = [
+  /We use cookies to optimize your experience[\s\S]*?Save Preferences/gi,
+  /Accept All\s*Decline All\s*Manage/gi,
+  /Essential\s*-\s*strictly necessary[\s\S]*?other websites\./gi,
+  /<div[^>]*(?:cookie|consent)[^>]*>[\s\S]*?<\/div>/gi,
+];
+
+export function clean(html: string): string {
+  let out = html || "";
+  for (const re of JUNK_PATTERNS) out = out.replace(re, "");
+  return out.trim();
+}
+
 export const posts: Post[] = (postsData as Post[])
-  .slice()
+  .map((p) => ({ ...p, html: clean(p.html) }))
   .sort((a, b) => {
     const da = parseDate(a.date)?.getTime() ?? 0;
     const db = parseDate(b.date)?.getTime() ?? 0;
     return db - da;
   });
 
-export const pages: Page[] = pagesData as Page[];
+export const pages: Page[] = (pagesData as Page[]).map((p) => ({ ...p, html: clean(p.html) }));
 export const galleries: GalleryMeta[] = galleriesData as GalleryMeta[];
 
 export function getPost(slug: string) {
