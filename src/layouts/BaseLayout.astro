@@ -1,15 +1,63 @@
 ---
 import "../styles/global.css";
+import Analytics from "../components/Analytics.astro";
+import MobileNav from "../components/MobileNav.astro";
 
 interface Props {
   title: string;
   description?: string;
+  ogImage?: string;
 }
 
 const {
   title,
-  description = "CameraBoss — London & Leicester wedding, portrait and destination photographer.",
+  description = "CameraBoss — London & Leicester wedding, portrait and destination photographer covering the UK and Nigeria.",
+  ogImage = "/images/hero/slide-01-london.png",
 } = Astro.props;
+
+const site = "https://www.cameraboss.co.uk";
+const canonicalUrl = new URL(Astro.url.pathname, site).href;
+const ogImageUrl = new URL(ogImage, site).href;
+
+const orgLd = {
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "ProfessionalService"],
+  "@id": `${site}/#business`,
+  name: "CameraBoss",
+  alternateName: "Camera Boss Multimedia",
+  description:
+    "Award-winning wedding, portrait and editorial photography and videography across the UK and Nigeria.",
+  url: site,
+  telephone: "+44 7823 714814",
+  email: "camerabossmultimedia@gmail.com",
+  image: `${site}/images/brand/cameraboss-logo.png`,
+  logo: `${site}/images/brand/cameraboss-logo.png`,
+  priceRange: "££",
+  founder: {
+    "@type": "Person",
+    name: "John Olalekan Durojaye",
+    alternateName: "Cameraboss",
+    jobTitle: "Photographer & Creative Director",
+  },
+  address: { "@type": "PostalAddress", addressLocality: "Leicester", addressCountry: "GB" },
+  areaServed: [
+    "London", "Leicester", "Manchester", "Birmingham", "Liverpool", "Newcastle",
+    "Derby", "Luton", "Oxford", "Nottingham", "Sheffield", "United Kingdom", "Nigeria",
+  ].map((n) => ({ "@type": "Place", name: n })),
+  knowsAbout: [
+    "Wedding photography", "Nigerian traditional wedding photography",
+    "Engagement photography", "Portrait photography", "Wedding videography",
+  ],
+  sameAs: ["https://www.instagram.com/thecameraboss", "https://wa.me/447823714814"],
+};
+
+const websiteLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "CameraBoss",
+  url: site,
+  publisher: { "@id": `${site}/#business` },
+};
 ---
 
 <!doctype html>
@@ -19,8 +67,27 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={description} />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="theme-color" content="#1a1a1a" />
+    <meta name="author" content="John Olalekan Durojaye" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="CameraBoss" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteLd)} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -31,5 +98,7 @@ const {
   </head>
   <body>
     <slot />
+    <MobileNav current="/" />
+    <Analytics />
   </body>
 </html>

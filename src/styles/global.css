@@ -25,14 +25,23 @@ body {
    The HTML arrives with its own markup, so it is styled here
    rather than with utility classes.
    --------------------------------------------------------------- */
+/* Base typography only. Everything imported from Pixieset now lives inside
+   .page-container and is laid out by pixieset-blocks.css — its own stylesheet.
+   The generic prose defaults that used to live here (full-width images with
+   2.5em margins, heading sizes, link underlines, list indents) were written
+   when that stylesheet was missing. They fought it: the img rule alone
+   stretched every block photo to the full page width. They now apply only to
+   bare markup outside a Pixieset block, via .post-prose below. */
 .post-body {
   font-size: 1.0625rem;
   line-height: 1.85;
   color: color-mix(in srgb, var(--color-ink) 82%, transparent);
 }
-.post-body > * + * { margin-top: 1.35em; }
 
-.post-body h1, .post-body h2, .post-body h3, .post-body h4 {
+/* Plain prose — for any content rendered without Pixieset block markup. */
+.post-prose > * + * { margin-top: 1.35em; }
+
+.post-prose h1, .post-prose h2, .post-prose h3, .post-prose h4 {
   font-family: var(--font-display);
   font-weight: 400;
   line-height: 1.25;
@@ -40,34 +49,34 @@ body {
   margin-top: 2.4em;
   margin-bottom: 0.6em;
 }
-.post-body h1 { font-size: 2rem; }
-.post-body h2 { font-size: 1.65rem; }
-.post-body h3 { font-size: 1.3rem; }
-.post-body h4 { font-size: 1.1rem; }
-.post-body h1:first-child, .post-body h2:first-child, .post-body h3:first-child { margin-top: 0; }
+.post-prose h1 { font-size: 2rem; }
+.post-prose h2 { font-size: 1.65rem; }
+.post-prose h3 { font-size: 1.3rem; }
+.post-prose h4 { font-size: 1.1rem; }
+.post-prose h1:first-child, .post-prose h2:first-child, .post-prose h3:first-child { margin-top: 0; }
 
-.post-body p { margin: 0 0 1.35em; }
-.post-body a {
+.post-prose p { margin: 0 0 1.35em; }
+.post-prose a {
   color: var(--color-accent);
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-thickness: 1px;
 }
-.post-body a:hover { text-decoration-thickness: 2px; }
+.post-prose a:hover { text-decoration-thickness: 2px; }
 
-.post-body ul, .post-body ol { padding-left: 1.3em; margin: 0 0 1.35em; }
-.post-body ul { list-style: disc; }
-.post-body ol { list-style: decimal; }
-.post-body li { margin-bottom: 0.55em; }
+.post-prose ul, .post-prose ol { padding-left: 1.3em; margin: 0 0 1.35em; }
+.post-prose ul { list-style: disc; }
+.post-prose ol { list-style: decimal; }
+.post-prose li { margin-bottom: 0.55em; }
 
-.post-body img {
+.post-prose img {
   width: 100%;
   height: auto;
   display: block;
   margin: 2.5em 0;
 }
-.post-body figure { margin: 2.5em 0; }
-.post-body figcaption {
+.post-prose figure { margin: 2.5em 0; }
+.post-prose figcaption {
   font-size: 0.8rem;
   letter-spacing: 0.06em;
   color: color-mix(in srgb, var(--color-ink) 50%, transparent);
@@ -75,7 +84,7 @@ body {
   margin-top: 0.8em;
 }
 
-.post-body blockquote {
+.post-prose blockquote {
   border-left: 2px solid var(--color-accent);
   padding-left: 1.4em;
   font-family: var(--font-display);
@@ -85,16 +94,23 @@ body {
   margin: 2em 0;
 }
 .post-body strong { font-weight: 600; color: var(--color-ink); }
-.post-body hr { border: 0; border-top: 1px solid rgba(0,0,0,.12); margin: 3em 0; }
+.post-prose hr { border: 0; border-top: 1px solid rgba(0,0,0,.12); margin: 3em 0; }
 
 .post-body table { width: 100%; border-collapse: collapse; margin: 2em 0; font-size: 0.95rem; }
 .post-body th, .post-body td { border: 1px solid rgba(0,0,0,.12); padding: 0.7em 0.9em; text-align: left; }
 .post-body th { background: rgba(0,0,0,.03); font-weight: 600; }
 
-/* Pixieset shipped inline layout classes we don't want to inherit */
-.post-body [class*="block-"],
-.post-body [class*="fb-"],
-.post-body [style*="position:absolute"] { position: static !important; }
+/* Imported markup that carries no Pixieset class of its own still needs a
+   readable measure and sane image sizing — Pixieset's own base rules cover
+   its blocks, but a bare <img> or <p> dropped into the editor gets nothing. */
+.post-body .page-container > img,
+.post-body .text__text img { max-width: 100%; height: auto; }
+
+/* NOTE: an earlier build forced `position: static !important` on every
+   imported block here, back when the Pixieset stylesheet was missing and
+   absolutely-positioned elements had nothing to size against. The real
+   stylesheet is now loaded (pixieset-blocks.css), and that override was
+   flattening every flex-builder image and overlay. It is deliberately gone. */
 
 .line-clamp-2 {
   display: -webkit-box;
@@ -185,31 +201,596 @@ body.cb-picking { padding-bottom: 84px; }
 }
 .cb-arrow:hover { color: var(--color-ink); transform: scale(1.08); }
 
-/* Booking form fields */
-.cb-label {
-  display: block;
-  font-size: .8125rem;
-  color: color-mix(in srgb, var(--color-ink) 72%, transparent);
-  margin-bottom: .5rem;
+/* Arch-shaped team portraits (About) */
+.cb-arch {
+  aspect-ratio: 3 / 5;
+  overflow: hidden;
+  background: rgba(0,0,0,.05);
+  border-radius: 999px 999px 8px 8px;
 }
-.cb-req { color: var(--color-accent); }
-.cb-input {
+.cb-arch img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform .7s ease;
+}
+.cb-arch:hover img { transform: scale(1.05); }
+
+/* ===============================================================
+   Imported Pixieset markup — safety rails only.
+
+   The block layouts themselves now come from src/styles/pixieset-blocks.css,
+   which is extracted from Pixieset's own theme_12 + flex-builder stylesheets,
+   so migrated pages lay out exactly as they did on the live site. Only the
+   handful of rules below are ours: they cover behaviour that Pixieset's
+   JavaScript used to provide, and guards the real sheet has no reason to set.
+   =============================================================== */
+
+/* Pixieset hid grid and slider items until its JS revealed them. That JS is gone. */
+.post-body .horizontal-grid__item--hidden,
+.post-body .photo-slider--hidden,
+.post-body .grid-item--hidden,
+.post-body [class*="--hidden"]:not([hidden]) { visibility: visible !important; opacity: 1 !important; }
+
+/* Keep imported markup inside the viewport */
+.post-body { overflow-x: hidden; }
+.post-body img { max-width: 100%; }
+
+/* Video embeds — 16:9, but ONLY for actual video providers. This used to
+   apply to every iframe, which stretched the Studio Ninja booking form
+   (which asks for 616px) into a 703px-tall 16:9 box. */
+.post-body iframe[src*="youtube"],
+.post-body iframe[src*="youtu.be"],
+.post-body iframe[src*="vimeo"],
+.post-body .video-wrapper iframe,
+.post-body [class*="video"] iframe {
   width: 100%;
-  border: 1px solid rgba(0,0,0,.14);
-  background: #fbfbfc;
-  padding: .78rem .9rem;
-  font-family: var(--font-sans);
-  font-size: .9375rem;
-  color: var(--color-ink);
-  outline: none;
-  border-radius: 2px;
-  transition: border-color .2s ease, background .2s ease;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  min-height: 240px;
+  border: 0;
+  display: block;
+  margin: 2.5em 0;
 }
-.cb-input::placeholder { color: rgba(0,0,0,.35); }
-.cb-input:focus { border-color: var(--color-accent); background: #fff; }
-.cb-select { appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23888' stroke-width='1.4'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right .9rem center;
-  padding-right: 2.4rem;
+/* Everything else — booking forms, maps — keeps the height it asks for. */
+.post-body iframe { max-width: 100%; border: 0; }
+
+/* Locations directory — the city link list */
+.post-body ul li a { text-decoration: none; }
+
+
+/* ===============================================================
+   Header "Info" dropdown (matches the Pixieset submenu)
+   =============================================================== */
+.cb-nav-dd__menu {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity .18s ease, transform .18s ease, visibility .18s;
+  pointer-events: none;
+}
+.cb-nav-dd:hover > .cb-nav-dd__menu,
+.cb-nav-dd:focus-within > .cb-nav-dd__menu,
+.cb-nav-dd__btn[aria-expanded="true"] + .cb-nav-dd__menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.cb-nav-dd__btn { cursor: pointer; background: none; border: 0; padding: 0; font: inherit; height: auto; line-height: 1; display: flex; align-items: center; gap: 0.25rem; }
+.cb-nav-dd__caret { transition: transform .18s ease; }
+.cb-nav-dd:hover .cb-nav-dd__caret,
+.cb-nav-dd__btn[aria-expanded="true"] .cb-nav-dd__caret { transform: rotate(180deg); }
+/* Hover bridge so the pointer can travel from button to menu */
+.cb-nav-dd::after { content: ""; position: absolute; inset: 100% 0 auto 0; height: 14px; }
+
+/* ===============================================================
+   Client-area hero slider (galleries index)
+   =============================================================== */
+.ca-hero { position: relative; height: 78vh; min-height: 460px; overflow: hidden; background: #111; }
+@media (max-width: 640px) { .ca-hero { height: 68vh; min-height: 400px; } }
+.ca-hero__slide {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: 50% 50%;
+  opacity: 0; transition: opacity 1.1s ease;
+}
+.ca-hero__slide[data-active="true"] { opacity: 1; }
+.ca-hero__slide::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.28); }
+.ca-hero__body {
+  position: relative; z-index: 2; height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; color: #fff; padding: 0 24px;
+}
+.ca-hero__counter {
+  font-size: 11px; letter-spacing: .28em; display: flex; gap: 6px;
+  align-items: center; opacity: .85; margin-bottom: 22px;
+}
+.ca-hero__title {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 300; line-height: 1.06; letter-spacing: .01em;
+  font-size: clamp(2.35rem, 6.2vw, 4.6rem); margin: 0;
+}
+.ca-hero__subtitle {
+  margin-top: 18px; font-size: 11px; letter-spacing: .4em;
+  text-transform: uppercase; opacity: .9;
+}
+.ca-hero__cta {
+  margin-top: 34px; display: inline-block; padding: 15px 40px;
+  border: 1px solid rgba(255,255,255,.75);
+  font-size: 10.5px; letter-spacing: .3em; text-transform: uppercase; color: #fff;
+  transition: background .3s ease, color .3s ease;
+}
+.ca-hero__cta:hover { background: #fff; color: #1a1a1a; }
+.ca-hero__arrow {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 3;
+  width: 46px; height: 46px; display: grid; place-items: center;
+  color: #fff; background: none; border: 0; cursor: pointer; opacity: .8;
+  transition: opacity .2s ease;
+}
+.ca-hero__arrow:hover { opacity: 1; }
+.ca-hero__arrow--prev { left: 10px; }
+.ca-hero__arrow--next { right: 10px; }
+@media (min-width: 768px) { .ca-hero__arrow--prev { left: 34px; } .ca-hero__arrow--next { right: 34px; } }
+
+/* ===============================================================
+   Client-area collection grid
+   =============================================================== */
+.ca-tabs { display: flex; flex-wrap: wrap; gap: 26px; }
+.ca-tab {
+  background: none; border: 0; cursor: pointer; padding: 4px 0;
+  font-size: 11px; letter-spacing: .26em; text-transform: uppercase;
+  color: rgba(0,0,0,.45); border-bottom: 1px solid transparent;
+  transition: color .2s ease, border-color .2s ease;
+}
+.ca-tab:hover { color: var(--color-ink); }
+.ca-tab[aria-selected="true"] { color: var(--color-ink); border-bottom-color: var(--color-ink); }
+.ca-search { position: relative; }
+.ca-search input {
+  width: 100%; border: 0; border-bottom: 1px solid rgba(0,0,0,.18);
+  background: transparent; padding: 8px 26px 8px 0;
+  font-size: 12px; letter-spacing: .12em; outline: none;
+}
+.ca-search input:focus { border-bottom-color: var(--color-ink); }
+.ca-search svg { position: absolute; right: 2px; top: 50%; transform: translateY(-50%); opacity: .4; }
+.ca-grid { display: grid; gap: 34px 26px; grid-template-columns: 1fr; }
+@media (min-width: 600px) { .ca-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 980px) { .ca-grid { grid-template-columns: repeat(3, 1fr); } }
+.ca-card { display: block; }
+.ca-card__photo { position: relative; overflow: hidden; background: rgba(0,0,0,.06); aspect-ratio: 3 / 2; }
+.ca-card__photo img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform .8s cubic-bezier(.2,.7,.3,1);
+}
+.ca-card:hover .ca-card__photo img { transform: scale(1.045); }
+.ca-card__title {
+  margin-top: 16px; font-family: var(--font-display), Georgia, serif;
+  font-weight: 300; font-size: 1.06rem; line-height: 1.3;
+  transition: color .2s ease;
+}
+.ca-card:hover .ca-card__title { color: var(--color-accent); }
+.ca-card__date { margin-top: 5px; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: rgba(0,0,0,.42); }
+.ca-card__badge {
+  position: absolute; top: 12px; right: 12px; z-index: 2;
+  background: rgba(0,0,0,.62); color: #fff; backdrop-filter: blur(3px);
+  font-size: 9px; letter-spacing: .18em; text-transform: uppercase;
+  padding: 5px 9px;
+}
+.ca-pagination { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; }
+.ca-page {
+  background: none; border: 0; cursor: pointer; min-width: 34px; padding: 8px 4px;
+  font-size: 11px; letter-spacing: .16em; color: rgba(0,0,0,.45);
+  border-bottom: 1px solid transparent; transition: color .2s ease, border-color .2s ease;
+}
+.ca-page:hover { color: var(--color-ink); }
+.ca-page[aria-current="true"] { color: var(--color-ink); border-bottom-color: var(--color-ink); }
+.ca-page[disabled] { opacity: .3; cursor: default; }
+.ca-empty { text-align: center; padding: 70px 0; color: rgba(0,0,0,.45); font-size: 14px; }
+
+/* ===============================================================
+   Wedding films grid
+   =============================================================== */
+.cb-films { display: grid; gap: 44px 28px; grid-template-columns: 1fr; }
+@media (min-width: 760px) { .cb-films { grid-template-columns: repeat(2, 1fr); } }
+.cb-film__frame {
+  position: relative; aspect-ratio: 16 / 9; overflow: hidden;
+  background: #0e0e0e; display: block; width: 100%; border: 0; padding: 0; cursor: pointer;
+}
+.cb-film__frame img, .cb-film__frame iframe {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; border: 0; display: block;
+}
+.cb-film__frame::after {
+  content: ""; position: absolute; inset: 0;
+  background: rgba(0,0,0,.16); transition: background .3s ease;
+}
+.cb-film__frame:hover::after { background: rgba(0,0,0,.05); }
+.cb-film__frame[data-playing="true"]::after,
+.cb-film__frame[data-playing="true"] .cb-film__play { display: none; }
+.cb-film__play {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  z-index: 3; width: 68px; height: 68px; border-radius: 50%;
+  background: rgba(0,0,0,.5); border: 1px solid rgba(255,255,255,.7);
+  display: grid; place-items: center; color: #fff;
+  transition: background .3s ease, transform .3s ease;
+}
+.cb-film__frame:hover .cb-film__play { background: var(--color-accent); transform: translate(-50%,-50%) scale(1.06); }
+.cb-film__title {
+  margin-top: 15px; font-family: var(--font-display), Georgia, serif;
+  font-weight: 300; font-size: 1.02rem; line-height: 1.4;
+}
+
+/* ===============================================================
+   Viewport guard — nothing may push the page sideways
+   =============================================================== */
+html, body { max-width: 100%; overflow-x: hidden; }
+/* `overflow-x: hidden` on html/body turns them into a scroll container,
+   which breaks `position: sticky` on the interior header in Safari and
+   Chrome. `clip` cuts the same sideways overflow without that side
+   effect, so use it wherever it is supported. */
+@supports (overflow-x: clip) { html, body { overflow-x: clip; } }
+img, svg, video, iframe, table { max-width: 100%; }
+
+/* Custom-code blocks left genuinely empty by the script strip shouldn't
+   reserve space. (The one on /pricing/ holds the Studio Ninja booking form,
+   which is real content and stays.) */
+.post-body .element-custom-code:empty { display: none; }
+
+/* Testimonials grid — Pixieset displays testimonials in a 3-column layout */
+.post-body .testimonial-wrapper__items {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* ===================================================================
+   Components Pixieset laid out with JavaScript, not CSS.
+
+   Its carousels use slick and its photo grids use justifiedGallery.
+   Neither library ships CSS in theme_12 — the libraries positioned
+   everything at runtime, and both are gone with the rest of the
+   scripts. Without a replacement, carousels collapse into a narrow
+   vertical stack of photos and every photo grid becomes one giant
+   image per row.
+
+   These rules are ours, not extracted: there is nothing to extract.
+   They are written to degrade to the same *shape* the visitor saw —
+   a scrollable row for a carousel, a justified grid for a gallery —
+   with no JavaScript at all.
+   =================================================================== */
+
+/* --- Carousels (slick) → scroll-snap row -------------------------- */
+.post-body .carousel-slider__photos-container,
+.post-body .slider__photos-container,
+.post-body .slideshow-slider__photos-container {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 0;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  padding-bottom: 6px;
+}
+.post-body .carousel-slider__photo-container-wrapper {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  max-width: 82vw;
+}
+.post-body .carousel-slider__photo-container { height: 100%; }
+.post-body .carousel-slider__photo,
+.post-body .slider__photo {
+  display: block;
+  height: clamp(240px, 34vw, 470px);
+  width: auto;
+  max-width: none;
+  object-fit: cover;
+}
+/* The "cropped" variant is a square tile on the live site. */
+.post-body .carousel-slider__photo-container--cropped .carousel-slider__photo {
+  width: clamp(240px, 34vw, 470px);
+}
+/* Arrows and counters that only worked with the script */
+.post-body .carousel-slider__nav,
+.post-body .carousel-slider__btn-prev,
+.post-body .carousel-slider__btn-next,
+.post-body .slideshow-slider__nav { display: none; }
+
+/* --- Photo grids (justifiedGallery) → CSS justified rows ---------- */
+.post-body .horizontal-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cb-grid-gap, 10px);
+  align-items: stretch;
+}
+.post-body .horizontal-grid--regular-spacing { --cb-grid-gap: 20px; }
+.post-body .horizontal-grid--more-spacing { --cb-grid-gap: 34px; }
+.post-body .horizontal-grid__item {
+  flex: 1 1 auto;
+  height: clamp(190px, 21vw, 310px);
+  margin: 0 !important;      /* Pixieset stacked them with margin-top */
+  overflow: hidden;
+  min-width: 150px;
+}
+.post-body .horizontal-grid__item > a { display: block; height: 100%; }
+.post-body .horizontal-grid__item img {
+  display: block;
+  height: 100%;
+  min-width: 100%;
+  width: auto;
+  object-fit: cover;
+  vertical-align: bottom;
+}
+/* A single-image grid should not be cropped into a letterbox strip. */
+.post-body .horizontal-grid:has(> .horizontal-grid__item:only-child) .horizontal-grid__item {
+  height: auto;
+}
+.post-body .horizontal-grid:has(> .horizontal-grid__item:only-child) img {
+  width: 100%; height: auto; min-width: 0;
+}
+
+/* --- Pricing package sliders → responsive row --------------------- */
+.post-body .pricing__slider {
+  display: grid;
+  gap: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+.post-body .pricing__slide { min-width: 0; }
+.post-body .pricing-wrapper__slider-nav,
+.post-body .pricing__nav { display: none; }
+
+/* ---------------------------------------------------------------------------
+   Two Pixieset behaviours that only work with their JavaScript, corrected so
+   the page is complete without it.
+   --------------------------------------------------------------------------- */
+
+/* Pricing packages: Pixieset's script marks the first row `.active`, and its
+   stylesheet reveals a description only for `.active` or `:hover`. With no
+   script the package descriptions never appeared at all — and on touch there is
+   no hover to fall back on. Show them; the hover transition stays harmless. */
+.post-body .element-pricing-packages-wrapper .pricing-wrapper--a .pricing__row .pricing__description,
+.post-body .element-pricing-packages-wrapper .pricing-wrapper--a .pricing__slide .pricing__description {
+  opacity: 1;
+}
+
+/* "Fit" images are sized from their own intrinsic dimensions
+   (`width:auto;height:auto` on an absolutely positioned <img>). A lazy image
+   that has not loaded has no intrinsic size, so the box stays 0x0 — and a 0x0
+   box never comes into view, so the image never loads. Giving the image the
+   wrapper's box with `contain` reproduces the same framing without the
+   circular dependency. */
+.post-body .fb-element-type-image .fb-element-type-image__img-wrapper--fit img,
+.post-body .fb-element-type-image__img-wrapper.fb-element-type-image__img-wrapper--fit img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Four blog posts carry a CTA box whose author CSS defines `.cta-box a { color:#ffd700 }`
+   after — and one step more specifically than — `.cta-primary { background:#ffd700 }`,
+   so the button renders gold text on a gold fill and its label is unreadable. Same
+   fault on the live Pixieset page. Give the button back its own text colour. */
+.post-body .fb-element-type-custom-code__content .cta-box a.cta-primary {
+  color: #1a3a8f;
+  opacity: 1;
+}
+
+/* The Area We Cover directory reveals its city badge on hover only. There is no
+   hover on a phone, so every badge was invisible to touch visitors. Show them
+   wherever hover is not available. */
+@media (hover: none) {
+  .post-body .fb-element-type-custom-code__content .cbl-dir .loc-link .live-badge {
+    opacity: 1;
+  }
+}
+
+/* ===============================================================
+   Mobile navigation — burger button + drawer  (below `lg`)
+   ---------------------------------------------------------------
+   The old mobile menu was a 224px <details> dropdown holding all
+   fourteen links as 11px uppercase text with 0.18em tracking and
+   ~38px rows: unreadable, barely tappable and completely flat.
+   This replaces it with a drawer that has a primary list, a
+   labelled Info group and 44px+ targets throughout.
+   Markup: .cb-burger lives in the header, .cb-mnav in the layout.
+   =============================================================== */
+
+/* --- Burger trigger ---------------------------------------------- */
+.cb-burger {
+  display: grid;
+  place-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;          /* optical alignment with the 24px gutter */
+  padding: 0;
+  background: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.cb-burger > span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform .25s ease, opacity .2s ease;
+}
+.cb-burger[aria-expanded="true"] > span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.cb-burger[aria-expanded="true"] > span:nth-child(2) { opacity: 0; }
+.cb-burger[aria-expanded="true"] > span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* Tailwind v4 emits its utilities inside `@layer utilities`, and an unlayered
+   rule outranks a layered one no matter the source order — so the `display`
+   above beat the button's own `lg:hidden` and the burger stayed visible on
+   desktop. Take it away at the same breakpoint the bar comes back. */
+@media (min-width: 1024px) { .cb-burger { display: none; } }
+
+/* --- Drawer shell ------------------------------------------------- */
+.cb-mnav[hidden] { display: none; }
+.cb-mnav { position: fixed; inset: 0; z-index: 200; }
+
+.cb-mnav__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(12, 12, 12, .5);
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.cb-mnav.is-open .cb-mnav__scrim { opacity: 1; }
+
+.cb-mnav__panel {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: min(100%, 26rem);
+  display: flex;
+  flex-direction: column;
+  background: var(--color-paper);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  transform: translateX(100%);
+  transition: transform .32s cubic-bezier(.4, 0, .2, 1);
+  box-shadow: -18px 0 60px rgba(0, 0, 0, .22);
+}
+.cb-mnav.is-open .cb-mnav__panel { transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cb-mnav__scrim, .cb-mnav__panel { transition: none; }
+}
+
+/* Page must not scroll behind the open drawer. */
+html.cb-nav-locked, html.cb-nav-locked body { overflow: hidden; }
+
+/* --- Drawer header ------------------------------------------------ */
+.cb-mnav__head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.125rem 1.5rem;
+  background: var(--color-paper);
+  border-bottom: 1px solid rgba(0, 0, 0, .08);
+}
+.cb-mnav__logo { display: flex; align-items: center; min-height: 44px; }
+.cb-mnav__logo img { display: block; height: 22px; width: auto; }
+.cb-mnav__close {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-right: -12px;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--color-ink);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* --- Drawer links -------------------------------------------------- */
+.cb-mnav__nav { padding-bottom: 2.5rem; }
+.cb-mnav__list { list-style: none; margin: 0; padding: 0; }
+
+.cb-mnav__link {
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  padding: .4rem 1.5rem;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--color-ink);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .06);
+  -webkit-tap-highlight-color: transparent;
+}
+.cb-mnav__link:active { background: rgba(0, 0, 0, .04); }
+.cb-mnav__link[aria-current="page"] { color: var(--color-accent); }
+
+.cb-mnav__label {
+  margin: 1.6rem 1.5rem .1rem;
+  font-size: .6875rem;
+  font-weight: 500;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-ink) 42%, transparent);
+}
+
+/* Eight short Info links read as a tidy block in two columns rather than
+   another eight full-width rows the visitor has to scroll past. */
+.cb-mnav__list--sub {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 1rem;
+  padding: 0 1.5rem;
+}
+.cb-mnav__link--sub {
+  min-height: 48px;
+  padding: .35rem 0;
+  font-family: var(--font-sans), sans-serif;
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  line-height: 1.35;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-ink) 78%, transparent);
+  border-bottom: 0;
+}
+
+/* --- Drawer footer -------------------------------------------------- */
+.cb-mnav__cta { margin: 1.75rem 1.5rem 0; }
+.cb-mnav__cta a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  border-radius: 999px;
+  background: var(--color-ink);
+  color: #fff;
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.cb-mnav__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.5rem;
+  margin: .5rem 1.5rem 0;
+}
+.cb-mnav__meta a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: .6875rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: color-mix(in srgb, var(--color-ink) 55%, transparent);
+}
+
+/* The drawer is the mobile nav; above `lg` the bar takes over. */
+@media (min-width: 1024px) {
+  .cb-mnav { display: none; }
+}
+
+/* ===============================================================
+   Homepage hero on phones
+   ---------------------------------------------------------------
+   `h-screen` resolves to 100vh, which mobile browsers define as the
+   viewport with the URL bar *hidden*. On first paint the bar is
+   showing, so the slide title and its button start below the fold
+   and jump as the bar collapses. `svh` is the viewport the visitor
+   can actually see. The 640px floor was also taller than an iPhone
+   SE viewport, which forced the same overflow.
+   =============================================================== */
+@supports (height: 100svh) {
+  [data-hero-slider] { height: 100svh; }
+}
+@media (max-width: 640px) {
+  [data-hero-slider] { min-height: 520px; }
 }

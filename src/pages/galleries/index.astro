@@ -2,49 +2,274 @@
 export const prerender = true;
 
 import PageLayout from "../../layouts/PageLayout.astro";
+import ca from "../../data/client-area.json";
 import { loadGalleries } from "../../lib/galleries";
 
-const galleries = await loadGalleries();
-const total = galleries.reduce((n, g) => n + g.photos.length, 0);
+interface Slide { img: string; title: string; subtitle: string; button: string; href: string }
+interface Item {
+  slug: string; title: string; date: string; iso: string; cover: string;
+  pos: string; tags: string[]; href: string; hosted: boolean; photos: number;
+}
+
+const hero = ca.hero as Slide[];
+const tags = ca.tags as string[];
+
+/**
+ * The client-area index carries Pixieset's own gallery slugs; the migrated
+ * galleries are addressed by a slug derived from the gallery name. Two of them
+ * differ ("Kachy & Oge" -> /galleries/kachyoge/, "Family Shoot" ->
+ * /galleries/familyshoot/), which left dead links on this page. Resolve every
+ * hosted card against the routes that actually exist, and fail the build loudly
+ * if one cannot be matched rather than shipping a 404.
+ */
+const built = await loadGalleries();
+const bySlug = new Map(built.map((g) => [g.slug, g]));
+const byName = new Map(built.map((g) => [g.name.toLowerCase().replace(/[^a-z0-9]+/g, ""), g]));
+
+const items = (ca.items as Item[]).map((i) => {
+  if (!i.hosted) return i;
+  const want = i.href.replace(/^\/galleries\/|\/$/g, "");
+  const g =
+    bySlug.get(want) ??
+    byName.get(i.title.toLowerCase().replace(/[^a-z0-9]+/g, "")) ??
+    bySlug.get(want.replace(/-\d+$/, ""));
+  if (!g) {
+    // Not migrated after all — send it to the old host rather than a dead route.
+    return { ...i, hosted: false, href: `https://gallery.cameraboss.co.uk/${i.slug}/` };
+  }
+  return { ...i, href: `/galleries/${g.slug}/`, photos: g.photos.length };
+});
+const PER_PAGE = 24;
+const hostedCount = items.filter((i) => i.hosted).length;
+
+const listLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Client Galleries — CameraBoss",
+  description: `${items.length} client galleries from CameraBoss weddings, portraits and events.`,
+  url: "https://www.cameraboss.co.uk/galleries/",
+  hasPart: items.slice(0, 60).map((i) => ({
+    "@type": "ImageGallery",
+    name: i.title,
+    url: `https://www.cameraboss.co.uk${i.href.startsWith("/") ? i.href : "/galleries/"}`,
+    datePublished: i.iso || undefined,
+    thumbnailUrl: i.cover,
+  })),
+};
 ---
 
 <PageLayout
-  title="Client Galleries | CameraBoss"
-  description="Private client galleries from CameraBoss. Enter the PIN provided with your delivery to view and download your photos."
-  current="/galleries"
-  ogImage={galleries[0]?.photos[0]?.url}
+  title="Client Galleries | CameraBoss Wedding & Portrait Photography"
+  description="Browse CameraBoss client galleries — weddings, portraits and events across London, Leicester and Nigeria. Viewing is open; your PIN unlocks downloads."
+  current="/galleries/"
+  ogImage={hero[0]?.img}
 >
-  <section class="mx-auto max-w-[1368px] px-6 pt-16 pb-12 md:pt-24">
-    <p class="text-[11px] tracking-[0.4em] text-black/45 uppercase">Client Area</p>
-    <h1 class="mt-4 font-[family-name:var(--font-display)] text-4xl leading-tight font-light md:text-6xl">
-      Client Galleries
-    </h1>
-    <p class="mt-5 max-w-2xl text-[15px] leading-relaxed text-black/60">
-      {galleries.length} galleries &middot; {total.toLocaleString()} photographs. Each gallery is protected
-      by the PIN supplied with your delivery.
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(listLd)} />
+
+  <!-- ============ HERO SLIDESHOW ============ -->
+  <section class="ca-hero" data-hero aria-roledescription="carousel" aria-label="Featured work">
+    {hero.map((s, i) => (
+      <div
+        class="ca-hero__slide"
+        data-slide={i}
+        data-active={i === 0 ? "true" : "false"}
+        style={`background-image:url(${s.img})`}
+        role="group"
+        aria-label={`${i + 1} of ${hero.length}: ${s.title}`}
+      />
+    ))}
+
+    <button class="ca-hero__arrow ca-hero__arrow--prev" data-hero-prev type="button" aria-label="Previous slide">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+        <path d="M15 4 7 12l8 8" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+    <button class="ca-hero__arrow ca-hero__arrow--next" data-hero-next type="button" aria-label="Next slide">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+        <path d="m9 4 8 8-8 8" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+
+    <div class="ca-hero__body">
+      <p class="ca-hero__counter">
+        <span data-hero-current>01</span><span>/</span><span>{String(hero.length).padStart(2, "0")}</span>
+      </p>
+      <h1 class="ca-hero__title" data-hero-title>{hero[0]?.title}</h1>
+      <p class="ca-hero__subtitle" data-hero-subtitle>{hero[0]?.subtitle}</p>
+      <a class="ca-hero__cta" href={hero[0]?.href || "/Aworan/"} data-hero-cta>{hero[0]?.button}</a>
+    </div>
+  </section>
+
+  <!-- ============ FILTERS + SEARCH ============ -->
+  <section class="mx-auto max-w-[1368px] px-6 pt-16 pb-10">
+    <div class="flex flex-col gap-7 border-b border-black/10 pb-6 md:flex-row md:items-end md:justify-between">
+      <div class="ca-tabs" role="tablist" aria-label="Filter galleries">
+        <button class="ca-tab" role="tab" aria-selected="true" data-tag="" type="button">All</button>
+        {tags.map((t) => (
+          <button class="ca-tab" role="tab" aria-selected="false" data-tag={t} type="button">{t}</button>
+        ))}
+      </div>
+      <div class="ca-search w-full md:w-64">
+        <label class="sr-only" for="ca-search-input">Search galleries</label>
+        <input id="ca-search-input" type="search" placeholder="Search" maxlength="32" autocomplete="off" data-search />
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" stroke-linecap="round" />
+        </svg>
+      </div>
+    </div>
+    <p class="mt-5 text-[11px] tracking-[0.24em] text-black/40 uppercase">
+      <span data-count>{items.length}</span> galleries &middot; {hostedCount} available to download here
     </p>
   </section>
 
-  <section class="mx-auto max-w-[1368px] px-6 pb-28">
-    <div class="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
-      {galleries.map((g) => (
-        <a href={`/galleries/${g.slug}/`} class="group block">
-          <div class="aspect-[4/3] overflow-hidden bg-black/5">
+  <!-- ============ GALLERY GRID ============ -->
+  <section class="mx-auto max-w-[1368px] px-6 pb-14">
+    <div class="ca-grid" data-grid>
+      {items.map((g, i) => (
+        <a
+          class="ca-card"
+          href={g.href}
+          data-item
+          data-tags={g.tags.join(" ")}
+          data-name={g.title.toLowerCase()}
+          target={g.hosted ? undefined : "_blank"}
+          rel={g.hosted ? undefined : "noopener"}
+        >
+          <div class="ca-card__photo">
+            {g.hosted && g.photos > 0 && <span class="ca-card__badge">{g.photos} photos</span>}
             <img
-              src={g.photos[0].thumb}
-              alt=""
-              loading="lazy"
-              class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              src={g.cover}
+              alt={`${g.title} — CameraBoss client gallery`}
+              style={`object-position:${g.pos}`}
+              width="800"
+              height="533"
+              loading={i < 6 ? "eager" : "lazy"}
+              decoding="async"
             />
           </div>
-          <h2 class="mt-5 font-[family-name:var(--font-display)] text-xl font-light transition-colors group-hover:text-[var(--color-accent)]">
-            {g.name}
-          </h2>
-          <p class="mt-2 text-[10px] tracking-[0.25em] text-black/40 uppercase">
-            {g.photos.length} photos &middot; PIN protected
-          </p>
+          <h2 class="ca-card__title">{g.title}</h2>
+          <p class="ca-card__date">{g.date}</p>
         </a>
       ))}
     </div>
+    <p class="ca-empty" data-empty hidden>No galleries match that search.</p>
   </section>
+
+  <!-- ============ PAGINATION ============ -->
+  <nav class="ca-pagination mx-auto max-w-[1368px] px-6 pb-28" data-pagination aria-label="Gallery pages"></nav>
+
+  <script is:inline define:vars={{ PER_PAGE }}>
+    (() => {
+      /* ---------- hero slideshow ---------- */
+      const hero = document.querySelector("[data-hero]");
+      if (hero) {
+        const slides = [...hero.querySelectorAll("[data-slide]")];
+        const meta = [...slides].map((s) => s.getAttribute("aria-label") || "");
+        const titleEl = hero.querySelector("[data-hero-title]");
+        const subEl = hero.querySelector("[data-hero-subtitle]");
+        const curEl = hero.querySelector("[data-hero-current]");
+        const copy = window.__caHero || [];
+        let i = 0;
+        let timer;
+        const show = (n) => {
+          i = (n + slides.length) % slides.length;
+          slides.forEach((s, k) => s.setAttribute("data-active", k === i ? "true" : "false"));
+          if (curEl) curEl.textContent = String(i + 1).padStart(2, "0");
+          const c = copy[i];
+          if (c && titleEl) titleEl.textContent = c.title;
+          if (c && subEl) subEl.textContent = c.subtitle;
+        };
+        const start = () => { clearInterval(timer); timer = setInterval(() => show(i + 1), 6000); };
+        hero.querySelector("[data-hero-prev]")?.addEventListener("click", () => { show(i - 1); start(); });
+        hero.querySelector("[data-hero-next]")?.addEventListener("click", () => { show(i + 1); start(); });
+        if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) start();
+        void meta;
+      }
+
+      /* ---------- filter + search + pagination ---------- */
+      const grid = document.querySelector("[data-grid]");
+      if (!grid) return;
+      const cards = [...grid.querySelectorAll("[data-item]")];
+      const pager = document.querySelector("[data-pagination]");
+      const empty = document.querySelector("[data-empty]");
+      const countEl = document.querySelector("[data-count]");
+      const tabs = [...document.querySelectorAll(".ca-tab")];
+      const search = document.querySelector("[data-search]");
+      let tag = "";
+      let q = "";
+      let page = 1;
+
+      const matches = (c) =>
+        (!tag || (c.dataset.tags || "").split(" ").includes(tag)) &&
+        (!q || (c.dataset.name || "").includes(q));
+
+      function render() {
+        const hits = cards.filter(matches);
+        const pages = Math.max(1, Math.ceil(hits.length / PER_PAGE));
+        page = Math.min(page, pages);
+        const from = (page - 1) * PER_PAGE;
+        const visible = new Set(hits.slice(from, from + PER_PAGE));
+        cards.forEach((c) => { c.hidden = !visible.has(c); });
+        if (countEl) countEl.textContent = String(hits.length);
+        if (empty) empty.hidden = hits.length > 0;
+
+        if (!pager) return;
+        pager.innerHTML = "";
+        if (pages < 2) return;
+        const btn = (label, target, opts = {}) => {
+          const b = document.createElement("button");
+          b.type = "button";
+          b.className = "ca-page";
+          b.textContent = label;
+          if (opts.current) b.setAttribute("aria-current", "true");
+          if (opts.disabled) b.disabled = true;
+          else b.addEventListener("click", () => {
+            page = target;
+            render();
+            grid.scrollIntoView({ behavior: "smooth", block: "start" });
+          });
+          pager.appendChild(b);
+        };
+        btn("prev", page - 1, { disabled: page === 1 });
+        for (let p = 1; p <= pages; p++) {
+          if (pages > 9 && Math.abs(p - page) > 2 && p !== 1 && p !== pages) {
+            if (Math.abs(p - page) === 3) {
+              const s = document.createElement("span");
+              s.className = "ca-page";
+              s.textContent = "…";
+              pager.appendChild(s);
+            }
+            continue;
+          }
+          btn(String(p).padStart(2, "0"), p, { current: p === page });
+        }
+        btn("next", page + 1, { disabled: page === pages });
+      }
+
+      tabs.forEach((t) =>
+        t.addEventListener("click", () => {
+          tabs.forEach((x) => x.setAttribute("aria-selected", String(x === t)));
+          tag = t.dataset.tag || "";
+          page = 1;
+          render();
+        }),
+      );
+      let deb;
+      search?.addEventListener("input", () => {
+        clearTimeout(deb);
+        deb = setTimeout(() => {
+          q = search.value.trim().toLowerCase();
+          page = 1;
+          render();
+        }, 140);
+      });
+
+      render();
+    })();
+  </script>
+  <script
+    slot="head"
+    is:inline
+    set:html={`window.__caHero=${JSON.stringify(hero.map((h) => ({ title: h.title, subtitle: h.subtitle })))}`}
+  />
 </PageLayout>

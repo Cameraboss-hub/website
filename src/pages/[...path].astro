@@ -2,13 +2,16 @@
 export const prerender = true;
 
 import PageLayout from "../layouts/PageLayout.astro";
-import { pages } from "../lib/content";
+import { pages, canonicalFor, isThinDuplicate } from "../lib/content";
 
 export function getStaticPaths() {
   // Routes handled by dedicated files — never let the catch-all shadow them.
   const reserved = new Set([
     "/", "/blog/", "/galleries/", "/blog", "/galleries",
-    "/contact/", "/contact",           // hand-built page
+    "/contact/", "/contact",           // hand-built pages
+    "/about/", "/about",
+    "/Wedding-videos/", "/Wedding-videos",  // dedicated films page
+    "/client-area/", "/client-area",        // 301s to /galleries/
   ]);
   return pages
     .filter((p) => !reserved.has(p.path))
@@ -19,6 +22,12 @@ export function getStaticPaths() {
 }
 
 const { page } = Astro.props;
+
+// 26 of the 31 imported pages already open with their own <h1> inside the
+// Pixieset markup (a banner or hero heading). Rendering page.h1 as well gave
+// every one of them two <h1>s — a visible duplicate title and a real SEO
+// problem. Only add the heading where the imported markup has none.
+const hasOwnH1 = /<h1[\s>]/i.test(page.html);
 ---
 
 <PageLayout
@@ -26,15 +35,35 @@ const { page } = Astro.props;
   description={page.meta_description}
   ogImage={page.og_image || undefined}
   current={page.path}
+  canonical={canonicalFor(page.path)}
+  noindex={isThinDuplicate(page.path)}
 >
   <article>
-    {page.h1 && (
+    {/* A couple of imported pages (pricing, Editorial Shoot) have no <h1> at
+        all — neither did they on Pixieset. Give them one for search engines
+        and screen readers without changing the design. */}
+    {!hasOwnH1 && !page.h1 && (
+      <h1 class="sr-only">{page.title.split("|")[0].trim()}</h1>
+    )}
+    {page.h1 && !hasOwnH1 && (
       <header class="mx-auto max-w-4xl px-6 pt-16 pb-8 text-center md:pt-24">
         <h1 class="font-[family-name:var(--font-display)] text-3xl leading-tight font-light md:text-5xl">
           {page.h1}
         </h1>
       </header>
     )}
-    <div class="post-body mx-auto max-w-4xl px-6 pb-24" set:html={page.html} />
+    {/* Full-bleed: Pixieset's own blocks carry their padding and cap themselves
+        at .max-page-width, exactly as they do on the live site. Wrapping them in
+        a narrow column crushed every block to ~60% width. */}
+    <div class="post-body pb-24">
+      {/* Pixieset's own page wrapper. Dozens of its rules key off these
+          site-wide switches (button style and size, font theme), and the
+          import starts at <main>, so the wrapper has to be re-created here
+          or every button renders as bare text. */}
+      <div
+        class="theme-theme12 page-container button_height-11 button_size-1 button_style-4 button_width-40 font_theme-0 menu_style-2 sticky_header-0"
+        set:html={page.html}
+      />
+    </div>
   </article>
 </PageLayout>

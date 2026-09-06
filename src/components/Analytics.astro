@@ -1,0 +1,21 @@
+---
+// Activates automatically once PUBLIC_GA_ID (GA4) or PUBLIC_PLAUSIBLE_DOMAIN
+// is set in the environment. Nothing is emitted otherwise, so no tracking
+// scripts run in development or before you've chosen a provider.
+const ga = import.meta.env.PUBLIC_GA_ID;
+const plausible = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
+---
+{plausible && (
+  <script is:inline defer data-domain={plausible} src="https://plausible.io/js/script.js"></script>
+)}
+{ga && (
+  <>
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${ga}`}></script>
+    <script is:inline define:vars={{ ga }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', ga, { anonymize_ip: true });
+    </script>
+  </>
+)}

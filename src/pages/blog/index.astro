@@ -32,7 +32,7 @@ const rest = posts.slice(1);
           {thumbFor(featured) && (
             <img
               src={thumbFor(featured)}
-              alt=""
+              alt={featured.title}
               loading="eager"
               class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
@@ -58,7 +58,7 @@ const rest = posts.slice(1);
             {thumbFor(p) && (
               <img
                 src={thumbFor(p)}
-                alt=""
+                alt={p.title}
                 loading="lazy"
                 class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
               />

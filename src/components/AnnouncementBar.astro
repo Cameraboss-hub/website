@@ -1,0 +1,8 @@
+---
+const { href = "/contact", text = "Now booking 2026-2027 Weddings! Click HERE and grab your date" } = Astro.props;
+---
+<a href={href} class="block bg-[#3a1410] py-4 text-center transition-colors hover:bg-[#4a1a15]">
+  <span class="mx-auto inline-block max-w-[90%] rounded-3xl border border-white/35 px-6 py-3 text-[11px] leading-relaxed font-medium tracking-[0.14em] text-white uppercase sm:max-w-none sm:rounded-full sm:px-8 sm:tracking-[0.18em]">
+    {text}
+  </span>
+</a>

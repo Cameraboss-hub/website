@@ -13,12 +13,26 @@ const rel = related(post, 3);
 const hero = thumbFor(post);
 const site = "https://www.cameraboss.co.uk";
 
+const bodyImages = [...post.html.matchAll(/<img[^>]+src="([^"]+)"/gi)].map((m) => m[1]).slice(0, 8);
+
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${site}/` },
+    { "@type": "ListItem", position: 2, name: "Journal", item: `${site}/blog/` },
+    { "@type": "ListItem", position: 3, name: post.title, item: `${site}/blog/${post.slug}/` },
+  ],
+};
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   headline: post.title,
   description: post.meta_description || excerpt(post),
-  image: hero ? [hero] : undefined,
+  image: hero ? [hero, ...bodyImages].slice(0, 6) : bodyImages.slice(0, 6),
+  wordCount: post.html.replace(/<[^>]+>/g, " ").trim().split(/\s+/).length,
+  inLanguage: "en-GB",
   datePublished: isoDate(post.date) || undefined,
   author: { "@type": "Person", name: "John Olalekan Durojaye", alternateName: "Cameraboss" },
   publisher: {
@@ -38,12 +52,15 @@ const jsonLd = {
   article={{ published: isoDate(post.date) }}
 >
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbLd)} />
 
   <article>
     <header class="mx-auto max-w-3xl px-6 pt-16 pb-10 text-center md:pt-24">
-      <a href="/blog" class="text-[11px] tracking-[0.3em] text-black/40 uppercase hover:text-[var(--color-accent)]">
-        &larr; Journal
-      </a>
+      <nav aria-label="Breadcrumb" class="text-[11px] tracking-[0.22em] text-black/40 uppercase">
+        <a href="/" class="hover:text-[var(--color-accent)]">Home</a>
+        <span class="px-2">/</span>
+        <a href="/blog" class="hover:text-[var(--color-accent)]">Journal</a>
+      </nav>
       <h1 class="mt-6 font-[family-name:var(--font-display)] text-3xl leading-tight font-light md:text-5xl">
         {post.title}
       </h1>
@@ -52,11 +69,20 @@ const jsonLd = {
 
     {hero && (
       <div class="mx-auto mb-14 max-w-5xl px-6">
-        <img src={hero} alt="" class="w-full object-cover" loading="eager" />
+        <img src={hero} alt={post.title} class="w-full object-cover" loading="eager" fetchpriority="high" decoding="async" />
       </div>
     )}
 
-    <div class="post-body mx-auto max-w-3xl px-6 pb-20" set:html={post.html} />
+    {/* Posts use the same Pixieset block system as the static pages, so they
+        get the same treatment: full-bleed, with the wrapper that carries the
+        site-wide button and font switches. The blocks cap themselves at
+        .max-page-width, which is what the live site does. */}
+    <div class="post-body pb-20">
+      <div
+        class="theme-theme12 page-container button_height-11 button_size-1 button_style-4 button_width-40 font_theme-0 menu_style-2 sticky_header-0"
+        set:html={post.html}
+      />
+    </div>
   </article>
 
   {rel.length > 0 && (
@@ -68,7 +94,7 @@ const jsonLd = {
             <a href={`/blog/${r.slug}/`} class="group block">
               <div class="aspect-[4/3] overflow-hidden bg-black/5">
                 {thumbFor(r) && (
-                  <img src={thumbFor(r)} alt="" loading="lazy"
+                  <img src={thumbFor(r)} alt={r.title} loading="lazy"
                     class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 )}
               </div>

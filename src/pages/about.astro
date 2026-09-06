@@ -1,0 +1,152 @@
+---
+export const prerender = true;
+
+import PageLayout from "../layouts/PageLayout.astro";
+import AnnouncementBar from "../components/AnnouncementBar.astro";
+
+const B = "https://htwwyqfattodfaybqgev.supabase.co/storage/v1/object/public/blog/";
+
+const team = [
+  { name: "Taiwo T.",      role: "Business Manager Photographer",   img: B + "a01545a3_CBP03614-a86ba7dd-1500.webp" },
+  { name: "Godfather Ope", role: "Lead Videographer",               img: B + "b845783a_CBP02666-40217914-1500.webp" },
+  { name: "Shugar D",      role: "Make-up Artist / Comm Manager",   img: B + "4241bc8e_CBP03659-39f17dbf-1500.webp" },
+  { name: "John D",        role: "Lead Creative Photographer",      img: B + "db80852d_4C8A1664-7f1cf850-1500.webp" },
+];
+
+const meetImg = B + "507e921d_CBP05221-94d4cea5-1500.webp";
+
+const press = [
+  { title: "Rave TV NEWS",         body: "Rave Tv interviewed John Durojaye at his exhibition in Lagos titled AWORAN",                       img: B + "df98694e_CBP04773-15c68077-1500.webp" },
+  { title: "Silver Bird TV",       body: "John Lekan on Silverbird talking on the revolution of Photography and camera.",                    img: B + "4f604864_PHOTO-2025-03-17-06-03-32-cb343ef6-1500.webp" },
+  { title: "Channels Tv",          body: "Channels TV interviewing John Durojaye: Cameraboss during his exhibition AWORAN in Lagos",         img: B + "f9ecb6ce_PHOTO-2025-03-14-19-31-13-a5d7e665-1500.webp" },
+  { title: "The Nation Newspaper", body: "Life coverage of Aworan Exhibition",                                                               img: B + "6b60931d_CBP05218-ea882594-1500.webp" },
+  { title: "Vanguard News Paper",  body: "A column on the National Newspaper",                                                               img: B + "4f7c9d36_Screenshot2025-04-08at11.51.47-e0b40b2e-1500.webp" },
+  { title: "This Day Newspaper",   body: "Live Art exhibition in Lagos Nigeria covered by This Day Newspaper",                               img: B + "e43f7b82_Screenshot2025-04-02at14.45.40-d24ba161-1500.webp" },
+  { title: "TVC Live",             body: "TVC live interview with the Cameraboss: John Durojaye",                                            img: B + "2d67adb1_Screenshot2026-07-16at17.30.00-c23cf38c-1500.webp" },
+  { title: "Aworan Exhibition",    body: "Aworan Exhibition in Lagos — twenty art pieces marking twelve years as a professional photographer.", img: B + "68af2c68_Screenshot2026-07-16at17.31.34-af6d875b-1500.webp" },
+];
+
+const award = {
+  title: "Cameraboss Named Creative Visionary of the Year in London",
+  body: "British-Nigerian photographer and creative director John Olalekan Durojaye, aka Cameraboss, has been named Creative Visionary of the Year 2025/2026 by the Global Reputation Forum at a prestigious ceremony in London.",
+  img: B + "6d99e977_CBP07157-6f925fcc.webp",
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  mainEntity: {
+    "@type": "Organization",
+    name: "CameraBoss",
+    url: "https://www.cameraboss.co.uk",
+    founder: { "@type": "Person", name: "John Olalekan Durojaye", alternateName: "Cameraboss", jobTitle: "Photographer & Creative Director" },
+    employee: team.map((t) => ({ "@type": "Person", name: t.name, jobTitle: t.role })),
+  },
+};
+---
+
+<PageLayout
+  title="About Camera Boss | London Wedding Photographer & Creative Team"
+  description="Meet the CameraBoss team — a photography and videography collective led by award-winning photographer John Olalekan Durojaye, covering weddings across the UK and Nigeria."
+  current="/about"
+  ogImage={team[3].img}
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
+  <AnnouncementBar />
+
+  <!-- Hero: heading left, arch portraits right -->
+  <section class="mx-auto max-w-[1368px] px-6 pt-16 pb-20 md:pt-24">
+    <div class="grid gap-14 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.6fr)] lg:gap-16">
+      <div>
+        <h1 class="font-[family-name:var(--font-display)] text-4xl leading-[1.08] font-normal md:text-5xl">
+          Professional Photography and Videography Team
+        </h1>
+        <p class="mt-10 max-w-md text-[15px] leading-[1.75] text-black/65">
+          A dedicated co-working team leading every aspect of your production and creative journey.
+          From concept to execution, our team brings together experts across production, direction,
+          design, and strategy—ensuring a seamless and collaborative experience on every project.
+          Each member plays a crucial role on set, delivering excellence with creativity, precision,
+          and purpose.
+        </p>
+      </div>
+
+      <ul class="grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-4">
+        {team.map((m) => (
+          <li class="text-center">
+            <div class="cb-arch">
+              <img src={m.img} alt={m.name} loading="lazy" />
+            </div>
+            <p class="mt-5 text-[15px] tracking-[0.05em] text-black/70">{m.name}</p>
+            <p class="mt-1.5 text-[10px] leading-relaxed tracking-[0.16em] text-black/45 uppercase">{m.role}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Nice to meet You -->
+  <section class="bg-[#f1f1f0]">
+    <div class="mx-auto grid max-w-[1368px] gap-0 px-6 py-16 md:grid-cols-2 md:py-0">
+      <div class="md:py-16">
+        <img src={meetImg} alt="The CameraBoss team" loading="lazy" class="h-full max-h-[640px] w-full object-cover" />
+      </div>
+      <div class="flex flex-col items-center justify-center px-4 py-14 text-center md:px-14">
+        <h2 class="font-[family-name:var(--font-display)] text-3xl font-light md:text-4xl">Nice to meet You</h2>
+        <p class="mt-4 text-[11px] tracking-[0.28em] text-black/60 uppercase">We are Creatives</p>
+        <div class="mt-10 max-w-md space-y-5 text-[15px] leading-[1.75] text-black/60">
+          <p>
+            At Cameraboss, we don't just take photos — we tell stories, capture emotions, and create
+            timeless moments. Behind every shot is a passionate team of creatives who live and breathe
+            visual storytelling.
+          </p>
+          <p>
+            Led by award-winning photographer John Olalekan Durojaye (Cameraboss), our team is a blend
+            of photographers, videographers, editors, and creative directors who bring experience,
+            artistry, and vision to every project. From weddings and portraits to fashion campaigns and
+            brand storytelling, we bring a personal touch to every frame.
+          </p>
+        </div>
+        <a href="/contact" class="mt-10 rounded-full border border-black/35 px-10 py-3.5 text-[11px] tracking-[0.22em] uppercase transition-colors hover:bg-[var(--color-ink)] hover:text-white">
+          Let's Connect
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Press -->
+  <section class="mx-auto max-w-[1368px] px-6 py-24">
+    <div class="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
+      {press.map((p) => (
+        <article class="text-center">
+          <div class="aspect-[3/4] overflow-hidden bg-black/5">
+            <img src={p.img} alt={p.title} loading="lazy"
+              class="h-full w-full object-cover transition-transform duration-700 hover:scale-105" />
+          </div>
+          <h3 class="mt-6 font-[family-name:var(--font-display)] text-2xl font-light">{p.title}</h3>
+          <p class="mt-3 text-sm leading-relaxed text-black/55">{p.body}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Award -->
+  <section class="border-t border-black/8 bg-white/60">
+    <div class="mx-auto grid max-w-[1368px] items-center gap-12 px-6 py-24 md:grid-cols-2">
+      <div class="aspect-[4/5] overflow-hidden bg-black/5">
+        <img src={award.img} alt={award.title} loading="lazy" class="h-full w-full object-cover" />
+      </div>
+      <div>
+        <p class="text-[11px] tracking-[0.35em] text-[var(--color-accent)] uppercase">Recognition</p>
+        <h2 class="mt-5 font-[family-name:var(--font-display)] text-3xl leading-snug font-light md:text-4xl">
+          {award.title}
+        </h2>
+        <p class="mt-6 text-[15px] leading-[1.8] text-black/60">{award.body}</p>
+        <a href="/blog/cameraboss-crowned-creative-visionary-of-the-year/"
+           class="mt-9 inline-block border-b border-[var(--color-ink)] pb-1 text-[11px] tracking-[0.25em] uppercase transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]">
+          Read More
+        </a>
+      </div>
+    </div>
+  </section>
+</PageLayout>

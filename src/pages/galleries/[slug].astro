@@ -14,7 +14,7 @@ const { gallery } = Astro.props;
 
 <PageLayout
   title={`${gallery.name} | CameraBoss Client Gallery`}
-  description={`${gallery.photos.length} photographs by CameraBoss.`}
+  description={`${gallery.name} — ${gallery.photos.length} photographs by CameraBoss, wedding and portrait photographer covering London, the Midlands and Nigeria. View the full gallery and download your favourites.`}
   current="/galleries"
   ogImage={gallery.photos[0]?.url}
 >
@@ -49,7 +49,7 @@ const { gallery } = Astro.props;
     <div class="cb-masonry" id="grid">
       {gallery.photos.map((p, i) => (
         <figure class="cb-tile" data-i={i}>
-          <img src={p.thumb} alt="" loading="lazy" />
+          <img src={p.thumb} alt={`${gallery.name} — photograph ${i + 1}`} loading="lazy" decoding="async" />
           <button class="cb-pick" data-pick={i} aria-label="Select photo" hidden>
             <span class="cb-check">&#10003;</span>
           </button>
@@ -102,7 +102,7 @@ const { gallery } = Astro.props;
   <div id="lb" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/96">
     <button id="lb-close" class="absolute top-6 right-7 text-3xl text-white/60 hover:text-white" aria-label="Close">&times;</button>
     <button id="lb-prev" class="absolute left-3 text-4xl text-white/50 hover:text-white" aria-label="Previous">&#8249;</button>
-    <img id="lb-img" src="" alt="" class="max-h-[86vh] max-w-[92vw] object-contain" />
+    <img id="lb-img" alt="" class="max-h-[86vh] max-w-[92vw] object-contain" />
     <button id="lb-next" class="absolute right-3 text-4xl text-white/50 hover:text-white" aria-label="Next">&#8250;</button>
     <div class="absolute bottom-6 w-full text-center">
       <p id="lb-meta" class="text-[11px] tracking-[0.2em] text-white/50 uppercase"></p>

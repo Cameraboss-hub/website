@@ -1,6 +1,9 @@
 ---
 import "../styles/global.css";
+import "../styles/pixieset-blocks.css";
+import Analytics from "../components/Analytics.astro";
 import SiteHeader from "../components/SiteHeader.astro";
+import MobileNav from "../components/MobileNav.astro";
 import Footer from "../components/Footer.astro";
 
 interface Props {
@@ -8,6 +11,7 @@ interface Props {
   description?: string;
   ogImage?: string;
   canonical?: string;
+  noindex?: boolean;
   current?: string;
   article?: { published?: string; modified?: string };
 }
@@ -17,12 +21,53 @@ const {
   description = "CameraBoss — London & Leicester wedding, portrait and destination photographer.",
   ogImage,
   canonical,
+  noindex = false,
   current = "",
   article,
 } = Astro.props;
 
 const site = "https://www.cameraboss.co.uk";
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, site).href;
+
+/**
+ * Site-wide LocalBusiness schema. CameraBoss serves specific UK cities, so
+ * areaServed is enumerated — this is what drives "wedding photographer near me"
+ * style local results.
+ */
+const orgLd = {
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "ProfessionalService"],
+  "@id": `${site}/#business`,
+  name: "CameraBoss",
+  alternateName: "Camera Boss Multimedia",
+  description:
+    "Award-winning wedding, portrait and editorial photography and videography across the UK and Nigeria.",
+  url: site,
+  telephone: "+44 7823 714814",
+  email: "camerabossmultimedia@gmail.com",
+  image: `${site}/images/brand/cameraboss-logo.png`,
+  logo: `${site}/images/brand/cameraboss-logo.png`,
+  priceRange: "££",
+  founder: {
+    "@type": "Person",
+    name: "John Olalekan Durojaye",
+    alternateName: "Cameraboss",
+    jobTitle: "Photographer & Creative Director",
+  },
+  address: { "@type": "PostalAddress", addressLocality: "Leicester", addressCountry: "GB" },
+  areaServed: [
+    "London", "Leicester", "Manchester", "Birmingham", "Liverpool", "Newcastle",
+    "Derby", "Luton", "Oxford", "Nottingham", "Sheffield", "United Kingdom", "Nigeria",
+  ].map((n) => ({ "@type": "Place", name: n })),
+  knowsAbout: [
+    "Wedding photography", "Nigerian traditional wedding photography",
+    "Engagement photography", "Portrait photography", "Wedding videography",
+  ],
+  sameAs: [
+    "https://www.instagram.com/thecameraboss",
+    "https://wa.me/447823714814",
+  ],
+};
 ---
 
 <!doctype html>
@@ -50,12 +95,27 @@ const canonicalUrl = canonical ?? new URL(Astro.url.pathname, site).href;
     <meta name="twitter:description" content={description} />
     {ogImage && <meta name="twitter:image" content={ogImage} />}
 
+    <!-- Images are served from Supabase Storage; connecting early improves LCP. -->
+    <link rel="preconnect" href="https://htwwyqfattodfaybqgev.supabase.co" crossorigin />
+    <link rel="dns-prefetch" href="https://htwwyqfattodfaybqgev.supabase.co" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Work+Sans:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
+    <meta
+      name="robots"
+      content={noindex
+        ? "noindex, follow"
+        : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"}
+    />
+    <meta name="theme-color" content="#1a1a1a" />
+    <meta name="author" content="John Olalekan Durojaye" />
+    <meta property="og:locale" content="en_GB" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
     <slot name="head" />
   </head>
   <body>
@@ -64,5 +124,7 @@ const canonicalUrl = canonical ?? new URL(Astro.url.pathname, site).href;
       <slot />
     </main>
     <Footer />
+    <MobileNav current={current} />
+    <Analytics />
   </body>
 </html>

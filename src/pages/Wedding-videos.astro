@@ -1,0 +1,144 @@
+---
+export const prerender = true;
+
+import PageLayout from "../layouts/PageLayout.astro";
+import videosData from "../data/videos.json";
+
+interface Film { id: string; title: string; ratio: number; featured: boolean }
+const films = videosData as Film[];
+const featured = films.find((f) => f.featured) ?? films[0];
+const rest = films.filter((f) => f !== featured);
+
+const cards = [
+  { kicker: "Hear my clients", label: "Testimonials", href: "/testimonials/" },
+  { kicker: "Find out process", label: "Experience", href: "/experience/" },
+  { kicker: "See my offerings", label: "Pricing", href: "/pricing/" },
+];
+
+// VideoObject schema for every film — this is what surfaces them in video search.
+const videoLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "CameraBoss Wedding Films",
+  itemListElement: films.map((f, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "VideoObject",
+      name: f.title,
+      description: f.title,
+      thumbnailUrl: `https://i.ytimg.com/vi/${f.id}/maxresdefault.jpg`,
+      embedUrl: `https://www.youtube.com/embed/${f.id}`,
+      contentUrl: `https://www.youtube.com/watch?v=${f.id}`,
+      uploadDate: "2022-01-01",
+      publisher: { "@type": "Organization", name: "CameraBoss" },
+    },
+  })),
+};
+---
+
+<PageLayout
+  title="Wedding Videography in London | Professional Wedding Videos UK"
+  description="Professional wedding videography in London and UK. Custom films crafted with passion — see examples & reserve your wedding video package."
+  current="/Wedding-videos/"
+  ogImage={`https://i.ytimg.com/vi/${featured.id}/maxresdefault.jpg`}
+>
+  <link slot="head" rel="preconnect" href="https://i.ytimg.com" />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(videoLd)} />
+
+  <section class="mx-auto max-w-4xl px-6 pt-20 pb-12 text-center md:pt-28">
+    <h1 class="font-[family-name:var(--font-display)] text-3xl leading-[1.15] font-light md:text-5xl">
+      Wedding Videography,<br />captured one frame at a time
+    </h1>
+    <p class="mt-7 text-[11px] tracking-[0.34em] text-black/50 uppercase">
+      Best Videography Team in London UK
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-[1100px] px-6 pb-16">
+    <button
+      class="cb-film__frame"
+      data-yt={featured.id}
+      type="button"
+      aria-label={`Play ${featured.title}`}
+    >
+      <img
+        src={`https://i.ytimg.com/vi/${featured.id}/maxresdefault.jpg`}
+        alt={featured.title}
+        width="1280"
+        height="720"
+        loading="eager"
+        decoding="async"
+      />
+      <span class="cb-film__play" aria-hidden="true">
+        <svg width="20" height="22" viewBox="0 0 20 22" fill="currentColor"><path d="M19 11 0 22V0z" /></svg>
+      </span>
+    </button>
+    <h2 class="cb-film__title text-center">{featured.title}</h2>
+  </section>
+
+  <section class="mx-auto max-w-[1368px] px-6 pb-20">
+    <div class="grid gap-px border border-black/10 bg-black/10 sm:grid-cols-3">
+      {cards.map((c) => (
+        <a href={c.href} class="group block bg-[var(--color-paper)] px-8 py-12 text-center transition-colors hover:bg-black/[0.03]">
+          <p class="font-[family-name:var(--font-display)] text-lg font-light">{c.kicker}</p>
+          <p class="mt-4 text-[10.5px] tracking-[0.3em] text-black/50 uppercase transition-colors group-hover:text-[var(--color-accent)]">
+            {c.label}
+          </p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-[1368px] px-6 pb-28">
+    <h2 class="mb-12 text-center text-[11px] tracking-[0.34em] text-black/45 uppercase">
+      The Films &middot; {films.length} Weddings
+    </h2>
+    <div class="cb-films">
+      {rest.map((f, i) => (
+        <article>
+          <button class="cb-film__frame" data-yt={f.id} type="button" aria-label={`Play ${f.title}`}>
+            <img
+              src={`https://i.ytimg.com/vi/${f.id}/hqdefault.jpg`}
+              alt={f.title}
+              width="480"
+              height="360"
+              loading={i < 2 ? "eager" : "lazy"}
+              decoding="async"
+            />
+            <span class="cb-film__play" aria-hidden="true">
+              <svg width="18" height="20" viewBox="0 0 20 22" fill="currentColor"><path d="M19 11 0 22V0z" /></svg>
+            </span>
+          </button>
+          <h3 class="cb-film__title">{f.title}</h3>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="border-t border-black/8 py-16 text-center">
+    <a
+      href="https://www.instagram.com/thecameraboss"
+      rel="noopener"
+      target="_blank"
+      class="text-[11px] tracking-[0.3em] text-black/55 uppercase transition-colors hover:text-[var(--color-accent)]"
+    >@thecameraboss</a>
+  </section>
+
+  <script is:inline>
+    // Click-to-load: no YouTube iframe (and no YouTube cookie) until the visitor asks.
+    document.addEventListener("click", (e) => {
+      const btn = e.target instanceof Element ? e.target.closest(".cb-film__frame") : null;
+      if (!btn || btn.dataset.playing === "true") return;
+      const id = btn.dataset.yt;
+      if (!id) return;
+      btn.dataset.playing = "true";
+      const f = document.createElement("iframe");
+      f.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+      f.title = btn.getAttribute("aria-label") || "Wedding film";
+      f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      f.allowFullscreen = true;
+      btn.appendChild(f);
+    });
+  </script>
+</PageLayout>

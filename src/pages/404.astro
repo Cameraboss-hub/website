@@ -1,0 +1,38 @@
+---
+export const prerender = true;
+import PageLayout from "../layouts/PageLayout.astro";
+import { posts, thumbFor, formatDate } from "../lib/content";
+const recent = posts.slice(0, 3);
+---
+<PageLayout title="Page not found | CameraBoss" description="That page doesn't exist. Browse the journal or head back to the homepage.">
+  <meta slot="head" name="robots" content="noindex, follow" />
+  <section class="mx-auto max-w-2xl px-6 py-28 text-center">
+    <p class="text-[11px] tracking-[0.4em] text-black/40 uppercase">404</p>
+    <h1 class="mt-6 font-[family-name:var(--font-display)] text-4xl leading-tight font-light md:text-5xl">
+      That page has moved on
+    </h1>
+    <p class="mt-6 text-[15px] leading-relaxed text-black/60">
+      The link you followed doesn't lead anywhere any more. Try the journal, the galleries,
+      or get in touch and I'll point you the right way.
+    </p>
+    <div class="mt-10 flex flex-wrap justify-center gap-4">
+      <a href="/" class="border border-[var(--color-ink)] px-8 py-3.5 text-[11px] tracking-[0.25em] uppercase transition-colors hover:bg-[var(--color-ink)] hover:text-white">Home</a>
+      <a href="/blog" class="border border-black/25 px-8 py-3.5 text-[11px] tracking-[0.25em] uppercase transition-colors hover:border-black">Journal</a>
+      <a href="/contact" class="border border-black/25 px-8 py-3.5 text-[11px] tracking-[0.25em] uppercase transition-colors hover:border-black">Contact</a>
+    </div>
+  </section>
+  <section class="mx-auto max-w-[1368px] px-6 pb-24">
+    <p class="text-center text-[11px] tracking-[0.35em] text-black/40 uppercase">Latest from the journal</p>
+    <div class="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-3">
+      {recent.map((p) => (
+        <a href={`/blog/${p.slug}/`} class="group block">
+          <div class="aspect-[4/3] overflow-hidden bg-black/5">
+            {thumbFor(p) && <img src={thumbFor(p)} alt={p.title} loading="lazy" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />}
+          </div>
+          <h2 class="mt-5 font-[family-name:var(--font-display)] text-lg font-light group-hover:text-[var(--color-accent)]">{p.title}</h2>
+          <p class="mt-2 text-[10px] tracking-[0.25em] text-black/40 uppercase">{formatDate(p.date)}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</PageLayout>
