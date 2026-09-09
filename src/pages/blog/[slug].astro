@@ -54,8 +54,8 @@ const jsonLd = {
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbLd)} />
 
-  <article>
-    <header class="mx-auto max-w-3xl px-6 pt-16 pb-10 text-center md:pt-24">
+  <article class="editorial-article">
+    <header class="article-heading mx-auto max-w-3xl px-6 pt-16 pb-10 text-center md:pt-24">
       <nav aria-label="Breadcrumb" class="text-[11px] tracking-[0.22em] text-black/40 uppercase">
         <a href="/" class="hover:text-[var(--color-accent)]">Home</a>
         <span class="px-2">/</span>
@@ -68,7 +68,7 @@ const jsonLd = {
     </header>
 
     {hero && (
-      <div class="mx-auto mb-14 max-w-5xl px-6">
+      <div class="article-cover mx-auto mb-14 max-w-5xl px-6">
         <img src={hero} alt={post.title} class="w-full object-cover" loading="eager" fetchpriority="high" decoding="async" />
       </div>
     )}

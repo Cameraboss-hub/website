@@ -5,7 +5,6 @@ export const GET: APIRoute = () =>
   new Response(
     `User-agent: *
 Allow: /
-Disallow: /galleries/
 
 Sitemap: https://www.cameraboss.co.uk/sitemap.xml
 `,

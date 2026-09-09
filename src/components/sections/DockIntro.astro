@@ -1,0 +1,75 @@
+---
+import Header from '../Header.astro';
+const weddingSlides = [
+ {image:'slide-01-london.webp',alt:'Moses Bliss and Marie — wedding photography by CameraBoss'},
+ {image:'slide-06-nigeria-wedding.webp',alt:'Nigerian wedding celebration photographed by CameraBoss'},
+ {image:'slide-04-civil-wedding.webp',alt:'Civil wedding photographed by CameraBoss'},
+ {image:'slide-05-destination.webp',alt:'Destination wedding photographed by CameraBoss'}
+];
+---
+<Header />
+<section class="dock-intro" aria-labelledby="dock-title">
+  <div class="dock-intro-copy">
+    <p class="dock-eyebrow"><span aria-hidden="true">◉</span> CameraBoss · Photography &amp; film</p>
+    <h1 id="dock-title">Your story.<br />Beautifully seen.</h1>
+    <p class="dock-description">The big feelings. The little glances. All of you.<br /> Wedding, portrait and destination photography across the UK and Nigeria.</p>
+    <div class="dock-actions"><a class="dock-primary" href="/contact/">Tell us your plans <span aria-hidden="true">↗</span></a><a class="dock-secondary" href="/client-area/">Explore the stories <span aria-hidden="true">→</span></a></div>
+    <p class="dock-note">London &amp; Leicester · Wherever your story takes us</p>
+  </div>
+  <div class="dock-scene dock-wedding-scene" data-wedding-scene>
+    <div class="dock-wedding-backdrop" aria-label="CameraBoss wedding photographs">
+      {weddingSlides.map((slide,i)=><img src={`/images/hero/${slide.image}`} alt={slide.alt} width="1600" height="1100" loading={i===0?'eager':'lazy'} class:list={['dock-wedding-frame',i===0&&'is-current']} data-wedding-frame aria-hidden={i!==0} />)}
+      <div class="dock-wedding-shade" aria-hidden="true"></div>
+      <div class="dock-wedding-caption"><span>Real people. Remarkable stories.</span><a href="/client-area/">See the wedding stories ↗</a></div>
+    </div>
+    {['left','right'].map(side=><div class={`dock-camera dock-camera-${side}`} data-camera={side} tabindex="0" role="link" aria-label="Explore more CameraBoss gallery photographs">
+      <img src="/images/design/camera-cutout.png" alt="" width="1200" height="1200" draggable="false" />
+      <div class="dock-camera-photo-mask"><img class="dock-camera-reveal" src="/images/portfolio/02-the-wedding.webp" alt="" width="1000" height="1000" draggable="false" /></div>
+    </div>)}
+    <div class="dock-wedding-controls"><button type="button" data-wedding-prev aria-label="Previous wedding photograph">←</button><span data-wedding-count aria-live="off">01 / 04</span><button type="button" data-wedding-next aria-label="Next wedding photograph">→</button><button type="button" data-wedding-pause aria-pressed="false">Pause photographs</button></div>
+    <p class="dock-camera-hint">Move across either camera. Discover more photographs.</p>
+  </div>
+  <div class="dock-category-strip" aria-label="Photography services"><a href="/client-area/">Wedding stories</a><span aria-hidden="true">✳</span><a href="/Editorial-Shoot/">Portraits &amp; editorial</a><span aria-hidden="true">✳</span><a href="/Wedding-videos/">Films with feeling</a><span aria-hidden="true">✳</span><a href="/locations/">Across borders</a></div>
+</section>
+<script>
+const motion=matchMedia('(prefers-reduced-motion: reduce)');
+const fine=matchMedia('(pointer: fine)');
+const cameraPictures=['02-the-wedding.webp','03-yoruba-wedding.webp','04-mayo-emmanuel.webp','05-dana-bridal-portraits.webp','08-js-london-wedding.webp'];
+document.querySelectorAll<HTMLElement>('[data-camera]').forEach(camera=>{
+ const picture=camera.querySelector<HTMLImageElement>('.dock-camera-reveal')!;
+ let frame=0;let x=0;let y=0;let chosen=-1;
+ const hide=()=>{cancelAnimationFrame(frame);frame=0;picture.style.opacity='0';};
+ camera.addEventListener('pointermove',event=>{if(!fine.matches)return;const bounds=camera.getBoundingClientRect();x=event.clientX-bounds.left;y=event.clientY-bounds.top;const next=Math.min(cameraPictures.length-1,Math.max(0,Math.floor(x/bounds.width*cameraPictures.length)));if(next!==chosen){chosen=next;picture.src='/images/portfolio/'+cameraPictures[next];}if(!frame)frame=requestAnimationFrame(()=>{picture.style.setProperty('--reveal-x',`${x}px`);picture.style.setProperty('--reveal-y',`${y}px`);picture.style.opacity='1';frame=0;});});
+ camera.addEventListener('pointerleave',hide);
+ camera.addEventListener('focus',()=>{picture.style.setProperty('--reveal-x','50%');picture.style.setProperty('--reveal-y','50%');picture.style.opacity='1';});
+ camera.addEventListener('blur',hide);
+ camera.addEventListener('click',()=>{location.href='/client-area/';});
+ camera.addEventListener('keydown',event=>{if(event.key==='Enter'){location.href='/client-area/';}});
+});
+const weddingScene=document.querySelector<HTMLElement>('[data-wedding-scene]');
+if(weddingScene){
+ const frames=[...weddingScene.querySelectorAll<HTMLImageElement>('[data-wedding-frame]')];
+ const pause=weddingScene.querySelector<HTMLButtonElement>('[data-wedding-pause]')!;
+ let current=0;let paused=motion.matches;let timer:ReturnType<typeof setInterval>|undefined;let visible=true;
+ const show=(index:number)=>{current=(index+frames.length)%frames.length;frames.forEach((image,i)=>{image.classList.toggle('is-current',i===current);image.setAttribute('aria-hidden',String(i!==current));});weddingScene.querySelector('[data-wedding-count]')!.textContent=`0${current+1} / 04`;};
+ const sync=()=>{clearInterval(timer);if(!paused&&!document.hidden&&visible)timer=setInterval(()=>show(current+1),5500);pause.textContent=paused?'Play photographs':'Pause photographs';pause.setAttribute('aria-pressed',String(paused));};
+ weddingScene.querySelector('[data-wedding-prev]')?.addEventListener('click',()=>{show(current-1);sync();});
+ weddingScene.querySelector('[data-wedding-next]')?.addEventListener('click',()=>{show(current+1);sync();});
+ pause.addEventListener('click',()=>{paused=!paused;sync();});
+ weddingScene.addEventListener('focusin',event=>{if(event.target!==pause){paused=true;sync();}});
+ motion.addEventListener('change',event=>{paused=event.matches;sync();});document.addEventListener('visibilitychange',sync);
+ new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;sync();}).observe(weddingScene);sync();
+}
+const steps=[
+ {count:'01 / The conversation',title:'Tell us what matters.',copy:'Share your date, your location and the people at the heart of it. We’ll talk about the photography and film coverage that fits your plans.',image:'/images/hero/slide-03-portrait.webp',alt:'CameraBoss engagement portrait',href:'/contact/',label:'Start a conversation ↗'},
+ {count:'02 / The day',title:'More feeling. Less posing.',copy:'The anticipation, the celebration and the quiet in between. Explore our wedding stories to see how we photograph the moments that make a day yours.',image:'/images/hero/slide-01-london.webp',alt:'Wedding celebration photographed by CameraBoss',href:'/client-area/',label:'See the wedding stories ↗'},
+ {count:'03 / The memories',title:'A story to come back to.',copy:'Explore photographs in our galleries, share the moments you love and return to the feelings behind them. Open the gallery to find your story.',image:'/images/hero/slide-06-nigeria-wedding.webp',alt:'Nigerian wedding photographed by CameraBoss',href:'/client-area/',label:'Explore the galleries ↗'}
+];
+document.querySelectorAll<HTMLButtonElement>('[data-experience-step]').forEach(button=>button.addEventListener('click',()=>{
+ const step=steps[Number(button.dataset.experienceStep)];
+ document.querySelectorAll('[data-experience-step]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
+ for(const [key,value]of Object.entries({count:step.count,title:step.title,copy:step.copy})) {const el=document.querySelector(`[data-experience-${key}]`);if(el)el.textContent=value;}
+ const image=document.querySelector<HTMLImageElement>('[data-experience-image]')!;image.src=step.image;image.alt=step.alt;
+ const link=document.querySelector<HTMLAnchorElement>('[data-experience-link]')!;link.href=step.href;link.textContent=step.label;
+}));
+</script>

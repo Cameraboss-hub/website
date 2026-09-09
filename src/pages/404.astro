@@ -4,8 +4,7 @@ import PageLayout from "../layouts/PageLayout.astro";
 import { posts, thumbFor, formatDate } from "../lib/content";
 const recent = posts.slice(0, 3);
 ---
-<PageLayout title="Page not found | CameraBoss" description="That page doesn't exist. Browse the journal or head back to the homepage.">
-  <meta slot="head" name="robots" content="noindex, follow" />
+<PageLayout title="Page not found | CameraBoss" description="That page doesn't exist. Browse the journal or head back to the homepage." noindex>
   <section class="mx-auto max-w-2xl px-6 py-28 text-center">
     <p class="text-[11px] tracking-[0.4em] text-black/40 uppercase">404</p>
     <h1 class="mt-6 font-[family-name:var(--font-display)] text-4xl leading-tight font-light md:text-5xl">

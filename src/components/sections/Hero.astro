@@ -1,5 +1,6 @@
 ---
-import Header from "../Header.astro";
+
+
 
 interface Slide {
   image: string;
@@ -11,126 +12,150 @@ interface Slide {
 
 const slides: Slide[] = [
   {
-    image: "/images/hero/slide-01-london.png",
-    title: ["London Wedding", "Photographer"],
-    subtitle: "Moses Bliss Wedding",
-    cta: { label: "View Portfolio", href: "/galleries" },
+    "image": "/images/portfolio/02-the-wedding.webp",
+    "title": [
+      "The Wedding"
+    ],
+    "subtitle": "Photography by CameraBoss",
+    "cta": {
+      "label": "Explore the stories",
+      "href": "/client-area/"
+    }
   },
   {
-    image: "/images/hero/slide-02-west-midlands.png",
-    title: ["Wedding Photographer in", "West Midland Leicester"],
-    subtitle: "Leicester Based wedding Photographer",
-    cta: { label: "View Portfolio", href: "/galleries" },
+    "image": "/images/portfolio/03-yoruba-wedding.webp",
+    "title": [
+      "Yoruba Wedding"
+    ],
+    "subtitle": "Photography by CameraBoss",
+    "cta": {
+      "label": "Explore the stories",
+      "href": "/client-area/"
+    }
   },
   {
-    image: "/images/hero/slide-03-portrait.png",
-    title: ["Pre-wedding / Portrait", "photographer"],
-    subtitle: "Prewedding and Engagement shoot ideas",
-    cta: { label: "View Portfolio", href: "/galleries" },
+    "image": "/images/portfolio/04-mayo-emmanuel.webp",
+    "title": [
+      "Mayo and Emmanuel"
+    ],
+    "subtitle": "Photography by CameraBoss",
+    "cta": {
+      "label": "Explore the stories",
+      "href": "/client-area/"
+    }
   },
   {
-    image: "/images/hero/slide-04-civil-wedding.png",
-    title: ["Civil Wedding", "Photographer"],
-    subtitle: "Award Winning Wedding Photographer | London and Leicester based",
+    "image": "/images/portfolio/05-dana-bridal-portraits.webp",
+    "title": [
+      "Dana Bridal Portraits"
+    ],
+    "subtitle": "Photography by CameraBoss",
+    "cta": {
+      "label": "Explore the stories",
+      "href": "/client-area/"
+    }
   },
   {
-    image: "/images/hero/slide-05-destination.png",
-    title: ["Destination Wedding", "Photographer and Videographer"],
-    subtitle: "LONDON WEDDING PHOTOGRAPHER & VIDEOGRAPHER",
-    cta: { label: "Get in touch", href: "/contact" },
+    "image": "/images/portfolio/06-bridal-look.webp",
+    "title": [
+      "Bridal Look"
+    ],
+    "subtitle": "Photography by CameraBoss",
+    "cta": {
+      "label": "Explore the stories",
+      "href": "/client-area/"
+    }
   },
   {
-    image: "/images/hero/slide-06-nigeria-wedding.png",
-    title: ["Nigeria Wedding", "Photographer in UK"],
-    subtitle: "I am a Nigeria wedding Photographer based in Leicester United Kingdom",
-    cta: { label: "Portfolio", href: "/galleries" },
+    "image": "/images/portfolio/07-siri-bridal-portrait.webp",
+    "title": [
+      "Siri Bridal Portrait"
+    ],
+    "subtitle": "Photography by CameraBoss",
+    "cta": {
+      "label": "Explore the stories",
+      "href": "/client-area/"
+    }
   },
+  {
+    "image": "/images/portfolio/08-js-london-wedding.webp",
+    "title": [
+      "J & S"
+    ],
+    "subtitle": "Photography by CameraBoss",
+    "cta": {
+      "label": "Explore the stories",
+      "href": "/client-area/"
+    }
+  },
+  {
+    "image": "/images/portfolio/09-bridal-robe-arewa.webp",
+    "title": [
+      "Bridal Robe"
+    ],
+    "subtitle": "Photography by CameraBoss",
+    "cta": {
+      "label": "Explore the stories",
+      "href": "/client-area/"
+    }
+  },
+  {
+    "image": "https://images.pixieset.com/761827121/335790baf2b0c24f35f11dd48dc5cb46-xlarge.jpg",
+    "title": [
+      "Faith and Jack"
+    ],
+    "subtitle": "Photography by CameraBoss",
+    "cta": {
+      "label": "Explore the stories",
+      "href": "https://gallery.cameraboss.co.uk/faithandjack/"
+    }
+  },
+  {
+    "image": "https://images.pixieset.com/026438121/e0c7fb6ee4650e71f976a26e49b652ee-xlarge.jpg",
+    "title": [
+      "Evan and Sandra"
+    ],
+    "subtitle": "Photography by CameraBoss",
+    "cta": {
+      "label": "Explore the stories",
+      "href": "https://gallery.cameraboss.co.uk/evanandc/"
+    }
+  },
+  {
+    "image": "https://images.pixieset.com/727674811/c25316db453940bc1ff090aa56928185-xlarge.jpg",
+    "title": [
+      "Temi and Fiyin"
+    ],
+    "subtitle": "Photography by CameraBoss",
+    "cta": {
+      "label": "Explore the stories",
+      "href": "https://gallery.cameraboss.co.uk/temiandfiyin/"
+    }
+  },
+  {
+    "image": "https://images.pixieset.com/794638611/9025247cc74ae3b686a432c9bd66683e-xlarge.jpg",
+    "title": [
+      "Jo and Jonny"
+    ],
+    "subtitle": "Photography by CameraBoss",
+    "cta": {
+      "label": "Explore the stories",
+      "href": "https://gallery.cameraboss.co.uk/joandjonny/"
+    }
+  }
 ];
 ---
 
-<section class="relative isolate h-screen min-h-[640px] w-full overflow-hidden bg-black" data-hero-slider>
-  <Header />
-
-  {
-    slides.map((slide, i) => (
-      <div
-        class="absolute inset-0 transition-opacity duration-1000 ease-in-out"
-        class:list={[i === 0 ? "opacity-100" : "opacity-0 pointer-events-none"]}
-        data-slide={i}
-      >
-        <img
-          src={slide.image}
-          alt={`${slide.title.join(" ")} — ${slide.subtitle}`}
-          class="absolute inset-0 h-full w-full object-cover"
-          loading={i === 0 ? "eager" : "lazy"}
-          fetchpriority={i === 0 ? "high" : "low"}
-        />
-        <div class="absolute inset-0 bg-black/20" />
-        <div class="relative flex h-full items-center justify-center px-6">
-          <div class="max-w-[744px] text-center text-white">
-            {/* One <h1> per page: the first slide carries it, the rest are
-                headings of equal visual weight but lower rank. */}
-            <Fragment set:html={`<${i === 0 ? "h1" : "h2"} class="font-display text-4xl leading-tight font-light text-balance sm:text-6xl lg:text-[85px] lg:leading-[1]">${slide.title
-              .map((line) => `<span class="block">${line}</span>`)
-              .join("")}</${i === 0 ? "h1" : "h2"}>`} />
-            <p class="mt-6 text-sm font-medium tracking-[0.06em] uppercase">
-              {slide.subtitle}
-            </p>
-            {slide.cta && (
-              <a
-                href={slide.cta.href}
-                class="mt-8 inline-block rounded-full border border-white px-10 py-3.5 text-xs font-semibold tracking-[0.1em] text-white uppercase transition-colors hover:bg-white hover:text-black"
-              >
-                {slide.cta.label}
-              </a>
-            )}
-          </div>
-        </div>
-      </div>
-    ))
-  }
-
-  <div class="absolute inset-x-0 bottom-5 z-20 flex items-center justify-center gap-10 px-8">
-    <button
-      type="button"
-      class="-m-3 p-3 text-white/80 transition-colors hover:text-white"
-      aria-label="Previous slide"
-      data-hero-prev
-    >
-      <svg width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M9 1L1 9L9 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </button>
-
-    <div class="flex items-center gap-4 sm:gap-3" role="tablist" aria-label="Slides">
-      {
-        slides.map((_, i) => (
-          <button
-            type="button"
-            role="tab"
-            aria-label={`Go to slide ${i + 1}`}
-            aria-selected={i === 0}
-            class="relative size-2 rounded-full border border-white transition-colors before:absolute before:-inset-2.5 before:content-['']"
-            class:list={[i === 0 ? "bg-white" : "bg-transparent"]}
-            data-hero-dot={i}
-          />
-        ))
-      }
-    </div>
-
-    <button
-      type="button"
-      class="-m-3 p-3 text-white/80 transition-colors hover:text-white"
-      aria-label="Next slide"
-      data-hero-next
-    >
-      <svg width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M1 1L9 9L1 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </button>
+<section class="editorial-hero" data-hero-slider>
+  <div class="hero-minimal-title"><p data-story-current>{slides[0].title.join(" ")}</p><h2>Through our lens.<br />Into your story.</h2><a data-story-link href={slides[0].cta?.href}>Explore the stories <span aria-hidden="true">↗</span></a></div>
+  <div class="hero-photographs">
+    {slides.map((slide,i) => <div class:list={['hero-frame',i===0 ? 'opacity-100' : 'opacity-0 pointer-events-none']} data-slide={i} data-story-title={slide.title.join(" ")} data-story-href={slide.cta?.href} aria-hidden={i!==0} inert={i!==0}>
+      <img src={slide.image} alt={`${slide.title.join(' ')} — ${slide.subtitle}`} loading={i===0 ? 'eager' : 'lazy'} fetchpriority={i===0 ? 'high' : 'low'} />
+      <div class="hero-caption" inert aria-hidden="true"><p>{slide.subtitle}</p><h2>{slide.title.join(' ')}</h2>{slide.cta && <a href={slide.cta.href}>{slide.cta.label} <span aria-hidden="true">↗</span></a>}</div>
+    </div>)}
+    <div class="hero-controls"><button type="button" data-hero-prev aria-label="Previous slide">←</button><span class="hero-slide-count" data-story-count>01 / 12</span><div class="hero-dots" role="tablist" aria-label="Slides">{slides.map((_,i)=><button type="button" role="tab" aria-label={`Go to slide ${i+1}`} aria-selected={i===0} data-hero-dot={i} class:list={[i===0?'bg-white':'bg-transparent']} />)}</div><button type="button" data-hero-next aria-label="Next slide">→</button><button type="button" data-hero-pause aria-pressed="false">Pause slideshow</button></div>
   </div>
 </section>
-
 <script>
   const root = document.querySelector<HTMLElement>("[data-hero-slider]");
   if (root) {
@@ -138,6 +163,9 @@ const slides: Slide[] = [
     const dotEls = Array.from(root.querySelectorAll<HTMLElement>("[data-hero-dot]"));
     let current = 0;
     let timer: ReturnType<typeof setInterval>;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let paused = reducedMotion.matches;
+    const pause = root.querySelector<HTMLButtonElement>('[data-hero-pause]');
 
     function show(index: number) {
       const next = (index + slideEls.length) % slideEls.length;
@@ -153,12 +181,20 @@ const slides: Slide[] = [
       dotEls[next].classList.remove("bg-transparent");
       dotEls[next].setAttribute("aria-selected", "true");
 
+      slideEls.forEach((slide, index) => { slide.inert = index !== next; slide.setAttribute('aria-hidden', String(index !== next)); });
+      const title = root!.querySelector<HTMLElement>('[data-story-current]');
+      const link = root!.querySelector<HTMLAnchorElement>('[data-story-link]');
+      if (title) title.textContent = slideEls[next].dataset.storyTitle || 'CameraBoss / Wedding stories';
+      if (link) link.href = slideEls[next].dataset.storyHref || '/client-area/';
+      const count = root!.querySelector('[data-story-count]');
+      if(count) count.textContent = `${String(next+1).padStart(2,'0')} / ${slideEls.length}`;
       current = next;
     }
 
     function restart() {
       clearInterval(timer);
-      timer = setInterval(() => show(current + 1), 6000);
+      if (!paused && !document.hidden) timer = setInterval(() => show(current + 1), 6000);
+      if (pause) { pause.textContent = paused ? 'Play slideshow' : 'Pause slideshow'; pause.setAttribute('aria-pressed', String(paused)); }
     }
 
     root.querySelector("[data-hero-prev]")?.addEventListener("click", () => {
@@ -176,6 +212,10 @@ const slides: Slide[] = [
       }),
     );
 
+    pause?.addEventListener('click', () => { paused = !paused; restart(); });
+    reducedMotion.addEventListener('change', event => { paused = event.matches; restart(); });
+    document.addEventListener('visibilitychange', restart);
+    root.addEventListener('focusin', event => { if (event.target === pause) return; paused = true; restart(); });
     restart();
   }
 </script>
