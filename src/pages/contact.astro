@@ -2,6 +2,7 @@
 export const prerender = true;
 
 import PageLayout from "../layouts/PageLayout.astro";
+import { ENQUIRY_BRAND, ENQUIRY_EMBED_SCRIPT, ENQUIRY_FORM, ENQUIRY_PAGE_URL } from "../lib/crm";
 
 const B = "https://htwwyqfattodfaybqgev.supabase.co/storage/v1/object/public/blog/";
 
@@ -69,21 +70,20 @@ const explore = [
   <!-- Booking form -->
   <section class="bg-white/70 py-16">
     <div class="mx-auto max-w-[860px] px-6">
-      <iframe
-        id="sn-form-htww3"
-        title="CameraBoss booking enquiry form"
-        src="https://app.studioninja.co/contactform/parser/0a800fc9-7a7c-1768-817a-a68817ea5956/0a800fc9-7ac4-1365-817b-0817cb5472ce"
-        height="641"
-        loading="lazy"
-        allowfullscreen
-        style="min-width: 100%; max-width: 1150px; border: 0;"
-      ></iframe>
+      <!-- The CRM's own injector builds the iframe here and keeps its height
+           in step as the form reveals follow-up questions. -->
       <script
         is:inline
         type="text/javascript"
-        data-iframe-id="sn-form-htww3"
-        src="https://app.studioninja.co/client-assets/form-render/assets/scripts/iframeResizer.js"
+        src={ENQUIRY_EMBED_SCRIPT}
+        data-brand={ENQUIRY_BRAND}
+        data-form={ENQUIRY_FORM}
       ></script>
+      <noscript>
+        <p class="text-sm">
+          <a href={ENQUIRY_PAGE_URL} class="underline">Open the enquiry form</a>
+        </p>
+      </noscript>
     </div>
   </section>
 

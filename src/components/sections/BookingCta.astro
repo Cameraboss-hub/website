@@ -1,7 +1,5 @@
 ---
-// The original site embeds a booking/date-availability widget here.
-// Backend milestone: swap this placeholder for the real booking flow
-// (availability calendar + inquiry form → email/DB) once that work starts.
+import { ENQUIRY_PAGE_URL } from "../../lib/crm";
 ---
 
 <section class="bg-white py-16 text-center lg:py-24">
@@ -9,16 +7,22 @@
     <h2 class="font-display text-3xl font-thin text-[#434343] sm:text-4xl lg:text-5xl">
       Let&rsquo;s Confirm Your Date
     </h2>
+    <p class="mx-auto mt-4 max-w-xl text-sm text-[#797979]">
+      Tell us about your day and we&rsquo;ll come back to you with availability and pricing.
+    </p>
 
-    <div class="mx-auto mt-10 max-w-xl rounded-2xl border border-dashed border-[#d9d9d9] bg-[#fafafa] px-8 py-16">
-      <p class="text-sm text-[#797979]">
-        Availability calendar &amp; booking form — coming soon.
-      </p>
+    <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
       <a
         href="/contact"
-        class="mt-6 inline-block rounded-full border border-[#434343] px-8 py-3 text-xs font-semibold tracking-[0.1em] text-[#434343] uppercase transition-colors hover:bg-[#434343] hover:text-white"
+        class="inline-block rounded-full bg-[#434343] px-8 py-3 text-xs font-semibold tracking-[0.1em] text-white uppercase transition-colors hover:bg-black"
       >
-        Enquire in the meantime
+        Check your date
+      </a>
+      <a
+        href={ENQUIRY_PAGE_URL}
+        class="inline-block rounded-full border border-[#434343] px-8 py-3 text-xs font-semibold tracking-[0.1em] text-[#434343] uppercase transition-colors hover:bg-[#434343] hover:text-white"
+      >
+        Send an enquiry
       </a>
     </div>
   </div>
