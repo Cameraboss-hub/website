@@ -30,7 +30,7 @@ export const info: NavItem[] = [
 
 export const right: NavItem[] = [
   { label: "Blog", href: "/blog/" },
-  { label: "Galleries", href: "/galleries/" },
+  { label: "Galleries", href: "/client-area/" },
   { label: "Videos", href: "/Wedding-videos/" },
   { label: "Contact", href: "/contact/" },
 ];

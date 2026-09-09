@@ -1,7 +1,14 @@
 ---
 import "../styles/global.css";
+import "../styles/editorial.css";
 import "../styles/pixieset-blocks.css";
+import "../styles/interior.css";
+import "../styles/white.css";
+import "../styles/dock.css";
+import EditorialMotion from "../components/EditorialMotion.astro";
 import Analytics from "../components/Analytics.astro";
+import SiteInteractions from "../components/SiteInteractions.astro";
+import { seoFor } from "../lib/seo";
 import SiteHeader from "../components/SiteHeader.astro";
 import MobileNav from "../components/MobileNav.astro";
 import Footer from "../components/Footer.astro";
@@ -17,14 +24,16 @@ interface Props {
 }
 
 const {
-  title,
-  description = "CameraBoss — London & Leicester wedding, portrait and destination photographer.",
+  title: suppliedTitle,
+  description: suppliedDescription = "CameraBoss — London & Leicester wedding, portrait and destination photographer.",
   ogImage,
   canonical,
   noindex = false,
   current = "",
   article,
 } = Astro.props;
+
+const { title, description } = seoFor(Astro.url.pathname, { title: suppliedTitle, description: suppliedDescription });
 
 const site = "https://www.cameraboss.co.uk";
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, site).href;
@@ -111,20 +120,23 @@ const orgLd = {
         ? "noindex, follow"
         : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"}
     />
-    <meta name="theme-color" content="#1a1a1a" />
+    <meta name="theme-color" content="#fafaf8" />
     <meta name="author" content="John Olalekan Durojaye" />
     <meta property="og:locale" content="en_GB" />
 
     <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
     <slot name="head" />
   </head>
-  <body>
+  <body id="top" class="editorial-site cinematic-interior white-theme dock-theme" data-page={Astro.url.pathname}>
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <SiteHeader current={current} />
-    <main>
+    <main id="main-content">
       <slot />
     </main>
     <Footer />
     <MobileNav current={current} />
+    <SiteInteractions />
+    <EditorialMotion />
     <Analytics />
   </body>
 </html>

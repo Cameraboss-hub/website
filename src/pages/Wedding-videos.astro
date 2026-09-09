@@ -27,10 +27,9 @@ const videoLd = {
       "@type": "VideoObject",
       name: f.title,
       description: f.title,
-      thumbnailUrl: `https://i.ytimg.com/vi/${f.id}/maxresdefault.jpg`,
+      thumbnailUrl: `https://i.ytimg.com/vi/${f.id}/hqdefault.jpg`,
       embedUrl: `https://www.youtube.com/embed/${f.id}`,
       contentUrl: `https://www.youtube.com/watch?v=${f.id}`,
-      uploadDate: "2022-01-01",
       publisher: { "@type": "Organization", name: "CameraBoss" },
     },
   })),
@@ -41,7 +40,7 @@ const videoLd = {
   title="Wedding Videography in London | Professional Wedding Videos UK"
   description="Professional wedding videography in London and UK. Custom films crafted with passion — see examples & reserve your wedding video package."
   current="/Wedding-videos/"
-  ogImage={`https://i.ytimg.com/vi/${featured.id}/maxresdefault.jpg`}
+  ogImage={`https://i.ytimg.com/vi/${featured.id}/hqdefault.jpg`}
 >
   <link slot="head" rel="preconnect" href="https://i.ytimg.com" />
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(videoLd)} />
@@ -63,7 +62,7 @@ const videoLd = {
       aria-label={`Play ${featured.title}`}
     >
       <img
-        src={`https://i.ytimg.com/vi/${featured.id}/maxresdefault.jpg`}
+        src={`https://i.ytimg.com/vi/${featured.id}/hqdefault.jpg`}
         alt={featured.title}
         width="1280"
         height="720"

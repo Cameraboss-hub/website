@@ -9,7 +9,10 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "astro check",
+    "test:migration": "python3 tests/test_migration.py",
+    "test": "npm run build && npm run test:migration"
   },
   "dependencies": {
     "@astrojs/vercel": "^11.0.10",

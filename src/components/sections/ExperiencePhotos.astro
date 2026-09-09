@@ -1,0 +1,23 @@
+---
+const photos = [
+ {file:'02-the-wedding.webp',alt:'Wedding celebration photographed by CameraBoss'},
+ {file:'04-mayo-emmanuel.webp',alt:'Mayo and Emmanuel'},
+ {file:'03-yoruba-wedding.webp',alt:'Yoruba wedding celebration'},
+ {file:'08-js-london-wedding.webp',alt:'J and S — London wedding'}
+];
+---
+<section class="experience-photos" data-experience-photos aria-label="The CameraBoss experience in photographs">
+ <div class="experience-photos-stage">{photos.map((photo,i)=><img src={`/images/portfolio/${photo.file}`} alt={photo.alt} loading="lazy" width="1400" height="1000" data-experience-photo class:list={[i===0&&'is-current']} aria-hidden={i!==0} />)}</div>
+ <div class="experience-photos-controls"><button type="button" data-photo-prev aria-label="Previous experience photograph">←</button><span data-photo-count>01 / 04</span><button type="button" data-photo-next aria-label="Next experience photograph">→</button><button type="button" data-photo-pause aria-pressed="false">Pause slideshow</button><a href="/client-area/">Explore the galleries ↗</a></div>
+</section>
+<script>
+document.querySelectorAll<HTMLElement>('[data-experience-photos]').forEach(root=>{
+ const photos=[...root.querySelectorAll<HTMLImageElement>('[data-experience-photo]')];
+ const pause=root.querySelector<HTMLButtonElement>('[data-photo-pause]')!;
+ const motion=matchMedia('(prefers-reduced-motion: reduce)');let paused=motion.matches;let current=0;let visible=false;let timer:ReturnType<typeof setInterval>|undefined;
+ const show=(index:number)=>{current=(index+photos.length)%photos.length;photos.forEach((p,i)=>{p.classList.toggle('is-current',i===current);p.setAttribute('aria-hidden',String(i!==current));});root.querySelector('[data-photo-count]')!.textContent=`0${current+1} / 04`;};
+ const sync=()=>{clearInterval(timer);if(visible&&!paused&&!document.hidden)timer=setInterval(()=>show(current+1),5000);pause.textContent=paused?'Play slideshow':'Pause slideshow';pause.setAttribute('aria-pressed',String(paused));};
+ root.querySelector('[data-photo-prev]')?.addEventListener('click',()=>{show(current-1);sync();});root.querySelector('[data-photo-next]')?.addEventListener('click',()=>{show(current+1);sync();});pause.addEventListener('click',()=>{paused=!paused;sync();});
+ root.addEventListener('focusin',event=>{if(event.target!==pause){paused=true;sync();}});motion.addEventListener('change',event=>{paused=event.matches;sync();});document.addEventListener('visibilitychange',sync);new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;sync();}).observe(root);sync();
+});
+</script>

@@ -2,9 +2,9 @@
 
 @theme {
   /* Brand palette — refine once brand guidelines / exact hex values are confirmed */
-  --color-ink: #1a1a1a;
-  --color-paper: #fafafa;
-  --color-accent: #b3242a; /* red accent from the "Camera BOSS" wordmark */
+  --color-ink: #252822;
+  --color-paper: #f6f3ed;
+  --color-accent: #813d40; /* red accent from the "Camera BOSS" wordmark */
 
   /* Typography
      "Quincy CF" (display serif) is a licensed font used in the Figma file —
@@ -268,8 +268,6 @@ body.cb-picking { padding-bottom: 84px; }
   transition: opacity .18s ease, transform .18s ease, visibility .18s;
   pointer-events: none;
 }
-.cb-nav-dd:hover > .cb-nav-dd__menu,
-.cb-nav-dd:focus-within > .cb-nav-dd__menu,
 .cb-nav-dd__btn[aria-expanded="true"] + .cb-nav-dd__menu {
   opacity: 1;
   visibility: visible;
@@ -278,7 +276,6 @@ body.cb-picking { padding-bottom: 84px; }
 }
 .cb-nav-dd__btn { cursor: pointer; background: none; border: 0; padding: 0; font: inherit; height: auto; line-height: 1; display: flex; align-items: center; gap: 0.25rem; }
 .cb-nav-dd__caret { transition: transform .18s ease; }
-.cb-nav-dd:hover .cb-nav-dd__caret,
 .cb-nav-dd__btn[aria-expanded="true"] .cb-nav-dd__caret { transform: rotate(180deg); }
 /* Hover bridge so the pointer can travel from button to menu */
 .cb-nav-dd::after { content: ""; position: absolute; inset: 100% 0 auto 0; height: 14px; }
@@ -793,4 +790,13 @@ html.cb-nav-locked, html.cb-nav-locked body { overflow: hidden; }
 }
 @media (max-width: 640px) {
   [data-hero-slider] { min-height: 520px; }
+}
+
+/* Keep filtering and accessibility behaviour independent of imported theme rules. */
+[hidden] { display: none !important; }
+.skip-link { position: fixed; left: 1rem; top: -8rem; z-index: 100; padding: .8rem 1rem; background: white; color: #1a1a1a; }
+.skip-link:focus { top: 1rem; }
+:focus-visible { outline: 2px solid #b3242a; outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }

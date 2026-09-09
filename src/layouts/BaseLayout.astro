@@ -1,6 +1,14 @@
 ---
 import "../styles/global.css";
+import "../styles/editorial.css";
+import "../styles/immersive.css";
+import "../styles/photo-pattern.css";
+import "../styles/white.css";
+import "../styles/dock.css";
+import EditorialMotion from "../components/EditorialMotion.astro";
 import Analytics from "../components/Analytics.astro";
+import SiteInteractions from "../components/SiteInteractions.astro";
+import { seoFor } from "../lib/seo";
 import MobileNav from "../components/MobileNav.astro";
 
 interface Props {
@@ -10,10 +18,12 @@ interface Props {
 }
 
 const {
-  title,
-  description = "CameraBoss — London & Leicester wedding, portrait and destination photographer covering the UK and Nigeria.",
-  ogImage = "/images/hero/slide-01-london.png",
+  title: suppliedTitle,
+  description: suppliedDescription = "CameraBoss — London & Leicester wedding, portrait and destination photographer covering the UK and Nigeria.",
+  ogImage = "/images/hero/slide-01-london.webp",
 } = Astro.props;
+
+const { title, description } = seoFor(Astro.url.pathname, { title: suppliedTitle, description: suppliedDescription });
 
 const site = "https://www.cameraboss.co.uk";
 const canonicalUrl = new URL(Astro.url.pathname, site).href;
@@ -71,7 +81,7 @@ const websiteLd = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <meta name="theme-color" content="#1a1a1a" />
+    <meta name="theme-color" content="#fafaf8" />
     <meta name="author" content="John Olalekan Durojaye" />
 
     <meta property="og:type" content="website" />
@@ -96,9 +106,12 @@ const websiteLd = {
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body id="top" class="editorial-site cinematic-home white-theme dock-theme">
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <slot />
     <MobileNav current="/" />
+    <SiteInteractions />
+    <EditorialMotion />
     <Analytics />
   </body>
 </html>

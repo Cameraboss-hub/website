@@ -1,0 +1,109 @@
+/* Shared cinematic identity for every interior route, including imported pages. */
+.cinematic-interior{--font-display:'Work Sans',Arial,sans-serif;--color-paper:#050505;--color-ink:#f5f5f5;--color-accent:#dbc7b2;--editorial-paper:#050505;--editorial-dark:#101010;--editorial-muted:#b5b5b5;--editorial-line:#333;background:#050505;color:#eee;color-scheme:dark}
+.cinematic-interior :is(h1,h2,h3,h4){font-family:var(--font-display)!important;font-weight:600!important;letter-spacing:-.035em;line-height:1.12;text-transform:uppercase;overflow-wrap:break-word}
+.cinematic-interior :is(h1,h2,h3,h4) em{font-style:normal;font-weight:inherit}
+.cinematic-interior .editorial-header{background:#050505f5;color:#fff;border-color:#292929}
+.cinematic-interior .editorial-brand img{filter:brightness(0) invert(1)}
+.cinematic-interior .editorial-brand>span{display:none}
+.cinematic-interior .editorial-nav :is(a,button){text-transform:uppercase;letter-spacing:.06em}
+.cinematic-interior .editorial-dropdown{background:#101010;border-color:#333;color:#fff}
+.cinematic-interior .editorial-dropdown a:hover{background:#292929}
+.cinematic-interior .editorial-footer{background:#050505;border-top:1px solid #303030;color:#eee}
+.cinematic-interior .editorial-footer h2{font-size:clamp(40px,6vw,88px)}
+.cinematic-interior .editorial-footer :is(a,p){color:inherit}
+.cinematic-interior [class*="text-black/"]{color:#bcbcbc}
+.cinematic-interior [class*="border-black/"]{border-color:#333}
+.cinematic-interior :is(section,div,a)[class*="bg-white"]{background-color:#101010}
+.cinematic-interior :is(.journal-masthead,.journal-library,.journal-feature-copy,.editorial-article .post-body){background:#050505}
+.cinematic-interior .journal-feature-link{background:#111;border:1px solid #262626}
+.cinematic-interior .journal-feature-copy{background:#111}
+.cinematic-interior .journal-heading-row h1{font-size:clamp(45px,6vw,86px)}
+.cinematic-interior .journal-card h3{font-size:24px;line-height:1.25}
+.cinematic-interior .journal-card-photo{background:#181818}
+.cinematic-interior :is(input,select,textarea){color:#eee;background-color:#101010;border-color:#777}
+.cinematic-interior :is(input,textarea)::placeholder{color:#aaa;opacity:1}
+.cinematic-interior :is(a,button,input,select,summary):focus-visible{outline:2px solid #dbc7b2;outline-offset:4px}
+.cinematic-interior .journal-select option{background:#101010;color:#fff}
+.cinematic-interior .article-heading{max-width:1100px;padding-block:85px 55px}
+.cinematic-interior .article-heading h1{font-size:clamp(32px,4vw,58px);line-height:1.12}
+.cinematic-interior .article-cover{max-width:1440px;padding-inline:3%}
+.cinematic-interior .article-cover>img{max-height:850px}
+.cinematic-interior .ca-hero{margin:0;height:78svh;min-height:460px}
+.cinematic-interior .ca-hero__title{font-size:clamp(32px,4.8vw,68px)}
+.cinematic-interior :is(.ca-tab,.ca-page,.ca-card__date,.ca-empty){color:#bcbcbc}
+.cinematic-interior :is(.ca-tab[aria-selected="true"],.ca-page[aria-current="true"]){color:white;border-color:white}
+.cinematic-interior .ca-card__title{font-size:21px;line-height:1.25}
+.cinematic-interior .ca-grid{gap:45px 12px}
+.cinematic-interior .ca-card__photo{aspect-ratio:1}
+.cinematic-interior .cb-arrow{color:white}
+.cinematic-interior .cb-film__title{color:#eee;font-size:18px}
+.cinematic-interior .post-body{
+ --primary-background:#050505;--primary-headings:#f5f5f5;--primary-paragraphs:#c3c3c3;--primary-details:#353535;
+ --accent-background:#121212;--accent-headings:#fff;--accent-paragraphs:#c3c3c3;--accent-details:#393939;
+ --button-background:#f5f5f5;--button-background-hover:#dbc7b2;--button-text:#050505;--button-text-hover:#050505;
+ --display-heading_font-weight:600;--heading-1_font-weight:600;--heading-2_font-weight:600;--heading-3_font-weight:600;--heading-4_font-weight:600;
+ --display-heading_text-transform:uppercase;--heading-1_text-transform:uppercase;--heading-2_text-transform:uppercase;--heading-3_text-transform:uppercase;
+ color:#c3c3c3;background:#050505;
+}
+.cinematic-interior .post-body .text__text{color:#c3c3c3;line-height:1.85}
+.cinematic-interior .post-body .text__text [style*="color"]{color:inherit!important}
+.cinematic-interior .post-body :is(h1,h2,h3,h4){color:#f5f5f5!important}
+.cinematic-interior .post-body .text__text a{color:#e6ccb1!important;text-decoration:underline;text-underline-offset:4px}
+.cinematic-interior .post-body .button.button__button{border-radius:0!important;letter-spacing:.1em}
+.cinematic-interior .post-body :is(table,th,td){border-color:#555}
+.cinematic-interior .post-body :is(th,td){background-color:#141414;color:#ddd}
+.cinematic-interior .post-body blockquote{border-color:#777;color:#ddd}
+.cinematic-interior .post-body .text__text :is(h1,h2,h3,h4){line-height:1.15}
+@media(max-width:700px){
+ .cinematic-interior .article-heading{padding:45px 22px 35px}
+ .cinematic-interior .article-heading h1{font-size:32px}
+ .cinematic-interior .ca-hero{height:72svh;min-height:460px}
+ .cinematic-interior .ca-hero__title{font-size:32px}
+ .cinematic-interior .journal-card h3{font-size:23px}
+ .cinematic-interior .post-body :is(h1,h2,h3,h4){overflow-wrap:anywhere}
+ .cinematic-interior[data-page="/contact/"] h1{font-size:30px}
+}
+/* Imported blocks can redeclare their palette inline; theme those at source scope. */
+.cinematic-interior .post-body [style*="--primary-"],.cinematic-interior .post-body [style*="--accent-"]{
+ --primary-background:#050505!important;--primary-headings:#f5f5f5!important;--primary-paragraphs:#c3c3c3!important;--primary-details:#353535!important;
+ --accent-background:#121212!important;--accent-headings:#fff!important;--accent-paragraphs:#c3c3c3!important;--accent-details:#393939!important;
+ --button-background:#f5f5f5!important;--button-background-hover:#dbc7b2!important;--button-text:#050505!important;--button-text-hover:#050505!important;
+}
+.cinematic-interior [class~="bg-[#f1f1f0]"]{background:#111}
+.cinematic-interior a[class*="hover:bg-[var(--color-ink)]"]:hover{background:#eee;color:#050505}
+.cinematic-interior a.rounded-full{border-radius:0}
+.cinematic-interior .cb-mnav__panel{background:#080808;color:white}
+.cinematic-interior .cb-mnav__logo img{filter:brightness(0) invert(1)}
+.cinematic-interior .cb-mnav__link{text-transform:uppercase;font-family:var(--font-display);font-weight:600}
+.cinematic-interior :is(.cb-mnav__label,.cb-mnav__meta a){color:#bbb}
+.cinematic-interior .cb-mnav__cta a{background:#eee;color:#050505}
+/* Independently embedded location designs need their own palette and full grid span. */
+.cinematic-interior .fb-element--customCode:has(.cbl-dir),.cinematic-interior .fb-element--customCode:has(.ncl){grid-column:1/-1!important;width:100%;min-width:0}
+.cinematic-interior .post-body .fb-element-type-custom-code__content :is(.cbl-dir,.ncl){--f-display:'Work Sans',Arial,sans-serif;--cream:#080808;--cream-dark:#181818;--black:#050505;--border:#393939;--t-dark:#f5f5f5;--t-mid:#bdbdbd;--t-light:#aaa;--red:#dbc7b2;--red-dark:#857361;width:100%;min-width:0}
+.cinematic-interior .post-body .fb-element-type-custom-code__content :is(.cbl-dir,.ncl) :is(h1,h2,h3,h4){text-transform:uppercase}
+.cinematic-interior .post-body .fb-element-type-custom-code__content :is(.cbl-dir,.ncl) :is(h1,h2,h3,h4) em{font-style:normal!important;font-weight:600}
+.cinematic-interior .post-body .fb-element-type-custom-code__content :is(.cbl-dir,.ncl) :is(.jump-nav,.map-card,[class$="-card"]){background:#101010}
+.cinematic-interior .post-body .fb-element-type-custom-code__content :is(.cbl-dir,.ncl) :is(.hero-cta,.map-enquire,.btn-primary){background:#eee;color:#050505}
+.cinematic-interior .post-body .fb-element-type-custom-code__content .cbl-dir .jump-nav{top:92px;z-index:30}
+@media(max-width:700px){.cinematic-interior .post-body .fb-element-type-custom-code__content .cbl-dir .jump-nav{top:72px}.cinematic-interior .post-body .fb-element-type-custom-code__content .cbl-dir .hero h1{font-size:40px}}
+/* Article embeds have local reading-panel styles separate from Pixieset variables. */
+.cinematic-interior .editorial-article .post-body .fb-element-type-custom-code__content{background:#050505;color:#c3c3c3}
+.cinematic-interior .editorial-article .post-body .fb-element-type-custom-code__content :is(.container,.intro-block,.faq-block,.faq-section,.cta-box,.pull-quote,.notice-block,.detail-strip){background:#111;color:#c3c3c3;border-color:#555;box-shadow:none}
+.cinematic-interior .editorial-article .post-body .fb-element-type-custom-code__content :is(p,li,span,strong,em,summary,blockquote){color:inherit}
+.cinematic-interior .editorial-article .post-body .fb-element-type-custom-code__content [style*="color"]{color:inherit!important}
+.cinematic-interior .editorial-article .post-body .fb-element-type-custom-code__content a{color:#e6ccb1;text-underline-offset:4px}
+.cinematic-interior .editorial-article .post-body .fb-element-type-custom-code__content :is(.cta-box a,.cta-links a,.cta-btn,.cta-primary,.cta-btn-secondary){background:#eee;color:#050505;border-color:#aaa;border-radius:0}
+.cinematic-interior .editorial-article .fb-element--customCode{grid-column:1/-1!important;width:100%;min-width:0}
+.cinematic-interior .editorial-article .fb-element-type-custom-code,.cinematic-interior .editorial-article .fb-element-type-custom-code__content{width:100%;min-width:0}
+@media(max-width:700px){
+ .cinematic-interior .editorial-article .post-body .fb-element-type-custom-code__content{padding:20px 12px}
+ .cinematic-interior .editorial-article .post-body .fb-element-type-custom-code__content .container{width:100%;padding:18px 12px}
+ .cinematic-interior .editorial-article .post-body .fb-element-type-custom-code__content :is(.intro-block,.faq-block,.faq-section,.cta-box){padding:20px 16px}
+}
+.cinematic-interior .editorial-article .post-body .fb-element-type-custom-code__content :is(p,li){text-align:left;line-height:1.8}
+@media(max-width:700px){
+ .cinematic-interior .post-body .fb-element-type-custom-code__content .ncl .hero{flex-direction:column;align-items:stretch}
+ .cinematic-interior .post-body .fb-element-type-custom-code__content .ncl .hero-content{width:100%;flex:none;padding:45px 24px}
+ .cinematic-interior .post-body .fb-element-type-custom-code__content .ncl .hero h1{font-size:34px;overflow-wrap:normal}
+ .cinematic-interior .post-body .fb-element-type-custom-code__content .ncl .hero-stats{width:100%;flex:none}
+}

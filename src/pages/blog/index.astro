@@ -1,76 +1,40 @@
 ---
 export const prerender = true;
-
-import PageLayout from "../../layouts/PageLayout.astro";
-import { posts, formatDate, thumbFor, excerpt } from "../../lib/content";
-
+import filters from '../../data/blog-filters.json';
+import PageLayout from '../../layouts/PageLayout.astro';
+import { posts, formatDate, thumbFor, excerpt } from '../../lib/content';
 const featured = posts[0];
-const rest = posts.slice(1);
+const filterLabels: Record<string,string> = {'category:weddings':'Real weddings','category:leicester-wedding':'Leicester','category:london-wedding':'London','category:manchester-wedding-photography':'Manchester','category:pre-wedding':'Pre-wedding'};
 ---
-
-<PageLayout
-  title="Wedding Photography Insight & Tips | CameraBoss UK Blog"
-  description="Venue guides, planning advice and real weddings from a UK & Nigeria wedding photographer covering London, Leicester, Manchester, Birmingham and beyond."
-  current="/blog"
-  ogImage={thumbFor(featured) ?? undefined}
->
-  <section class="mx-auto max-w-[1368px] px-6 pt-16 pb-10 md:pt-24">
-    <p class="text-[11px] tracking-[0.4em] text-black/45 uppercase">Journal</p>
-    <h1 class="mt-4 font-[family-name:var(--font-display)] text-4xl leading-tight font-light md:text-6xl">
-      Stories, venues &amp; planning notes
-    </h1>
-    <p class="mt-5 max-w-2xl text-[15px] leading-relaxed text-black/60">
-      {posts.length} pieces on weddings, venues and photography across the UK and Nigeria — written from
-      actually working these places, not researching them.
-    </p>
-  </section>
-
-  {featured && (
-    <section class="mx-auto max-w-[1368px] px-6 pb-16">
-      <a href={`/blog/${featured.slug}/`} class="group grid gap-8 md:grid-cols-2 md:items-center">
-        <div class="aspect-[4/3] overflow-hidden bg-black/5">
-          {thumbFor(featured) && (
-            <img
-              src={thumbFor(featured)}
-              alt={featured.title}
-              loading="eager"
-              class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-          )}
-        </div>
-        <div>
-          <p class="text-[11px] tracking-[0.3em] text-[var(--color-accent)] uppercase">Latest</p>
-          <h2 class="mt-4 font-[family-name:var(--font-display)] text-2xl leading-snug font-light md:text-4xl">
-            {featured.title}
-          </h2>
-          <p class="mt-4 text-[15px] leading-relaxed text-black/60">{excerpt(featured, 190)}…</p>
-          <p class="mt-6 text-[11px] tracking-[0.25em] text-black/40 uppercase">{formatDate(featured.date)}</p>
-        </div>
-      </a>
-    </section>
-  )}
-
-  <section class="mx-auto max-w-[1368px] px-6 pb-28">
-    <div class="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
-      {rest.map((p) => (
-        <a href={`/blog/${p.slug}/`} class="group block">
-          <div class="aspect-[4/3] overflow-hidden bg-black/5">
-            {thumbFor(p) && (
-              <img
-                src={thumbFor(p)}
-                alt={p.title}
-                loading="lazy"
-                class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-            )}
-          </div>
-          <h3 class="mt-5 font-[family-name:var(--font-display)] text-lg leading-snug font-light transition-colors group-hover:text-[var(--color-accent)]">
-            {p.title}
-          </h3>
-          <p class="mt-3 line-clamp-2 text-sm leading-relaxed text-black/55">{excerpt(p, 110)}…</p>
-          <p class="mt-4 text-[10px] tracking-[0.25em] text-black/40 uppercase">{formatDate(p.date)}</p>
-        </a>
-      ))}
-    </div>
-  </section>
+<PageLayout title="Wedding Photography Insight & Tips | CameraBoss UK Blog" description="Venue guides, planning advice and real weddings from a UK & Nigeria wedding photographer covering London, Leicester, Manchester, Birmingham and beyond." current="/blog" ogImage={thumbFor(featured) ?? undefined}>
+ <section class="journal-masthead section-shell"><p class="eyebrow">The CameraBoss journal / Stories &amp; inspiration</p><div class="journal-heading-row"><h1>A little inspiration.<br /><em>A lot of heart.</em></h1><p>Real weddings, beautiful places and advice from behind the lens. Explore {posts.length} stories from the UK, Nigeria and beyond.</p></div></section>
+ {featured && <section class="section-shell journal-feature" data-featured><a href={`/blog/${featured.slug}/`} class="journal-feature-link"><div class="journal-feature-photo">{thumbFor(featured)&&<img src={thumbFor(featured)} alt={featured.title} loading="eager" fetchpriority="high" />}</div><div class="journal-feature-copy"><p class="eyebrow">The latest story</p><h2>{featured.title}</h2><p>{excerpt(featured,190)}…</p><div class="journal-feature-bottom"><time>{formatDate(featured.date)}</time><span class="circle-arrow" aria-hidden="true">↗</span></div></div></a></section>}
+ <section class="section-shell journal-library" aria-labelledby="journal-library-title">
+  <div class="journal-library-heading"><h2 id="journal-library-title">Find your next read.</h2><p id="journal-count" aria-live="polite">{posts.length} stories</p></div>
+  <form class="journal-controls" role="search" action="/blog/" method="get">
+   <div class="journal-search"><label for="journal-search">Search the journal</label><div><span aria-hidden="true">⌕</span><input id="journal-search" name="q" type="search" placeholder="A city, a venue, a love story…" autocomplete="off" /></div></div>
+   <div class="journal-select"><label for="journal-filter">Browse by subject</label><select id="journal-filter"><option value="">All stories</option>{Object.keys(filters).map(key=><option value={key}>{filterLabels[key]||key.split(':').slice(1).join(':')}</option>)}</select></div>
+   <button type="button" class="journal-clear" data-journal-clear>Clear filters ↗</button>
+  </form>
+  <p id="journal-empty" hidden>No stories match your search. Try a different city or <a href="/blog/" class="text-link">view all stories</a>.</p>
+  <div class="journal-grid">{posts.map((p,i)=><a href={`/blog/${p.slug}/`} class="journal-card" data-post={p.slug} data-search={`${p.title} ${excerpt(p,190)}`.toLowerCase()} data-reveal><div class="journal-card-photo">{thumbFor(p)&&<img src={thumbFor(p)} alt={p.title} loading="lazy" />}<span class="photo-arrow" aria-hidden="true">↗</span></div><div class="journal-card-meta"><span>{String(i+1).padStart(2,'0')} / Journal</span><time>{formatDate(p.date)}</time></div><h3>{p.title}</h3><p>{excerpt(p,110)}…</p><span class="journal-read">Read the story <span aria-hidden="true">↗</span></span></a>)}</div>
+ </section>
+ <script is:inline define:vars={{filters}}>
+ (()=>{
+  const search=document.getElementById('journal-search'),select=document.getElementById('journal-filter'),cards=[...document.querySelectorAll('[data-post]')];
+  function render(syncInputs=true){
+   const params=new URLSearchParams(location.search),q=(params.get('q')||'').trim().toLowerCase(),keys=['category','tag'].filter(k=>params.has(k)).map(k=>`${k}:${params.get(k)}`),sets=keys.map(k=>new Set(filters[k]||[]));
+   if(syncInputs){search.value=params.get('q')||''; select.value=keys[0]||'';}let count=0;
+   cards.forEach(card=>{card.hidden=!sets.every(set=>set.has(card.dataset.post))||!card.dataset.search.includes(q);if(!card.hidden)count++;});
+   document.getElementById('journal-count').textContent=`${count} ${count===1?'story':'stories'}`;
+   document.getElementById('journal-empty').hidden=count>0;
+   const featured=document.querySelector('[data-featured]');if(featured)featured.hidden=!!q||keys.length>0;
+  }
+  function update(replace=false,subjectChanged=false){const url=new URL(location.href);if(subjectChanged){url.searchParams.delete('category');url.searchParams.delete('tag');if(select.value){const i=select.value.indexOf(':');url.searchParams.set(select.value.slice(0,i),select.value.slice(i+1));}}if(search.value.trim())url.searchParams.set('q',search.value.trim());else url.searchParams.delete('q');history[replace?'replaceState':'pushState'](null,'',url);render(false);}
+  search.addEventListener('input',()=>update(true));select.addEventListener('change',()=>update(false,true));
+  document.querySelector('.journal-controls').addEventListener('submit',e=>{e.preventDefault();update();});
+  document.querySelector('[data-journal-clear]').addEventListener('click',()=>{search.value='';select.value='';update(false,true);});
+  window.addEventListener('popstate',render);render();
+ })();
+ </script>
 </PageLayout>

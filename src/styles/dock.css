@@ -1,0 +1,152 @@
+/* CameraBoss's own photography, with a quiet, spacious product-style presentation. */
+.editorial-site.dock-theme{--font-display:'Work Sans',Arial,sans-serif;--color-accent:#496345;background:#fafaf8;color:#191b18}
+.editorial-site.dock-theme :is(h1,h2,h3,h4){font-family:'Work Sans',Arial,sans-serif;letter-spacing:-.055em;font-weight:600;text-transform:none;line-height:1.06}
+.editorial-site.dock-theme .editorial-header{position:fixed;inset:20px 24px auto;z-index:50;background:#ffffffeb;color:#191b18;border:1px solid #fff;border-radius:24px;max-width:1180px;margin:auto;box-shadow:0 8px 32px #2331210c;backdrop-filter:blur(20px)}
+.editorial-site.dock-theme .editorial-nav{height:74px;width:auto;max-width:none;padding:0 25px;gap:20px}
+.editorial-site.dock-theme .editorial-brand img{filter:none;width:139px}
+.editorial-site.dock-theme .editorial-links{gap:22px}
+.editorial-site.dock-theme .editorial-nav :is(a,button){text-transform:none;letter-spacing:-.02em;font-size:13px}
+.editorial-site.dock-theme .editorial-brand span{font-size:9px;letter-spacing:.1em}
+.editorial-site.dock-theme .editorial-links .nav-enquire{background:#171a16;color:white;border:0;border-radius:12px;padding:12px 18px}
+.editorial-site.dock-theme .editorial-links :is(a:hover,a[aria-current=page]){color:#496345}
+.editorial-site.dock-theme .editorial-links .nav-enquire:hover{color:#fff;background:#496345}
+.editorial-site.dock-theme .editorial-dropdown{border-radius:16px;box-shadow:0 15px 40px #0002}
+.editorial-site.dock-theme .editorial-burger{color:#191b18}
+.editorial-site.dock-theme :is(a,button,input,select,textarea):focus-visible{outline:3px solid #718966;outline-offset:5px}
+.dock-intro{overflow:hidden;background:#f4f5f0;padding-top:165px;text-align:center}
+.dock-intro-copy{position:relative;z-index:2;padding:0 24px}
+.dock-eyebrow{font-size:12px;letter-spacing:.03em;color:#56604f;margin:0 0 22px;font-weight:500}
+.dock-eyebrow span{margin-right:8px}
+.dock-theme .dock-intro h1{font-size:clamp(58px,7vw,96px);line-height:.99;letter-spacing:-.065em;margin:0 auto 28px;max-width:1000px}
+.dock-description{font-size:17px;line-height:1.65;max-width:660px;margin:0 auto;color:#676c63}
+.dock-actions{display:flex;gap:22px;align-items:center;justify-content:center;flex-wrap:wrap;margin:28px 0 18px}
+.dock-primary{display:inline-flex;justify-content:center;align-items:center;gap:24px;padding:17px 25px;background:#1b1e18;color:#fff!important;border-radius:15px;font-size:14px;font-weight:500;line-height:1.4;transition:background .2s,transform .2s;text-decoration:none}
+.dock-primary:hover{background:#48633e;transform:translateY(-2px)}
+.dock-secondary{font-size:14px;color:#454e3d;display:inline-flex;gap:14px;padding:15px 0}
+.dock-note{color:#757b70;font-size:11px}
+.dock-scene{position:relative;width:100%;max-width:1600px;margin:-95px auto 0;aspect-ratio:16/9;isolation:isolate;background:#f4f5f0}
+.dock-scene:before{content:'';position:absolute;inset:0 0 auto;height:17%;background:linear-gradient(#f4f5f0,transparent);z-index:2;pointer-events:none}
+.dock-scene-art,.dock-scene-film{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.dock-scene-film{opacity:0;transition:opacity .5s}.dock-scene-film.is-playing{opacity:1}
+.dock-foliage{position:absolute;inset:0;width:100%;height:100%;opacity:0;pointer-events:none;z-index:3;mask-image:radial-gradient(circle 115px at var(--reveal-x,-500px) var(--reveal-y,-500px),#000 20%,transparent 100%);-webkit-mask-image:radial-gradient(circle 115px at var(--reveal-x,-500px) var(--reveal-y,-500px),#000 20%,transparent 100%);transition:opacity .3s}
+.dock-scene-tools{position:absolute;bottom:22px;left:5%;right:5%;display:flex;justify-content:space-between;align-items:center;gap:16px;z-index:4;color:#fff;font-size:11px}
+.dock-scene-tools>*{padding:11px 16px;background:#1d291cc9;border:1px solid #ffffff35;border-radius:99px;backdrop-filter:blur(10px)}
+.dock-scene-tools button{cursor:pointer}
+.dock-category-strip{display:flex;justify-content:center;flex-wrap:wrap;gap:20px 35px;background:#fafaf8;padding:34px 22px;font-size:12px;color:#59614f;border-bottom:1px solid #e8eae2}
+.dock-category-strip span{color:#8f9c81}
+.dock-experience{padding:110px 5%;max-width:1380px;margin:auto;text-align:center}
+.dock-theme .dock-experience h2{font-size:clamp(40px,5vw,70px);margin:0 0 25px}
+.dock-section-description{color:#69705f;font-size:16px;max-width:550px;margin:0 auto;line-height:1.7}
+.dock-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:960px;margin:42px auto 25px;text-align:left}
+.dock-steps button{display:grid;gap:9px;text-align:left;cursor:pointer;border:1px solid #e3e6dd;background:#f0f2eb;padding:25px;border-radius:20px;transition:background .2s}
+.dock-steps button[aria-pressed=true]{background:#1e281c;color:#fff;border-color:#1e281c}
+.dock-steps span{font-size:11px;opacity:.7}.dock-steps strong{font-size:17px;font-weight:500}.dock-steps small{font-size:12px;line-height:1.6;opacity:.8}
+.dock-experience-panel{display:grid;grid-template-columns:1.1fr 1fr;gap:0;overflow:hidden;border-radius:30px;background:#eef0e8;text-align:left;max-width:1100px;margin:auto}
+.dock-experience-panel>img{width:100%;height:510px;object-fit:cover}.dock-experience-panel>div{padding:65px 48px;align-self:center}
+.dock-theme .dock-experience-panel h3{font-size:44px;margin:0 0 22px}
+.dock-experience-panel p:not(.dock-eyebrow){font-size:15px;line-height:1.8;color:#5e6656;margin-bottom:28px}
+.dock-theme .editorial-hero{margin:0 3% 90px;border-radius:30px;overflow:hidden;height:75vh;min-height:560px;max-height:900px;color:white;background:#171b16}
+.dock-theme .hero-minimal-title h2{font-size:clamp(40px,5vw,72px);color:white;margin:0 0 22px}
+.dock-theme .hero-minimal-title{bottom:130px;left:6%}
+.dock-theme .photo-chapters{max-width:1440px;margin:auto;background:#fafaf8;padding-top:0}
+.dock-theme .photo-chapter{gap:5%;margin-bottom:75px}
+.dock-theme .chapter-mosaic{border-radius:25px;overflow:hidden;gap:6px}
+.dock-theme .chapter-statement h2{font-size:clamp(34px,3.5vw,52px);text-transform:none}
+.dock-theme .chapter-statement .eyebrow{color:#778368}
+.dock-theme :is(.editorial-about,.editorial-film,.editorial-packages,.editorial-explore){background:#fafaf8}
+.dock-theme :is(.editorial-about,.editorial-film,.editorial-packages) h2{font-size:clamp(36px,4vw,58px);text-transform:none}
+.dock-theme :is(.editorial-about,.editorial-film,.editorial-packages) img{border-radius:25px}
+.dock-theme .editorial-booking{background:#e9eddf;border-radius:32px;margin:35px 3%}
+.dock-theme .editorial-booking h2{font-size:clamp(40px,5vw,72px);text-transform:none}
+.dock-theme .editorial-footer h2{text-transform:none}
+.dock-theme.cinematic-interior #main-content{padding-top:120px}
+.dock-theme.cinematic-interior :is(.journal-feature-link,.journal-card-photo,.article-cover img,.ca-card){border-radius:22px;overflow:hidden}
+.dock-theme.cinematic-interior :is(input,select,textarea){border-radius:12px}
+@media(max-width:1023px){.editorial-site.dock-theme .editorial-header{inset:12px 14px auto}.editorial-site.dock-theme .editorial-nav{height:66px}.dock-intro{padding-top:135px}.dock-theme .dock-intro h1{font-size:clamp(58px,9vw,86px)}}
+@media(max-width:700px){.dock-intro{padding-top:122px}.dock-theme .dock-intro h1{font-size:clamp(46px,12vw,72px);margin-bottom:22px}.dock-description{font-size:14px}.dock-description br{display:none}.dock-eyebrow{font-size:10px;margin-bottom:18px}.dock-actions{gap:5px 18px;margin:22px 0 14px}.dock-primary{font-size:12px;padding:15px 19px;gap:15px}.dock-secondary{font-size:12px}.dock-note{font-size:9px}.dock-scene{margin:0;aspect-ratio:1.35}.dock-scene-art,.dock-scene-film{object-fit:cover}.dock-foliage{display:none}.dock-reveal-hint{display:none}.dock-scene-tools{justify-content:flex-end;bottom:14px}.dock-category-strip{gap:13px 20px;font-size:10px;padding:25px 15px}.dock-category-strip span{display:none}.dock-experience{padding:65px 20px}.dock-theme .dock-experience h2{font-size:39px}.dock-section-description{font-size:14px}.dock-steps{gap:7px;margin-top:28px}.dock-steps button{padding:15px 11px;border-radius:15px}.dock-steps strong{font-size:12px}.dock-steps small{display:none}.dock-experience-panel{grid-template-columns:1fr;border-radius:22px}.dock-experience-panel>img{height:310px}.dock-experience-panel>div{padding:30px}.dock-theme .dock-experience-panel h3{font-size:34px}.dock-theme .editorial-hero{margin:0 12px 55px;min-height:520px;height:70vh;border-radius:22px}.dock-theme .hero-minimal-title{left:25px;bottom:130px}.dock-theme .hero-minimal-title h2{font-size:40px}.dock-theme .chapter-mosaic{border-radius:20px}.dock-theme .editorial-booking{border-radius:22px}.dock-theme.cinematic-interior #main-content{padding-top:105px}}
+@media(pointer:coarse){.dock-reveal-hint,.dock-foliage{display:none}}
+@media(prefers-reduced-motion:reduce){.dock-theme *, .dock-theme *:before,.dock-theme *:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}.dock-foliage,.dock-reveal-hint{display:none}.dock-primary:hover{transform:none}}
+
+.dock-theme .footer-bottom svg{color:#444;fill:currentColor}
+
+.dock-walkthrough{max-width:960px;margin:28px auto 0;text-align:left;border:1px solid #dce1d3;border-radius:20px;overflow:hidden;background:#f4f5f0}
+.dock-walkthrough summary{cursor:pointer;padding:20px 24px;font-size:14px;font-weight:500}
+.dock-walkthrough summary span{float:right;font-size:11px;font-weight:400;color:#68735d;margin-top:3px}
+.dock-walkthrough video{display:block;width:100%;aspect-ratio:16/9;background:#f4f5f0}
+.dock-walkthrough>p{font-size:12px;color:#5c6752;line-height:1.8;padding:18px 24px;margin:0}
+@media(max-width:700px){.dock-walkthrough summary{font-size:12px;padding:18px 15px}.dock-walkthrough summary span{font-size:9px}}
+
+/* Two foreground cameras replace the landscape props; real wedding photos form the backdrop. */
+.dock-intro .dock-wedding-scene{margin:35px auto 0;max-width:1600px;height:clamp(550px,54vw,820px);aspect-ratio:auto;background:transparent;padding-bottom:110px;overflow:hidden}
+.dock-wedding-scene:before{display:none}
+.dock-wedding-backdrop{position:absolute;inset:0 7% 110px;border-radius:32px;overflow:hidden;background:#30352d;box-shadow:0 20px 55px #20271a1a;isolation:isolate}
+.dock-wedding-frame{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 42%;opacity:0;transform:translateX(3%);transition:opacity 1.2s ease,transform 5.5s ease;pointer-events:none}
+.dock-wedding-frame.is-current{opacity:1;transform:translateX(0)}
+.dock-wedding-shade{position:absolute;inset:0;background:linear-gradient(0deg,#07130795,transparent 50%);pointer-events:none}
+.dock-wedding-caption{position:absolute;bottom:45px;left:28%;right:28%;color:white;display:grid;gap:15px;text-align:center;z-index:2}
+.dock-wedding-caption>span{font-size:clamp(20px,2.4vw,36px);font-weight:500;letter-spacing:-.04em;line-height:1.1}
+.dock-wedding-caption>a{font-size:11px;text-decoration:underline;text-underline-offset:6px}
+.dock-camera{position:absolute;width:39%;max-width:600px;aspect-ratio:1;bottom:60px;z-index:3;filter:drop-shadow(0 18px 20px #0003)}
+.dock-camera-left{left:-7%}.dock-camera-right{right:-7%;transform:scaleX(-1)}
+.dock-camera>img{width:100%;height:100%;object-fit:contain;user-select:none}
+.dock-camera-plant-mask{position:absolute;inset:0;mask:url('/images/design/camera-cutout.png') center/contain no-repeat;-webkit-mask:url('/images/design/camera-cutout.png') center/contain no-repeat;pointer-events:none}
+.dock-camera .dock-foliage{display:block}
+.dock-wedding-controls{position:absolute;bottom:50px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:18px;z-index:5;color:#26301f;font-size:11px;white-space:nowrap}
+.dock-wedding-controls button{cursor:pointer;border:1px solid #cbd1c3;border-radius:30px;min-width:40px;min-height:40px;background:#ffffffb8;padding:8px 13px}
+.dock-wedding-controls button:hover{background:#e5eadc}
+.dock-camera-hint{position:absolute;bottom:15px;width:100%;font-size:10px;color:#6c765f;text-align:center}
+@media(max-width:700px){.dock-intro .dock-wedding-scene{height:530px;margin-top:25px;padding-bottom:100px}.dock-wedding-backdrop{inset:0 12px 115px;border-radius:24px}.dock-wedding-frame{object-position:50% 40%}.dock-camera{width:55%;bottom:85px}.dock-camera-left{left:-16%}.dock-camera-right{right:-16%}.dock-wedding-caption{left:21%;right:21%;bottom:35px;gap:12px}.dock-wedding-caption>span{font-size:23px}.dock-wedding-caption>a{font-size:9px}.dock-wedding-controls{bottom:35px;gap:10px;font-size:10px}.dock-camera-hint{display:none}.dock-camera .dock-foliage{display:none}}
+@media(pointer:coarse){.dock-camera-hint,.dock-camera .dock-foliage{display:none}}
+@media(prefers-reduced-motion:reduce){.dock-wedding-frame{transition:none;transform:none}.dock-camera-hint,.dock-camera .dock-foliage{display:none}}
+
+@media(max-width:700px){.dock-wedding-caption{top:24px;bottom:auto;left:24px;right:24px;text-shadow:0 2px 15px #0009}.dock-wedding-caption>span{font-size:22px}.dock-wedding-shade{background:linear-gradient(180deg,#07130780,transparent 50%,#07130765)}.dock-wedding-frame:nth-child(4){object-position:20% 45%}}
+/* Full viewport photography with unobtrusive foreground cameras. */
+.dock-theme .dock-intro{position:relative;padding-top:0;background:#171c16}
+.dock-intro .dock-wedding-scene{height:100svh;min-height:650px;width:100%;max-width:none;margin:0;padding:0}
+.dock-wedding-backdrop{inset:0;border-radius:0;box-shadow:none}
+.dock-wedding-frame{object-position:50% 35%}
+.dock-wedding-shade{background:linear-gradient(180deg,#0003,transparent 28%,transparent 48%,#000a)}
+.dock-wedding-caption{display:none}
+.dock-intro-copy{position:absolute;z-index:4;top:auto;bottom:calc(85px + 85px);left:25%;right:25%;padding:0;text-align:center;color:#fff;pointer-events:none}
+.dock-intro-copy a{pointer-events:auto}
+.dock-intro-copy .dock-eyebrow{color:#fff;font-size:10px;margin-bottom:14px}
+.dock-theme .dock-intro h1{font-size:clamp(38px,4vw,62px);margin-bottom:16px;color:#fff}
+.dock-intro-copy :is(.dock-description,.dock-note){display:none}
+.dock-intro-copy .dock-actions{margin:0;gap:12px}
+.dock-intro-copy .dock-primary{background:#ffffffed;color:#20271b!important;padding:13px 20px}
+.dock-intro-copy .dock-secondary{color:#fff;font-size:12px}
+.dock-camera{width:27%;max-width:400px;bottom:-70px;cursor:pointer}
+.dock-camera-left{left:-6%}.dock-camera-right{right:-6%}
+.dock-wedding-controls{bottom:27px;color:#fff;gap:15px}
+.dock-wedding-controls button{background:#182217a8;border-color:#ffffff50;color:#fff;backdrop-filter:blur(10px)}
+.dock-wedding-controls button:hover{background:#35472a}
+.dock-camera-hint{bottom:80px;color:#ffffffbc;font-size:10px}
+.dock-camera-photo-mask{position:absolute;inset:0;mask:url('/images/design/camera-cutout.png') center/contain no-repeat;-webkit-mask:url('/images/design/camera-cutout.png') center/contain no-repeat;pointer-events:none}
+.dock-camera-reveal{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;mask-image:radial-gradient(circle 150px at var(--reveal-x,50%) var(--reveal-y,50%),black 35%,transparent 100%);-webkit-mask-image:radial-gradient(circle 150px at var(--reveal-x,50%) var(--reveal-y,50%),black 35%,transparent 100%);transition:opacity .2s}
+.dock-category-strip{position:relative;z-index:4}
+/* Position overlay copy relative to the viewport scene, above the services strip. */
+.dock-intro-copy{top:calc(100svh - 315px);bottom:auto}
+.experience-photos{max-width:1100px;margin:35px auto 0;border-radius:25px;overflow:hidden;background:#edf0e7}
+.experience-photos-stage{position:relative;aspect-ratio:16/10;background:#182017}
+.experience-photos-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;opacity:0;transition:opacity .8s}
+.experience-photos-stage img.is-current{opacity:1}
+.experience-photos-controls{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:16px;padding:18px;font-size:12px}
+.experience-photos-controls button{min-height:42px;min-width:42px;padding:9px 15px;border:1px solid #cad2be;border-radius:30px;cursor:pointer}
+.experience-photos-controls a{margin-left:auto;text-decoration:underline;text-underline-offset:4px}
+@media(max-width:700px){.dock-intro .dock-wedding-scene{height:100svh;min-height:620px;margin:0}.dock-wedding-backdrop{inset:0;border-radius:0}.dock-camera{width:38%;bottom:-30px;max-width:180px}.dock-camera-left{left:-12%}.dock-camera-right{right:-12%}.dock-intro-copy{top:calc(100svh - 270px);left:16px;right:16px}.dock-theme .dock-intro h1{font-size:40px;line-height:1.02;max-width:340px;margin-bottom:16px}.dock-intro-copy .dock-eyebrow{font-size:9px}.dock-intro-copy .dock-actions{gap:12px}.dock-intro-copy .dock-primary{font-size:11px;padding:12px 16px}.dock-intro-copy .dock-secondary{font-size:11px}.dock-wedding-controls{bottom:23px;gap:8px;font-size:10px}.dock-wedding-controls button{min-width:34px;padding:7px 10px;font-size:10px}.dock-wedding-frame:nth-child(4){object-position:20% 35%}.experience-photos-stage{aspect-ratio:4/5}.experience-photos-controls{gap:8px;padding:14px;font-size:10px}.experience-photos-controls a{margin:5px auto 0;width:100%}.dock-camera-hint{display:none}}
+@media(prefers-reduced-motion:reduce){.dock-camera-reveal,.experience-photos-stage img{transition:none}}
+
+.dock-camera-right .dock-camera-reveal{transform:scaleX(-1)}
+
+/* Photograph corrections: natural proportions, readable captions, centred camera. */
+.dock-theme .chapter-mosaic{height:auto;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto;align-items:start;gap:12px;overflow:visible;border-radius:0}
+.dock-theme .chapter-mosaic .chapter-photo{grid-column:auto;grid-row:auto;min-height:0;overflow:hidden;border-radius:18px;background:#f0f1eb}
+.dock-theme .chapter-photo img{display:block;width:100%;height:auto;object-fit:contain;transform:none}
+.dock-theme .chapter-photo:after{display:none}
+.dock-theme .chapter-photo-caption{position:static;background:#f0f1eb;color:#252b21;padding:16px;text-shadow:none}
+@media(max-width:700px){.dock-theme .chapter-mosaic{grid-template-columns:1fr;gap:20px}}
+
+.dock-theme .chapter-photo-caption small{color:#606958}
+.dock-theme .chapter-photo:focus-visible{outline:3px solid #405336;outline-offset:4px}
+.hero-slide-count{display:none}
+@media(max-width:700px){.cinematic-home .hero-dots{display:none}.hero-slide-count{display:inline;font-size:11px}.cinematic-home .hero-controls{gap:12px}.cinematic-home .hero-controls>[data-hero-pause]{margin-left:auto}}

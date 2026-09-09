@@ -1,0 +1,76 @@
+<script>
+  // Reimplement reviewed interactions. Imported analytics and arbitrary scripts stay disabled.
+  document.querySelectorAll<HTMLElement>('.ncl .faq-item').forEach((item) => {
+    const question = item.querySelector<HTMLElement>('.faq-q');
+    if (!question) return;
+    const toggle = () => {
+      const open = item.classList.contains('open');
+      document.querySelectorAll('.ncl .faq-item').forEach(other => {
+        other.classList.remove('open');
+        other.querySelector('.faq-q')?.setAttribute('aria-expanded', 'false');
+      });
+      item.classList.toggle('open', !open);
+      question.setAttribute('aria-expanded', String(!open));
+    };
+    question.addEventListener('click', toggle);
+    if (question.tagName !== 'BUTTON') question.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); toggle(); }
+    });
+  });
+
+  document.querySelectorAll<HTMLElement>('.map-pin[data-url]').forEach(pin => {
+    const destination = new URL(pin.dataset.url || '/', 'https://www.cameraboss.co.uk');
+    if (!['www.cameraboss.co.uk', 'cameraboss.co.uk'].includes(destination.hostname) || destination.protocol !== 'https:') return;
+    const href = destination.pathname + destination.search + destination.hash;
+    const map = pin.closest('svg');
+    map?.removeAttribute('aria-hidden');
+    map?.setAttribute('role', 'group');
+    map?.setAttribute('aria-label', 'CameraBoss locations');
+    pin.setAttribute('role', 'link'); pin.setAttribute('tabindex', '0');
+    pin.setAttribute('aria-label', `View ${pin.dataset.city || 'location'}`);
+    pin.addEventListener('click', () => { location.href = href; });
+    pin.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); location.href = href; }
+    });
+    const tip = document.getElementById('cbl-maptip');
+    const card = document.getElementById('cbl-mapcard');
+    const show = () => {
+      if (!tip || !card) return;
+      tip.textContent = `${pin.dataset.city || 'Location'} — View details`;
+      const origin = card.getBoundingClientRect(), rect = pin.getBoundingClientRect();
+      tip.style.left = `${rect.left - origin.left + rect.width / 2}px`;
+      tip.style.top = `${rect.top - origin.top - 34}px`;
+      tip.classList.add('show');
+    };
+    pin.addEventListener('mouseenter', show); pin.addEventListener('focus', show);
+    pin.addEventListener('mouseleave', () => tip?.classList.remove('show'));
+    pin.addEventListener('blur', () => tip?.classList.remove('show'));
+  });
+
+  document.querySelectorAll<HTMLElement>('.cb-nav-dd').forEach(menu => {
+    const button = menu.querySelector<HTMLButtonElement>('.cb-nav-dd__btn');
+    if (!button) return;
+    const setOpen = (open: boolean) => button.setAttribute('aria-expanded', String(open));
+    button.addEventListener('click', () => setOpen(button.getAttribute('aria-expanded') !== 'true'));
+    menu.addEventListener('focusout', event => { if (!menu.contains(event.relatedTarget as Node | null)) setOpen(false); });
+    menu.addEventListener('keydown', event => { if (event.key === 'Escape') { setOpen(false); button.focus(); } });
+    document.addEventListener('click', event => { if (!menu.contains(event.target as Node)) setOpen(false); });
+  });
+
+  // Load only the official Studio Ninja resizer for the actual booking iframes.
+  const forms = [...document.querySelectorAll<HTMLIFrameElement>('iframe[src^="https://app.studioninja.co/contactform/parser/"]')];
+  if (forms.length) {
+    forms.forEach((frame, i) => {
+      frame.id = `cb-studio-ninja-${i}`;
+      if (!frame.title) frame.title = 'CameraBoss booking enquiry form';
+    });
+    const helper = document.createElement('script');
+    helper.src = 'https://app.studioninja.co/client-assets/form-render/assets/scripts/iframeResizer.js';
+    helper.async = true;
+    helper.addEventListener('load', () => {
+      const resize = (window as Window & { iFrameResize?: (options: object, target: HTMLIFrameElement) => void }).iFrameResize;
+      forms.forEach(frame => resize?.({ checkOrigin: true, log: false }, frame));
+    });
+    document.body.appendChild(helper);
+  }
+</script>

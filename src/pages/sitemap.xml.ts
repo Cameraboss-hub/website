@@ -1,8 +1,8 @@
 import type { APIRoute } from "astro";
 import { posts, pages, isoDate, thumbFor, isThinDuplicate } from "../lib/content";
-import ca from "../data/client-area.json";
+
 import videos from "../data/videos.json";
-import { loadGalleries } from "../lib/galleries";
+
 
 export const prerender = true;
 
@@ -15,8 +15,8 @@ export const GET: APIRoute = async () => {
   ];
 
   // Every static page (Pixieset's sitemap had these; keep parity).
-  // /client-area/ and /videos/ are 301s now, so they must not be listed.
-  const redirected = new Set(["/client-area/", "/videos/", "/wedding-videos/", "/Wedding-videos/"]);
+  // The client-area index stays at its original URL; video aliases are excluded.
+  const redirected = new Set(["/videos/", "/wedding-videos/", "/Wedding-videos/"]);
   for (const p of pages) {
     if (p.path === "/" || p.path === "/blog/") continue;
     const path = p.path.endsWith("/") ? p.path : p.path + "/";
@@ -26,36 +26,14 @@ export const GET: APIRoute = async () => {
     urls.push({ loc: `${SITE}${path}`, priority: "0.8" });
   }
 
-  // Galleries index + every gallery hosted here, with its cover for image search.
-  urls.push({
-    loc: `${SITE}/galleries/`,
-    priority: "0.9",
-    images: (ca.items as any[]).slice(0, 20).map((i) => i.cover),
-  });
-  // Source of truth is the built gallery list, not the Pixieset slug in
-  // client-area.json — two of those slugs differ from the route that exists.
-  const builtGalleries = await loadGalleries();
-  const coverFor = new Map(
-    (ca.items as any[]).map((i) => [i.title.toLowerCase().replace(/[^a-z0-9]+/g, ""), i]),
-  );
-  for (const g of builtGalleries) {
-    const meta = coverFor.get(g.name.toLowerCase().replace(/[^a-z0-9]+/g, ""));
-    urls.push({
-      loc: `${SITE}/galleries/${g.slug}/`,
-      lastmod: meta?.iso || undefined,
-      priority: "0.7",
-      images: [meta?.cover || g.photos[0]?.thumb].filter(Boolean) as string[],
-    });
-  }
-
   // Wedding films page, with a thumbnail per film.
   urls.push({
     loc: `${SITE}/Wedding-videos/`,
     priority: "0.8",
-    images: (videos as any[]).slice(0, 10).map((v) => `https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg`),
+    images: (videos as any[]).slice(0, 10).map((v) => `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`),
   });
 
-  // Every blog post — Pixieset's sitemap listed NONE of these.
+  // Every imported blog post, preserving its original case-sensitive path.
   for (const p of posts) {
     // Image entries help Google surface a photographer's work in image search.
     const imgs = [...p.html.matchAll(/<img[^>]+src="(https:\/\/[^"]+)"/gi)].map((m) => m[1]);

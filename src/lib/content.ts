@@ -1,3 +1,4 @@
+import { seoFor } from "./seo";
 import postsData from "../data/posts.json";
 import imageDimsData from "../data/image-dims.json";
 import pagesData from "../data/pages.json";
@@ -65,6 +66,7 @@ export function isoDate(s: string): string {
  * it is stripped before the body is injected.
  */
 const STRIP: RegExp[] = [
+  /<title\b[^>]*>[\s\S]*?<\/title>/gi,
   /<script\b[^>]*>[\s\S]*?<\/script>/gi,
   // NOTE: <style> is NOT stripped here — see keepAuthorStyles() below. Pixieset's
   // own theme CSS never appears inside the imported body, but the author's
@@ -272,8 +274,10 @@ export function clean(html: string): string {
   // within days. Without that integration the block can only ever show four
   // broken images, so it goes — the footer already links the Instagram profile.
   html = dropBlock(html || "", "block-instagram-graph");
+  html = dropBlock(html, "block-theme12-footer");
   const { stripped, styles } = keepAuthorStyles(html || "");
-  let out = stripped;
+  // Remove the stray template token rendered after the original site scripts.
+  let out = stripped.replaceAll("e05657f39923465b819e61bd239afa45", "");
   for (const re of STRIP) out = out.replace(re, "");
   for (const re of STRIP_ATTRS) out = out.replace(re, "");
   // Collapse only the truly empty wrappers left behind by the strip above.
@@ -341,24 +345,12 @@ export function enhanceImages(html: string, context: string): string {
  * that duplicate a fuller page point their canonical at the original so the
  * ranking consolidates instead of splitting.
  */
-const DUPLICATE_OF: Record<string, string> = {
-  "/contact-copy/": "/contact/",
-  "/monthly-master-class-copy-copy/": "/photography-masterclass/",
-};
-
-export function canonicalFor(path: string): string | undefined {
-  const target = DUPLICATE_OF[path];
-  return target ? `https://www.cameraboss.co.uk${target}` : undefined;
+// Preserve all published routes. Canonical aliases are reconciled by explicit redirects.
+export function canonicalFor(path: string): string {
+  return new URL(path, "https://www.cameraboss.co.uk").href;
 }
-
-/** A near-empty duplicate should not compete in search. */
-export function isThinDuplicate(path: string): boolean {
-  return path === "/monthly-master-class-copy-copy/";
-}
-
-function tidyTitle(t: string): string {
-  return (t || "").replace(/(\s+Copy)+\s*$/i, "").trim();
-}
+export function isThinDuplicate(_path: string): boolean { return false; }
+function tidyTitle(t: string): string { return (t || "").trim(); }
 
 /**
  * Link repair for imported content.
@@ -383,11 +375,10 @@ const LINK_FIXES: Record<string, string> = {
   "/blog/nottingham-wedding-venues-photographers-view": "/blog/nottingham-wedding-venues-a-photographers-view",
   "/blog/wedding-photography-costs-birmingham-2026": "/blog/wedding-photography-costs-in-birmingham-2026",
   "/blog/event-halls-leeds-weddings-receptions": "/blog/top-event-halls-in-leeds-for-weddings-and-receptions",
-  // /client-area/ still answers with a 301 for links indexed under the old
-  // structure, but in-content links go straight to the new route.
-  "/client-area": "/galleries",
+  // Keep the original client-area index as the primary gallery navigation URL.
+  "/galleries": "/client-area",
   "/home": "/",
-  "/gallery": "/galleries",
+  "/gallery": "/client-area",
   "/pricing-UK": "/pricing"
 };
 
@@ -404,6 +395,11 @@ const EMPTY_HREF_TEXT: Array<[RegExp, string]> = [
 
 export function fixLinks(html: string): string {
   let out = html || "";
+  // Verified replacements for external URLs that returned 404 in the migration audit.
+  out = out.split("https://www.nrscotland.gov.uk/registration/getting-married-in-scotland").join("https://www.nrscotland.gov.uk/registration/registering-a-marriage-or-civil-partnership/");
+  // No verified replacement for the closed/missing studio or discontinued product page.
+  // Retain the text instead of sending readers to an unrelated destination.
+  out = out.replace(/<a\b([^>]*?)href="https:\/\/www\.(?:bossstudiosvip\.com\/?|vanguardworld\.co\.uk\/collections\/bags\/products\/veo-select-59t-gr)"[^>]*>([\s\S]*?)<\/a>/gi, "$2");
   // Dead hrefs Pixieset emitted for unlinked elements
   out = out.replace(/href="null"/gi, 'href="#"').replace(/href="undefined"/gi, 'href="#"');
 
@@ -471,7 +467,7 @@ function dedupeHeadings(html: string, title: string): string {
 }
 
 export const posts: Post[] = (postsData as Post[])
-  .map((p) => ({ ...p, html: enhanceImages(fixLinks(dedupeHeadings(clean(p.html), p.title)), p.title) }))
+  .map((p) => ({ ...p, meta_title: seoFor(`/blog/${p.slug}/`, { title: p.meta_title || p.title }).title, meta_description: seoFor(`/blog/${p.slug}/`, { title: p.title, description: p.meta_description }).description, html: enhanceImages(fixLinks(dedupeHeadings(clean(p.html), p.title)), p.title) }))
   .sort((a, b) => {
     const da = parseDate(a.date)?.getTime() ?? 0;
     const db = parseDate(b.date)?.getTime() ?? 0;
@@ -503,8 +499,8 @@ const META_FALLBACK: Record<string, string> = {
 
 export const pages: Page[] = (pagesData as Page[]).map((p) => ({
   ...p,
-  meta_description: p.meta_description?.trim() || META_FALLBACK[p.path] || "",
-  title: tidyTitle(p.title),
+  meta_description: seoFor(p.path, { title: p.title, description: p.meta_description?.trim() || META_FALLBACK[p.path] || "" }).description,
+  title: seoFor(p.path, { title: tidyTitle(p.title) }).title,
   html: enhanceImages(fixLinks(demoteExtraH1s(clean(p.html))), p.h1 || tidyTitle(p.title).split("|")[0].trim()),
 }));
 export const galleries: GalleryMeta[] = galleriesData as GalleryMeta[];

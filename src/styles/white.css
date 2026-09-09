@@ -1,0 +1,65 @@
+/* White-led CameraBoss palette; photography and layout remain intact. */
+.editorial-site.white-theme{--color-paper:#fff;--color-ink:#202020;--color-accent:#805843;--editorial-paper:#fff;--editorial-dark:#222;--editorial-muted:#626262;--editorial-line:#ddd;background:#fff;color:#222;color-scheme:light}
+.editorial-site.white-theme .editorial-header{background:#fffffff5;color:#222;border-color:#ddd;backdrop-filter:blur(16px)}
+.editorial-site.white-theme .editorial-brand img{filter:none}
+.editorial-site.white-theme .editorial-links :is(a:hover,a[aria-current=page]){color:#805843}
+.editorial-site.white-theme .editorial-links .nav-enquire{border-color:#555}
+.editorial-site.white-theme .editorial-dropdown{background:white;color:#222;border-color:#ddd}
+.editorial-site.white-theme .editorial-dropdown a:hover{background:#f2f2f2}
+.editorial-site.white-theme .editorial-footer{background:#f4f3f1;color:#222;border-top:1px solid #ddd}
+.editorial-site.white-theme .editorial-footer :is(p,a){color:#444}
+.editorial-site.white-theme .footer-identity img{filter:none}
+.editorial-site.white-theme :is(.footer-invitation,.footer-bottom,.footer-enquire){border-color:#ccc}
+.editorial-site.white-theme .cb-mnav__panel{background:#fff;color:#222}
+.editorial-site.white-theme .cb-mnav__logo img{filter:none}
+.editorial-site.white-theme :is(.cb-mnav__label,.cb-mnav__meta a){color:#555}
+.editorial-site.white-theme .cb-mnav__cta a{background:#222;color:#fff}
+/* The opening photograph retains a dark tint for legible white captions. */
+.cinematic-home.white-theme .editorial-header{background:linear-gradient(#0009,transparent);color:white;backdrop-filter:none}
+.cinematic-home.white-theme .editorial-brand img{filter:brightness(0) invert(1)}
+.cinematic-home.white-theme .editorial-links .nav-enquire{border-color:#ffffff90}
+.cinematic-home.white-theme .editorial-links :is(a:hover,a[aria-current=page]){color:#f2dec9}
+.cinematic-home.white-theme .hero-frame:after{background:linear-gradient(0deg,#0009,transparent 55%,#0005)}
+.cinematic-home.white-theme :is(.photo-chapters,.editorial-about,.editorial-film,.editorial-packages,.editorial-explore){background:#fff;color:#222}
+.cinematic-home.white-theme :is(.chapter-statement,.editorial-about,.editorial-film,.editorial-packages,.editorial-explore) :is(h2,h3,h4){color:#222}
+.cinematic-home.white-theme :is(.chapter-statement,.editorial-about,.editorial-film,.editorial-packages) :is(p,li,.about-phone){color:#626262}
+.cinematic-home.white-theme .chapter-statement .text-link{color:#333;border-color:#777}
+.cinematic-home.white-theme .chapter-all{color:#333;border-color:#ddd}
+.cinematic-home.white-theme .editorial-packages a{color:#222;border-color:#555}
+.cinematic-home.white-theme .editorial-packages a:hover{background:#222;color:#fff}
+.cinematic-home.white-theme .editorial-film a{border-color:#555;color:#222}
+.cinematic-home.white-theme .editorial-film a:hover{background:#222;color:#fff}
+.cinematic-home.white-theme :is(.editorial-about,.editorial-packages){border-color:#ddd}
+.cinematic-home.white-theme .editorial-booking{background:#f4f3f1;color:#222}
+.cinematic-home.white-theme .editorial-explore p{color:#555}
+/* Interior content, controls and photographic index. */
+.cinematic-interior.white-theme [class*="text-black/"]{color:#626262}
+.cinematic-interior.white-theme [class*="border-black/"]{border-color:#ddd}
+.cinematic-interior.white-theme :is(section,div,a)[class*="bg-white"]{background:#fff}
+.cinematic-interior.white-theme [class~="bg-[#f1f1f0]"]{background:#f4f3f1}
+.cinematic-interior.white-theme :is(.journal-masthead,.journal-library,.journal-feature-copy,.editorial-article .post-body){background:#fff}
+.cinematic-interior.white-theme .journal-feature-link{background:#f4f3f1;border-color:#ddd}
+.cinematic-interior.white-theme .journal-feature-copy{background:#f4f3f1}
+.cinematic-interior.white-theme .journal-card-photo{background:#eee}
+.cinematic-interior.white-theme :is(input,select,textarea){background:#fff;color:#222;border-color:#777}
+.cinematic-interior.white-theme :is(input,textarea)::placeholder{color:#666}
+.cinematic-interior.white-theme .journal-select option{background:white;color:#222}
+.cinematic-interior.white-theme :is(.ca-tab,.ca-page,.ca-card__date,.ca-empty){color:#626262}
+.cinematic-interior.white-theme :is(.ca-tab[aria-selected="true"],.ca-page[aria-current="true"]){color:#222;border-color:#222}
+.cinematic-interior.white-theme :is(.cb-arrow,.cb-film__title){color:#222}
+.cinematic-interior.white-theme a[class*="hover:bg-[var(--color-ink)]"]:hover{background:#222;color:white}
+.cinematic-interior.white-theme .post-body{--primary-background:#fff;--primary-headings:#222;--primary-paragraphs:#555;--primary-details:#ddd;--accent-background:#f4f3f1;--accent-headings:#222;--accent-paragraphs:#555;--accent-details:#ccc;--button-background:#222;--button-background-hover:#805843;--button-text:#fff;--button-text-hover:#fff;background:#fff;color:#555}
+.cinematic-interior.white-theme .post-body [style*="--primary-"],.cinematic-interior.white-theme .post-body [style*="--accent-"]{--primary-background:#fff!important;--primary-headings:#222!important;--primary-paragraphs:#555!important;--primary-details:#ddd!important;--accent-background:#f4f3f1!important;--accent-headings:#222!important;--accent-paragraphs:#555!important;--accent-details:#ccc!important;--button-background:#222!important;--button-background-hover:#805843!important;--button-text:#fff!important;--button-text-hover:#fff!important}
+.cinematic-interior.white-theme .post-body .text__text{color:#555}
+.cinematic-interior.white-theme .post-body :is(h1,h2,h3,h4){color:#222!important}
+.cinematic-interior.white-theme .post-body .text__text a{color:#805843!important}
+.cinematic-interior.white-theme .post-body :is(th,td){background:#f4f3f1;color:#333;border-color:#ccc}
+.cinematic-interior.white-theme .post-body blockquote{color:#444;border-color:#aaa}
+.cinematic-interior.white-theme .editorial-article .post-body .fb-element-type-custom-code__content{background:#fff;color:#444}
+.cinematic-interior.white-theme .editorial-article .post-body .fb-element-type-custom-code__content :is(.container,.intro-block,.faq-block,.faq-section,.cta-box,.pull-quote,.notice-block,.detail-strip){background:#f4f3f1;color:#444;border-color:#ccc}
+.cinematic-interior.white-theme .editorial-article .post-body .fb-element-type-custom-code__content a{color:#805843}
+.cinematic-interior.white-theme .editorial-article .post-body .fb-element-type-custom-code__content :is(.cta-box a,.cta-links a,.cta-btn,.cta-primary,.cta-btn-secondary){background:#222;color:white;border-color:#444}
+.cinematic-interior.white-theme .post-body .fb-element-type-custom-code__content :is(.cbl-dir,.ncl){--cream:#fff;--cream-dark:#f4f3f1;--border:#ddd;--t-dark:#222;--t-mid:#555;--t-light:#666;--red:#805843;--red-dark:#614333}
+.cinematic-interior.white-theme .post-body .fb-element-type-custom-code__content :is(.cbl-dir,.ncl) :is(.jump-nav,.map-card,[class$="-card"]){background:#f4f3f1}
+.cinematic-interior.white-theme .post-body .fb-element-type-custom-code__content :is(.cbl-dir,.ncl) :is(.hero-cta,.map-enquire,.btn-primary){background:#805843;color:white}
+.cinematic-interior.white-theme .post-body .fb-element-type-custom-code__content :is(.cbl-dir,.ncl) .hero h1{color:white!important}

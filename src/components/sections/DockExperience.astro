@@ -1,0 +1,18 @@
+---
+import ExperiencePhotos from "./ExperiencePhotos.astro";
+---
+<section class="dock-experience" aria-labelledby="experience-title">
+  <p class="dock-eyebrow">From first hello to forever</p><h2 id="experience-title">Be in the moment.<br />We’ll keep it for you.</h2>
+  <p class="dock-section-description">A little planning. A lot of connection. Photographs that take you back.</p>
+  <ExperiencePhotos />
+  <div class="dock-steps">
+    <button type="button" data-experience-step="0" aria-pressed="true" aria-controls="experience-panel"><span>01</span><strong>Share your plans</strong><small>Every story starts with a conversation.</small></button>
+    <button type="button" data-experience-step="1" aria-pressed="false" aria-controls="experience-panel"><span>02</span><strong>Live your day</strong><small>Space to be yourself, together.</small></button>
+    <button type="button" data-experience-step="2" aria-pressed="false" aria-controls="experience-panel"><span>03</span><strong>Feel it all again</strong><small>Your photographs. Your way back.</small></button>
+  </div>
+  <div class="dock-experience-panel" id="experience-panel">
+    <img data-experience-image src="/images/hero/slide-03-portrait.webp" alt="CameraBoss engagement portrait" width="900" height="700" loading="lazy" />
+    <div aria-live="polite" aria-atomic="true"><p class="dock-eyebrow" data-experience-count>01 / The conversation</p><h3 data-experience-title>Tell us what matters.</h3><p data-experience-copy>Share your date, your location and the people at the heart of it. We’ll talk about the photography and film coverage that fits your plans.</p><a class="dock-primary" data-experience-link href="/contact/">Start a conversation ↗</a></div>
+  </div>
+</section>
+

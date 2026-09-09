@@ -4,6 +4,8 @@
 export const prerender = true;
 
 import BaseLayout from "../layouts/BaseLayout.astro";
+import DockExperience from "../components/sections/DockExperience.astro";
+import DockIntro from "../components/sections/DockIntro.astro";
 import Hero from "../components/sections/Hero.astro";
 import About from "../components/sections/About.astro";
 import PortfolioGrid from "../components/sections/PortfolioGrid.astro";
@@ -15,14 +17,16 @@ import Footer from "../components/Footer.astro";
 ---
 
 <BaseLayout title="CameraBoss | Nigeria & London Wedding Photographer">
-  <main id="top">
+  <main id="main-content">
+    <DockIntro />
     <Hero />
-    <About />
+    <DockExperience />
     <PortfolioGrid />
-    <BookingCta />
+    <About />
     <FilmCompany />
     <Packages />
     <ExploreMore />
+    <BookingCta />
   </main>
   <Footer />
 </BaseLayout>

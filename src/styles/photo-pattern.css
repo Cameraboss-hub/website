@@ -1,0 +1,71 @@
+/* CameraBoss photographs and copy, presented as cinematic photo chapters. */
+.cinematic-home{--font-display:'Work Sans',Arial,sans-serif;background:#050505;color:#fff}
+.cinematic-home :is(h1,h2,h3,h4){font-family:'Work Sans',Arial,sans-serif;font-weight:600;letter-spacing:-.045em;line-height:1.04}
+.cinematic-home :is(h1,h2,h3,h4) em{font-style:normal}
+.cinematic-home .hero-minimal-title{left:8%;bottom:140px}
+.cinematic-home .hero-minimal-title h1{font-family:'Work Sans',Arial,sans-serif;font-size:clamp(40px,5vw,76px);font-weight:600;text-transform:uppercase;line-height:.98;letter-spacing:-.05em}
+.cinematic-home .hero-minimal-title>p{font-size:10px;letter-spacing:.14em}
+.cinematic-home .hero-frame:after{background:linear-gradient(0deg,#050505 0%,#05050570 20%,transparent 55%,#05050590 100%)}
+.cinematic-home .editorial-header{background:linear-gradient(#050505e8,transparent)}
+.cinematic-home .editorial-nav{max-width:none;padding-inline:3%}
+.cinematic-home .editorial-nav :is(a,button){text-transform:uppercase;letter-spacing:.06em}
+.photo-chapters{padding:45px 3% 80px;background:#050505}
+.photo-chapter{display:grid;grid-template-columns:minmax(0,1.85fr) minmax(0,1fr);gap:6%;align-items:center;margin-bottom:90px}
+.chapter-mosaic{display:grid;grid-template-columns:1.05fr 1fr;grid-template-rows:1fr 1fr;gap:7px;height:680px;min-width:0}
+.chapter-photo{position:relative;display:block;overflow:hidden;min-height:0;background:#181818}
+.chapter-photo-1{grid-row:span 2}
+.chapter-photo img{height:100%;width:100%;object-fit:cover;transition:transform 900ms ease}
+.chapter-photo:hover img{transform:scale(1.035)}
+.chapter-photo:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.chapter-photo-caption{position:absolute;inset:auto 0 0;padding:45px 18px 18px;display:flex;justify-content:space-between;gap:12px;align-items:end;background:linear-gradient(transparent,#000b);font-size:11px;color:white}
+.chapter-photo-caption small{display:block;margin-top:5px;font-size:9px;color:#ddd}
+.chapter-statement{padding:30px 8% 30px 0}
+.chapter-statement .eyebrow{font-size:9px;color:#9f9f9f;letter-spacing:.16em;margin-bottom:24px}
+.cinematic-home .chapter-statement h2{font-size:clamp(28px,3.2vw,48px);text-transform:uppercase;margin:0 0 30px}
+.chapter-statement h2 span{display:block}
+.chapter-statement>p:not(.eyebrow){font-size:15px;line-height:1.8;color:#bebebe;max-width:360px}
+.chapter-statement .text-link{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#fff;margin-top:32px;display:inline-flex;gap:20px;border-color:#777}
+.chapter-reversed{grid-template-columns:minmax(0,1fr) minmax(0,1.85fr)}
+.chapter-reversed .chapter-mosaic{grid-column:2;grid-row:1}
+.chapter-reversed .chapter-statement{grid-column:1;grid-row:1;padding-left:12%;padding-right:0}
+.chapter-reversed .chapter-photo-1{grid-column:2}
+.chapter-all{display:flex;justify-content:center;align-items:center;gap:30px;text-transform:uppercase;font-size:12px;letter-spacing:.15em;padding:25px;border-top:1px solid #303030;border-bottom:1px solid #303030}
+.cinematic-home :is(.editorial-about,.editorial-film,.editorial-packages,.editorial-explore,.editorial-footer){background:#050505}
+.cinematic-home .editorial-about{border-top:1px solid #202020}
+.cinematic-home :is(.editorial-about,.editorial-film,.editorial-packages) h2{font-size:clamp(30px,3.5vw,50px);text-transform:uppercase}
+.cinematic-home .editorial-about .about-grid{gap:9%}
+.cinematic-home .editorial-about .about-paragraphs{font-size:14px;line-height:1.85}
+.cinematic-home .editorial-film p{font-size:14px;line-height:1.8;color:#bdbdbd}
+.cinematic-home .editorial-film img{height:640px;margin-top:0;border-radius:0}
+.cinematic-home .editorial-packages{border-top:1px solid #202020}
+.cinematic-home .editorial-packages h4{text-transform:uppercase;font-size:25px}
+.cinematic-home .editorial-packages :is(p,li){font-size:14px;line-height:1.8}
+.cinematic-home .editorial-booking{background:#e9e7e1}
+.cinematic-home .editorial-booking h2{font-size:clamp(30px,4vw,58px);text-transform:uppercase}
+.cinematic-home .editorial-footer h2{font-size:clamp(42px,6vw,88px);text-transform:uppercase}
+@media(max-width:900px){
+ .photo-chapter,.chapter-reversed{gap:5%;grid-template-columns:1.5fr 1fr}
+ .chapter-reversed{grid-template-columns:1fr 1.5fr}
+ .chapter-mosaic{height:520px}
+ .chapter-statement{padding-right:0}
+ .chapter-reversed .chapter-statement{padding-left:0}
+ .chapter-statement>p:not(.eyebrow){font-size:13px}
+}
+@media(max-width:700px){
+ .cinematic-home .hero-minimal-title{left:24px;right:16px;bottom:128px}
+ .cinematic-home .hero-minimal-title h1{font-size:clamp(32px,9vw,52px)}
+ .cinematic-home .hero-minimal-title>p{font-size:8px}
+ .photo-chapters{padding:10px 10px 50px}
+ .photo-chapter,.chapter-reversed{display:flex;flex-direction:column;gap:0;margin-bottom:25px}
+ .chapter-mosaic{width:100%;height:510px;gap:5px}
+ .chapter-statement,.chapter-reversed .chapter-statement{width:100%;padding:42px 20px 48px}
+ .cinematic-home .chapter-statement h2{font-size:34px;margin-bottom:20px}
+ .chapter-statement .eyebrow{margin-bottom:18px}
+ .chapter-statement>p:not(.eyebrow){font-size:14px;max-width:100%}
+ .chapter-statement .text-link{margin-top:24px}
+ .chapter-photo-caption{font-size:9px;padding:35px 10px 12px}
+ .chapter-photo-caption small{font-size:8px}
+ .cinematic-home .editorial-film img{height:400px}
+}
+@media(prefers-reduced-motion:reduce){.chapter-photo img{transition:none}.chapter-photo:hover img{transform:none}}
+@media(max-width:700px){.cinematic-home .hero-frame[data-slide="4"]>img{object-position:20% 53%}}
