@@ -56,21 +56,4 @@
     menu.addEventListener('keydown', event => { if (event.key === 'Escape') { setOpen(false); button.focus(); } });
     document.addEventListener('click', event => { if (!menu.contains(event.target as Node)) setOpen(false); });
   });
-
-  // Load only the official Studio Ninja resizer for the actual booking iframes.
-  const forms = [...document.querySelectorAll<HTMLIFrameElement>('iframe[src^="https://app.studioninja.co/contactform/parser/"]')];
-  if (forms.length) {
-    forms.forEach((frame, i) => {
-      frame.id = `cb-studio-ninja-${i}`;
-      if (!frame.title) frame.title = 'CameraBoss booking enquiry form';
-    });
-    const helper = document.createElement('script');
-    helper.src = 'https://app.studioninja.co/client-assets/form-render/assets/scripts/iframeResizer.js';
-    helper.async = true;
-    helper.addEventListener('load', () => {
-      const resize = (window as Window & { iFrameResize?: (options: object, target: HTMLIFrameElement) => void }).iFrameResize;
-      forms.forEach(frame => resize?.({ checkOrigin: true, log: false }, frame));
-    });
-    document.body.appendChild(helper);
-  }
 </script>

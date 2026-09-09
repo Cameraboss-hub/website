@@ -11,8 +11,9 @@
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check",
+    "test:unit": "node --test tests/*.test.mjs",
     "test:migration": "python3 tests/test_migration.py",
-    "test": "npm run build && npm run test:migration"
+    "test": "npm run test:unit && npm run build && npm run test:migration"
   },
   "dependencies": {
     "@astrojs/vercel": "^11.0.10",

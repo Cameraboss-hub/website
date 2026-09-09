@@ -35,11 +35,39 @@ class MigrationTests(unittest.TestCase):
   self.assertFalse(list((BUILD/'galleries').glob('*/index.html')))
   for f in BUILD.rglob('*.html'):
    self.assertNotRegex(f.read_text(),r'(?:const|var|let) pin =')
- def test_original_enquiry_forms_present(self):
-  for path in ['/','/about/','/contact/']:
+ # Every page that carried the Studio Ninja embed now loads the CRM form
+ # instead: the three hand-built pages plus the twelve migrated ones.
+ FORM_PAGES=['/','/about/','/contact/','/pricing/','/pricing-NG/','/weddings/','/experience/',
+  '/London-wedding-photographer/','/London-Wedding-Photography-Packages/',
+  '/Asian-wedding-photographer-Leicester/','/sheffield-wedding-photographer/',
+  '/Wolverhampton-wedding-photographer/','/Italy-destination-wedding-photographer/',
+  '/Graduation-Photographer/','/Weddingchecklist/']
+ def test_crm_enquiry_embed_replaces_every_studio_ninja_form(self):
+  for path in self.FORM_PAGES:
    with self.subTest(path=path):
-    self.assertTrue(any('app.studioninja.co/contactform/parser/' in x.get('src','') for x in HTML(page(path)).attrs('iframe')))
-    self.assertNotIn('coming soon',page(path))
+    text=page(path);p=HTML(text)
+    embeds=[a for a in p.attrs('script')
+            if a.get('src')=='https://cameraboss-crm.vercel.app/embed.js']
+    self.assertEqual(len(embeds),1,'exactly one CRM embed')
+    self.assertEqual(embeds[0].get('data-brand'),'cameraboss')
+    self.assertEqual(embeds[0].get('data-form'),'general-enquiry')
+    # A visitor without JavaScript still gets a route to the form.
+    self.assertIn('https://cameraboss-crm.vercel.app/book/cameraboss/general-enquiry',text)
+    self.assertNotIn('coming soon',text)
+ def test_no_studio_ninja_anywhere_in_the_build(self):
+  for f in BUILD.rglob('*'):
+   if f.is_file() and f.suffix in {'.html','.js','.css','.json','.txt','.xml'}:
+    with self.subTest(file=str(f.relative_to(BUILD))):
+     self.assertNotIn('app.studioninja.co',f.read_text(errors='ignore'))
+ def test_crm_origin_is_preconnected(self):
+  links=HTML(page('/contact/')).attrs('link')
+  self.assertTrue(any(l.get('rel')=='preconnect' and l.get('href')=='https://cameraboss-crm.vercel.app' for l in links))
+ def test_video_embeds_are_left_alone(self):
+  # Only Studio Ninja's contact form was replaced. The film pages build their
+  # YouTube players on click, so their references must still be there --
+  # including on /experience/, which carried a video *and* the old form.
+  for path in ['/Wedding-videos/','/experience/']:
+   with self.subTest(path=path):self.assertIn('youtube',page(path))
  def test_homepage_metadata_and_specific_links(self):
   p=HTML(page('/'));self.assertEqual(p.title,'Nigerian Wedding Photographer in London & across UK')
   descriptions=[x['content'] for x in p.attrs('meta') if x.get('name')=='description']

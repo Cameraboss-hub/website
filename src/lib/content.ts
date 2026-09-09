@@ -1,4 +1,9 @@
 import { seoFor } from "./seo";
+import { swapStudioNinjaForCrm } from "./sn-embed";
+import { enquiryEmbedHtml } from "./crm";
+
+// Re-exported so pages have a single import for imported-content helpers.
+export { swapStudioNinjaForCrm, hasStudioNinjaEmbed } from "./sn-embed";
 import postsData from "../data/posts.json";
 import imageDimsData from "../data/image-dims.json";
 import pagesData from "../data/pages.json";
@@ -501,7 +506,13 @@ export const pages: Page[] = (pagesData as Page[]).map((p) => ({
   ...p,
   meta_description: seoFor(p.path, { title: p.title, description: p.meta_description?.trim() || META_FALLBACK[p.path] || "" }).description,
   title: seoFor(p.path, { title: tidyTitle(p.title) }).title,
-  html: enhanceImages(fixLinks(demoteExtraH1s(clean(p.html))), p.h1 || tidyTitle(p.title).split("|")[0].trim()),
+  // The CRM swap runs last, and deliberately after clean(): clean() strips every
+  // <script> from imported markup, so an embed inserted any earlier would have
+  // its injector removed again and the form would never load.
+  html: swapStudioNinjaForCrm(
+    enhanceImages(fixLinks(demoteExtraH1s(clean(p.html))), p.h1 || tidyTitle(p.title).split("|")[0].trim()),
+    enquiryEmbedHtml(),
+  ),
 }));
 export const galleries: GalleryMeta[] = galleriesData as GalleryMeta[];
 
