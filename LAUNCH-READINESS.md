@@ -15,7 +15,9 @@ ownership before any later cutover.
   pages with changed block structure and 17 pages with changed prose were
   refreshed. A wedding-services page and a film article with unrelated
   copied text were also repaired. This work reuses existing Supabase image
-  variants; no new objects were uploaded to Supabase.
+  variants; no new objects were uploaded to Supabase. A 236-route visible-text
+  comparison found 228 exact matches and eight documented differences, with
+  no unexpected drift.
 - The homepage now has a clear photography proposition, selected work,
   wedding and portrait paths, journal links and enquiry calls to action.
   `/client-area/` is a curated 18-photo portfolio: 12 wedding and six portrait
@@ -31,7 +33,7 @@ ownership before any later cutover.
   found zero unresolved internal page links and zero missing local `<img>`
   files. Build, Astro check, unit tests and migration tests pass locally.
 - Vercel built the feature branch as a Ready **preview** at
-  `https://website-6g9hte0fv-cameraboss.vercel.app/`. An HTTP crawl returned
+  `https://website-clv99dq3l-cameraboss.vercel.app/`. An HTTP crawl returned
   200 for all 237 recorded source paths and the expected 301 destination for
   all 43 historical redirects. All 27 checked local portfolio, blog-cover and
   about images returned 200 with image content. No production deployment or
