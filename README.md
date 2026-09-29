@@ -21,6 +21,10 @@ selection and source attribution live in `src/data/portfolio.json`; the full
 historical card list is retained as data in `src/data/client-area.json` but is
 no longer shown as a public client-download index.
 
+The current branch preview is
+`https://website-6g9hte0fv-cameraboss.vercel.app/`. It is a preview only;
+the public domain remains on Pixieset.
+
 ## Development and verification
 
 ```bash

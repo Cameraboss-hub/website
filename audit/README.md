@@ -27,3 +27,8 @@ machine. They are dated migration tools, not build steps. Do not run them as
 part of deployment or assume the public source remains unchanged. The current
 site data is in `src/data/`; rerun the comparison before any cutover. The
 older untracked `gallery-review-2026-09-29.json` was not modified.
+
+`verify_preview.py` crawled all 237 recorded source paths and 43 historical
+redirects on the 30 September Vercel preview; the responses are saved in
+`preview-crawl-2026-09-30.json`. A preview URL can expire under Vercel's
+deployment-retention policy, so rerun this check on the final deployment.

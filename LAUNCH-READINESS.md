@@ -30,14 +30,21 @@ ownership before any later cutover.
   output is about 85 MB in `.vercel/output/static`. A full generated-site scan
   found zero unresolved internal page links and zero missing local `<img>`
   files. Build, Astro check, unit tests and migration tests pass locally.
+- Vercel built the feature branch as a Ready **preview** at
+  `https://website-6g9hte0fv-cameraboss.vercel.app/`. An HTTP crawl returned
+  200 for all 237 recorded source paths and the expected 301 destination for
+  all 43 historical redirects. All 27 checked local portfolio, blog-cover and
+  about images returned 200 with image content. No production deployment or
+  custom-domain assignment was made.
 
 ## What remains before a safe change of provider
 
 1. **Choose Astro or WordPress as the launch target.** WordPress is reasonable
    if an SEO agency requires direct editing, but no WordPress host, theme,
    content import or staging crawl exists yet. See `WORDPRESS-MIGRATION.md`.
-2. **Stage the chosen build on the target host** and crawl all 237 live URLs
-   against that actual preview. The local build is not a live-host proof.
+2. **Choose and verify the final host.** The Astro Vercel preview passes its
+   route and image checks, but still needs the real enquiry and visual review
+   before a production cutover. A WordPress staging site has not been built.
 3. **Verify client originals in two destinations.** The mounted Google Drive
    folder `CAMERABOSS CLIENT GALLERIES` currently contains only a test file.
    No verified Ugreen NAS archive mount was found. Local Mac storage has
