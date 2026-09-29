@@ -36,13 +36,13 @@ export const GET: APIRoute = async () => {
   // Every imported blog post, preserving its original case-sensitive path.
   for (const p of posts) {
     // Image entries help Google surface a photographer's work in image search.
-    const imgs = [...p.html.matchAll(/<img[^>]+src="(https:\/\/[^"]+)"/gi)].map((m) => m[1]);
+    const imgs = [...p.html.matchAll(/<img[^>]+src="([^"]+)"/gi)].map((m) => m[1]);
     const hero = thumbFor(p);
     urls.push({
       loc: `${SITE}/blog/${p.slug}/`,
       lastmod: isoDate(p.date) || undefined,
       priority: "0.7",
-      images: [...new Set([hero, ...imgs].filter(Boolean) as string[])].slice(0, 10),
+      images: [...new Set(([hero, ...imgs].filter(Boolean) as string[]).map((image) => new URL(image, SITE).href))].slice(0, 10),
     });
   }
 

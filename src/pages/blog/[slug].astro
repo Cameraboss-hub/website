@@ -12,6 +12,7 @@ const { post } = Astro.props;
 const rel = related(post, 3);
 const hero = thumbFor(post);
 const site = "https://www.cameraboss.co.uk";
+const absoluteImage = (image: string) => new URL(image, site).href;
 
 const bodyImages = [...post.html.matchAll(/<img[^>]+src="([^"]+)"/gi)].map((m) => m[1]).slice(0, 8);
 
@@ -30,7 +31,7 @@ const jsonLd = {
   "@type": "BlogPosting",
   headline: post.title,
   description: post.meta_description || excerpt(post),
-  image: hero ? [hero, ...bodyImages].slice(0, 6) : bodyImages.slice(0, 6),
+  image: (hero ? [hero, ...bodyImages] : bodyImages).slice(0, 6).map(absoluteImage),
   wordCount: post.html.replace(/<[^>]+>/g, " ").trim().split(/\s+/).length,
   inLanguage: "en-GB",
   datePublished: isoDate(post.date) || undefined,

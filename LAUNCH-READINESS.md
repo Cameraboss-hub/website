@@ -1,0 +1,64 @@
+# CameraBoss launch readiness — 30 September 2026
+
+**DNS has not been changed in this work.** The public `www` and `gallery`
+hosts still resolve through `domain.pixieset.com`; the nameservers are
+`nsa.whogohost.com` and `nsb.whogohost.com`. Recheck records and registrar
+ownership before any later cutover.
+
+## What has been prepared
+
+- Live Pixieset sitemap: 237 URLs. The rebuilt sitemap matches it exactly:
+  191 posts plus the blog index and 45 other routes. Eight posts missing from
+  the earlier clone were imported at their original paths. Their covers are
+  now local files. The old incorrect Birmingham blog redirect was removed.
+- All 45 imported page block sets were compared with the public site. Three
+  pages with changed block structure and 17 pages with changed prose were
+  refreshed. A wedding-services page and a film article with unrelated
+  copied text were also repaired. This work reuses existing Supabase image
+  variants; no new objects were uploaded to Supabase.
+- The homepage now has a clear photography proposition, selected work,
+  wedding and portrait paths, journal links and enquiry calls to action.
+  `/client-area/` is a curated 18-photo portfolio: 12 wedding and six portrait
+  images, drawn from an audit of 261 distinct publicly listed Pixieset
+  collections. Five new collections were added to the archival card data.
+  The public portfolio contains no client-download or PIN interface.
+- Broken third-party image slots on the Newcastle page were replaced with
+  verified images from the same Jo and Jonny wedding; four expired Instagram
+  embeds in an exhibition article were replaced with images already attached
+  to that story. The original Manus-hosted files were not recoverable.
+- The production build generates 238 HTML files including the 404 page. Its
+  output is about 85 MB in `.vercel/output/static`. A full generated-site scan
+  found zero unresolved internal page links and zero missing local `<img>`
+  files. Build, Astro check, unit tests and migration tests pass locally.
+
+## What remains before a safe change of provider
+
+1. **Choose Astro or WordPress as the launch target.** WordPress is reasonable
+   if an SEO agency requires direct editing, but no WordPress host, theme,
+   content import or staging crawl exists yet. See `WORDPRESS-MIGRATION.md`.
+2. **Stage the chosen build on the target host** and crawl all 237 live URLs
+   against that actual preview. The local build is not a live-host proof.
+3. **Verify client originals in two destinations.** The mounted Google Drive
+   folder `CAMERABOSS CLIENT GALLERIES` currently contains only a test file.
+   No verified Ugreen NAS archive mount was found. Local Mac storage has
+   about 32 GiB free. No full-resolution client-gallery transfer or
+   server-side Drive verification happened in this run. Pixieset remains
+   the only verified client archive and must stay available.
+4. **Agree the fate of old client links.** Hundreds of
+   `gallery.cameraboss.co.uk` links in messages and invoices continue to work
+   only while that subdomain stays on Pixieset, or after a tested
+   path-preserving replacement is built. The curated portfolio does not
+   substitute for client delivery. Do not cancel Pixieset yet.
+5. **Test a real enquiry on preview** and check inbox receipt. The current
+   local tests prove form placement and fallback paths, not delivery.
+6. **Confirm commercial hosting terms.** The Vercel project currently shows
+   the Hobby plan; Vercel's published terms restrict Hobby to personal,
+   non-commercial use. A business launch needs an appropriate plan or host.
+7. **Check public-image choices and rights.** The selection is based on
+   existing publicly displayed gallery covers; individual photographs across
+   every collection were not exhaustively reviewed. Browser-visible images
+   can always be saved by visitors, even without a download button. Keep
+   full-resolution originals off the public site.
+
+No DNS records, Pixieset collections, Google Drive files, or NAS files were
+changed by this preparation.

@@ -1,5 +1,6 @@
 """Regression checks against the generated website, independent of dev-server routing."""
 from pathlib import Path
+from urllib.parse import urljoin,urlparse,unquote
 import json,re,unittest,xml.etree.ElementTree as ET
 from html.parser import HTMLParser
 ROOT=Path(__file__).resolve().parents[1]
@@ -24,9 +25,14 @@ class MigrationTests(unittest.TestCase):
    with self.subTest(path=path):
     p=HTML(page(path));self.assertEqual(p.title,expected['title'])
     if expected['description']:self.assertEqual(next(x['content'] for x in p.attrs('meta') if x.get('name')=='description'),expected['description'])
- def test_client_galleries_stay_on_pixieset(self):
+ def test_public_gallery_is_curated_and_self_hosted(self):
   p=HTML(page('/client-area/'));links={x.get('href') for x in p.attrs('a')}
-  for slug in ['faithandjack','kachyandoge','familyshoot-1']:self.assertIn(f'https://gallery.cameraboss.co.uk/{slug}/',links)
+  selected=json.loads((ROOT/'src/data/portfolio.json').read_text())
+  self.assertEqual(len(selected),18)
+  self.assertEqual({x['category'] for x in selected},{'wedding','portrait'})
+  self.assertEqual(len([a for a in p.attrs('figure') if 'portfolio-card' in a.get('class','')]),len(selected))
+  self.assertFalse(any('pixieset' in (url or '') or 'gallery.cameraboss.co.uk' in (url or '') for url in links))
+  for item in selected:self.assertTrue((ROOT/'public'/item['image'].lstrip('/')).is_file())
   self.assertNotIn('Disallow: /galleries/',(BUILD/'robots.txt').read_text())
   urls=[x.text for x in ET.parse(BUILD/'sitemap.xml').findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}url/{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
   self.assertIn('https://www.cameraboss.co.uk/client-area/',urls)
@@ -35,12 +41,10 @@ class MigrationTests(unittest.TestCase):
   self.assertFalse(list((BUILD/'galleries').glob('*/index.html')))
   for f in BUILD.rglob('*.html'):
    self.assertNotRegex(f.read_text(),r'(?:const|var|let) pin =')
- # Every page that carried the Studio Ninja embed now loads the CRM form
- # instead: the three hand-built pages plus the twelve migrated ones.
- FORM_PAGES=['/','/about/','/contact/','/pricing/','/pricing-NG/','/weddings/','/experience/',
-  '/London-wedding-photographer/','/London-Wedding-Photography-Packages/',
-  '/Asian-wedding-photographer-Leicester/','/sheffield-wedding-photographer/',
-  '/Wolverhampton-wedding-photographer/','/Italy-destination-wedding-photographer/',
+ # Current Pixieset pages that still contain an embedded enquiry form. Other
+ # refreshed location pages now use contact links, mirroring the live source.
+ FORM_PAGES=['/about/','/contact/','/pricing/','/pricing-NG/','/experience/',
+  '/London-Wedding-Photography-Packages/','/Asian-wedding-photographer-Leicester/',
   '/Graduation-Photographer/','/Weddingchecklist/']
  def test_crm_enquiry_embed_replaces_every_studio_ninja_form(self):
   for path in self.FORM_PAGES:
@@ -54,6 +58,11 @@ class MigrationTests(unittest.TestCase):
     # A visitor without JavaScript still gets a route to the form.
     self.assertIn('https://cameraboss-crm.vercel.app/book/cameraboss/general-enquiry',text)
     self.assertNotIn('coming soon',text)
+ def test_refreshed_service_pages_reach_contact(self):
+  for path in ['/weddings/','/London-wedding-photographer/','/sheffield-wedding-photographer/',
+               '/Wolverhampton-wedding-photographer/','/Italy-destination-wedding-photographer/']:
+   with self.subTest(path=path):
+    self.assertIn('/contact/',{a.get('href') for a in HTML(page(path)).attrs('a')})
  def test_no_studio_ninja_anywhere_in_the_build(self):
   for f in BUILD.rglob('*'):
    if f.is_file() and f.suffix in {'.html','.js','.css','.json','.txt','.xml'}:
@@ -73,7 +82,8 @@ class MigrationTests(unittest.TestCase):
   descriptions=[x['content'] for x in p.attrs('meta') if x.get('name')=='description']
   self.assertIn('Trusted Yoruba wedding photographer in London',descriptions[0])
   hrefs={x.get('href') for x in p.attrs('a')}
-  for href in ['https://cameraboss.pixieset.com/dana/','https://gallery.cameraboss.co.uk/bridalshoot/','https://gallery.cameraboss.co.uk/jumokeandstephen/']:self.assertIn(href,hrefs)
+  for href in ['/client-area/','/client-area/?tag=portrait','/contact/','/blog/']:self.assertIn(href,hrefs)
+  self.assertFalse(any('pixieset' in (url or '') or 'gallery.cameraboss.co.uk' in (url or '') for url in hrefs))
  def test_clean_metadata_and_single_footer(self):
   for f in BUILD.rglob('*.html'):
    with self.subTest(page=str(f.relative_to(BUILD))):
@@ -90,6 +100,22 @@ class MigrationTests(unittest.TestCase):
    canonical=[x.get('href') for x in p.attrs('link') if x.get('rel')=='canonical'];self.assertEqual(len(canonical),1)
    self.assertTrue(canonical[0].startswith('https://www.cameraboss.co.uk/'))
   self.assertIn('noindex',next(x['content'] for x in HTML((BUILD/'404.html').read_text()).attrs('meta') if x.get('name')=='robots'))
+ def test_rendered_internal_links_and_local_images_exist(self):
+  """Audit every generated page, rather than sampling navigation paths."""
+  for f in BUILD.rglob('*.html'):
+   route='/' if f==BUILD/'index.html' else '/'+str(f.relative_to(BUILD).parent).strip('/')+'/'
+   parsed=HTML(f.read_text(errors='ignore'))
+   for attr,tag in [('href','a'),('src','img')]:
+    for element in parsed.attrs(tag):
+     value=element.get(attr,'')
+     if not value or value.startswith(('#','mailto:','tel:')):continue
+     target=urlparse(urljoin('https://www.cameraboss.co.uk'+route,value))
+     if target.netloc not in {'www.cameraboss.co.uk','cameraboss.co.uk'}:continue
+     path=unquote(target.path)
+     if tag=='a' and (path.startswith(('/api/','/galleries/')) or path in {'/home/','/gallery/','/pricing-UK/'}):continue
+     candidate=BUILD/path.lstrip('/')
+     if tag=='a':candidate=candidate/'index.html' if path.endswith('/') or candidate.is_dir() else candidate
+     with self.subTest(page=route,attribute=attr,value=value):self.assertTrue(candidate.is_file(),str(candidate))
  def test_video_metadata_not_fabricated(self):
   text=page('/Wedding-videos/')
   self.assertNotIn('2022-01-01',text)

@@ -1,3 +1,5 @@
+# Superseded: read LAUNCH-READINESS.md and WORDPRESS-MIGRATION.md before deploying.
+
 # CameraBoss — deploy to GitHub + Vercel
 
 Everything Claude Code needs to get this repo onto

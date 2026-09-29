@@ -1,0 +1,153 @@
+[
+  {
+    "path": "/coventry-wedding-photographer/",
+    "image_variants": 49,
+    "unmapped": [
+      "BestUKWeddingPhotographyLocationsANigerianWeddingPhotographersCityGuide",
+      "BristolWeddingVenuesAPhotographersGuidetotheBestEventHalls",
+      "NigerianWeddingPhotographerinSheffieldAPhotographersGuide"
+    ],
+    "title_changed": false,
+    "blocks": 11
+  },
+  {
+    "path": "/Derby-wedding-photographer/",
+    "image_variants": 44,
+    "unmapped": [
+      "BestUKWeddingPhotographyLocationsANigerianWeddingPhotographersCityGuide",
+      "BristolWeddingVenuesAPhotographersGuidetotheBestEventHalls",
+      "NigerianWeddingPhotographerinSheffieldAPhotographersGuide"
+    ],
+    "title_changed": false,
+    "blocks": 10
+  },
+  {
+    "path": "/destination-wedding-photographer/",
+    "image_variants": 65,
+    "unmapped": [],
+    "title_changed": false,
+    "blocks": 7
+  },
+  {
+    "path": "/Free-wedding-photography/",
+    "image_variants": 53,
+    "unmapped": [],
+    "title_changed": false,
+    "blocks": 9
+  },
+  {
+    "path": "/ipswich-wedding-photographer/",
+    "image_variants": 144,
+    "unmapped": [
+      "BestUKWeddingPhotographyLocationsANigerianWeddingPhotographersCityGuide",
+      "BristolWeddingVenuesAPhotographersGuidetotheBestEventHalls",
+      "NigerianWeddingPhotographerinSheffieldAPhotographersGuide"
+    ],
+    "title_changed": false,
+    "blocks": 12
+  },
+  {
+    "path": "/Italy-destination-wedding-photographer/",
+    "image_variants": 80,
+    "unmapped": [],
+    "title_changed": false,
+    "blocks": 12
+  },
+  {
+    "path": "/Leicester-Wedding-Photographer/",
+    "image_variants": 114,
+    "unmapped": [
+      "BestUKWeddingPhotographyLocationsANigerianWeddingPhotographersCityGuide",
+      "BristolWeddingVenuesAPhotographersGuidetotheBestEventHalls",
+      "NigerianWeddingPhotographerinSheffieldAPhotographersGuide"
+    ],
+    "title_changed": false,
+    "blocks": 13
+  },
+  {
+    "path": "/links/",
+    "image_variants": 2,
+    "unmapped": [],
+    "title_changed": false,
+    "blocks": 1
+  },
+  {
+    "path": "/Liverpool-wedding-photographer/",
+    "image_variants": 24,
+    "unmapped": [
+      "BestUKWeddingPhotographyLocationsANigerianWeddingPhotographersCityGuide",
+      "BristolWeddingVenuesAPhotographersGuidetotheBestEventHalls",
+      "NigerianWeddingPhotographerinSheffieldAPhotographersGuide"
+    ],
+    "title_changed": false,
+    "blocks": 7
+  },
+  {
+    "path": "/London-wedding-photographer/",
+    "image_variants": 56,
+    "unmapped": [],
+    "title_changed": true,
+    "blocks": 12
+  },
+  {
+    "path": "/Luton-wedding-photographer/",
+    "image_variants": 26,
+    "unmapped": [
+      "BestUKWeddingPhotographyLocationsANigerianWeddingPhotographersCityGuide",
+      "BristolWeddingVenuesAPhotographersGuidetotheBestEventHalls",
+      "NigerianWeddingPhotographerinSheffieldAPhotographersGuide"
+    ],
+    "title_changed": false,
+    "blocks": 9
+  },
+  {
+    "path": "/manchester-wedding-photographer/",
+    "image_variants": 64,
+    "unmapped": [
+      "BestUKWeddingPhotographyLocationsANigerianWeddingPhotographersCityGuide",
+      "BristolWeddingVenuesAPhotographersGuidetotheBestEventHalls",
+      "NigerianWeddingPhotographerinSheffieldAPhotographersGuide"
+    ],
+    "title_changed": false,
+    "blocks": 10
+  },
+  {
+    "path": "/Oxford-wedding-photographer/",
+    "image_variants": 39,
+    "unmapped": [
+      "BestUKWeddingPhotographyLocationsANigerianWeddingPhotographersCityGuide",
+      "BristolWeddingVenuesAPhotographersGuidetotheBestEventHalls",
+      "NigerianWeddingPhotographerinSheffieldAPhotographersGuide"
+    ],
+    "title_changed": false,
+    "blocks": 9
+  },
+  {
+    "path": "/sheffield-wedding-photographer/",
+    "image_variants": 58,
+    "unmapped": [],
+    "title_changed": false,
+    "blocks": 10
+  },
+  {
+    "path": "/testimonials/",
+    "image_variants": 64,
+    "unmapped": [],
+    "title_changed": true,
+    "blocks": 9
+  },
+  {
+    "path": "/Wedding-Photographer/",
+    "image_variants": 65,
+    "unmapped": [],
+    "title_changed": false,
+    "blocks": 8
+  },
+  {
+    "path": "/Wolverhampton-wedding-photographer/",
+    "image_variants": 58,
+    "unmapped": [],
+    "title_changed": false,
+    "blocks": 11
+  }
+]

@@ -1,3 +1,5 @@
+# Superseded for the current curated-portfolio plan: see LAUNCH-READINESS.md.
+
 # CameraBoss — archive migration and go-live prep
 
 **Runbook for Claude Code. Written 7 September 2026, from the verified state of the project on that date.**

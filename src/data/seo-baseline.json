@@ -8,8 +8,8 @@
     "description": "Plan your budget with transparent packages from a Nigerian wedding photographer in London. Premium storytelling with no hidden fees. Camera Boss"
   },
   "/testimonials/": {
-    "title": "Real Client Testimonials | Wedding Photography by Camera Boss",
-    "description": "Discover real feedback from couples who chose CameraBoss for wedding photography in the UK. Honest testimonials to help you choose with confidence and book now."
+    "title": "Wedding Photography Reviews | Cameraboss",
+    "description": "Read what Cameraboss couples and clients say about their photography experience, from traditional ceremonies to wedding celebrations abroad."
   },
   "/experience/": {
     "title": "London Wedding Photographer and Destination Weddings",
@@ -40,8 +40,8 @@
     "description": "Find helpful wedding photography tips, shoot ideas & UK location guides on Cameraboss. Read expert insights to plan beautiful, memorable wedding photos."
   },
   "/client-area/": {
-    "title": "Engagement Photography in Leicester, UK | Camera Boss",
-    "description": "Wedding Gallery by London's best wedding photographer. Wedding photography around the world: Leicester and Manchester Weddings"
+    "title": "Wedding & Portrait Gallery | CameraBoss",
+    "description": "Selected wedding stories and portrait photography by CameraBoss. Explore the work, the people and the moments that make each celebration different."
   },
   "/Wedding-videos/": {
     "title": "Wedding Videography in London | Professional Wedding Videos UK",
@@ -76,12 +76,12 @@
     "description": "Leicester wedding photographer who specialises on fun, natural and unobtrusive wedding photography. Based in Leicester and covering the East Midlands"
   },
   "/Lonodon-wedding-photographer/": {
-    "title": "Gallery C",
-    "description": "A London  wedding photographer who specialises on fun, natural and unobtrusive wedding photography. Based in London and covering the East Midlands area."
+    "title": "London Wedding Photographer & Videographer | Cameraboss",
+    "description": "Explore Cameraboss wedding photography and videography in London. See real celebrations, compare coverage options and enquire about your wedding date."
   },
   "/contact-copy/": {
-    "title": "Contact Copy",
-    "description": "Wedding photography prices in the UK \nPhotography Prices in Nigeria \nPhotography Prices in London\nLeicester photographer"
+    "title": "Contact the Best Photographer in London and Leicester | Camera Boss",
+    "description": "Discover our wedding photography and video packages on budget. Get in touch with Camera Boss for best the services photographers in London and Leicester."
   },
   "/photography-masterclass/": {
     "title": "Best Photography Online Classes UK | Camera Boss Copy",
@@ -136,8 +136,8 @@
     "description": "Warwickshire wedding photographer based in Coventry, capturing real, raw moments that make your day truly yours. Covering weddings across the Midlands, UK."
   },
   "/weddings/": {
-    "title": "Wedding Photography Prices | Wedding Photos and Films | Cameraboss",
-    "description": "Explore our affordable UK wedding photography & videography packages. Natural, relaxed style. Prices start from just £390."
+    "title": "Wedding Photography & Films Across the UK | Cameraboss",
+    "description": "Discover Cameraboss wedding photography and films across the UK. Explore real weddings, our approach and coverage options for your celebration."
   },
   "/Wolverhampton-wedding-photographer/": {
     "title": "Wolverhampton Wedding Photographer | Cameraboss",
@@ -164,12 +164,12 @@
     "description": "Join the waiting list for “Creative Business: How to Build Your Business with the Smartness of a ‘Yahoo Boy’ (Without the Crime).” A bold, practical guide that teaches creatives and entrepreneurs how to use street-smart strategy ethically to grow their brand, influence, and income. Get early access, bonuses, and launch updates."
   },
   "/London-wedding-photographer/": {
-    "title": "Wedding Photographer in London | Cameraboss",
-    "description": "Professional London wedding photographer offering creative documentary-style coverage across the UK. Affordable packages starting from £389."
+    "title": "London Wedding Photographer & Videographer | Cameraboss",
+    "description": "Explore Cameraboss wedding photography and videography in London. See real celebrations, compare coverage options and enquire about your wedding date."
   },
   "/monthly-master-class-copy-copy/": {
-    "title": "Best Photography Online Classes UK | Camera Boss Copy Copy",
-    "description": "Get the best photography online classes UK from experts at Camera Boss. Enrol in our top-rated online classes designed for aspiring photographers in the UK."
+    "title": "Photography Business Masterclass | Cameraboss",
+    "description": "Explore the Cameraboss photography business class and mentorship options, covering portfolios, pricing and branding. Join the waiting list."
   },
   "/ipswich-wedding-photographer/": {
     "title": "Ipswich Wedding Photographer | Affordable wedding photographer in Ipswich",
@@ -341,7 +341,7 @@
   },
   "/blog/grain-warmth-the-feeling-you-cannot-fake-why-35mm-film-is-having-a-renaissance-at-uk-weddings-in-2026-cameraboss/": {
     "title": "Grain, Warmth & the Feeling You Cannot Fake: Why 35mm Film Is Having a Renaissance at UK Weddings in 2026 | Cameraboss",
-    "description": "Planning an Igbo traditional wedding in the UK? Cameraboss guides you through every ceremony — from Ime Ego to Igba Nkwu — and why cultural expertise in your photographer changes everything."
+    "description": "35mm film wedding photography is back — and for good reason. Cameraboss explores why more UK couples and photographers are returning to analogue in 2026, and what it means for your day."
   },
   "/blog/how-much-does-a-wedding-photographer-cost-london/": {
     "title": "How Much Does a Wedding Photographer Cost? | London Wedding Photography Prices",
@@ -914,5 +914,37 @@
   "/": {
     "title": "Nigerian Wedding Photographer in London & across UK",
     "description": "Trusted Yoruba wedding photographer in London & African wedding photographer in the UK. Serving in Leicester, Midlands & Manchester with creative wedding photography."
+  },
+  "/blog/10-stunning-outdoor-wedding-photography-locations-in-oxford/": {
+    "title": "10 Stunning Outdoor Wedding Photography Locations in Oxford",
+    "description": "Planning a wedding in Oxford? Discover 10 stunning outdoor wedding photography locations in and around Oxford, from scenic riverside spots and historic landmarks to beautiful gardens and parks.\n\nThis guide covers the best locations, along with useful tips on lighting, access, and the ideal time of day for capturing beautiful wedding photographs.\n\nRead the full guide to find the perfect outdoor setting for your Oxford wedding photography."
+  },
+  "/blog/best-uk-wedding-photography-locations/": {
+    "title": "Best UK Wedding Photography Locations: A Nigerian Wedding Photographer's City Guide",
+    "description": "UK wedding photography locations city by city — from Leicester to Oxford, scouted by a Nigerian wedding photographer who's shot them all."
+  },
+  "/blog/best-wedding-venues-event-halls-bristol/": {
+    "title": "Bristol Wedding Venues: A Photographer's Guide to the Best Event Halls",
+    "description": "Bristol's best wedding venues reviewed by a photographer — from Concorde hangars to Georgian halls and harbourside spaces."
+  },
+  "/blog/birmingham-wedding-venues-a-photographers-view/": {
+    "title": "Birmingham Wedding Venues: A Photographer's View",
+    "description": "Birmingham licensed ceremony venues judged on light, ceiling height and timings by a working wedding photographer, with real capacities and costs."
+  },
+  "/blog/nigerian-wedding-photographer-sheffield/": {
+    "title": "Nigerian Wedding Photographer in Sheffield: A Photographer's Guide",
+    "description": "Nigerian wedding photographer covering Sheffield's traditional and white weddings. Expert in Yoruba ceremonies, Aso-Ebi colour and local venues."
+  },
+  "/blog/planning-african-nigerian-wedding-photography-uk/": {
+    "title": "Planning African & Nigerian Wedding Photography in the UK (2026)",
+    "description": "Planning African & Nigerian wedding photography in the UK? Expert tips on ceremonies, scheduling and finding the right photographer."
+  },
+  "/blog/top-event-halls-in-leicester-for-weddings-and-receptions/": {
+    "title": "Top Event Halls in Leicester for Weddings and Receptions",
+    "description": "Leicester event halls for weddings and receptions: real capacities, catering rules, ceremony licences, and what each room does to your photographs."
+  },
+  "/blog/nigerian-wedding-photographer-birmingham/": {
+    "title": "Nigerian Wedding Photographer in Birmingham: The Complete Guide",
+    "description": "Birmingham holds one of the largest African diasporas outside London, and on wedding weekends that shows — banqueting halls across Edgbaston and Aston, community centres in Handsworth, and civic venues around Victoria Square fill with Aso-Ebi, gele and the sound of talking drums. Finding the right Nigerian wedding photographer in Birmingham means finding someone who has actually worked these venues, not just researched them from a distance — who knows the order of a traditional engagement, the pace of a ful"
   }
 }

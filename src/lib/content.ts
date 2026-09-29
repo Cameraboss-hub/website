@@ -405,8 +405,9 @@ export function fixLinks(html: string): string {
   // No verified replacement for the closed/missing studio or discontinued product page.
   // Retain the text instead of sending readers to an unrelated destination.
   out = out.replace(/<a\b([^>]*?)href="https:\/\/www\.(?:bossstudiosvip\.com\/?|vanguardworld\.co\.uk\/collections\/bags\/products\/veo-select-59t-gr)"[^>]*>([\s\S]*?)<\/a>/gi, "$2");
-  // Dead hrefs Pixieset emitted for unlinked elements
-  out = out.replace(/href="null"/gi, 'href="#"').replace(/href="undefined"/gi, 'href="#"');
+  // Pixieset exported literal null/undefined hrefs on dozens of article links.
+  // Keep the words, but do not present a non-working link to readers.
+  out = out.replace(/<a\b[^>]*\bhref="(?:null|undefined)"[^>]*>([\s\S]*?)<\/a>/gi, "$1");
 
   // Pixieset's own template default, left behind on two pages.
   out = out.replace(/href="https?:\/\/(?:website|www)\.pixieset\.com\/contact\/?"/gi, 'href="/contact/"');

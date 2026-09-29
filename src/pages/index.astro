@@ -1,32 +1,101 @@
 ---
-// Static marketing page — prerendered to HTML at build time even though the
-// site runs in `server` output mode overall (see astro.config.mjs).
 export const prerender = true;
 
-import BaseLayout from "../layouts/BaseLayout.astro";
-import DockExperience from "../components/sections/DockExperience.astro";
-import DockIntro from "../components/sections/DockIntro.astro";
-import Hero from "../components/sections/Hero.astro";
-import About from "../components/sections/About.astro";
-import PortfolioGrid from "../components/sections/PortfolioGrid.astro";
-import BookingCta from "../components/sections/BookingCta.astro";
-import FilmCompany from "../components/sections/FilmCompany.astro";
-import Packages from "../components/sections/Packages.astro";
-import ExploreMore from "../components/sections/ExploreMore.astro";
-import Footer from "../components/Footer.astro";
+import PageLayout from "../layouts/PageLayout.astro";
+import selectedWork from "../data/portfolio.json";
+import { posts, isoDate, thumbFor } from "../lib/content";
+import "../styles/home-new.css";
+
+const lead = selectedWork.find((work) => work.slug === "cynthiaandoswaldo")!;
+const stories = ["faithandjack-1", "bambna", "mayoandemmanuel", "dana"].map((slug) => selectedWork.find((work) => work.slug === slug)!);
+const latest = [...posts].filter((post) => isoDate(post.date)).sort((a, b) => isoDate(b.date)!.localeCompare(isoDate(a.date)!)).slice(0, 3);
 ---
 
-<BaseLayout title="CameraBoss | Nigeria & London Wedding Photographer">
-  <main id="main-content">
-    <DockIntro />
-    <Hero />
-    <DockExperience />
-    <PortfolioGrid />
-    <About />
-    <FilmCompany />
-    <Packages />
-    <ExploreMore />
-    <BookingCta />
-  </main>
-  <Footer />
-</BaseLayout>
+<PageLayout
+  title="Nigerian Wedding Photographer in London & across UK"
+  description="Trusted Yoruba wedding photographer in London & African wedding photographer in the UK. Serving in Leicester, Midlands & Manchester with creative wedding photography."
+  current="/"
+  ogImage={lead.image}
+>
+  <section class="home-lead" aria-labelledby="home-title">
+    <div class="home-lead__copy">
+      <p class="home-eyebrow">CameraBoss · Photography & film</p>
+      <h1 id="home-title">For every moment <em>worth keeping.</em></h1>
+      <p class="home-lead__intro">Wedding photography with feeling. From Nigerian and multicultural celebrations to the quiet, unplanned moments in between, we tell your story as it feels to live it.</p>
+      <div class="home-lead__actions">
+        <a class="home-button" href="/client-area/">Explore the work <span aria-hidden="true">↗</span></a>
+        <a class="home-text-link" href="/contact/">Check your date <span aria-hidden="true">→</span></a>
+      </div>
+      <p class="home-lead__places">London &nbsp; / &nbsp; Leicester &nbsp; / &nbsp; Across the UK & beyond</p>
+    </div>
+    <div class="home-lead__visual">
+      <img src={lead.image} alt="Cynthia and Oswaldo on their wedding day, photographed by CameraBoss" width="900" height="1200" fetchpriority="high" />
+      <span class="home-lead__caption">Cynthia and Oswaldo · CameraBoss</span>
+    </div>
+  </section>
+
+  <div class="home-line" aria-label="What we photograph">
+    <span>Weddings & celebrations</span><span aria-hidden="true">✳</span><span>Portraits & editorial</span><span aria-hidden="true">✳</span><span>Films with feeling</span>
+  </div>
+
+  <section class="home-stories" aria-labelledby="home-stories-title">
+    <div class="home-section-head">
+      <p class="home-eyebrow">01 / The photographs</p>
+      <h2 id="home-stories-title">Every story has <em>its own rhythm.</em></h2>
+      <p>Real people, real celebrations and portraits with presence. A few photographs from the work we love to make.</p>
+    </div>
+    <div class="home-stories__grid">
+      {stories.map((work, index) => (
+        <figure class:list={["home-story", { "home-story--offset": index % 2 === 1 }]}>
+          <img src={work.image} alt={`${work.title} — ${work.category} photography by CameraBoss`} width="800" height="1000" loading="lazy" decoding="async" />
+          <figcaption><span>{work.title}</span><small>{work.category === "wedding" ? "Wedding" : "Portrait"}</small></figcaption>
+        </figure>
+      ))}
+    </div>
+    <a class="home-inline-link" href="/client-area/">See all selected work <span aria-hidden="true">↗</span></a>
+  </section>
+
+  <section class="home-approach" aria-labelledby="home-approach-title">
+    <div class="home-approach__intro">
+      <p class="home-eyebrow">02 / The approach</p>
+      <h2 id="home-approach-title">A camera, <em>and a connection.</em></h2>
+      <p>We make room for the traditions you carry, the people you love and the moments you never saw coming. Our work is considered, but never over-directed.</p>
+      <a class="home-inline-link" href="/experience/">The CameraBoss experience <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="home-approach__points">
+      <div><span>01</span><h3>Culture, understood.</h3><p>From Yoruba and Nigerian weddings to celebrations across cultures, we know how to follow a day that has many moving parts.</p></div>
+      <div><span>02</span><h3>People, at ease.</h3><p>We build a connection before we reach for the camera, so your photographs feel like you.</p></div>
+      <div><span>03</span><h3>Photography & film.</h3><p>Still images and moving memories, made to bring you back to the feeling of the day.</p></div>
+    </div>
+  </section>
+
+  <section class="home-portrait" aria-labelledby="home-portrait-title">
+    <div class="home-portrait__image"><img src="/images/selected-work/dana.jpg" alt="Dana bridal portrait by CameraBoss" width="800" height="1000" loading="lazy" decoding="async" /></div>
+    <div class="home-portrait__copy">
+      <p class="home-eyebrow">More than weddings</p>
+      <h2 id="home-portrait-title">A little more <em>of you.</em></h2>
+      <p>Portraits, editorial work and all the versions of yourself worth remembering. Made with the same care as the biggest day.</p>
+      <a class="home-inline-link" href="/client-area/?tag=portrait">Explore portraits <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+
+  <section class="home-journal" aria-labelledby="home-journal-title">
+    <div class="home-journal__heading"><div><p class="home-eyebrow">03 / Notes from the journal</p><h2 id="home-journal-title">Thoughts worth <em>sharing.</em></h2></div><a class="home-inline-link" href="/blog/">Visit the journal <span aria-hidden="true">↗</span></a></div>
+    <div class="home-journal__grid">
+      {latest.map((post) => (
+        <a href={`/blog/${post.slug}/`} class="home-journal__card">
+          {thumbFor(post) && <img src={thumbFor(post)} alt="" width="720" height="480" loading="lazy" decoding="async" />}
+          <span>{post.date}</span><h3>{post.title}</h3><b aria-hidden="true">↗</b>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="home-about" aria-labelledby="home-about-title">
+    <div class="home-about__image"><img src="/images/about/john-lekan-shooting.webp" alt="John Lekan photographing a wedding" width="800" height="1000" loading="lazy" decoding="async" /></div>
+    <div class="home-about__copy"><p class="home-eyebrow">The person behind the lens</p><h2 id="home-about-title">Hello, I’m <em>John Lekan.</em></h2><p>I’m a wedding, lifestyle and portrait photographer based in the UK. The best part of my work is meeting people and making images that bring them back to their own story.</p><a class="home-inline-link" href="/about/">A little more about me <span aria-hidden="true">↗</span></a></div>
+  </section>
+
+  <section class="home-locations" aria-label="Photography locations"><p class="home-eyebrow">Where we work</p><div><a href="/London-wedding-photographer/">London</a><a href="/Leicester-Wedding-Photographer/">Leicester</a><a href="/Birmingham-wedding-photographer/">Birmingham</a><a href="/manchester-wedding-photographer/">Manchester</a><a href="/locations/">All locations ↗</a></div></section>
+  <section class="home-contact" aria-labelledby="home-contact-title"><p class="home-eyebrow">The next chapter</p><h2 id="home-contact-title">Let’s make something <em>worth remembering.</em></h2><a class="home-button" href="/contact/">Tell us your plans <span aria-hidden="true">↗</span></a></section>
+</PageLayout>

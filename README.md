@@ -1,53 +1,43 @@
-# CameraBoss
+# CameraBoss website
 
-Astro rebuild of the [CameraBoss](https://www.cameraboss.co.uk/) marketing site, from the
-[Figma storyboard](https://www.figma.com/design/Wr17cgmaXpIFRDFTHxWSHq/Arvo-%E2%80%94-Ranking-%E2%80%94-Storyboard).
+This is the CameraBoss marketing-site rebuild. The public domain currently
+serves Pixieset; this repository is a deployment candidate, **not** a signal
+to change DNS. See [LAUNCH-READINESS.md](LAUNCH-READINESS.md) for the current
+checks and remaining decisions.
 
-## Stack
+As audited on 30 September 2026, the site contains 191 blog posts at their
+original `/blog/<slug>/` paths, 45 imported page records, a redesigned home
+page, and a curated 18-photograph wedding and portrait portfolio at
+`/client-area/`. Imported blog and page images are served from Supabase's
+`blog` bucket or local assets. The enquiry form is provided by CameraBoss CRM
+on `/contact/` and pages that retained an embed. Historical client-gallery
+links still lead to Pixieset while original-photo delivery is prepared on
+Google Drive and the NAS.
 
-- **Astro** in `server` output mode with the `@astrojs/vercel` adapter, so future
-  API routes (contact form, auth, CMS webhooks) can live under `src/pages/api/**`
-  without reconfiguring rendering.
-- Marketing pages opt into static prerendering individually via
-  `export const prerender = true;` (see `src/pages/index.astro`) — the frontend
-  ships as fast, cacheable HTML today even though the project is server-capable.
-- **Tailwind CSS v4** (CSS-first config in `src/styles/global.css`).
-- **Fraunces** stands in for the Figma file's licensed **Quincy CF** display font
-  until real webfont files are supplied — swap it in `src/styles/global.css`.
+The Astro site uses the Vercel adapter and prerenders the marketing content.
+The current source sitemap has 237 URLs. `tests/legacy-urls.json` and
+`src/data/seo-baseline.json` record route and metadata parity. Portfolio
+selection and source attribution live in `src/data/portfolio.json`; the full
+historical card list is retained as data in `src/data/client-area.json` but is
+no longer shown as a public client-download index.
 
-## Structure
-
-```
-src/
-  layouts/BaseLayout.astro    HTML shell, fonts, meta
-  components/
-    Header.astro              Nav overlay for the hero
-    Footer.astro               Instagram grid, nav, socials
-    sections/                 One component per homepage section
-  pages/
-    index.astro                Homepage (prerendered)
-    api/health.ts              Placeholder proving the server skeleton works
-public/images/                 Assets pulled from Figma, organized by section
-```
-
-## Roadmap (backend)
-
-Per the current plan, these land in later passes on top of this frontend skeleton:
-
-1. Contact / booking inquiry form → email + stored lead (replaces the
-   `BookingCta` placeholder and the "Enquire" links).
-2. Blog / recent posts via a headless CMS or content collections.
-3. Dynamic gallery & portfolio management (replaces the hardcoded
-   `PortfolioGrid` data).
-4. Admin/auth area for managing leads, bookings, and content.
-
-Deploys to **Vercel**; the domain is currently on Go54 (formerly WhoGoHost) and
-will be pointed at Vercel once the site is ready to go live.
-
-## Development
+## Development and verification
 
 ```bash
 npm install
-npm run dev       # http://localhost:4321
-npm run build     # production build (Vercel-ready output in dist/ and .vercel/)
+./node_modules/.bin/astro dev --background
+./node_modules/.bin/astro dev status
+./node_modules/.bin/astro dev stop
+npm run check
+npm test
 ```
+
+`npm test` runs the unit tests, production build, and migration checks against
+`.vercel/output/static`. The public domain and DNS are outside this workflow.
+
+## Hosting choice
+
+This codebase is Astro, not a WordPress theme. If the SEO agency needs to edit
+pages and templates in WordPress, follow [WORDPRESS-MIGRATION.md](WORDPRESS-MIGRATION.md)
+and prove URL, metadata, image, and form parity on a WordPress staging site
+before any cutover. No WordPress host or staging instance is configured here.
