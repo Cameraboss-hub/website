@@ -36,6 +36,13 @@ ownership before any later cutover.
   all 43 historical redirects. All 27 checked local portfolio, blog-cover and
   about images returned 200 with image content. No production deployment or
   custom-domain assignment was made.
+- An outbound-link audit of the rebuilt HTML checked 118 distinct non-map
+  external targets after repairing a dead Bodleian URL, a retired Clifton
+  Pavilion URL, an obsolete Boomer Gallery domain, and a mistaken
+  `cameraboss.com` self-link. No target returned 404 or 410 on the final pass;
+  15 returned an access block or transport error and remain unverified. See
+  `audit/outbound-link-check-2026-09-30.json`. Dynamic Google Maps search links
+  were outside this check.
 
 ## What remains before a safe change of provider
 
@@ -66,6 +73,9 @@ ownership before any later cutover.
    every collection were not exhaustively reviewed. Browser-visible images
    can always be saved by visitors, even without a download button. Keep
    full-resolution originals off the public site.
+8. **Review external links that blocked automation.** Fifteen targets in the
+   outbound-link report could not be verified from this environment. These
+   are not proven broken, but need a human browser check before cutover.
 
 No DNS records, Pixieset collections, Google Drive files, or NAS files were
 changed by this preparation.

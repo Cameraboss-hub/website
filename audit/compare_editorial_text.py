@@ -22,6 +22,7 @@ EXPECTED_DIFFERENCES = {
     "/blog/a-timeless-celebration-at-borough-hall-greenwich-ionie-pauls-wedding/": "Two adjacent source anchor text nodes split words in the plain-text extractor.",
     "/blog/camila-and-will-wedding-at-the-priest-house-hotel/": "Adjacent source anchor text nodes split a word in the plain-text extractor.",
     "/blog/top-wedding-venues-in-luton-where-love-meets-unforgettable-backdrops/": "Two adjacent source anchor text nodes split words in the plain-text extractor.",
+    "/blog/nigerian-wedding-photographer-bristol-yoruba-african-weddings-across-the-south-west/": "Replaced a dead Clifton Pavilion link and its text with Bristol City Council's current venue list.",
 }
 
 

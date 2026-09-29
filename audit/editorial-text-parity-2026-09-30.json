@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-09-29T23:30:33.267361+00:00",
+  "checked_at": "2026-09-29T23:45:40.521655+00:00",
   "source": "https://www.cameraboss.co.uk",
   "records": [
     {
@@ -941,11 +941,11 @@
     {
       "kind": "post",
       "path": "/blog/nigerian-wedding-photographer-bristol-yoruba-african-weddings-across-the-south-west/",
-      "matches": true,
-      "ratio": 1.0,
+      "matches": false,
+      "ratio": 0.998,
       "live_chars": 8374,
-      "local_chars": 8374,
-      "expected_difference": null
+      "local_chars": 8389,
+      "expected_difference": "Replaced a dead Clifton Pavilion link and its text with Bristol City Council's current venue list."
     },
     {
       "kind": "post",
