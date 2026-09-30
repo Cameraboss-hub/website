@@ -18,12 +18,13 @@ ownership before any later cutover.
   variants; no new objects were uploaded to Supabase. A 236-route visible-text
   comparison found 228 exact matches and eight documented differences, with
   no unexpected drift.
-- The homepage now has a clear photography proposition, selected work,
-  wedding and portrait paths, journal links and enquiry calls to action.
-  `/client-area/` is a curated 18-photo portfolio: 12 wedding and six portrait
-  images, drawn from an audit of 261 distinct publicly listed Pixieset
-  collections. Five new collections were added to the archival card data.
-  The public portfolio contains no client-download or PIN interface.
+- The homepage now has a clear photography proposition, 12 linked gallery
+  covers, wedding and portrait paths, journal links and enquiry calls to action.
+  `/client-area/` has 18 featured covers (12 weddings and six portraits) plus
+  a searchable directory for the other 259 recorded collections. Every card
+  opens its complete Pixieset collection. Five featured galleries also have
+  on-site selected-photo stories. The public portfolio contains no client PIN
+  or download interface; Pixieset retains those collection settings.
 - Broken third-party image slots on the Newcastle page were replaced with
   verified images from the same Jo and Jonny wedding; four expired Instagram
   embeds in an exhibition article were replaced with images already attached
@@ -60,11 +61,10 @@ ownership before any later cutover.
    about 32 GiB free. No full-resolution client-gallery transfer or
    server-side Drive verification happened in this run. Pixieset remains
    the only verified client archive and must stay available.
-4. **Agree the fate of old client links.** Hundreds of
-   `gallery.cameraboss.co.uk` links in messages and invoices continue to work
-   only while that subdomain stays on Pixieset, or after a tested
-   path-preserving replacement is built. The curated portfolio does not
-   substitute for client delivery. Do not cancel Pixieset yet.
+4. **Keep the gallery subdomain on Pixieset.** Hundreds of
+   `gallery.cameraboss.co.uk` links in messages, invoices and the new portfolio
+   depend on it. Change only the apex and `www` records during the later site
+   cutover. Do not cancel Pixieset or change the gallery record.
 5. **Test a real enquiry on preview** and check inbox receipt. The current
    local tests prove form placement and fallback paths, not delivery.
 6. **Confirm commercial hosting terms.** The Vercel project currently shows

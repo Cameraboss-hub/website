@@ -1,48 +1,76 @@
-/* Selected work: photographic hierarchy, restrained editorial type and no decorative UI. */
-.editorial-site.dock-theme[data-page="/client-area/"] { background: #faf9f6; color: #191919; }
-.portfolio-kicker { margin: 0; font: 600 .68rem/1.4 "Manrope", sans-serif; letter-spacing: .16em; text-transform: uppercase; }
-.portfolio-hero { position: relative; display: flex; align-items: flex-end; min-height: clamp(490px, 64svh, 780px); isolation: isolate; overflow: hidden; background: #202020; color: white; }
-.portfolio-hero__image, .portfolio-hero__shade { position: absolute; inset: 0; width: 100%; height: 100%; }
-.portfolio-hero__image { object-fit: cover; object-position: center 44%; filter: grayscale(1) brightness(.72) contrast(1.08); }
-.portfolio-hero__shade { z-index: 1; background: linear-gradient(90deg, #080808a8, transparent 78%), linear-gradient(0deg, #08080886, transparent 57%); }
-.portfolio-hero__copy { position: relative; z-index: 2; width: min(900px, 85%); padding: 5rem clamp(1.5rem, 5vw, 6rem); }
-.editorial-site.dock-theme .portfolio-hero h1 { max-width: 14ch; margin: 1.3rem 0 1.1rem; font: 400 clamp(3.8rem, 7vw, 8rem)/1 "Bodoni Moda", Georgia, serif; letter-spacing: -.045em; font-family: "Bodoni Moda", Georgia, serif !important; font-weight: 400 !important; line-height: 1 !important; text-transform: none !important; }
-.portfolio-hero__copy > p:last-child { max-width: 39ch; margin: 0; color: #f4f3f0; font: 400 clamp(.9rem, 1.1vw, 1.08rem)/1.7 "Manrope", sans-serif; }
-.portfolio-work { max-width: 1600px; margin: auto; padding: 0 clamp(.55rem, 3vw, 3rem) clamp(5rem, 8vw, 9rem); }
-.portfolio-intro { display: grid; grid-template-columns: 1fr 2fr; align-items: start; gap: 2rem; padding: clamp(4rem, 7vw, 7.5rem) clamp(.8rem, 2vw, 2rem); }
+/* Public portfolio and Pixieset gallery directory. */
+.editorial-site.dock-theme[data-page="/client-area/"] { background: #f8f7f3; color: #22211f; }
+.portfolio-kicker { margin: 0; font: 600 .68rem/1.4 "Manrope", sans-serif; letter-spacing: .14em; text-transform: uppercase; }
+.portfolio-hero { display: grid; grid-template-columns: minmax(320px, 41%) minmax(0, 59%); min-height: min(750px, calc(100svh - 80px)); background: #e9e6df; }
+.portfolio-hero__copy { display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; padding: clamp(3rem, 6vw, 7rem) clamp(2rem, 5vw, 6rem) clamp(4rem, 8vw, 8rem); }
+.editorial-site.dock-theme .portfolio-hero h1 { max-width: 10ch; margin: 1.2rem 0 1.5rem; font: 400 clamp(3.9rem, 6.5vw, 7.4rem)/.99 "Bodoni Moda", Georgia, serif !important; letter-spacing: -.05em; text-transform: none !important; }
+.portfolio-hero__copy > p:last-child { max-width: 32ch; margin: 0; font: 400 clamp(.95rem, 1.1vw, 1.1rem)/1.75 "Manrope", sans-serif; color: #53514c; }
+.portfolio-hero__pictures { display: grid; grid-template-columns: 57% 43%; gap: 7px; min-height: 0; overflow: hidden; }
+.portfolio-hero__pictures img { display: block; width: 100%; height: 100%; min-height: 610px; object-fit: cover; }
+.portfolio-hero__pictures img:first-child { object-position: 54% center; }
+.portfolio-hero__pictures img:last-child { object-position: 42% center; }
+.portfolio-work, .portfolio-archive { max-width: 1600px; margin: auto; padding-inline: clamp(1.3rem, 5vw, 5rem); }
+.portfolio-work { padding-block: clamp(5rem, 8vw, 9rem); }
+.portfolio-intro { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: start; padding-bottom: clamp(2.5rem, 4vw, 4rem); }
 .portfolio-intro .portfolio-kicker { padding-top: .6rem; }
-.portfolio-intro > p:last-child { max-width: 30ch; margin: 0; font: 400 clamp(1.8rem, 3vw, 3.3rem)/1.2 "Bodoni Moda", Georgia, serif; letter-spacing: -.03em; }
-.portfolio-filters { display: flex; align-items: center; flex-wrap: wrap; gap: clamp(1.2rem, 3vw, 3rem); margin: 0 .8rem 1.5rem; border-bottom: 1px solid #d6d5d0; }
-.portfolio-filters button { min-height: 48px; padding: .3rem 0; color: #77756f; background: transparent; border: 0; border-bottom: 1px solid transparent; font: 600 .68rem "Manrope", sans-serif; letter-spacing: .13em; text-transform: uppercase; cursor: pointer; }
-.portfolio-filters button[aria-pressed="true"] { color: #191919; border-bottom-color: #191919; }
-.portfolio-filters button:hover { color: #191919; }
-.portfolio-filters button:focus-visible { outline: 2px solid #a44b42; outline-offset: 5px; }
-.portfolio-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(4px, .55vw, 9px); }
-.portfolio-card { position: relative; min-width: 0; margin: 0; aspect-ratio: 1; overflow: hidden; background: #e4e1dc; }
-.portfolio-card[hidden] { display: none; }
-.portfolio-card__image { position: absolute; inset: 0; }
-.portfolio-card img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
-.portfolio-card:hover img { transform: scale(1.025); }
-.portfolio-card figcaption { position: absolute; inset: auto 0 0; display: flex; flex-direction: column; gap: .35rem; padding: 2.8rem 1.2rem 1rem; color: #fff; background: linear-gradient(0deg, #000000b8, transparent); }
-.portfolio-card__title { font: 400 clamp(1.15rem, 1.8vw, 1.75rem)/1.2 "Bodoni Moda", Georgia, serif; letter-spacing: -.015em; }
-.portfolio-card__type { font: 600 .59rem "Manrope", sans-serif; letter-spacing: .13em; text-transform: uppercase; }
-.portfolio-card__link { position: absolute; inset: 0; z-index: 2; }
-.portfolio-card__link:focus-visible { outline: 3px solid #fff; outline-offset: -6px; }
-@media (max-width: 1100px) { .portfolio-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.portfolio-intro > p:last-child { max-width: 32ch; margin: 0; font: 400 clamp(2rem, 3.2vw, 3.8rem)/1.16 "Bodoni Moda", Georgia, serif; letter-spacing: -.035em; }
+.portfolio-filters { display: flex; flex-wrap: wrap; gap: clamp(1.3rem, 3vw, 3rem); margin-bottom: 2rem; border-bottom: 1px solid #d5d2cb; }
+.portfolio-filters button { min-height: 48px; padding: .3rem 0; border: 0; border-bottom: 1px solid transparent; background: transparent; color: #77736c; font: 600 .68rem "Manrope", sans-serif; letter-spacing: .11em; text-transform: uppercase; cursor: pointer; }
+.portfolio-filters button[aria-pressed="true"], .portfolio-filters button:hover { color: #22211f; border-bottom-color: #22211f; }
+.portfolio-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(2.5rem, 5vw, 5.5rem) clamp(1rem, 2.2vw, 2.5rem); }
+.portfolio-card { min-width: 0; margin: 0; }
+.portfolio-card[hidden], .portfolio-archive__card[hidden], .portfolio-archive__more[hidden] { display: none; }
+.portfolio-card__link { display: block; color: inherit; text-decoration: none; }
+.portfolio-card__image { display: block; overflow: hidden; background: #dfdcd5; }
+.portfolio-card img { display: block; width: 100%; aspect-ratio: 4/5; object-fit: cover; transition: transform .45s ease; }
+.portfolio-card:nth-child(6n + 2) img, .portfolio-card:nth-child(6n + 4) img { aspect-ratio: 5/4; }
+.portfolio-card__link:hover img { transform: scale(1.025); }
+.portfolio-card figcaption { display: flex; align-items: baseline; justify-content: space-between; gap: .7rem; padding-top: 1.1rem; }
+.portfolio-card__title { font: 400 clamp(1.3rem, 1.9vw, 1.9rem)/1.2 "Bodoni Moda", Georgia, serif; letter-spacing: -.025em; }
+.portfolio-card__type { flex: none; color: #77736c; font: 600 .62rem "Manrope", sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+.portfolio-card__link:hover .portfolio-card__title { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; }
+.portfolio-card__edit { display: inline-block; margin-top: .65rem; border-bottom: 1px solid currentColor; color: #615e58; font: 500 .68rem/1.7 "Manrope", sans-serif; text-decoration: none; }
+.portfolio-card__edit:hover { color: #22211f; }
+.portfolio-archive { padding-block: clamp(4rem, 7vw, 8rem) clamp(6rem, 9vw, 10rem); border-top: 1px solid #d5d2cb; }
+.portfolio-archive__intro { display: flex; justify-content: space-between; align-items: end; gap: 2rem; margin-bottom: 3rem; }
+.editorial-site.dock-theme .portfolio-archive h2 { margin: .8rem 0 0; font: 400 clamp(2.8rem, 5vw, 5.6rem)/1.1 "Bodoni Moda", Georgia, serif !important; letter-spacing: -.045em; text-transform: none !important; }
+.portfolio-archive__intro > p { max-width: 39ch; margin: 0; color: #615e58; font: 400 .92rem/1.75 "Manrope", sans-serif; }
+.portfolio-archive__controls { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; padding-block: 1.2rem; border-top: 1px solid #d5d2cb; border-bottom: 1px solid #d5d2cb; }
+.portfolio-archive__controls label { font: 600 .66rem "Manrope", sans-serif; letter-spacing: .11em; text-transform: uppercase; }
+.portfolio-archive__controls input, .portfolio-archive__controls select { min-height: 44px; padding: .5rem .7rem; border: 1px solid #cbc8c0; border-radius: 0; background: #fff; color: #22211f; font: 400 .85rem "Manrope", sans-serif; }
+.portfolio-archive__controls input { width: min(300px, 100%); margin-right: 1.5rem; }
+.portfolio-archive__count { margin: 1.5rem 0 2rem; color: #77736c; font: 500 .72rem "Manrope", sans-serif; letter-spacing: .05em; }
+.portfolio-archive__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2.5rem 1.3rem; }
+.portfolio-archive__card { display: block; min-width: 0; color: inherit; text-decoration: none; }
+.portfolio-archive__card img { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; background: #e3e0da; }
+.portfolio-archive__card-copy { display: flex; justify-content: space-between; align-items: baseline; gap: .7rem; padding-top: .7rem; }
+.portfolio-archive__card-copy strong { font: 500 .86rem/1.4 "Manrope", sans-serif; }
+.portfolio-archive__card-copy small { flex: none; color: #807c75; font: 400 .63rem/1.4 "Manrope", sans-serif; }
+.portfolio-archive__card:hover strong { text-decoration: underline; text-underline-offset: .2em; }
+.portfolio-archive__more { display: block; min-height: 48px; margin: 3rem auto 0; padding: .6rem .2rem; border: 0; border-bottom: 1px solid currentColor; background: transparent; color: #22211f; font: 600 .76rem "Manrope", sans-serif; cursor: pointer; }
+.editorial-site.dock-theme[data-page="/client-area/"] :is(a, button, input, select):focus-visible { outline: 2px solid #a44b42; outline-offset: 4px; }
+@media (max-width: 1050px) { .portfolio-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .portfolio-archive__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 760px) {
-  .portfolio-hero { min-height: clamp(380px, 54svh, 560px); }
-  .portfolio-hero__image { object-position: 58% center; }
-  .portfolio-hero__copy { width: 100%; padding: 3.5rem 1.5rem; }
-  .editorial-site.dock-theme .portfolio-hero h1 { max-width: 12ch; font-size: clamp(3.25rem, 10vw, 5rem); }
-  .portfolio-intro { display: block; padding: 3.5rem .8rem 2rem; }
-  .portfolio-intro > p:last-child { margin-top: 1.1rem; }
-  .portfolio-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .portfolio-hero { display: flex; flex-direction: column; min-height: 0; }
+  .portfolio-hero__copy { padding: 4.5rem 1.4rem 3.5rem; }
+  .editorial-site.dock-theme .portfolio-hero h1 { max-width: 12ch; font-size: clamp(3.4rem, 11vw, 5rem); }
+  .portfolio-hero__pictures { height: clamp(280px, 50vw, 430px); }
+  .portfolio-hero__pictures img { min-height: 0; }
+  .portfolio-work, .portfolio-archive { padding-inline: 1.2rem; }
+  .portfolio-intro { display: block; }
+  .portfolio-intro > p:last-child { margin-top: 1rem; font-size: clamp(2rem, 7vw, 3rem); }
+  .portfolio-archive__intro { display: block; }
+  .portfolio-archive__intro > p { margin-top: 1.5rem; }
+  .portfolio-archive__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-@media (max-width: 440px) {
-  .portfolio-filters { gap: 1.3rem; margin-inline: .5rem; }
-  .portfolio-filters button { font-size: .61rem; letter-spacing: .08em; }
-  .portfolio-card figcaption { padding: 2rem .65rem .6rem; }
-  .portfolio-card__title { font-size: 1.02rem; }
-  .portfolio-card__type { font-size: .53rem; }
+@media (max-width: 520px) {
+  .portfolio-grid { gap: 2.2rem .75rem; }
+  .portfolio-card figcaption { display: block; padding-top: .65rem; }
+  .portfolio-card__title { display: block; font-size: 1.12rem; }
+  .portfolio-card__type { display: block; margin-top: .35rem; font-size: .55rem; }
+  .portfolio-archive__controls { display: grid; grid-template-columns: 1fr; gap: .5rem; }
+  .portfolio-archive__controls input, .portfolio-archive__controls select { width: 100%; margin: 0 0 .5rem; }
+  .portfolio-archive__card-copy { display: block; }
+  .portfolio-archive__card-copy small { display: block; margin-top: .25rem; }
 }
 @media (prefers-reduced-motion: reduce) { .portfolio-card img { transition: none; } }

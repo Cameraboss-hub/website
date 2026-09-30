@@ -2,6 +2,7 @@
 export const prerender = true;
 import PageLayout from "../../layouts/PageLayout.astro";
 import selectedWork from "../../data/portfolio.json";
+import clientArea from "../../data/client-area.json";
 import stories from "../../data/portfolio-stories.json";
 import { coverSrc, coverSrcSet } from "../../lib/portfolio-images";
 import "../../styles/portfolio.css";
@@ -13,6 +14,8 @@ const order = [
 ];
 const position = new Map(order.map((slug, index) => [slug, index]));
 const displayWork = [...selectedWork].sort((a, b) => (position.get(a.slug) ?? 999) - (position.get(b.slug) ?? 999));
+const featuredSlugs = new Set(selectedWork.map((work) => work.slug));
+const archiveItems = clientArea.items.filter((item) => !featuredSlugs.has(item.slug));
 const publishedStories = new Set(stories.map((story) => story.slug));
 const galleryLd = {
   "@context": "https://schema.org",
@@ -37,17 +40,19 @@ const galleryLd = {
 >
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(galleryLd)} />
   <section class="portfolio-hero" aria-labelledby="portfolio-title">
-    <img class="portfolio-hero__image" src={coverSrc("bambna", 1600)} srcset={coverSrcSet("bambna")} sizes="100vw" alt="" width="3600" height="2400" fetchpriority="high" decoding="async" />
-    <div class="portfolio-hero__shade" aria-hidden="true"></div>
     <div class="portfolio-hero__copy">
       <p class="portfolio-kicker">CameraBoss / Selected work</p>
       <h1 id="portfolio-title">Weddings &amp; portraits</h1>
-      <p>A considered edit of the people, places and moments we have photographed.</p>
+      <p>Every celebration has its own rhythm. Find a story that stays with you, then step into the complete gallery.</p>
+    </div>
+    <div class="portfolio-hero__pictures" aria-hidden="true">
+      <img src={coverSrc("bambna")} srcset={coverSrcSet("bambna")} sizes="(max-width: 760px) 58vw, 38vw" alt="" width="960" height="640" fetchpriority="high" />
+      <img src={coverSrc("iyanuwedding")} srcset={coverSrcSet("iyanuwedding")} sizes="(max-width: 760px) 42vw, 26vw" alt="" width="960" height="640" loading="lazy" decoding="async" />
     </div>
   </section>
 
   <section class="portfolio-work" id="selected-work" aria-label="Selected wedding and portrait photographs">
-    <div class="portfolio-intro"><p class="portfolio-kicker">The photographs</p><p>Real weddings. Honest portraits. The details and fleeting seconds that make each story its own.</p></div>
+    <div class="portfolio-intro"><p class="portfolio-kicker">Featured galleries</p><p>Explore the full stories behind the photographs.</p></div>
     <div class="portfolio-filters" role="group" aria-label="Filter selected work">
       <button type="button" data-portfolio-filter="all" aria-pressed="true">All work</button>
       <button type="button" data-portfolio-filter="wedding" aria-pressed="false">Weddings</button>
@@ -56,14 +61,43 @@ const galleryLd = {
     <div class="portfolio-grid">
       {displayWork.map((work, index) => (
         <figure class="portfolio-card" data-category={work.category}>
-          <div class="portfolio-card__image">
-            <img src={coverSrc(work.slug)} srcset={coverSrcSet(work.slug)} sizes="(max-width: 760px) 50vw, (max-width: 1100px) 33vw, 25vw" alt={`${work.title} — ${work.category} photography by CameraBoss`} width="800" height="1000" loading={index < 4 ? "eager" : "lazy"} decoding="async" />
-          </div>
-          <figcaption><span class="portfolio-card__title">{work.title}</span><span class="portfolio-card__type">{work.category === "wedding" ? "Wedding" : "Portrait"}{publishedStories.has(work.slug) && " / View story"}</span></figcaption>
-          {publishedStories.has(work.slug) && <a class="portfolio-card__link" href={`/stories/${work.slug}/`} aria-label={`View ${work.title} photographs`}></a>}
+          <a href={work.source_gallery} class="portfolio-card__link">
+            <span class="portfolio-card__image">
+              <img src={coverSrc(work.slug)} srcset={coverSrcSet(work.slug)} sizes="(max-width: 760px) 50vw, 30vw" alt={`${work.title} — ${work.category} photography by CameraBoss`} width="800" height="1000" loading={index < 3 ? "eager" : "lazy"} decoding="async" />
+            </span>
+            <figcaption><span class="portfolio-card__title">{work.title}</span><span class="portfolio-card__type">{work.category === "wedding" ? "Wedding" : "Portrait"}</span></figcaption>
+          </a>
+          {publishedStories.has(work.slug) && <a class="portfolio-card__edit" href={`/stories/${work.slug}/`}>View selected photographs</a>}
         </figure>
       ))}
     </div>
+  </section>
+
+  <section class="portfolio-archive" aria-labelledby="portfolio-archive-title">
+    <div class="portfolio-archive__intro">
+      <div><p class="portfolio-kicker">The archive</p><h2 id="portfolio-archive-title">More stories to explore</h2></div>
+      <p>Browse the rest of our client galleries. Each name opens the original collection on Pixieset; viewing and downloads follow that collection’s settings.</p>
+    </div>
+    <div class="portfolio-archive__controls">
+      <label for="portfolio-search">Find a gallery</label>
+      <input id="portfolio-search" type="search" placeholder="Search by name" autocomplete="off" />
+      <label for="portfolio-year">Year</label>
+      <select id="portfolio-year">
+        <option value="all">All years</option>
+        {[...new Set(archiveItems.map((item) => item.iso?.slice(0, 4)).filter(Boolean))].sort().reverse().map((year) => <option value={year}>{year}</option>)}
+        <option value="undated">Undated</option>
+      </select>
+    </div>
+    <p class="portfolio-archive__count" id="portfolio-count" aria-live="polite">{archiveItems.length} galleries</p>
+    <div class="portfolio-archive__grid" id="portfolio-archive-grid">
+      {archiveItems.map((item) => (
+        <a class="portfolio-archive__card" href={item.href} data-search={item.title.toLocaleLowerCase()} data-year={item.iso?.slice(0, 4) || "undated"}>
+          <img src={item.cover} alt="" width="480" height="360" loading="lazy" decoding="async" />
+          <span class="portfolio-archive__card-copy"><strong>{item.title}</strong><small>{item.date || "Gallery"}</small></span>
+        </a>
+      ))}
+    </div>
+    <button class="portfolio-archive__more" id="portfolio-more" type="button" hidden>Show more galleries</button>
   </section>
 
   <script>
@@ -76,5 +110,24 @@ const galleryLd = {
     filters.forEach((button) => button.addEventListener("click", () => activate(button.dataset.portfolioFilter || "all")));
     const initial = new URLSearchParams(window.location.search).get("tag");
     if (initial === "wedding" || initial === "portrait" || initial === "portraits") activate(initial === "portraits" ? "portrait" : initial);
+
+    const search = document.querySelector<HTMLInputElement>("#portfolio-search");
+    const year = document.querySelector<HTMLSelectElement>("#portfolio-year");
+    const more = document.querySelector<HTMLButtonElement>("#portfolio-more");
+    const count = document.querySelector<HTMLElement>("#portfolio-count");
+    const archive = Array.from(document.querySelectorAll<HTMLElement>(".portfolio-archive__card"));
+    let shown = 24;
+    const renderArchive = () => {
+      const term = search?.value.trim().toLocaleLowerCase() || "";
+      const selectedYear = year?.value || "all";
+      const matches = archive.filter((card) => card.dataset.search?.includes(term) && (selectedYear === "all" || card.dataset.year === selectedYear));
+      archive.forEach((card) => { card.hidden = !matches.includes(card) || matches.indexOf(card) >= shown; });
+      if (count) count.textContent = matches.length ? `Showing ${Math.min(shown, matches.length)} of ${matches.length} galleries` : "No galleries found";
+      if (more) more.hidden = matches.length <= shown;
+    };
+    search?.addEventListener("input", () => { shown = 24; renderArchive(); });
+    year?.addEventListener("change", () => { shown = 24; renderArchive(); });
+    more?.addEventListener("click", () => { shown += 24; renderArchive(); });
+    renderArchive();
   </script>
 </PageLayout>

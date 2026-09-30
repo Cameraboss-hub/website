@@ -25,14 +25,19 @@ class MigrationTests(unittest.TestCase):
    with self.subTest(path=path):
     p=HTML(page(path));self.assertEqual(p.title,expected['title'])
     if expected['description']:self.assertEqual(next(x['content'] for x in p.attrs('meta') if x.get('name')=='description'),expected['description'])
- def test_public_gallery_is_curated_and_self_hosted(self):
+ def test_public_gallery_links_to_complete_pixieset_collections(self):
   p=HTML(page('/client-area/'));links={x.get('href') for x in p.attrs('a')}
   selected=json.loads((ROOT/'src/data/portfolio.json').read_text())
+  inventory=json.loads((ROOT/'src/data/client-area.json').read_text())['items']
   self.assertEqual(len(selected),18)
   self.assertEqual({x['category'] for x in selected},{'wedding','portrait'})
   self.assertEqual(len([a for a in p.attrs('figure') if 'portfolio-card' in a.get('class','')]),len(selected))
-  self.assertFalse(any('pixieset' in (url or '') or 'gallery.cameraboss.co.uk' in (url or '') for url in links))
-  for item in selected:self.assertTrue((ROOT/'public'/item['image'].lstrip('/')).is_file())
+  self.assertEqual(len([a for a in p.attrs('a') if 'portfolio-archive__card' in a.get('class','')]),len(inventory)-len(selected))
+  self.assertEqual({item['href'] for item in inventory}, {url for url in links if (url or '').startswith('https://gallery.cameraboss.co.uk/')})
+  for item in selected:
+   self.assertIn(item['source_gallery'],links)
+   self.assertTrue((ROOT/'public'/item['image'].lstrip('/')).is_file())
+   for width in (480,960,1600):self.assertTrue((ROOT/f"public/images/selected-work/web/{item['slug']}-{width}.webp").is_file())
   self.assertNotIn('Disallow: /galleries/',(BUILD/'robots.txt').read_text())
   urls=[x.text for x in ET.parse(BUILD/'sitemap.xml').findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}url/{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
   self.assertIn('https://www.cameraboss.co.uk/client-area/',urls)
@@ -43,6 +48,7 @@ class MigrationTests(unittest.TestCase):
    self.assertNotRegex(f.read_text(),r'(?:const|var|let) pin =')
  def test_curated_story_routes_use_local_display_images(self):
   stories=json.loads((ROOT/'src/data/portfolio-stories.json').read_text())
+  work_by_slug={item['slug']:item for item in json.loads((ROOT/'src/data/portfolio.json').read_text())}
   self.assertEqual(len(stories),5)
   self.assertEqual(sum(len(story['photos']) for story in stories),51)
   index=HTML(page('/client-area/'))
@@ -54,7 +60,7 @@ class MigrationTests(unittest.TestCase):
     self.assertIn(route,index_links)
     self.assertIn('https://www.cameraboss.co.uk'+route,sitemap)
     html=page(route)
-    self.assertNotIn('gallery.cameraboss.co.uk',html)
+    self.assertIn(work_by_slug[story['slug']]['source_gallery'],{a.get('href') for a in HTML(html).attrs('a')})
     self.assertNotIn('storage/v1/object/public/photos/',html)
     parsed=HTML(html)
     self.assertEqual(len([img for img in parsed.attrs('img') if img.get('alt') in {photo['alt'] for photo in story['photos']}]),len(story['photos']))
@@ -104,7 +110,8 @@ class MigrationTests(unittest.TestCase):
   self.assertIn('Trusted Yoruba wedding photographer in London',descriptions[0])
   hrefs={x.get('href') for x in p.attrs('a')}
   for href in ['/client-area/','/client-area/?tag=portrait','/contact/','/blog/']:self.assertIn(href,hrefs)
-  self.assertFalse(any('pixieset' in (url or '') or 'gallery.cameraboss.co.uk' in (url or '') for url in hrefs))
+  self.assertEqual(len([x for x in p.attrs('a') if 'home-story' in x.get('class','')]),12)
+  self.assertIn('https://gallery.cameraboss.co.uk/faithandjack-1/',hrefs)
  def test_clean_metadata_and_single_footer(self):
   for f in BUILD.rglob('*.html'):
    with self.subTest(page=str(f.relative_to(BUILD))):

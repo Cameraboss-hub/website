@@ -3,15 +3,17 @@ export const prerender = true;
 
 import PageLayout from "../layouts/PageLayout.astro";
 import selectedWork from "../data/portfolio.json";
-import publishedStories from "../data/portfolio-stories.json";
 import { coverSrc, coverSrcSet } from "../lib/portfolio-images";
 import { posts, isoDate, thumbFor } from "../lib/content";
 import "../styles/home-new.css";
 
 const lead = selectedWork.find((work) => work.slug === "joandjonny")!;
-const storySlugs = ["cynthiaandoswaldo", "temiandfiyin", "opeyemiweddingportrait", "joandjonny", "faithandjack-1", "bambna", "dana", "vanessawedding", "iyanuwedding", "jumokeandstephen", "reddressmodel"];
+const storySlugs = [
+  "cynthiaandoswaldo", "temiandfiyin", "opeyemiweddingportrait", "joandjonny",
+  "faithandjack-1", "bambna", "dana", "vanessawedding", "iyanuwedding",
+  "jumokeandstephen", "reddressmodel", "princessweddingportraits",
+];
 const stories = storySlugs.map((slug) => selectedWork.find((work) => work.slug === slug)!);
-const storySet = new Set(publishedStories.map((story) => story.slug));
 const latest = [...posts]
   .filter((post) => isoDate(post.date))
   .sort((a, b) => isoDate(b.date)!.localeCompare(isoDate(a.date)!))
@@ -27,7 +29,7 @@ const latest = [...posts]
   <section class="home-lead" aria-labelledby="home-title">
     <picture class="home-lead__media">
       <source media="(max-width: 700px)" srcset={coverSrcSet("cynthiaandoswaldo")} sizes="100vw" />
-      <img class="home-lead__image" src={coverSrc(lead.slug, 1600)} srcset={coverSrcSet(lead.slug)} sizes="100vw" alt="A CameraBoss wedding celebration" width="1800" height="1200" fetchpriority="high" decoding="async" />
+      <img class="home-lead__image" src={coverSrc("joandjonny", 1600)} srcset={coverSrcSet("joandjonny")} sizes="100vw" alt="A CameraBoss wedding celebration" width="1800" height="1200" fetchpriority="high" />
     </picture>
     <div class="home-lead__shade" aria-hidden="true"></div>
     <div class="home-lead__copy">
@@ -53,15 +55,14 @@ const latest = [...posts]
         <p class="home-eyebrow">Portfolio</p>
         <h2 id="home-stories-title">Selected work</h2>
       </div>
-      <p>Real weddings and portraits, seen with care.</p>
+      <p>Choose a story to see the complete gallery.</p>
     </div>
     <div class="home-stories__grid">
       {stories.map((work) => (
-        <figure class="home-story">
-          <img src={coverSrc(work.slug)} srcset={coverSrcSet(work.slug)} sizes="(max-width: 700px) 100vw, 48vw" alt={`${work.title} — ${work.category} photography by CameraBoss`} width="800" height="1000" loading="lazy" decoding="async" />
-          <figcaption><span>{work.title}</span><small>{storySet.has(work.slug) ? "View story" : work.category === "wedding" ? "Wedding" : "Portrait"}</small></figcaption>
-          {storySet.has(work.slug) && <a class="home-story__link" href={`/stories/${work.slug}/`} aria-label={`View ${work.title} photographs`}></a>}
-        </figure>
+        <a class="home-story" href={work.source_gallery}>
+          <img src={coverSrc(work.slug)} srcset={coverSrcSet(work.slug)} sizes="(max-width: 700px) 100vw, 55vw" alt={`${work.title} — ${work.category} photography by CameraBoss`} width="800" height="1000" loading="lazy" decoding="async" />
+          <span class="home-story__caption"><span>{work.title}</span><small>{work.category === "wedding" ? "Wedding" : "Portrait"}</small></span>
+        </a>
       ))}
     </div>
     <a class="home-inline-link" href="/client-area/">View the full selection</a>

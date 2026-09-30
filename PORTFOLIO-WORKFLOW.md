@@ -1,15 +1,19 @@
 # Curated portfolio photographs
 
 The public gallery at `/client-area/` keeps the established website URL. It has
-18 selected cover photographs. Five currently open into multi-photo stories at
-`/stories/<slug>/`, with 51 curated display photographs in total. The other
-13 covers remain single photographs until their story selections are made.
+18 featured cover photographs and a searchable directory of the other 259
+collections in `src/data/client-area.json`. Every gallery card links directly
+to its complete collection at `gallery.cameraboss.co.uk`, which stays on
+Pixieset when the main website's DNS changes. Five featured cards also have a
+separate on-site `View selected photographs` link to a short photo story at
+`/stories/<slug>/`; those five stories currently contain 51 display images.
 
 Google Drive is the source library for future story exports, not the image
 server visitors load from. Website images are resized, stripped of camera/GPS
 metadata, and committed under `public/images/stories/` so the site serves them
-as static files. Full-resolution originals stay in Drive and on the NAS. Client
-delivery links are shared separately and never appear in portfolio data.
+as static files. Full-resolution client originals remain on Pixieset while
+Drive and NAS backups are verified. Public Pixieset gallery links are in the
+portfolio data; no client PINs or private download tokens are.
 
 The first four stories were made from the 1,600-pixel public web copies that
 already existed in the Supabase `photos` bucket. This was a way to build and
