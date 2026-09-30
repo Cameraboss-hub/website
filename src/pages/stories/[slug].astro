@@ -1,0 +1,79 @@
+---
+export const prerender = true;
+
+import PageLayout from "../../layouts/PageLayout.astro";
+import selectedWork from "../../data/portfolio.json";
+import stories from "../../data/portfolio-stories.json";
+import { coverSrc, coverSrcSet } from "../../lib/portfolio-images";
+import "../../styles/story.css";
+
+export function getStaticPaths() {
+  return stories.map((story) => ({ params: { slug: story.slug }, props: { story } }));
+}
+
+const { story } = Astro.props;
+const work = selectedWork.find((item) => item.slug === story.slug);
+if (!work) throw new Error(`Story has no matching portfolio work: ${story.slug}`);
+const related = stories.filter((item) => item.slug !== story.slug).slice(0, 3);
+const galleryLd = {
+  "@context": "https://schema.org",
+  "@type": "ImageGallery",
+  name: `${work.title} | CameraBoss`,
+  description: story.description,
+  url: `https://www.cameraboss.co.uk/stories/${story.slug}/`,
+  image: story.photos.map((photo) => ({
+    "@type": "ImageObject",
+    contentUrl: `https://www.cameraboss.co.uk${photo.src}`,
+    description: photo.alt,
+  })),
+};
+---
+
+<PageLayout
+  title={`${work.title} | ${work.category === "wedding" ? "Wedding" : "Portrait"} Photography | CameraBoss`}
+  description={`${story.description} Selected photographs by CameraBoss.`}
+  current="/client-area/"
+  ogImage={coverSrc(work.slug, 1600)}
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(galleryLd)} />
+  <header class="story-head">
+    <p class="story-kicker">CameraBoss / {work.category === "wedding" ? "Weddings" : "Portraits"}</p>
+    <h1>{work.title}</h1>
+    <p>{story.description}</p>
+    <span>{work.date}</span>
+  </header>
+
+  <figure class="story-cover">
+    <img src={coverSrc(work.slug, 1600)} srcset={coverSrcSet(work.slug)} sizes="100vw" width="1600" height="1000" alt={`${work.title} photographed by CameraBoss`} fetchpriority="high" decoding="async" />
+  </figure>
+
+  <section class="story-photographs" aria-label={`Selected photographs of ${work.title}`}>
+    <div class="story-photographs__intro"><p class="story-kicker">The photographs</p><p>A selection from the story.</p></div>
+    <div class="story-photographs__grid">
+      {story.photos.map((photo, index) => (
+        <figure class:list={["story-photo", { "story-photo--wide": photo.width > photo.height || index % 7 === 4 }]}>
+          <img src={photo.src} srcset={photo.srcset} sizes="(max-width: 760px) 100vw, 48vw" width={photo.width} height={photo.height} alt={photo.alt} loading="lazy" decoding="async" />
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  <section class="story-end" aria-label="Explore more">
+    <p>Every story is its own.</p>
+    <a href="/contact/">Enquire about your day</a>
+    <a href="/client-area/">Back to selected work</a>
+  </section>
+
+  <nav class="story-related" aria-label="More selected stories">
+    <p class="story-kicker">More stories</p>
+    <div>
+      {related.map((item) => {
+        const relatedWork = selectedWork.find((work) => work.slug === item.slug)!;
+        return <a href={`/stories/${item.slug}/`}>
+          <img src={coverSrc(item.slug, 480)} srcset={coverSrcSet(item.slug)} sizes="(max-width: 760px) 100vw, 30vw" width="480" height="600" alt="" loading="lazy" decoding="async" />
+          <span>{relatedWork.title}</span>
+        </a>;
+      })}
+    </div>
+  </nav>
+</PageLayout>

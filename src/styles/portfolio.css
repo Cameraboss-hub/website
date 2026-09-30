@@ -26,6 +26,8 @@
 .portfolio-card figcaption { position: absolute; inset: auto 0 0; display: flex; flex-direction: column; gap: .35rem; padding: 2.8rem 1.2rem 1rem; color: #fff; background: linear-gradient(0deg, #000000b8, transparent); }
 .portfolio-card__title { font: 400 clamp(1.15rem, 1.8vw, 1.75rem)/1.2 "Bodoni Moda", Georgia, serif; letter-spacing: -.015em; }
 .portfolio-card__type { font: 600 .59rem "Manrope", sans-serif; letter-spacing: .13em; text-transform: uppercase; }
+.portfolio-card__link { position: absolute; inset: 0; z-index: 2; }
+.portfolio-card__link:focus-visible { outline: 3px solid #fff; outline-offset: -6px; }
 @media (max-width: 1100px) { .portfolio-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 760px) {
   .portfolio-hero { min-height: clamp(380px, 54svh, 560px); }

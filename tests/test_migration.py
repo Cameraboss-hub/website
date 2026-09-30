@@ -41,6 +41,27 @@ class MigrationTests(unittest.TestCase):
   self.assertFalse(list((BUILD/'galleries').glob('*/index.html')))
   for f in BUILD.rglob('*.html'):
    self.assertNotRegex(f.read_text(),r'(?:const|var|let) pin =')
+ def test_curated_story_routes_use_local_display_images(self):
+  stories=json.loads((ROOT/'src/data/portfolio-stories.json').read_text())
+  self.assertEqual(len(stories),4)
+  self.assertEqual(sum(len(story['photos']) for story in stories),42)
+  index=HTML(page('/client-area/'))
+  index_links={a.get('href') for a in index.attrs('a')}
+  sitemap={x.text for x in ET.parse(BUILD/'sitemap.xml').findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}url/{http://www.sitemaps.org/schemas/sitemap/0.9}loc')}
+  for story in stories:
+   route=f"/stories/{story['slug']}/"
+   with self.subTest(route=route):
+    self.assertIn(route,index_links)
+    self.assertIn('https://www.cameraboss.co.uk'+route,sitemap)
+    html=page(route)
+    self.assertNotIn('gallery.cameraboss.co.uk',html)
+    self.assertNotIn('storage/v1/object/public/photos/',html)
+    parsed=HTML(html)
+    self.assertEqual(len([img for img in parsed.attrs('img') if img.get('alt') in {photo['alt'] for photo in story['photos']}]),len(story['photos']))
+    for photo in story['photos']:
+     for entry in photo['srcset'].split(', '):
+      path=entry.split()[0]
+      self.assertTrue((ROOT/'public'/path.lstrip('/')).is_file(),path)
  # Current Pixieset pages that still contain an embedded enquiry form. Other
  # refreshed location pages now use contact links, mirroring the live source.
  FORM_PAGES=['/about/','/contact/','/pricing/','/pricing-NG/','/experience/',

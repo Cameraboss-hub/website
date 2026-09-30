@@ -2,6 +2,7 @@ import type { APIRoute } from "astro";
 import { posts, pages, isoDate, thumbFor, isThinDuplicate } from "../lib/content";
 
 import videos from "../data/videos.json";
+import stories from "../data/portfolio-stories.json";
 
 
 export const prerender = true;
@@ -32,6 +33,15 @@ export const GET: APIRoute = async () => {
     priority: "0.8",
     images: (videos as any[]).slice(0, 10).map((v) => `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`),
   });
+
+  // Publicly curated stories only. Private client delivery collections stay out.
+  for (const story of stories) {
+    urls.push({
+      loc: `${SITE}/stories/${story.slug}/`,
+      priority: "0.7",
+      images: story.photos.map((photo) => `${SITE}${photo.src}`),
+    });
+  }
 
   // Every imported blog post, preserving its original case-sensitive path.
   for (const p of posts) {
