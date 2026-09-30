@@ -4,9 +4,13 @@ import PageLayout from "../../layouts/PageLayout.astro";
 import selectedWork from "../../data/portfolio.json";
 import "../../styles/portfolio.css";
 
-const featured = selectedWork[0];
-const weddings = selectedWork.filter((work) => work.category === "wedding").length;
-const portraits = selectedWork.length - weddings;
+const order = [
+  "iyanuwedding", "opeyemiweddingportrait", "reddressmodel", "joandjonny", "faithandjack-1", "dana",
+  "carmenandben", "bambna", "finemodelbluesuit", "cynthiaandoswaldo", "princessweddingportraits", "felixandlina",
+  "mayoandemmanuel", "temiandfiyin", "bridalshoot", "akinpelu", "jumokeandstephen", "vanessawedding",
+];
+const position = new Map(order.map((slug, index) => [slug, index]));
+const displayWork = [...selectedWork].sort((a, b) => (position.get(a.slug) ?? 999) - (position.get(b.slug) ?? 999));
 const galleryLd = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
@@ -26,56 +30,33 @@ const galleryLd = {
   title="Wedding & Portrait Gallery | CameraBoss"
   description="Selected wedding stories and portrait photography by CameraBoss. Explore the work, the people and the moments that make each celebration different."
   current="/client-area/"
-  ogImage={featured.image}
+  ogImage={displayWork[0].image}
 >
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(galleryLd)} />
   <section class="portfolio-hero" aria-labelledby="portfolio-title">
-    <div class="portfolio-hero__copy">
-      <p class="portfolio-kicker">CameraBoss · Selected work</p>
-      <h1 id="portfolio-title">The art of <em>being there.</em></h1>
-      <p>Real weddings. Honest portraits. The moments that hold a little more than they first appear to.</p>
-      <a href="#selected-work" class="portfolio-hero__link">Explore the photographs <span aria-hidden="true">↓</span></a>
-      <span class="portfolio-hero__index" aria-hidden="true">01 / 02 &nbsp; WEDDINGS & PORTRAITS</span>
+    <div>
+      <p class="portfolio-kicker">CameraBoss / Portfolio</p>
+      <h1 id="portfolio-title">Selected work.</h1>
     </div>
-    <div class="portfolio-hero__visual">
-      <img src={featured.image} alt={`${featured.title}, photographed by CameraBoss`} width="900" height="1200" fetchpriority="high" />
-      <span class="portfolio-hero__credit">{featured.title} · CameraBoss</span>
-    </div>
+    <p>Weddings and portraits with presence. A considered edit of the people, places and moments we have photographed.</p>
   </section>
 
-  <section class="portfolio-intro" aria-label="About the gallery">
-    <p class="portfolio-kicker">Photographs with feeling</p>
-    <p>We notice the quiet seconds as much as the big ones. This is a small selection of the weddings, people and portraits we have had the privilege to photograph.</p>
-    <div class="portfolio-intro__rule" aria-hidden="true"></div>
-  </section>
-
-  <section class="portfolio-work" id="selected-work" aria-labelledby="work-title">
-    <div class="portfolio-work__top">
-      <div><p class="portfolio-kicker">The collection / 2023—2026</p><h2 id="work-title">Selected stories.</h2></div>
-      <p class="portfolio-work__count">{selectedWork.length} photographs<br />{weddings} weddings · {portraits} portraits</p>
-    </div>
+  <section class="portfolio-work" id="selected-work" aria-label="Selected wedding and portrait photographs">
     <div class="portfolio-filters" role="group" aria-label="Filter selected work">
-      <button type="button" data-portfolio-filter="all" aria-pressed="true">All work <span>{selectedWork.length}</span></button>
-      <button type="button" data-portfolio-filter="wedding" aria-pressed="false">Weddings <span>{weddings}</span></button>
-      <button type="button" data-portfolio-filter="portrait" aria-pressed="false">Portraits <span>{portraits}</span></button>
+      <button type="button" data-portfolio-filter="all" aria-pressed="true">All work</button>
+      <button type="button" data-portfolio-filter="wedding" aria-pressed="false">Weddings</button>
+      <button type="button" data-portfolio-filter="portrait" aria-pressed="false">Portraits</button>
     </div>
     <div class="portfolio-grid">
-      {selectedWork.map((work, index) => (
-        <figure class:list={["portfolio-card", { "portfolio-card--wide": index % 7 === 0 }]} data-category={work.category}>
+      {displayWork.map((work, index) => (
+        <figure class="portfolio-card" data-category={work.category}>
           <div class="portfolio-card__image">
             <img src={work.image} alt={`${work.title} — ${work.category} photography by CameraBoss`} width="800" height="1000" loading={index < 3 ? "eager" : "lazy"} decoding="async" />
-            <span class="portfolio-card__number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
           </div>
-          <figcaption><span class="portfolio-card__title">{work.title}</span><span class="portfolio-card__type">{work.category === "wedding" ? "Wedding story" : "Portrait study"}</span></figcaption>
+          <figcaption><span class="portfolio-card__title">{work.title}</span><span class="portfolio-card__type">{work.category === "wedding" ? "Wedding" : "Portrait"}</span></figcaption>
         </figure>
       ))}
     </div>
-  </section>
-
-  <section class="portfolio-close" aria-labelledby="portfolio-close-title">
-    <p class="portfolio-kicker">Your story is next</p>
-    <h2 id="portfolio-close-title">Let's make something <em>worth remembering.</em></h2>
-    <a href="/contact/">Tell us about your plans <span aria-hidden="true">↗</span></a>
   </section>
 
   <script>
