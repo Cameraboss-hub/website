@@ -1,11 +1,11 @@
 /* CameraBoss home: image-led, spare typography, no decorative UI. */
 .editorial-site.dock-theme[data-page="/"] { background: #f8f7f4; color: #191919; }
 .editorial-site.dock-theme[data-page="/"] :is(.home-lead h1, .home-stories h2, .home-approach h2, .home-portrait h2, .home-journal h2, .home-about h2) {
-  font-family: "Manrope", "Helvetica Neue", Arial, sans-serif;
-  font-weight: 400;
-  letter-spacing: -.06em;
-  line-height: 1.05;
-  text-transform: none;
+  font-family: "Bodoni Moda", Georgia, serif !important;
+  font-weight: 400 !important;
+  letter-spacing: -.045em;
+  line-height: 1.08 !important;
+  text-transform: none !important;
 }
 .home-eyebrow { margin: 0; font: 600 .68rem/1.4 "Manrope", sans-serif; letter-spacing: .13em; text-transform: uppercase; }
 .home-lead { position: relative; display: flex; min-height: min(880px, calc(100svh - 82px)); isolation: isolate; background: #473329; color: #fff; }
@@ -13,7 +13,7 @@
 .home-lead__image { object-fit: cover; object-position: center 43%; }
 .home-lead__shade { z-index: 1; background: linear-gradient(90deg, #0d0a08c9 0%, #0d0a087a 43%, transparent 80%), linear-gradient(0deg, #0d0a087a, transparent 60%); }
 .home-lead__copy { position: relative; z-index: 2; align-self: flex-end; width: min(850px, 68%); padding: 6rem 0 clamp(5rem, 8vw, 8rem) clamp(2rem, 6.5vw, 8rem); }
-.editorial-site.dock-theme .home-lead h1 { max-width: 13ch; margin: 1.45rem 0 1.5rem; font-size: clamp(3.5rem, 6.2vw, 6.8rem); }
+.editorial-site.dock-theme .home-lead h1 { max-width: 13ch; margin: 1.45rem 0 1.5rem; font-size: clamp(3.8rem, 6.5vw, 7.1rem); }
 .home-lead__copy > p:not(.home-eyebrow) { max-width: 40ch; margin: 0; font: 400 clamp(.95rem, 1.1vw, 1.15rem)/1.75 "Manrope", sans-serif; color: #ffffffdf; }
 .home-lead__actions { display: flex; gap: 2.4rem; align-items: center; flex-wrap: wrap; margin-top: 2.5rem; }
 .home-lead__actions a { display: inline-flex; align-items: center; min-height: 44px; color: #fff; border-bottom: 1px solid #ffffffc4; font: 600 .77rem "Manrope", sans-serif; letter-spacing: .06em; text-decoration: none; }
@@ -21,7 +21,7 @@
 .home-lead__credit { position: absolute; z-index: 2; right: clamp(2rem, 5vw, 5rem); bottom: 2.5rem; margin: 0; font: 500 .65rem "Manrope", sans-serif; letter-spacing: .08em; text-transform: uppercase; color: #ffffffca; }
 .home-intro { display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; max-width: 1500px; margin: auto; padding: clamp(6rem, 10vw, 11rem) clamp(1.5rem, 5vw, 5rem); }
 .home-intro .home-eyebrow { padding-top: .6rem; }
-.home-intro > p:last-child { max-width: 27ch; margin: 0; font: 400 clamp(2rem, 3.6vw, 4rem)/1.2 "Manrope", sans-serif; letter-spacing: -.055em; }
+.home-intro > p:last-child { max-width: 27ch; margin: 0; font: 400 clamp(2rem, 3.6vw, 4rem)/1.2 "Bodoni Moda", Georgia, serif; letter-spacing: -.035em; }
 .home-stories, .home-journal { max-width: 1600px; margin: 0 auto; padding: clamp(5rem, 8vw, 9rem) clamp(1.5rem, 5vw, 5rem); }
 .home-stories { padding-top: 1rem; }
 .home-section-head { display: flex; justify-content: space-between; align-items: end; gap: 2rem; margin-bottom: clamp(2.2rem, 4vw, 4rem); }

@@ -34,14 +34,17 @@ const galleryLd = {
 >
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(galleryLd)} />
   <section class="portfolio-hero" aria-labelledby="portfolio-title">
-    <div>
-      <p class="portfolio-kicker">CameraBoss / Portfolio</p>
-      <h1 id="portfolio-title">Selected work.</h1>
+    <img class="portfolio-hero__image" src="/images/selected-work/bambna.jpg" alt="" width="3600" height="2400" fetchpriority="high" />
+    <div class="portfolio-hero__shade" aria-hidden="true"></div>
+    <div class="portfolio-hero__copy">
+      <p class="portfolio-kicker">CameraBoss / Selected work</p>
+      <h1 id="portfolio-title">Weddings &amp; portraits</h1>
+      <p>A considered edit of the people, places and moments we have photographed.</p>
     </div>
-    <p>Weddings and portraits with presence. A considered edit of the people, places and moments we have photographed.</p>
   </section>
 
   <section class="portfolio-work" id="selected-work" aria-label="Selected wedding and portrait photographs">
+    <div class="portfolio-intro"><p class="portfolio-kicker">The photographs</p><p>Real weddings. Honest portraits. The details and fleeting seconds that make each story its own.</p></div>
     <div class="portfolio-filters" role="group" aria-label="Filter selected work">
       <button type="button" data-portfolio-filter="all" aria-pressed="true">All work</button>
       <button type="button" data-portfolio-filter="wedding" aria-pressed="false">Weddings</button>
@@ -51,7 +54,7 @@ const galleryLd = {
       {displayWork.map((work, index) => (
         <figure class="portfolio-card" data-category={work.category}>
           <div class="portfolio-card__image">
-            <img src={work.image} alt={`${work.title} — ${work.category} photography by CameraBoss`} width="800" height="1000" loading={index < 3 ? "eager" : "lazy"} decoding="async" />
+            <img src={work.image} alt={`${work.title} — ${work.category} photography by CameraBoss`} width="800" height="1000" loading={index < 4 ? "eager" : "lazy"} decoding="async" />
           </div>
           <figcaption><span class="portfolio-card__title">{work.title}</span><span class="portfolio-card__type">{work.category === "wedding" ? "Wedding" : "Portrait"}</span></figcaption>
         </figure>
