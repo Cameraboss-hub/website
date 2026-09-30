@@ -316,5 +316,74 @@
         "height": 1600
       }
     ]
+  },
+  {
+    "slug": "vanessawedding",
+    "description": "Portraits, family and celebration from Vanessa\u2019s wedding day.",
+    "photos": [
+      {
+        "alt": "Vanessa arriving in a white car",
+        "src": "/images/stories/vanessawedding/01-960.webp",
+        "srcset": "/images/stories/vanessawedding/01-480.webp 480w, /images/stories/vanessawedding/01-960.webp 960w, /images/stories/vanessawedding/01-1600.webp 1600w",
+        "width": 6000,
+        "height": 4000
+      },
+      {
+        "alt": "Vanessa and her partner together in traditional dress",
+        "src": "/images/stories/vanessawedding/02-960.webp",
+        "srcset": "/images/stories/vanessawedding/02-480.webp 480w, /images/stories/vanessawedding/02-960.webp 960w, /images/stories/vanessawedding/02-1600.webp 1600w",
+        "width": 4000,
+        "height": 6000
+      },
+      {
+        "alt": "The couple with family and friends outdoors",
+        "src": "/images/stories/vanessawedding/03-960.webp",
+        "srcset": "/images/stories/vanessawedding/03-480.webp 480w, /images/stories/vanessawedding/03-960.webp 960w, /images/stories/vanessawedding/03-1600.webp 1600w",
+        "width": 5986,
+        "height": 3991
+      },
+      {
+        "alt": "The wedding party gathered for a group portrait",
+        "src": "/images/stories/vanessawedding/04-960.webp",
+        "srcset": "/images/stories/vanessawedding/04-480.webp 480w, /images/stories/vanessawedding/04-960.webp 960w, /images/stories/vanessawedding/04-1600.webp 1600w",
+        "width": 6000,
+        "height": 4000
+      },
+      {
+        "alt": "Vanessa standing in the garden",
+        "src": "/images/stories/vanessawedding/05-960.webp",
+        "srcset": "/images/stories/vanessawedding/05-480.webp 480w, /images/stories/vanessawedding/05-960.webp 960w, /images/stories/vanessawedding/05-1600.webp 1600w",
+        "width": 4000,
+        "height": 6000
+      },
+      {
+        "alt": "Portrait of the groom outdoors",
+        "src": "/images/stories/vanessawedding/06-960.webp",
+        "srcset": "/images/stories/vanessawedding/06-480.webp 480w, /images/stories/vanessawedding/06-960.webp 960w, /images/stories/vanessawedding/06-1600.webp 1600w",
+        "width": 6000,
+        "height": 4000
+      },
+      {
+        "alt": "Vanessa and her partner in a quiet embrace",
+        "src": "/images/stories/vanessawedding/07-960.webp",
+        "srcset": "/images/stories/vanessawedding/07-480.webp 480w, /images/stories/vanessawedding/07-960.webp 960w, /images/stories/vanessawedding/07-1600.webp 1600w",
+        "width": 6000,
+        "height": 4000
+      },
+      {
+        "alt": "Guests at Vanessa\u2019s wedding celebration",
+        "src": "/images/stories/vanessawedding/08-960.webp",
+        "srcset": "/images/stories/vanessawedding/08-480.webp 480w, /images/stories/vanessawedding/08-960.webp 960w, /images/stories/vanessawedding/08-1600.webp 1600w",
+        "width": 6000,
+        "height": 4000
+      },
+      {
+        "alt": "The couple together at their wedding reception",
+        "src": "/images/stories/vanessawedding/09-960.webp",
+        "srcset": "/images/stories/vanessawedding/09-480.webp 480w, /images/stories/vanessawedding/09-960.webp 960w, /images/stories/vanessawedding/09-1600.webp 1600w",
+        "width": 4000,
+        "height": 6000
+      }
+    ]
   }
 ]

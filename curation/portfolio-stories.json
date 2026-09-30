@@ -49,7 +49,7 @@
     "photos": [
       {
         "url": "https://htwwyqfattodfaybqgev.supabase.co/storage/v1/object/public/photos/cynthiaandoswaldo/0000_Cameraboss-_1of95_.webp",
-        "alt": "Cynthia\u2019s wedding shoes"
+        "alt": "Cynthia’s wedding shoes"
       },
       {
         "url": "https://htwwyqfattodfaybqgev.supabase.co/storage/v1/object/public/photos/cynthiaandoswaldo/0006_Cameraboss-_7of95_.webp",
@@ -192,6 +192,50 @@
       {
         "url": "https://htwwyqfattodfaybqgev.supabase.co/storage/v1/object/public/photos/temiandfiyin/0070_CBA00122copy.webp",
         "alt": "The couple dancing at their reception"
+      }
+    ]
+  },
+  {
+    "slug": "vanessawedding",
+    "source": "drive",
+    "folder": "Vanessa Wedding ",
+    "description": "Portraits, family and celebration from Vanessa’s wedding day.",
+    "photos": [
+      {
+        "file": "CBP02057.jpg",
+        "alt": "Vanessa arriving in a white car"
+      },
+      {
+        "file": "CBP02263.jpg",
+        "alt": "Vanessa and her partner together in traditional dress"
+      },
+      {
+        "file": "CBP02394.jpg",
+        "alt": "The couple with family and friends outdoors"
+      },
+      {
+        "file": "CBP02435.jpg",
+        "alt": "The wedding party gathered for a group portrait"
+      },
+      {
+        "file": "CBP02520.jpg",
+        "alt": "Vanessa standing in the garden"
+      },
+      {
+        "file": "CBP02555.jpg",
+        "alt": "Portrait of the groom outdoors"
+      },
+      {
+        "file": "CBP02601.jpg",
+        "alt": "Vanessa and her partner in a quiet embrace"
+      },
+      {
+        "file": "CBP02952.jpg",
+        "alt": "Guests at Vanessa’s wedding celebration"
+      },
+      {
+        "file": "CBP03099.jpg",
+        "alt": "The couple together at their wedding reception"
       }
     ]
   }

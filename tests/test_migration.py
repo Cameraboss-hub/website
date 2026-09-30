@@ -43,8 +43,8 @@ class MigrationTests(unittest.TestCase):
    self.assertNotRegex(f.read_text(),r'(?:const|var|let) pin =')
  def test_curated_story_routes_use_local_display_images(self):
   stories=json.loads((ROOT/'src/data/portfolio-stories.json').read_text())
-  self.assertEqual(len(stories),4)
-  self.assertEqual(sum(len(story['photos']) for story in stories),42)
+  self.assertEqual(len(stories),5)
+  self.assertEqual(sum(len(story['photos']) for story in stories),51)
   index=HTML(page('/client-area/'))
   index_links={a.get('href') for a in index.attrs('a')}
   sitemap={x.text for x in ET.parse(BUILD/'sitemap.xml').findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}url/{http://www.sitemaps.org/schemas/sitemap/0.9}loc')}

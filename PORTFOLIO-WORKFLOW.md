@@ -1,9 +1,9 @@
 # Curated portfolio photographs
 
 The public gallery at `/client-area/` keeps the established website URL. It has
-18 selected cover photographs. Four currently open into multi-photo stories at
-`/stories/<slug>/`, with 42 curated display photographs in total. The other
-14 covers remain single photographs until their story selections are made.
+18 selected cover photographs. Five currently open into multi-photo stories at
+`/stories/<slug>/`, with 51 curated display photographs in total. The other
+13 covers remain single photographs until their story selections are made.
 
 Google Drive is the source library for future story exports, not the image
 server visitors load from. Website images are resized, stripped of camera/GPS
@@ -14,9 +14,11 @@ delivery links are shared separately and never appear in portfolio data.
 The first four stories were made from the 1,600-pixel public web copies that
 already existed in the Supabase `photos` bucket. This was a way to build and
 review the story layout without moving any full client collection or increasing
-storage use in Supabase. It does **not** prove that their originals are safely
-archived in Drive. The designated `CAMERABOSS CLIENT GALLERIES` Drive folder
-still contained only `_backup_test.txt` when checked on 30 September 2026.
+storage use in Supabase. The fifth story, Vanessa Wedding, uses nine selected
+originals from its Google Drive folder to make public display copies. This does
+**not** prove that all five stories' originals are safely archived in the
+designated `CAMERABOSS CLIENT GALLERIES` Drive folder. That folder still
+contained only `_backup_test.txt` when checked on 30 September 2026.
 
 To add a Drive-sourced story:
 
