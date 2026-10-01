@@ -69,22 +69,16 @@ class MigrationTests(unittest.TestCase):
      for entry in photo['srcset'].split(', '):
       path=entry.split()[0]
       self.assertTrue((ROOT/'public'/path.lstrip('/')).is_file(),path)
- # Current Pixieset pages that still contain an embedded enquiry form. Other
- # refreshed location pages now use contact links, mirroring the live source.
+ # Imported pages that formerly contained a Studio Ninja form.
  FORM_PAGES=['/about/','/contact/','/pricing/','/pricing-NG/','/experience/',
   '/London-Wedding-Photography-Packages/','/Asian-wedding-photographer-Leicester/',
   '/Graduation-Photographer/','/Weddingchecklist/']
- def test_crm_enquiry_embed_replaces_every_studio_ninja_form(self):
+ def test_direct_crm_enquiry_link_replaces_every_studio_ninja_form(self):
   for path in self.FORM_PAGES:
    with self.subTest(path=path):
     text=page(path);p=HTML(text)
-    embeds=[a for a in p.attrs('script')
-            if a.get('src')=='https://cameraboss-crm.vercel.app/embed.js']
-    self.assertEqual(len(embeds),1,'exactly one CRM embed')
-    self.assertEqual(embeds[0].get('data-brand'),'cameraboss')
-    self.assertEqual(embeds[0].get('data-form'),'general-enquiry')
-    # A visitor without JavaScript still gets a route to the form.
-    self.assertIn('https://cameraboss-crm.vercel.app/book/cameraboss/general-enquiry',text)
+    self.assertEqual(len([a for a in p.attrs('a') if a.get('href')=='https://cameraboss-crm.vercel.app/book/cameraboss/general-enquiry']),1)
+    self.assertFalse(any(a.get('src')=='https://cameraboss-crm.vercel.app/embed.js' for a in p.attrs('script')))
     self.assertNotIn('coming soon',text)
  def test_refreshed_service_pages_reach_contact(self):
   for path in ['/weddings/','/London-wedding-photographer/','/sheffield-wedding-photographer/',
@@ -112,7 +106,8 @@ Cardiff|Bangor|Newport|Swansea|Wrexham|Belfast|Bangor, County Down|Derry'''.repl
     self.assertEqual(len(p.attrs('h1')),1)
     self.assertTrue(any(a.get('href')=='#enquire' for a in p.attrs('a')))
     self.assertTrue(any(a.get('id')=='enquire' for a in p.attrs('section')))
-    self.assertEqual(len([a for a in p.attrs('script') if a.get('src')=='https://cameraboss-crm.vercel.app/embed.js']),1)
+    self.assertEqual(len([a for a in p.attrs('a') if a.get('href')=='https://cameraboss-crm.vercel.app/book/cameraboss/general-enquiry']),1)
+    self.assertFalse(p.attrs('iframe'))
   self.assertEqual(len(set(descriptions)),55)
  def test_no_studio_ninja_anywhere_in_the_build(self):
   for f in BUILD.rglob('*'):

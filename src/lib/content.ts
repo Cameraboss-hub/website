@@ -507,9 +507,8 @@ export const pages: Page[] = (pagesData as Page[]).map((p) => ({
   ...p,
   meta_description: seoFor(p.path, { title: p.title, description: p.meta_description?.trim() || META_FALLBACK[p.path] || "" }).description,
   title: seoFor(p.path, { title: tidyTitle(p.title) }).title,
-  // The CRM swap runs last, and deliberately after clean(): clean() strips every
-  // <script> from imported markup, so an embed inserted any earlier would have
-  // its injector removed again and the form would never load.
+  // Replace the legacy Studio Ninja iframe after cleaning imported markup.
+  // The CRM's full-page form works; its cross-origin iframe is refused.
   html: swapStudioNinjaForCrm(
     enhanceImages(fixLinks(demoteExtraH1s(clean(p.html))), p.h1 || tidyTitle(p.title).split("|")[0].trim()),
     enquiryEmbedHtml(),

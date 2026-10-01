@@ -24,7 +24,6 @@ interface Props {
   noindex?: boolean;
   current?: string;
   article?: { published?: string; modified?: string };
-  availabilityHref?: string;
 }
 
 const {
@@ -35,7 +34,6 @@ const {
   noindex = false,
   current = "",
   article,
-  availabilityHref = "/contact/",
 } = Astro.props;
 
 const { title, description } = seoFor(Astro.url.pathname, { title: suppliedTitle, description: suppliedDescription });
@@ -144,7 +142,7 @@ const orgLd = {
       <slot />
     </main>
     <Footer />
-    <FloatingAvailability href={availabilityHref} />
+    <FloatingAvailability />
     <MobileNav current={current} />
     <SiteInteractions />
     <EditorialMotion />

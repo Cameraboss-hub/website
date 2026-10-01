@@ -52,7 +52,6 @@ const hasOwnH1 = /<h1[\s>]/i.test(page.html);
   current={page.path}
   canonical={canonicalFor(page.path)}
   noindex={isThinDuplicate(page.path)}
-  availabilityHref={location ? "#enquire" : "/contact/"}
 >
   {isLocationDirectory ? <LocationDirectory /> : location ? <LocationLanding location={location} /> : <article>
     {/* A couple of imported pages (pricing, Editorial Shoot) have no <h1> at

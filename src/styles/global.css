@@ -832,6 +832,10 @@ html.cb-nav-locked, html.cb-nav-locked body { overflow: hidden; }
 [hidden] { display: none !important; }
 .skip-link { position: fixed; left: 1rem; top: -8rem; z-index: 100; padding: .8rem 1rem; background: white; color: #1a1a1a; }
 .skip-link:focus { top: 1rem; }
+.cameraboss-enquiry-action { width: min(100%, 860px); margin-inline: auto; padding: clamp(1.5rem, 4vw, 3rem); background: #fff; border: 1px solid #d8d3ca; color: #191919; }
+.cameraboss-enquiry-action p { max-width: 52ch; margin: 0 0 1.5rem; color: #494741; font: 400 1rem/1.7 "Manrope", sans-serif; }
+.cameraboss-enquiry-action a { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: .85rem 1.4rem; background: #191919; color: #fff !important; border: 1px solid #191919; font: 600 .8rem/1.3 "Manrope", sans-serif; text-decoration: none; }
+.cameraboss-enquiry-action a:hover { background: #fff; color: #191919 !important; }
 :focus-visible { outline: 2px solid #b3242a; outline-offset: 4px; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }

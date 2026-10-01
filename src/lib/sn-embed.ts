@@ -1,5 +1,5 @@
 /**
- * Swapping the Studio Ninja embed for the CRM one inside imported page HTML.
+ * Swapping a legacy Studio Ninja iframe for a working CRM enquiry link.
  *
  * Twelve migrated pages carry the booking form as raw markup in pages.json: a
  * `<iframe src="…/contactform/parser/…">` and, next to it, Studio Ninja's
@@ -28,13 +28,10 @@ export function hasStudioNinjaEmbed(html: string): boolean {
 }
 
 /**
- * Replace the Studio Ninja block with the CRM embed, in place.
+ * Replace the Studio Ninja block with the supplied enquiry action, in place.
  *
- * The CRM embed takes the position of the iframe, so the form stays exactly
- * where it sat in the page. Studio Ninja's resizer script is dropped outright —
- * the CRM's injector sizes its own iframe. A page carrying more than one embed
- * gets the CRM embed only once; any further Studio Ninja markup is removed, so
- * none can survive into the build.
+ * The action takes the iframe's position. Studio Ninja's resizer is removed.
+ * A page carrying multiple old iframes gets just one working link.
  */
 export function swapStudioNinjaForCrm(html: string, embedHtml: string): string {
   const source = html || "";
