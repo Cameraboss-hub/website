@@ -1,155 +1,24 @@
 ---
 export const prerender = true;
 
-import EnquiryEmbed from "../components/EnquiryEmbed.astro";
 import PageLayout from "../layouts/PageLayout.astro";
-
-const B = "https://htwwyqfattodfaybqgev.supabase.co/storage/v1/object/public/blog/";
-
-// Six hero photos, in the same order as the Pixieset carousel.
-const slides = [
-  "2b443c3d_CBP09672Medium-0a2cdc32-1500.webp",
-  "1d94c5de_CBP01613Medium-f89b5ec1-1500.webp",
-  "cabedfc3_CBP07360Medium-4feac2b6-1500.webp",
-  "d6706d4f_CBP01616Medium-bd5d4045-1500.webp",
-  "e1f4cfb8_CBP01752Medium-94c3d04a-1500.webp",
-  "16957002_CBP01727Medium-3506965a-1500.webp",
-].map((f) => B + f);
-
-const cards = [
-  { title: "Check This Out", sub: "Our latest Production", href: "/gallery-a/", img: B + "93c68a36_eef1754dc3660b2137374f2f17f700b0-8df0b3f9.webp" },
-  { title: "Traditional Wedding", sub: "Culture and Class", href: "/Aworan/", img: B + "b7ca2439_b2f3a3b4c2dddcd84eb1e2d82c91f1c1-7a11d30b.webp" },
-];
-
-const explore = [
-  { title: "Take a look at my work", sub: "Portfolio", href: "/client-area/", img: B + "a19f3cf0_lCB54951-2060c8d6.webp" },
-  { title: "Find out my process", sub: "Experience", href: "/experience/", img: B + "35dc1e76_CB52795-9d4bb67d.webp" },
-];
+import { ENQUIRY_PAGE_URL } from "../lib/crm";
+import "../styles/contact-new.css";
 ---
 
 <PageLayout
   title="Contact the Best Photographer in Leicester & London | CameraBoss"
   description="Get in touch with CameraBoss to check availability for your wedding, engagement or portrait shoot across the UK and Nigeria."
-  current="/contact"
-  ogImage={slides[0]}
+  current="/contact/"
+  ogImage="/images/selected-work/joanna-jonathon.webp"
 >
-  <!-- Hero carousel — full-bleed, matches the original dimensions -->
-  <section class="cb-slider" aria-roledescription="carousel" aria-label="Recent work">
-    <div class="cb-slider__viewport">
-      <div class="cb-slider__track" id="cb-track">
-        {slides.map((src, i) => (
-          <figure class="cb-slide">
-            <img src={src} alt={`CameraBoss wedding photography — ${i + 1}`} loading={i < 2 ? "eager" : "lazy"} decoding="async" />
-          </figure>
-        ))}
-      </div>
-    </div>
-
-    <div class="cb-slider__nav">
-      <button class="cb-arrow" id="cb-prev" aria-label="Previous photos">
-        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.2">
-          <path d="M15 5l-7 7 7 7" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-      </button>
-      <button class="cb-arrow" id="cb-next" aria-label="Next photos">
-        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.2">
-          <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-      </button>
-    </div>
-  </section>
-
-  <!-- Heading -->
-  <section class="mx-auto max-w-[1368px] px-6 pt-16 pb-14">
-    <h1 class="font-[family-name:var(--font-display)] text-3xl leading-[1.15] font-light md:text-5xl lg:text-[3.4rem]">
-      Say hello. Let's work together.&nbsp; Call me on{" "}
-      <a href="tel:+447823714814" class="whitespace-nowrap hover:text-[var(--color-accent)]">07823714814</a>
-    </h1>
-  </section>
-
-  <!-- The CRM form opens as a full page because the CRM refuses iframe embedding. -->
-  <section class="bg-white/70 py-16">
-    <EnquiryEmbed />
-  </section>
-
-  <!-- Two-up feature cards -->
-  <section class="mx-auto max-w-[1368px] px-6 py-24">
-    <div class="grid gap-8 md:grid-cols-2">
-      {cards.map((c) => (
-        <a href={c.href} class="group relative block aspect-[4/5] overflow-hidden md:aspect-[3/4]">
-          <img src={c.img} alt={c.title} loading="lazy"
-            class="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] group-hover:scale-105" />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent"></div>
-          <div class="absolute inset-x-0 bottom-0 p-8 text-center text-white">
-            <h2 class="font-[family-name:var(--font-display)] text-2xl font-light md:text-3xl">{c.title}</h2>
-            <p class="mt-2 text-[11px] tracking-[0.3em] text-white/80 uppercase">{c.sub}</p>
-          </div>
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <!-- Explore -->
-  <section class="border-t border-black/8 bg-white/60">
-    <div class="mx-auto max-w-[1368px] px-6 py-24">
-      <div class="grid gap-8 md:grid-cols-2">
-        {explore.map((c) => (
-          <a href={c.href} class="group block">
-            <div class="aspect-[16/10] overflow-hidden bg-black/5">
-              <img src={c.img} alt={c.title} loading="lazy"
-                class="h-full w-full object-cover transition-transform duration-[900ms] group-hover:scale-105" />
-            </div>
-            <h3 class="mt-6 font-[family-name:var(--font-display)] text-xl font-light transition-colors group-hover:text-[var(--color-accent)]">
-              {c.title}
-            </h3>
-            <p class="mt-2 text-[11px] tracking-[0.3em] text-black/45 uppercase">{c.sub}</p>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <script is:inline>
-    // Hero carousel: continuous horizontal track, one photo per step,
-    // mirroring the Pixieset behaviour (multiple photos visible at once).
-    (function () {
-      const track = document.getElementById("cb-track");
-      if (!track) return;
-      const slides = [...track.children];
-      let index = 0;
-
-      function step() {
-        return slides[0] ? slides[0].getBoundingClientRect().width + 4 : 0;
-      }
-      function maxIndex() {
-        const visible = Math.max(1, Math.round(track.parentElement.clientWidth / step()));
-        return Math.max(0, slides.length - visible);
-      }
-      function go(i) {
-        index = Math.min(Math.max(0, i), maxIndex());
-        track.style.transform = `translate3d(${-index * step()}px,0,0)`;
-      }
-      document.getElementById("cb-prev").addEventListener("click", () => go(index - 1));
-      document.getElementById("cb-next").addEventListener("click", () => go(index + 1));
-      window.addEventListener("resize", () => go(index));
-
-      // Drag / swipe
-      let startX = 0, startIdx = 0, dragging = false;
-      track.addEventListener("pointerdown", (e) => {
-        dragging = true; startX = e.clientX; startIdx = index;
-        track.style.transition = "none";
-      });
-      window.addEventListener("pointermove", (e) => {
-        if (!dragging) return;
-        track.style.transform = `translate3d(${-startIdx * step() + (e.clientX - startX)}px,0,0)`;
-      });
-      window.addEventListener("pointerup", (e) => {
-        if (!dragging) return;
-        dragging = false;
-        track.style.transition = "";
-        const moved = Math.round((startX - e.clientX) / step());
-        go(startIdx + moved);
-      });
-    })();
-  </script>
+  <div class="contact-page">
+    <nav class="contact-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Contact</span></nav>
+    <header class="contact-hero">
+      <div class="contact-hero__copy"><p class="contact-kicker">CameraBoss / Enquiries</p><h1>Let’s talk about<br /><em>your day.</em></h1><p>Tell us what you are planning. A wedding, an engagement, a portrait session — it begins with a conversation.</p><a class="contact-button" href={ENQUIRY_PAGE_URL}>Open the enquiry form</a><span>The form opens on our CameraBoss booking site.</span></div>
+      <div class="contact-hero__aside"><p class="contact-kicker">Good things to share</p><ol><li><span>01</span><p>Your date, or a few dates you have in mind</p></li><li><span>02</span><p>The venue or area you are considering</p></li><li><span>03</span><p>The moments and people you most want photographed</p></li></ol></div>
+    </header>
+    <section class="contact-details" aria-labelledby="contact-details-title"><div><p class="contact-kicker">A direct line</p><h2 id="contact-details-title">Prefer to talk?</h2><p>Questions about availability, photography, film or a location? Reach out in the way that suits you.</p></div><div class="contact-details__links"><a href="tel:+447823714814"><span>Call</span><strong>07823 714814</strong></a><a href="mailto:camerabossmultimedia@gmail.com"><span>Email</span><strong>camerabossmultimedia@gmail.com</strong></a><a href="https://www.instagram.com/thecameraboss" target="_blank" rel="noopener noreferrer"><span>Instagram</span><strong>@thecameraboss</strong></a></div></section>
+    <section class="contact-next" aria-labelledby="contact-next-title"><p class="contact-kicker">See the work / Plan your coverage</p><h2 id="contact-next-title">A little more before you enquire.</h2><div><a href="/client-area/">Explore the galleries</a><a href="/pricing/">View starting prices</a><a href="/locations/">Where we work</a></div></section>
+  </div>
 </PageLayout>

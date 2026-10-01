@@ -14,6 +14,7 @@ export function getStaticPaths() {
     "/", "/blog/", "/galleries/", "/blog", "/galleries",
     "/contact/", "/contact",           // hand-built pages
     "/about/", "/about",
+    "/pricing/", "/pricing",           // hand-built pricing page
     "/Wedding-videos/", "/Wedding-videos",  // dedicated films page
     "/client-area/", "/client-area",        // 301s to /galleries/
   ]);
@@ -43,6 +44,12 @@ const isLocationDirectory = page.path === "/locations/";
 // every one of them two <h1>s — a visible duplicate title and a real SEO
 // problem. Only add the heading where the imported markup has none.
 const hasOwnH1 = /<h1[\s>]/i.test(page.html);
+const firstBlock = /<div\s+class="block-container ([^"]+)/.exec(page.html);
+const firstBlockText = firstBlock
+  ? page.html.slice(firstBlock.index, firstBlock.index + 3500).replace(/<[^>]*>/g, " ").replace(/\s+/g, " ")
+  : "";
+const hasLegacyBookingBanner = firstBlock?.[1].startsWith("block-button") &&
+  /(?:now booking|we are booking|now booking for)/i.test(firstBlockText.slice(0, 240));
 ---
 
 <PageLayout
@@ -53,8 +60,8 @@ const hasOwnH1 = /<h1[\s>]/i.test(page.html);
   canonical={canonicalFor(page.path)}
   noindex={isThinDuplicate(page.path)}
 >
-  {isLocationDirectory ? <LocationDirectory /> : location ? <LocationLanding location={location} /> : <article>
-    {/* A couple of imported pages (pricing, Editorial Shoot) have no <h1> at
+  {isLocationDirectory ? <LocationDirectory /> : location ? <LocationLanding location={location} /> : <article class:list={["imported-page", { "imported-page--legacy-banner": hasLegacyBookingBanner }]}>
+    {/* A few imported pages (such as Editorial Shoot) have no <h1> at
         all — neither did they on Pixieset. Give them one for search engines
         and screen readers without changing the design. */}
     {!hasOwnH1 && !page.h1 && (
