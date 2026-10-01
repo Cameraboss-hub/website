@@ -3,6 +3,7 @@ import { posts, pages, isoDate, thumbFor, isThinDuplicate } from "../lib/content
 
 import videos from "../data/videos.json";
 import stories from "../data/portfolio-stories.json";
+import { locationPages } from "../data/locations";
 
 
 export const prerender = true;
@@ -25,6 +26,10 @@ export const GET: APIRoute = async () => {
     // A page marked noindex must not be advertised in the sitemap.
     if (isThinDuplicate(path)) continue;
     urls.push({ loc: `${SITE}${path}`, priority: "0.8" });
+  }
+  const importedPaths = new Set(pages.map((page) => page.path));
+  for (const location of locationPages) {
+    if (!importedPaths.has(location.path)) urls.push({ loc: `${SITE}${location.path}`, priority: "0.8" });
   }
 
   // Wedding films page, with a thumbnail per film.

@@ -3,6 +3,10 @@ export const prerender = true;
 
 import PageLayout from "../layouts/PageLayout.astro";
 import { pages, canonicalFor, isThinDuplicate } from "../lib/content";
+import LocationDirectory from "../components/LocationDirectory.astro";
+import LocationLanding from "../components/LocationLanding.astro";
+import { locationPages, locationByPath } from "../data/locations";
+import "../styles/locations-new.css";
 
 export function getStaticPaths() {
   // Routes handled by dedicated files — never let the catch-all shadow them.
@@ -13,7 +17,16 @@ export function getStaticPaths() {
     "/Wedding-videos/", "/Wedding-videos",  // dedicated films page
     "/client-area/", "/client-area",        // 301s to /galleries/
   ]);
-  return pages
+  const importedPaths = new Set(pages.map((page) => page.path));
+  const newLocations = locationPages.filter((location) => !importedPaths.has(location.path)).map((location) => ({
+    path: location.path,
+    title: location.title,
+    meta_description: location.description,
+    og_image: "",
+    h1: "",
+    html: "",
+  }));
+  return [...pages, ...newLocations]
     .filter((p) => !reserved.has(p.path))
     .map((p) => ({
       params: { path: p.path.replace(/^\/|\/$/g, "") },
@@ -22,6 +35,8 @@ export function getStaticPaths() {
 }
 
 const { page } = Astro.props;
+const location = locationByPath.get(page.path);
+const isLocationDirectory = page.path === "/locations/";
 
 // 26 of the 31 imported pages already open with their own <h1> inside the
 // Pixieset markup (a banner or hero heading). Rendering page.h1 as well gave
@@ -31,14 +46,14 @@ const hasOwnH1 = /<h1[\s>]/i.test(page.html);
 ---
 
 <PageLayout
-  title={page.title}
-  description={page.meta_description}
-  ogImage={page.og_image || undefined}
+  title={location?.title || (isLocationDirectory ? "Wedding Photographer Locations Across the UK | CameraBoss" : page.title)}
+  description={location?.description || (isLocationDirectory ? "Explore CameraBoss wedding photography across London, Leicester, Oxford, Sheffield and more UK locations. See real stories and enquire about your date." : page.meta_description)}
+  ogImage={location?.image || page.og_image || undefined}
   current={page.path}
   canonical={canonicalFor(page.path)}
   noindex={isThinDuplicate(page.path)}
 >
-  <article>
+  {isLocationDirectory ? <LocationDirectory /> : location ? <LocationLanding location={location} /> : <article>
     {/* A couple of imported pages (pricing, Editorial Shoot) have no <h1> at
         all — neither did they on Pixieset. Give them one for search engines
         and screen readers without changing the design. */}
@@ -65,5 +80,5 @@ const hasOwnH1 = /<h1[\s>]/i.test(page.html);
         set:html={page.html}
       />
     </div>
-  </article>
+  </article>}
 </PageLayout>

@@ -11,8 +11,9 @@ const { current = '' } = Astro.props;
       <li class="cb-nav-dd"><button class="cb-nav-dd__btn" aria-haspopup="true" aria-expanded="false" type="button">Info</button>
         <ul class="cb-nav-dd__menu editorial-dropdown">{info.map(item => <li><a href={item.href}>{item.label}</a></li>)}</ul>
       </li>
-      {right.map(item => <li><a href={item.href} aria-current={isCurrent(current,item.href) ? 'page' : undefined} class:list={[item.label === 'Contact' && 'nav-enquire']}>{item.label}</a></li>)}
+      {right.map(item => <li><a href={item.href} aria-current={isCurrent(current,item.href) ? 'page' : undefined} class:list={[item.href === '/contact/' && 'nav-enquire']}>{item.label}</a></li>)}
     </ul>
+    <a class="mobile-booking" href="/contact/">Enquire</a>
     <button type="button" class="cb-burger editorial-burger" aria-label="Open menu" aria-expanded="false" aria-controls="cb-mobile-nav" data-mnav-open><span></span><span></span><span></span></button>
   </nav>
 </header>

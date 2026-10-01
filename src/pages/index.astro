@@ -19,15 +19,16 @@ const stories = storyOrder.map((slug) => {
 });
 const titles = new Map(selectedWork.map((work) => [work.slug, work.title]));
 const storySlugs = new Set(stories.map((story) => story.slug));
+// These frames keep the couple near the centre at both wide and phone crops.
 const openingPhotos = [
-  { slug: "cynthiaandoswaldo", index: 2 },
-  { slug: "joandjonny", index: 2 },
-  { slug: "opeyemiweddingportrait", index: 7 },
-].map(({ slug, index }) => {
+  { slug: "vanessawedding", index: 6, position: "54% 43%", mobilePosition: "57% 50%" },
+  { slug: "cynthiaandoswaldo", index: 7, position: "52% 48%", mobilePosition: "53% 50%" },
+  { slug: "joandjonny", index: 9, position: "50% 34%", mobilePosition: "50% 46%" },
+].map(({ slug, index, position, mobilePosition }) => {
   const story = stories.find((entry) => entry.slug === slug);
   const photo = story?.photos[index];
   if (!photo) throw new Error(`Missing opening photograph: ${slug}/${index}`);
-  return photo;
+  return { ...photo, position, mobilePosition };
 });
 
 // Keep the layout stable while the lazy-loaded cover photographs arrive.
@@ -87,20 +88,25 @@ const portfolio = storyPhotos.flatMap((photo, index) => {
   ogImage={lead.image}
 >
   <section class="home-opening" aria-labelledby="home-title">
-    <div class="home-opening__pictures" aria-label="CameraBoss wedding and portrait photography">
-      {openingPhotos.map((photo, index) => (
-        <img
-          src={photo.src}
-          srcset={photo.srcset}
-          sizes={index === 1 ? "(max-width: 700px) 100vw, 50vw" : "(max-width: 700px) 50vw, 25vw"}
-          alt={photo.alt}
-          width={photo.width}
-          height={photo.height}
-          fetchpriority={index === 1 ? "high" : undefined}
-          loading="eager"
-          decoding="async"
-        />
-      ))}
+    <div class="home-opening__pictures" aria-label="CameraBoss wedding photography" data-hero-slider>
+      <div class="home-opening__track" data-hero-track>
+        {[...openingPhotos, openingPhotos[0]].map((photo, index) => (
+          <img
+            src={photo.src}
+            srcset={photo.srcset}
+            sizes="100vw"
+            alt={index === openingPhotos.length ? "" : photo.alt}
+            aria-hidden={index === openingPhotos.length ? "true" : undefined}
+            width={photo.width}
+            height={photo.height}
+            style={`--hero-position:${photo.position};--hero-mobile-position:${photo.mobilePosition}`}
+            fetchpriority={index === 0 ? "high" : "low"}
+            loading="eager"
+            decoding="async"
+          />
+        ))}
+      </div>
+      <div class="home-opening__progress" aria-hidden="true"><span data-hero-progress></span></div>
     </div>
     <div class="home-opening__statement">
       <div>
@@ -156,3 +162,38 @@ const portfolio = storyPhotos.flatMap((photo, index) => {
     </div>
   </section>
 </PageLayout>
+
+<script>
+  const slider = document.querySelector<HTMLElement>("[data-hero-slider]");
+  const track = slider?.querySelector<HTMLElement>("[data-hero-track]");
+  const progress = slider?.querySelector<HTMLElement>("[data-hero-progress]");
+  if (slider && track && progress) {
+    const count = track.children.length - 1;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let index = 0;
+    let timer: number | undefined;
+    const advance = () => {
+      index += 1;
+      track.style.transition = "transform 1200ms cubic-bezier(.65, 0, .25, 1)";
+      track.style.transform = `translateX(-${index * 100}%)`;
+      progress.style.transform = `scaleX(${Math.min(index + 1, count) / count})`;
+    };
+    const stop = () => window.clearInterval(timer);
+    const start = () => {
+      stop();
+      if (!reduced.matches && !document.hidden) timer = window.setInterval(advance, 5600);
+    };
+    track.addEventListener("transitionend", () => {
+      if (index !== count) return;
+      track.style.transition = "none";
+      track.style.transform = "translateX(0)";
+      index = 0;
+      progress.style.transform = `scaleX(${1 / count})`;
+    });
+    slider.addEventListener("mouseenter", stop);
+    slider.addEventListener("mouseleave", start);
+    document.addEventListener("visibilitychange", start);
+    reduced.addEventListener("change", start);
+    start();
+  }
+</script>
