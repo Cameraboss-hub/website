@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand palette — refine once brand guidelines / exact hex values are confirmed */
-  --color-ink: #252822;
-  --color-paper: #f6f3ed;
-  --color-accent: #813d40; /* red accent from the "Camera BOSS" wordmark */
+  /* White and black lead; red is reserved for small links and focus accents. */
+  --color-ink: #171717;
+  --color-paper: #fff;
+  --color-accent: #a5232e;
 
   /* Typography
      "Quincy CF" (display serif) is a licensed font used in the Figma file —

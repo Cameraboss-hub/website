@@ -2,7 +2,7 @@
 .editorial-site.dock-theme[data-page="/client-area/"] { background: #fff; color: #22211f; }
 .portfolio-kicker { margin: 0; font: 600 .68rem/1.4 "Manrope", sans-serif; letter-spacing: .14em; text-transform: uppercase; }
 .portfolio-hero { background: #fff; }
-.portfolio-hero__photo { height: clamp(430px, 67svh, 850px); overflow: hidden; background: #e9e6df; }
+.portfolio-hero__photo { height: clamp(430px, 67svh, 850px); overflow: hidden; background: #eee; }
 .portfolio-hero__photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 49%; }
 .portfolio-hero__copy { display: flex; justify-content: space-between; align-items: end; gap: 2rem; padding: clamp(3rem, 5vw, 5rem) clamp(1.3rem, 4vw, 5rem); border-bottom: 1px solid #22211f; }
 .editorial-site.dock-theme .portfolio-hero h1 { max-width: 11ch; margin: 1rem 0 0; font: 400 clamp(3.9rem, 6.5vw, 7.4rem)/.99 "Bodoni Moda", Georgia, serif !important; letter-spacing: -.05em; text-transform: none !important; }
@@ -19,7 +19,7 @@
 .portfolio-card { display: inline-block; width: 100%; min-width: 0; margin: 0 0 clamp(1.8rem, 3vw, 3rem); break-inside: avoid; }
 .portfolio-card[hidden], .portfolio-archive__card[hidden], .portfolio-archive__more[hidden] { display: none; }
 .portfolio-card__link { display: block; color: inherit; text-decoration: none; }
-.portfolio-card__image { display: block; overflow: hidden; background: #dfdcd5; }
+.portfolio-card__image { display: block; overflow: hidden; background: #eee; }
 .portfolio-card img { display: block; width: 100%; height: auto; transition: opacity .2s ease; }
 .portfolio-card__link:hover img { opacity: .88; }
 .portfolio-card figcaption { display: flex; align-items: baseline; justify-content: space-between; gap: .7rem; padding-top: 1.1rem; }
@@ -39,7 +39,7 @@
 .portfolio-archive__count { margin: 1.5rem 0 2rem; color: #77736c; font: 500 .72rem "Manrope", sans-serif; letter-spacing: .05em; }
 .portfolio-archive__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2.5rem 1.3rem; }
 .portfolio-archive__card { display: block; min-width: 0; color: inherit; text-decoration: none; }
-.portfolio-archive__card img { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; background: #e3e0da; }
+.portfolio-archive__card img { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; background: #eee; }
 .portfolio-archive__card-copy { display: flex; justify-content: space-between; align-items: baseline; gap: .7rem; padding-top: .7rem; }
 .portfolio-archive__card-copy strong { font: 500 .86rem/1.4 "Manrope", sans-serif; }
 .portfolio-archive__card-copy small { flex: none; color: #807c75; font: 400 .63rem/1.4 "Manrope", sans-serif; }
@@ -49,7 +49,7 @@
 @media (max-width: 1050px) { .portfolio-grid { columns: 2; } .portfolio-archive__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 760px) {
   .portfolio-hero__photo { height: clamp(300px, 56svh, 600px); }
-  .portfolio-hero__photo img { object-position: 50% 50%; }
+  .portfolio-hero__photo img { object-position: 80% 50%; }
   .portfolio-hero__copy { display: block; padding: 3.5rem 1.4rem; }
   .editorial-site.dock-theme .portfolio-hero h1 { max-width: 12ch; font-size: clamp(3.4rem, 11vw, 5rem); }
   .portfolio-hero__copy > p:last-child { margin-top: 1.4rem; }

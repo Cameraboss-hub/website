@@ -136,11 +136,18 @@ Cardiff|Bangor|Newport|Swansea|Wrexham|Belfast|Bangor, County Down|Derry'''.repl
   covers=[work for work in selected if work['slug'] not in story_slugs]
   hero_sources={img['src'].replace('-1600.webp','-960.webp') for img in p.attrs('img') if '--hero-position:' in img.get('style','')}
   self.assertEqual(len(hero_sources),3)
-  self.assertEqual(len(tiles),sum(len(story['photos']) for story in stories)-len(hero_sources)+len(covers))
+  self.assertEqual(hero_sources,{
+   '/images/selected-work/joandjonny.jpg',
+   '/images/stories/cynthiaandoswaldo/08-960.webp',
+   '/images/stories/joandjonny/07-960.webp',
+  })
+  story_sources={photo['src'] for story in stories for photo in story['photos']}
+  self.assertEqual(len(tiles),sum(len(story['photos']) for story in stories)-len(hero_sources & story_sources)+len(covers)+1)
   self.assertTrue(all(tile.get('aria-label') for tile in tiles))
   self.assertFalse(p.attrs('figcaption'))
-  sources={photo['src'] for story in stories for photo in story['photos']}
+  sources=set(story_sources)
   sources.update(f"/images/selected-work/web/{work['slug']}-960.webp" for work in covers)
+  sources.add('/images/selected-work/joanna-jonathon.webp')
   displayed_sources={img.get('src') for img in p.attrs('img')}
   for img in p.attrs('img'):
    displayed_sources.update(re.findall(r'(/images/[^\s,]+)',img.get('srcset','')))

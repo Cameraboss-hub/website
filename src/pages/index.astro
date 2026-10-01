@@ -19,18 +19,26 @@ const stories = storyOrder.map((slug) => {
 });
 const titles = new Map(selectedWork.map((work) => [work.slug, work.title]));
 const storySlugs = new Set(stories.map((story) => story.slug));
-// Full-width frames must be landscape, with the people inside the central crop.
-const openingPhotos = [
-  { slug: "vanessawedding", index: 6, position: "54% 43%", mobilePosition: "57% 50%" },
-  { slug: "joandjonny", index: 6, position: "50% 48%", mobilePosition: "51% 49%" },
-  { slug: "temiandfiyin", index: 9, position: "50% 44%", mobilePosition: "50% 47%" },
+const joAndJonnyCover = selectedWork.find((work) => work.slug === "joandjonny");
+if (!joAndJonnyCover) throw new Error("Missing Jo and Jonny cover");
+// Lead with the weddings John selected. Full-width frames remain landscape;
+// the portrait covers from Mayo and Emmanuel and Faith and Jack stay in the grid.
+const openingStoryPhotos = [
+  { slug: "cynthiaandoswaldo", index: 7, position: "50% 47%", mobilePosition: "50% 49%" },
+  { slug: "joandjonny", index: 6, position: "50% 47%", mobilePosition: "50% 48%" },
 ].map(({ slug, index, position, mobilePosition }) => {
   const story = stories.find((entry) => entry.slug === slug);
   const photo = story?.photos[index];
   if (!photo) throw new Error(`Missing opening photograph: ${slug}/${index}`);
-  if (photo.width / photo.height < 1.35) throw new Error(`Opening photograph must be landscape: ${slug}/${index}`);
+  if (photo.width <= photo.height) throw new Error(`Opening photograph must be landscape: ${slug}/${index}`);
   return { ...photo, position, mobilePosition };
 });
+const openingPhotos = [
+  { src: joAndJonnyCover.image, srcset: `${coverSrcSet(joAndJonnyCover.slug)}, ${joAndJonnyCover.image} 3600w`,
+    alt: "Jo and Jonny together on their wedding day", width: 3600, height: 2400,
+    position: "50% 48%", mobilePosition: "80% 50%" },
+  ...openingStoryPhotos,
+];
 const openingPhotoPaths = new Set(openingPhotos.map((photo) => photo.src));
 
 // Keep the layout stable while the lazy-loaded cover photographs arrive.
@@ -49,7 +57,10 @@ const coverDimensions: Record<string, readonly [number, number]> = {
   finemodelbluesuit: [960, 1200],
   reddressmodel: [960, 1440],
 };
-const covers = selectedWork.filter((work) => !storySlugs.has(work.slug)).map((work) => {
+const coverPriority = new Map(["faithandjack-1", "mayoandemmanuel"].map((slug, index) => [slug, index]));
+const covers = selectedWork.filter((work) => !storySlugs.has(work.slug))
+  .sort((a, b) => (coverPriority.get(a.slug) ?? 999) - (coverPriority.get(b.slug) ?? 999))
+  .map((work) => {
   const dimensions = coverDimensions[work.slug];
   if (!dimensions) throw new Error(`Missing homepage cover dimensions: ${work.slug}`);
   return {
@@ -81,7 +92,19 @@ const wovenPhotos = storyPhotos.flatMap((photo, index) => {
   const cover = index % 4 === 0 ? covers[Math.floor(index / 4)] : undefined;
   return cover ? [cover, photo] : [photo];
 });
-const portfolio = [...wovenPhotos, ...covers.slice(Math.ceil(storyPhotos.length / 4))];
+const portfolio = [
+  {
+    href: "/blog/a-newcastle-anglo-nigerian-wedding-at-beamish-hall-joanna-jonathon/",
+    label: "Explore Joanna and Jonathon’s wedding at Beamish Hall",
+    alt: "Joanna and Jonathon together in traditional wedding attire",
+    src: "/images/selected-work/joanna-jonathon.webp",
+    srcset: undefined,
+    width: 1280,
+    height: 1600,
+  },
+  ...wovenPhotos,
+  ...covers.slice(Math.ceil(storyPhotos.length / 4)),
+];
 ---
 
 <PageLayout
