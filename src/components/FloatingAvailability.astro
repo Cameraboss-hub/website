@@ -1,4 +1,8 @@
-<a class="availability-float" href="/contact/">Check your date availability</a>
+---
+interface Props { href?: string }
+const { href = "/contact/" } = Astro.props;
+---
+<a class="availability-float" href={href}>Check your date availability</a>
 
 <style>
   .availability-float {

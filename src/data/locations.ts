@@ -1,4 +1,5 @@
 import { getPost, thumbFor } from "../lib/content";
+import { createCoveragePages } from "./coverage-locations";
 
 export interface LocationPage {
   path: string;
@@ -17,11 +18,13 @@ export interface LocationPage {
   image?: string;
   imageAlt?: string;
   proofImage?: string;
+  planning?: string;
+  evidenceNote?: string;
 }
 
 // Each landing page is tied to a published CameraBoss story. Wider service areas
 // live in the directory rather than becoming dozens of interchangeable pages.
-export const locationPages: LocationPage[] = [
+const publishedLocationPages: LocationPage[] = [
   {
     path: "/London-wedding-photographer/", name: "London", region: "Greater London",
     title: "London Wedding Photographer & Videographer | CameraBoss",
@@ -293,6 +296,11 @@ export const locationPages: LocationPage[] = [
     storyContext: "Adebimpe and Moses at The Curve, Slough",
     nearby: ["London", "Central London", "Oxford", "Bristol"], focus: "50% 42%",
   },
+];
+
+export const locationPages: LocationPage[] = [
+  ...publishedLocationPages,
+  ...createCoveragePages(publishedLocationPages),
 ];
 
 export const locationByPath = new Map(locationPages.map((page) => [page.path, page]));

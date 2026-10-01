@@ -3,6 +3,7 @@ from pathlib import Path
 from urllib.parse import urljoin,urlparse,unquote
 import json,re,unittest,xml.etree.ElementTree as ET
 from html.parser import HTMLParser
+from html import unescape
 ROOT=Path(__file__).resolve().parents[1]
 BUILD=ROOT/'.vercel/output/static'
 class HTML(HTMLParser):
@@ -90,6 +91,29 @@ class MigrationTests(unittest.TestCase):
                '/Wolverhampton-wedding-photographer/','/Italy-destination-wedding-photographer/']:
    with self.subTest(path=path):
     self.assertIn('/contact/',{a.get('href') for a in HTML(page(path)).attrs('a')})
+ def test_reference_locations_are_real_pages_with_own_enquiry(self):
+  """The 55 names visible in the supplied regional index each need a working route."""
+  names='''Brighton|Cambridge|London|Oxford|Southampton|Canterbury|Chelmsford|Guildford|
+Bath|Bristol|Bournemouth|Cheltenham|Exeter|Gloucester|Plymouth|Salisbury|
+Birmingham|Leicester|Nottingham|Coventry|Derby|Lincoln|Loughborough|Northampton|
+Liverpool|Manchester|Blackpool|Bolton|Chester|Crewe|Kendal|Lancaster|
+Leeds|Newcastle|Sheffield|York|Bradford|Durham|Harrogate|Huddersfield|
+Edinburgh|Glasgow|Aberdeen|Dundee|Inverness|Perth|Stirling|
+Cardiff|Bangor|Newport|Swansea|Wrexham|Belfast|Bangor, County Down|Derry'''.replace('\n','').split('|')
+  directory=page('/locations/')
+  links=[(href,unescape(name)) for href,name in re.findall(r'<a class="loc-dir-list__link" href="([^"]+)">([^<]+)</a>',directory)]
+  self.assertEqual(len(links),55)
+  self.assertEqual({name for _,name in links},set(names))
+  self.assertEqual(len({href for href,_ in links}),55)
+  descriptions=[]
+  for href,name in links:
+   with self.subTest(location=name):
+    p=HTML(page(href));descriptions.extend(x['content'] for x in p.attrs('meta') if x.get('name')=='description')
+    self.assertEqual(len(p.attrs('h1')),1)
+    self.assertTrue(any(a.get('href')=='#enquire' for a in p.attrs('a')))
+    self.assertTrue(any(a.get('id')=='enquire' for a in p.attrs('section')))
+    self.assertEqual(len([a for a in p.attrs('script') if a.get('src')=='https://cameraboss-crm.vercel.app/embed.js']),1)
+  self.assertEqual(len(set(descriptions)),55)
  def test_no_studio_ninja_anywhere_in_the_build(self):
   for f in BUILD.rglob('*'):
    if f.is_file() and f.suffix in {'.html','.js','.css','.json','.txt','.xml'}:

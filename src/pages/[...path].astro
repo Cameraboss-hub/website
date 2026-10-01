@@ -47,11 +47,12 @@ const hasOwnH1 = /<h1[\s>]/i.test(page.html);
 
 <PageLayout
   title={location?.title || (isLocationDirectory ? "Wedding Photographer Locations Across the UK | CameraBoss" : page.title)}
-  description={location?.description || (isLocationDirectory ? "Explore CameraBoss wedding photography across London, Leicester, Oxford, Sheffield and more UK locations. See real stories and enquire about your date." : page.meta_description)}
+  description={location?.description || (isLocationDirectory ? "Explore 55 CameraBoss wedding photography locations across England, Scotland, Wales and Northern Ireland. See real work and check availability for your date." : page.meta_description)}
   ogImage={location?.image || page.og_image || undefined}
   current={page.path}
   canonical={canonicalFor(page.path)}
   noindex={isThinDuplicate(page.path)}
+  availabilityHref={location ? "#enquire" : "/contact/"}
 >
   {isLocationDirectory ? <LocationDirectory /> : location ? <LocationLanding location={location} /> : <article>
     {/* A couple of imported pages (pricing, Editorial Shoot) have no <h1> at
