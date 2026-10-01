@@ -8,7 +8,7 @@
 .editorial-site.dock-theme[data-page="/"] :is(.home-opening h1, .home-note h2) { font-family: "Bodoni Moda", Georgia, serif !important; font-weight: 400 !important; text-transform: none !important; }
 .home-eyebrow { margin: 0; font: 500 .7rem/1.4 "Manrope", sans-serif; letter-spacing: .17em; text-transform: uppercase; }
 .home-opening { background: #fff; }
-.home-opening__pictures { position: relative; height: clamp(560px, 67svh, 880px); overflow: hidden; background: #e8e5df; }
+.home-opening__pictures { position: relative; height: calc(100svh - 74px); min-height: 560px; overflow: hidden; background: #e8e5df; }
 .home-opening__track { display: flex; width: 100%; height: 100%; will-change: transform; }
 .home-opening__track img { display: block; flex: 0 0 100%; width: 100%; height: 100%; min-width: 0; object-fit: cover; object-position: var(--hero-position); }
 .home-opening__progress { position: absolute; right: clamp(1.3rem, 4vw, 5rem); bottom: 1.7rem; width: 108px; height: 2px; background: #ffffff80; }
@@ -40,7 +40,7 @@
 .home-locations a:hover { border-color: currentColor; }
 .editorial-site.dock-theme[data-page="/"] a:focus-visible { outline: 2px solid #171717; outline-offset: 5px; }
 @media (hover: hover) and (pointer: fine) { .home-portfolio__tile img { transition: opacity 180ms ease; } .home-portfolio__tile:hover img { opacity: .87; } }
-@media (max-width: 900px) { .home-opening__statement { grid-template-columns: 1fr; gap: 1.8rem; } .home-opening__aside { display: flex; flex-wrap: wrap; align-items: end; gap: 1rem 2rem; } .home-opening__aside p { max-width: 38ch; margin: 0; flex: 1 1 100%; } .home-opening__aside span { margin: 0; } .home-opening__pictures { height: clamp(470px, 65svh, 730px); } }
+@media (max-width: 900px) { .home-opening__statement { grid-template-columns: 1fr; gap: 1.8rem; } .home-opening__aside { display: flex; flex-wrap: wrap; align-items: end; gap: 1rem 2rem; } .home-opening__aside p { max-width: 38ch; margin: 0; flex: 1 1 100%; } .home-opening__aside span { margin: 0; } .home-opening__pictures { height: calc(100svh - 70px); min-height: 470px; } }
 @media (max-width: 700px) {
   .editorial-site.dock-theme[data-page="/"] .editorial-nav { height: 64px; }
   .home-opening__pictures { height: clamp(430px, 61svh, 680px); }

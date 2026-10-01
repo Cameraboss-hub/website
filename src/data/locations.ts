@@ -15,6 +15,8 @@ export interface LocationPage {
   nearby: string[];
   focus?: string;
   image?: string;
+  imageAlt?: string;
+  proofImage?: string;
 }
 
 // Each landing page is tied to a published CameraBoss story. Wider service areas
@@ -44,6 +46,9 @@ export const locationPages: LocationPage[] = [
     storyContext: "Bridal portraits at the Grand Hotel, Leicester",
     guideSlug: "pre-wedding-photoshoot-at-victoria-park-leicester-by-leicester-wedding-photographer",
     nearby: ["East Midlands", "Nottingham", "Derby", "Birmingham"], focus: "50% 35%",
+    image: "https://htwwyqfattodfaybqgev.supabase.co/storage/v1/object/public/blog/bc7cf47b_CBP03577copy-a1d10ab5-1000.webp",
+    imageAlt: "A couple together at Victoria Park, Leicester",
+    proofImage: "https://htwwyqfattodfaybqgev.supabase.co/storage/v1/object/public/blog/cdfbca44_627309c1ebdafb9ed65759cfc77be6a5-26133abf.webp",
   },
   {
     path: "/Oxford-wedding-photographer/", name: "Oxford", region: "South East",
@@ -82,6 +87,7 @@ export const locationPages: LocationPage[] = [
     storyContext: "Jumoke and Dami at Edgbaston Hall, Birmingham",
     guideSlug: "birmingham-wedding-venues-a-photographers-view",
     nearby: ["West Midlands", "Wolverhampton", "Coventry", "Leicester"], focus: "50% 40%",
+    image: "https://htwwyqfattodfaybqgev.supabase.co/storage/v1/object/public/blog/95f5ec34_CBA00905-Editcopy-46a8b211-1000.webp",
   },
   {
     path: "/manchester-wedding-photographer/", name: "Manchester", region: "North West",
@@ -106,6 +112,7 @@ export const locationPages: LocationPage[] = [
     storyContext: "Ruth and Onyenka’s Liverpool wedding",
     guideSlug: "10-stunning-outdoor-photography-locations-in-liverpool",
     nearby: ["Manchester", "Leeds", "Sheffield", "Birmingham"], focus: "50% 42%",
+    image: "https://htwwyqfattodfaybqgev.supabase.co/storage/v1/object/public/blog/c3cd4427_d043fa8cb425303b42548276ba10fe8c-910ffdeb-1500.webp",
   },
   {
     path: "/Derby-wedding-photographer/", name: "Derby", region: "East Midlands",
@@ -118,6 +125,7 @@ export const locationPages: LocationPage[] = [
     storyContext: "Camila and Will at The Priest House Hotel",
     guideSlug: "derby-wedding-venues-a-wedding-photographers-view-of-the-city",
     nearby: ["East Midlands", "Nottingham", "Leicester", "Sheffield"], focus: "50% 45%",
+    image: "https://htwwyqfattodfaybqgev.supabase.co/storage/v1/object/public/blog/c5d1bf80_CBP06775-43f202ef-1500.webp",
   },
   {
     path: "/newcastle-wedding-photographer/", name: "Newcastle", region: "North East",
@@ -164,6 +172,7 @@ export const locationPages: LocationPage[] = [
     storySlug: "jumoke-dami-yoruba-wedding-at-edgbaston-hall-birmingham-cameraboss",
     storyContext: "Nearby work: Jumoke and Dami in Birmingham",
     nearby: ["West Midlands", "Birmingham", "Wolverhampton", "Leicester"], focus: "50% 42%",
+    image: "https://htwwyqfattodfaybqgev.supabase.co/storage/v1/object/public/blog/7dbc5468_CBA00444-Editcopy-f694bdc2-1000.webp",
   },
   {
     path: "/ipswich-wedding-photographer/", name: "Ipswich", region: "Suffolk",
@@ -175,7 +184,7 @@ export const locationPages: LocationPage[] = [
     storySlug: "fola-marleys-elegant-wedding-at-stock-brook-manor-essex-venue-stock-brook-manor-golf-country-club-queens-park-ave-bill",
     storyContext: "Wider regional work: Fola and Marley in Essex",
     nearby: ["Essex", "London", "Central London", "Luton"], focus: "50% 42%",
-    image: "https://htwwyqfattodfaybqgev.supabase.co/storage/v1/object/public/blog/6a78e837_CB-18-0b6b55ec-1000.webp",
+    image: "https://htwwyqfattodfaybqgev.supabase.co/storage/v1/object/public/blog/a3f7fac2_CB-31-3f41417e-1000.webp",
   },
   {
     path: "/essex-wedding-photographer/", name: "Essex", region: "East of England",
@@ -187,7 +196,7 @@ export const locationPages: LocationPage[] = [
     storySlug: "fola-marleys-elegant-wedding-at-stock-brook-manor-essex-venue-stock-brook-manor-golf-country-club-queens-park-ave-bill",
     storyContext: "Fola and Marley at Stock Brook Manor, Essex",
     nearby: ["London", "Central London", "Ipswich", "Luton"], focus: "50% 42%",
-    image: "https://htwwyqfattodfaybqgev.supabase.co/storage/v1/object/public/blog/6a78e837_CB-18-0b6b55ec-1000.webp",
+    image: "https://htwwyqfattodfaybqgev.supabase.co/storage/v1/object/public/blog/19f9165c_CB-34-5f97d52a-1000.webp",
   },
   {
     path: "/central-london-wedding-photographer/", name: "Central London", region: "Greater London",
@@ -212,6 +221,7 @@ export const locationPages: LocationPage[] = [
     storyContext: "Jumoke and Dami at Edgbaston Hall, Birmingham",
     guideSlug: "wolverhampton-wedding-photographer-captures-peace-olayinka",
     nearby: ["Birmingham", "Wolverhampton", "Coventry", "East Midlands"], focus: "50% 42%",
+    image: "https://htwwyqfattodfaybqgev.supabase.co/storage/v1/object/public/blog/7b195da3_CBA00745-Editcopy-15da76f2-1000.webp",
   },
   {
     path: "/east-midlands-wedding-photographer/", name: "East Midlands", region: "UK regions",

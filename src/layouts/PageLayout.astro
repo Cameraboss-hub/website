@@ -13,6 +13,7 @@ import { seoFor } from "../lib/seo";
 import SiteHeader from "../components/SiteHeader.astro";
 import MobileNav from "../components/MobileNav.astro";
 import Footer from "../components/Footer.astro";
+import FloatingAvailability from "../components/FloatingAvailability.astro";
 import { CRM_ORIGIN } from "../lib/crm";
 
 interface Props {
@@ -141,6 +142,7 @@ const orgLd = {
       <slot />
     </main>
     <Footer />
+    <FloatingAvailability />
     <MobileNav current={current} />
     <SiteInteractions />
     <EditorialMotion />

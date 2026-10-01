@@ -9,14 +9,24 @@ import "../../styles/portfolio.css";
 
 const order = [
   "iyanuwedding", "opeyemiweddingportrait", "reddressmodel", "joandjonny", "faithandjack-1", "dana",
-  "carmenandben", "bambna", "finemodelbluesuit", "cynthiaandoswaldo", "princessweddingportraits", "felixandlina",
-  "mayoandemmanuel", "temiandfiyin", "bridalshoot", "akinpelu", "jumokeandstephen", "vanessawedding",
+  "felixandlina", "bambna", "finemodelbluesuit", "cynthiaandoswaldo", "princessweddingportraits", "carmenandben",
+  "vanessawedding", "temiandfiyin", "bridalshoot", "akinpelu", "jumokeandstephen", "mayoandemmanuel",
 ];
 const position = new Map(order.map((slug, index) => [slug, index]));
 const displayWork = [...selectedWork].sort((a, b) => (position.get(a.slug) ?? 999) - (position.get(b.slug) ?? 999));
 const featuredSlugs = new Set(selectedWork.map((work) => work.slug));
 const archiveItems = clientArea.items.filter((item) => !featuredSlugs.has(item.slug));
 const publishedStories = new Set(stories.map((story) => story.slug));
+const coverDimensions: Record<string, readonly [number, number]> = {
+  akinpelu: [1600, 2000], bambna: [1600, 1067], bridalshoot: [1600, 2000],
+  carmenandben: [1600, 2168], cynthiaandoswaldo: [1600, 2062], dana: [1600, 2000],
+  "faithandjack-1": [1600, 2254], felixandlina: [1600, 2144], finemodelbluesuit: [1600, 2000],
+  iyanuwedding: [1600, 1990], joandjonny: [1600, 1067], jumokeandstephen: [1600, 1280],
+  mayoandemmanuel: [1600, 2397], opeyemiweddingportrait: [1600, 2382],
+  princessweddingportraits: [1600, 2000], reddressmodel: [1600, 2400],
+  temiandfiyin: [1600, 1010], vanessawedding: [1600, 2000],
+};
+for (const work of displayWork) if (!coverDimensions[work.slug]) throw new Error(`Missing portfolio image dimensions: ${work.slug}`);
 const galleryLd = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
@@ -40,19 +50,18 @@ const galleryLd = {
 >
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(galleryLd)} />
   <section class="portfolio-hero" aria-labelledby="portfolio-title">
+    <div class="portfolio-hero__photo">
+      <img src="/images/stories/vanessawedding/03-1600.webp" srcset="/images/stories/vanessawedding/03-960.webp 960w, /images/stories/vanessawedding/03-1600.webp 1600w" sizes="100vw" alt="Vanessa and her partner arriving together at their wedding celebration" width="1600" height="1067" fetchpriority="high" decoding="async" />
+    </div>
     <div class="portfolio-hero__copy">
       <p class="portfolio-kicker">CameraBoss / Selected work</p>
       <h1 id="portfolio-title">Weddings &amp; portraits</h1>
-      <p>Every celebration has its own rhythm. Find a story that stays with you, then step into the complete gallery.</p>
-    </div>
-    <div class="portfolio-hero__pictures" aria-hidden="true">
-      <img src={coverSrc("vanessawedding")} srcset={coverSrcSet("vanessawedding")} sizes="(max-width: 760px) 58vw, 38vw" alt="" width="960" height="1200" fetchpriority="high" />
-      <img src={coverSrc("iyanuwedding")} srcset={coverSrcSet("iyanuwedding")} sizes="(max-width: 760px) 42vw, 26vw" alt="" width="960" height="640" loading="lazy" decoding="async" />
+      <p>Every celebration has its own rhythm. Choose a name and step into the photographs.</p>
     </div>
   </section>
 
   <section class="portfolio-work" id="selected-work" aria-label="Selected wedding and portrait photographs">
-    <div class="portfolio-intro"><p class="portfolio-kicker">Featured galleries</p><p>Explore the full stories behind the photographs.</p></div>
+    <div class="portfolio-intro"><p class="portfolio-kicker">Featured galleries</p><p>Every image has a story behind it.</p></div>
     <div class="portfolio-filters" role="group" aria-label="Filter selected work">
       <button type="button" data-portfolio-filter="all" aria-pressed="true">All work</button>
       <button type="button" data-portfolio-filter="wedding" aria-pressed="false">Weddings</button>
@@ -63,11 +72,11 @@ const galleryLd = {
         <figure class="portfolio-card" data-category={work.category}>
           <a href={work.source_gallery} class="portfolio-card__link">
             <span class="portfolio-card__image">
-              <img src={coverSrc(work.slug)} srcset={coverSrcSet(work.slug)} sizes="(max-width: 760px) 50vw, 30vw" alt={`${work.title} — ${work.category} photography by CameraBoss`} width="800" height="1000" loading={index < 3 ? "eager" : "lazy"} decoding="async" />
+              <img src={coverSrc(work.slug)} srcset={coverSrcSet(work.slug)} sizes="(max-width: 760px) calc(50vw - 18px), (max-width: 1600px) calc(33vw - 36px), 500px" alt={`${work.title} — ${work.category} photography by CameraBoss`} width={coverDimensions[work.slug][0]} height={coverDimensions[work.slug][1]} loading={index < 3 ? "eager" : "lazy"} decoding="async" />
             </span>
             <figcaption><span class="portfolio-card__title">{work.title}</span><span class="portfolio-card__type">{work.category === "wedding" ? "Wedding" : "Portrait"}</span></figcaption>
           </a>
-          {publishedStories.has(work.slug) && <a class="portfolio-card__edit" href={`/stories/${work.slug}/`}>View selected photographs</a>}
+          {publishedStories.has(work.slug) && <a class="portfolio-card__edit" href={`/stories/${work.slug}/`}>View the website edit</a>}
         </figure>
       ))}
     </div>

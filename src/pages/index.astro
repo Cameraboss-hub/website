@@ -19,17 +19,19 @@ const stories = storyOrder.map((slug) => {
 });
 const titles = new Map(selectedWork.map((work) => [work.slug, work.title]));
 const storySlugs = new Set(stories.map((story) => story.slug));
-// These frames keep the couple near the centre at both wide and phone crops.
+// Full-width frames must be landscape, with the people inside the central crop.
 const openingPhotos = [
   { slug: "vanessawedding", index: 6, position: "54% 43%", mobilePosition: "57% 50%" },
-  { slug: "cynthiaandoswaldo", index: 7, position: "52% 48%", mobilePosition: "53% 50%" },
-  { slug: "joandjonny", index: 9, position: "50% 34%", mobilePosition: "50% 46%" },
+  { slug: "joandjonny", index: 6, position: "50% 48%", mobilePosition: "51% 49%" },
+  { slug: "temiandfiyin", index: 9, position: "50% 44%", mobilePosition: "50% 47%" },
 ].map(({ slug, index, position, mobilePosition }) => {
   const story = stories.find((entry) => entry.slug === slug);
   const photo = story?.photos[index];
   if (!photo) throw new Error(`Missing opening photograph: ${slug}/${index}`);
+  if (photo.width / photo.height < 1.35) throw new Error(`Opening photograph must be landscape: ${slug}/${index}`);
   return { ...photo, position, mobilePosition };
 });
+const openingPhotoPaths = new Set(openingPhotos.map((photo) => photo.src));
 
 // Keep the layout stable while the lazy-loaded cover photographs arrive.
 const coverDimensions: Record<string, readonly [number, number]> = {
@@ -63,7 +65,7 @@ const covers = selectedWork.filter((work) => !storySlugs.has(work.slug)).map((wo
 const storyPhotos = Array.from({ length: Math.max(...stories.map((story) => story.photos.length)) }, (_, index) =>
   stories.flatMap((story) => {
     const photo = story.photos[index];
-    return photo ? [{
+    return photo && !openingPhotoPaths.has(photo.src) ? [{
       href: `/stories/${story.slug}/`,
       label: `Open ${titles.get(story.slug)} gallery: ${photo.alt}`,
       alt: photo.alt,
@@ -75,10 +77,11 @@ const storyPhotos = Array.from({ length: Math.max(...stories.map((story) => stor
   }),
 ).flat();
 // Weave cover-only galleries among the published stories for a wider range of work.
-const portfolio = storyPhotos.flatMap((photo, index) => {
+const wovenPhotos = storyPhotos.flatMap((photo, index) => {
   const cover = index % 4 === 0 ? covers[Math.floor(index / 4)] : undefined;
   return cover ? [cover, photo] : [photo];
 });
+const portfolio = [...wovenPhotos, ...covers.slice(Math.ceil(storyPhotos.length / 4))];
 ---
 
 <PageLayout
@@ -92,7 +95,7 @@ const portfolio = storyPhotos.flatMap((photo, index) => {
       <div class="home-opening__track" data-hero-track>
         {[...openingPhotos, openingPhotos[0]].map((photo, index) => (
           <img
-            src={photo.src}
+            src={photo.src.replace("-960.webp", "-1600.webp")}
             srcset={photo.srcset}
             sizes="100vw"
             alt={index === openingPhotos.length ? "" : photo.alt}

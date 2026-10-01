@@ -115,12 +115,17 @@ class MigrationTests(unittest.TestCase):
   selected=json.loads((ROOT/'src/data/portfolio.json').read_text())
   story_slugs={story['slug'] for story in stories}
   covers=[work for work in selected if work['slug'] not in story_slugs]
-  self.assertEqual(len(tiles),sum(len(story['photos']) for story in stories)+len(covers))
+  hero_sources={img['src'].replace('-1600.webp','-960.webp') for img in p.attrs('img') if '--hero-position:' in img.get('style','')}
+  self.assertEqual(len(hero_sources),3)
+  self.assertEqual(len(tiles),sum(len(story['photos']) for story in stories)-len(hero_sources)+len(covers))
   self.assertTrue(all(tile.get('aria-label') for tile in tiles))
   self.assertFalse(p.attrs('figcaption'))
   sources={photo['src'] for story in stories for photo in story['photos']}
   sources.update(f"/images/selected-work/web/{work['slug']}-960.webp" for work in covers)
-  self.assertTrue(sources.issubset({img.get('src') for img in p.attrs('img')}))
+  displayed_sources={img.get('src') for img in p.attrs('img')}
+  for img in p.attrs('img'):
+   displayed_sources.update(re.findall(r'(/images/[^\s,]+)',img.get('srcset','')))
+  self.assertTrue(sources.issubset(displayed_sources))
   for src in sources:self.assertTrue((ROOT/'public'/src.lstrip('/')).is_file(),src)
   self.assertIn('https://gallery.cameraboss.co.uk/faithandjack-1/',hrefs)
  def test_clean_metadata_and_single_footer(self):
