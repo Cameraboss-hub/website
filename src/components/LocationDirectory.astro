@@ -8,7 +8,7 @@ const more = locationPages.filter((page) => !featuredNames.includes(page.name));
 
 <div class="loc-directory">
   <header class="loc-dir-hero">
-    <div class="loc-dir-hero__copy"><p class="loc-kicker">CameraBoss / Across the UK</p><h1>Every place.<br /><em>Every feeling.</em></h1><p>London streets. Leicester gardens. A ceremony in Sheffield. Wherever the story takes you, we photograph the people at its heart.</p><a class="loc-button" href="/contact/">Enquire about your date</a></div>
+    <div class="loc-dir-hero__copy"><p class="loc-kicker">CameraBoss / Across the UK</p><h1>Every place.<br />{" "}<em>Every feeling.</em></h1><p>London streets. Leicester gardens. A ceremony in Sheffield. Wherever the story takes you, we photograph the people at its heart.</p><a class="loc-button" href="/contact/">Enquire about your date</a></div>
     <div class="loc-dir-hero__images">{featured.slice(0, 2).map((page, index) => { const story = locationStory(page); return <a href={page.path} aria-label={`Explore ${page.name} photography`}><img src={page.image || story.image || "/images/selected-work/joandjonny.jpg"} alt={story.title} width="700" height="900" loading={index === 0 ? "eager" : "lazy"} decoding="async" /><span>{page.name}</span></a>; })}</div>
   </header>
 

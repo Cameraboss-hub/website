@@ -175,6 +175,7 @@ export const locationPages: LocationPage[] = [
     storySlug: "fola-marleys-elegant-wedding-at-stock-brook-manor-essex-venue-stock-brook-manor-golf-country-club-queens-park-ave-bill",
     storyContext: "Wider regional work: Fola and Marley in Essex",
     nearby: ["Essex", "London", "Central London", "Luton"], focus: "50% 42%",
+    image: "https://htwwyqfattodfaybqgev.supabase.co/storage/v1/object/public/blog/6a78e837_CB-18-0b6b55ec-1000.webp",
   },
   {
     path: "/essex-wedding-photographer/", name: "Essex", region: "East of England",
@@ -186,6 +187,7 @@ export const locationPages: LocationPage[] = [
     storySlug: "fola-marleys-elegant-wedding-at-stock-brook-manor-essex-venue-stock-brook-manor-golf-country-club-queens-park-ave-bill",
     storyContext: "Fola and Marley at Stock Brook Manor, Essex",
     nearby: ["London", "Central London", "Ipswich", "Luton"], focus: "50% 42%",
+    image: "https://htwwyqfattodfaybqgev.supabase.co/storage/v1/object/public/blog/6a78e837_CB-18-0b6b55ec-1000.webp",
   },
   {
     path: "/central-london-wedding-photographer/", name: "Central London", region: "Greater London",

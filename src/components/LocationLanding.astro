@@ -18,7 +18,7 @@ const guideImage = guide ? thumbFor(guide) : null;
   <header class="loc-hero">
     <div class="loc-hero__copy">
       <p class="loc-kicker">CameraBoss <span>/</span> {location.region}</p>
-      <h1>{location.name}<br /><em>wedding photographer.</em></h1>
+      <h1>{location.name}<br />{" "}<em>wedding photographer.</em></h1>
       <p>{location.lede}</p>
       <a class="loc-button" href={`/contact/?location=${encodeURIComponent(location.name)}`}>Enquire about your date</a>
     </div>
