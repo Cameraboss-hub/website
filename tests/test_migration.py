@@ -110,7 +110,18 @@ class MigrationTests(unittest.TestCase):
   self.assertIn('Trusted Yoruba wedding photographer in London',descriptions[0])
   hrefs={x.get('href') for x in p.attrs('a')}
   for href in ['/client-area/','/client-area/?tag=portrait','/contact/','/blog/']:self.assertIn(href,hrefs)
-  self.assertEqual(len([x for x in p.attrs('a') if 'home-story' in x.get('class','')]),12)
+  tiles=[x for x in p.attrs('a') if 'home-portfolio__tile' in x.get('class','').split()]
+  stories=json.loads((ROOT/'src/data/portfolio-stories.json').read_text())
+  selected=json.loads((ROOT/'src/data/portfolio.json').read_text())
+  story_slugs={story['slug'] for story in stories}
+  covers=[work for work in selected if work['slug'] not in story_slugs]
+  self.assertEqual(len(tiles),sum(len(story['photos']) for story in stories)+len(covers))
+  self.assertTrue(all(tile.get('aria-label') for tile in tiles))
+  self.assertFalse(p.attrs('figcaption'))
+  sources={photo['src'] for story in stories for photo in story['photos']}
+  sources.update(f"/images/selected-work/web/{work['slug']}-960.webp" for work in covers)
+  self.assertTrue(sources.issubset({img.get('src') for img in p.attrs('img')}))
+  for src in sources:self.assertTrue((ROOT/'public'/src.lstrip('/')).is_file(),src)
   self.assertIn('https://gallery.cameraboss.co.uk/faithandjack-1/',hrefs)
  def test_clean_metadata_and_single_footer(self):
   for f in BUILD.rglob('*.html'):

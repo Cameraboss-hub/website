@@ -3,21 +3,71 @@ export const prerender = true;
 
 import PageLayout from "../layouts/PageLayout.astro";
 import selectedWork from "../data/portfolio.json";
+import publishedStories from "../data/portfolio-stories.json";
 import { coverSrc, coverSrcSet } from "../lib/portfolio-images";
-import { posts, isoDate, thumbFor } from "../lib/content";
 import "../styles/home-new.css";
 
 const lead = selectedWork.find((work) => work.slug === "joandjonny")!;
-const storySlugs = [
-  "cynthiaandoswaldo", "temiandfiyin", "opeyemiweddingportrait", "joandjonny",
-  "faithandjack-1", "bambna", "dana", "vanessawedding", "iyanuwedding",
-  "jumokeandstephen", "reddressmodel", "princessweddingportraits",
+const storyOrder = [
+  "joandjonny", "cynthiaandoswaldo", "vanessawedding",
+  "temiandfiyin", "opeyemiweddingportrait",
 ];
-const stories = storySlugs.map((slug) => selectedWork.find((work) => work.slug === slug)!);
-const latest = [...posts]
-  .filter((post) => isoDate(post.date))
-  .sort((a, b) => isoDate(b.date)!.localeCompare(isoDate(a.date)!))
-  .slice(0, 3);
+const stories = storyOrder.map((slug) => {
+  const story = publishedStories.find((entry) => entry.slug === slug);
+  if (!story) throw new Error(`Missing homepage story: ${slug}`);
+  return story;
+});
+const titles = new Map(selectedWork.map((work) => [work.slug, work.title]));
+const storySlugs = new Set(stories.map((story) => story.slug));
+
+// Keep the layout stable while the lazy-loaded cover photographs arrive.
+const coverDimensions: Record<string, readonly [number, number]> = {
+  "faithandjack-1": [960, 1353],
+  felixandlina: [960, 1286],
+  carmenandben: [960, 1301],
+  bambna: [960, 640],
+  akinpelu: [960, 1200],
+  iyanuwedding: [960, 1194],
+  jumokeandstephen: [960, 768],
+  mayoandemmanuel: [960, 1438],
+  dana: [960, 1200],
+  bridalshoot: [960, 1200],
+  princessweddingportraits: [960, 1200],
+  finemodelbluesuit: [960, 1200],
+  reddressmodel: [960, 1440],
+};
+const covers = selectedWork.filter((work) => !storySlugs.has(work.slug)).map((work) => {
+  const dimensions = coverDimensions[work.slug];
+  if (!dimensions) throw new Error(`Missing homepage cover dimensions: ${work.slug}`);
+  return {
+    href: work.source_gallery,
+    label: `Open ${work.title} gallery`,
+    alt: `${work.title}, photographed by CameraBoss`,
+    src: coverSrc(work.slug),
+    srcset: coverSrcSet(work.slug),
+    width: dimensions[0],
+    height: dimensions[1],
+  };
+});
+const storyPhotos = Array.from({ length: Math.max(...stories.map((story) => story.photos.length)) }, (_, index) =>
+  stories.flatMap((story) => {
+    const photo = story.photos[index];
+    return photo ? [{
+      href: `/stories/${story.slug}/`,
+      label: `Open ${titles.get(story.slug)} gallery: ${photo.alt}`,
+      alt: photo.alt,
+      src: photo.src,
+      srcset: photo.srcset,
+      width: photo.width,
+      height: photo.height,
+    }] : [];
+  }),
+).flat();
+// Weave cover-only galleries among the published stories for a wider range of work.
+const portfolio = storyPhotos.flatMap((photo, index) => {
+  const cover = index % 4 === 0 ? covers[Math.floor(index / 4)] : undefined;
+  return cover ? [cover, photo] : [photo];
+});
 ---
 
 <PageLayout
@@ -35,84 +85,39 @@ const latest = [...posts]
     <div class="home-lead__copy">
       <p class="home-eyebrow">CameraBoss / Photography & film</p>
       <h1 id="home-title">Wedding photography for the way it felt.</h1>
-      <p>Thoughtful photographs of weddings, people and the moments between. From Nigerian celebrations to intimate portraits, we make images that bring you back.</p>
+      <p>Weddings, portraits and the moments between, photographed across the UK and beyond.</p>
       <div class="home-lead__actions">
-        <a href="/client-area/">View selected work</a>
+        <a href="#portfolio">View portfolio</a>
         <a href="/contact/">Enquire</a>
       </div>
     </div>
-    <p class="home-lead__credit">Jo and Jonny / CameraBoss</p>
   </section>
 
-  <section class="home-intro" aria-label="Our work">
-    <p class="home-eyebrow">London · Leicester · Across the UK</p>
-    <p>We photograph the people, the atmosphere and the fleeting details that make a day unmistakably yours.</p>
-  </section>
-
-  <section class="home-stories" aria-labelledby="home-stories-title">
-    <div class="home-section-head">
-      <div>
-        <p class="home-eyebrow">Portfolio</p>
-        <h2 id="home-stories-title">Selected work</h2>
-      </div>
-      <p>Choose a story to see the complete gallery.</p>
-    </div>
-    <div class="home-stories__grid">
-      {stories.map((work) => (
-        <a class="home-story" href={work.source_gallery}>
-          <img src={coverSrc(work.slug)} srcset={coverSrcSet(work.slug)} sizes="(max-width: 700px) 100vw, 55vw" alt={`${work.title} — ${work.category} photography by CameraBoss`} width="800" height="1000" loading="lazy" decoding="async" />
-          <span class="home-story__caption"><span>{work.title}</span><small>{work.category === "wedding" ? "Wedding" : "Portrait"}</small></span>
+  <section class="home-portfolio" id="portfolio" aria-labelledby="home-portfolio-title">
+    <h2 id="home-portfolio-title">Portfolio</h2>
+    <div class="home-portfolio__grid">
+      {portfolio.map((photo) => (
+        <a class="home-portfolio__tile" href={photo.href} aria-label={photo.label}>
+          <img src={photo.src} srcset={photo.srcset} sizes="(max-width: 700px) calc(50vw - 12px), (max-width: 1600px) calc(33vw - 26px), 510px" alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" decoding="async" />
         </a>
       ))}
     </div>
-    <a class="home-inline-link" href="/client-area/">View the full selection</a>
-  </section>
-
-  <section class="home-approach" aria-labelledby="home-approach-title">
-    <div class="home-approach__image">
-      <img src={coverSrc("princessweddingportraits")} srcset={coverSrcSet("princessweddingportraits")} sizes="(max-width: 700px) 100vw, 50vw" alt="Bridal portrait photographed by CameraBoss" width="800" height="1000" loading="lazy" decoding="async" />
-    </div>
-    <div class="home-approach__copy">
-      <p class="home-eyebrow">The approach</p>
-      <h2 id="home-approach-title">Present for it all. Never in the way.</h2>
-      <p>We learn what matters to you before the day begins. Then we make room for the traditions, energy and people that give your story its shape.</p>
-      <a class="home-inline-link" href="/experience/">The CameraBoss experience</a>
+    <div class="home-portfolio__after">
+      <p>There is more to every photograph.</p>
+      <a href="/client-area/">Explore the galleries</a>
     </div>
   </section>
 
-  <section class="home-portrait" aria-labelledby="home-portrait-title">
-    <div class="home-portrait__copy">
-      <p class="home-eyebrow">Portraits & editorial</p>
-      <h2 id="home-portrait-title">A portrait should feel like you.</h2>
-      <p>Quiet confidence, colour, character. We make portraits for the person in front of the lens, whether it is a bridal session or something entirely your own.</p>
-      <a class="home-inline-link" href="/client-area/?tag=portrait">Explore portraits</a>
-    </div>
-    <div class="home-portrait__image"><img src={coverSrc("dana")} srcset={coverSrcSet("dana")} sizes="(max-width: 700px) 100vw, 50vw" alt="Dana bridal portrait by CameraBoss" width="800" height="1000" loading="lazy" decoding="async" /></div>
-  </section>
-
-  <section class="home-journal" aria-labelledby="home-journal-title">
-    <div class="home-section-head">
-      <div><p class="home-eyebrow">Journal</p><h2 id="home-journal-title">Stories & ideas</h2></div>
-      <a class="home-inline-link" href="/blog/">Read the journal</a>
-    </div>
-    <div class="home-journal__grid">
-      {latest.map((post) => (
-        <a href={`/blog/${post.slug}/`} class="home-journal__card">
-          {thumbFor(post) && <img src={thumbFor(post)} alt="" width="720" height="480" loading="lazy" decoding="async" />}
-          <span>{post.date}</span><h3>{post.title}</h3>
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <section class="home-about" aria-labelledby="home-about-title">
-    <div class="home-about__image"><img src="/images/about/john-lekan-shooting.webp" alt="John Lekan photographing a wedding" width="800" height="1000" loading="lazy" decoding="async" /></div>
-    <div class="home-about__copy">
-      <p class="home-eyebrow">Behind the camera</p>
-      <h2 id="home-about-title">John Lekan</h2>
-      <p>I’m a wedding, lifestyle and portrait photographer based in the UK. I want the photographs to look like your day, and to feel like it too.</p>
-      <a class="home-inline-link" href="/about/">Meet John</a>
-    </div>
+  <section class="home-note" aria-labelledby="home-note-title">
+    <p class="home-eyebrow">CameraBoss / London · Leicester · Across the UK</p>
+    <h2 id="home-note-title">The day, as it felt.</h2>
+    <p>Wedding and portrait photography shaped by people, place and feeling. From Nigerian and African celebrations to quieter portraits, we make space for the moments that matter to you.</p>
+    <nav aria-label="Explore CameraBoss">
+      <a href="/about/">About us</a>
+      <a href="/client-area/?tag=portrait">Portraits</a>
+      <a href="/blog/">Journal</a>
+      <a href="/contact/">Get in touch</a>
+    </nav>
   </section>
 
   <section class="home-locations" aria-label="Photography locations">
