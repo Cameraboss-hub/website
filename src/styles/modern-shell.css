@@ -28,6 +28,8 @@
 .editorial-site.dock-theme .mobile-booking { display: none; }
 .editorial-site.dock-theme .editorial-dropdown { border-radius: 0; border-color: #ddd; background: #fff; box-shadow: 0 18px 35px #00000017; }
 .editorial-site.dock-theme .editorial-links :is(a:hover, a[aria-current=page]) { color: #171717; }
+.editorial-site.dock-theme .editorial-links .nav-enquire[aria-current="page"] { color: #fff; }
+.editorial-site.dock-theme .editorial-links .nav-enquire[aria-current="page"]:hover { color: #171717; }
 .editorial-site.dock-theme .editorial-footer { background: #171717; color: #fff; font-family: "Manrope", "Helvetica Neue", Arial, sans-serif; }
 .editorial-site.dock-theme .editorial-footer :is(p, a, h2) { color: #fff; }
 .editorial-site.dock-theme .editorial-footer .footer-identity img { filter: brightness(0) invert(1); }
