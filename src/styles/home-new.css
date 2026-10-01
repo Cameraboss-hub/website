@@ -1,58 +1,62 @@
-/* A quiet frame for the photographs, with no visible portfolio captions. */
-.editorial-site.dock-theme[data-page="/"] { background: #fff; color: #1d1d1b; }
-.editorial-site.dock-theme[data-page="/"] :is(.home-lead h1, .home-note h2) {
-  font-family: "Bodoni Moda", Georgia, serif !important;
-  font-weight: 400 !important;
-  letter-spacing: -.045em;
-  line-height: 1.08 !important;
-  text-transform: none !important;
-}
-.home-eyebrow { margin: 0; font: 600 .68rem/1.4 "Manrope", sans-serif; letter-spacing: .13em; text-transform: uppercase; }
-.home-lead { position: relative; display: flex; min-height: min(800px, calc(100svh - 82px)); isolation: isolate; background: #473329; color: #fff; }
-.home-lead__media, .home-lead__image, .home-lead__shade { position: absolute; inset: 0; width: 100%; height: 100%; }
-.home-lead__image { object-fit: cover; object-position: center 43%; }
-.home-lead__shade { z-index: 1; background: linear-gradient(90deg, #0d0a08c9 0%, #0d0a087a 43%, transparent 80%), linear-gradient(0deg, #0d0a087a, transparent 60%); }
-.home-lead__copy { position: relative; z-index: 2; align-self: flex-end; width: min(850px, 68%); padding: 6rem 0 clamp(5rem, 8vw, 8rem) clamp(2rem, 6.5vw, 8rem); }
-.editorial-site.dock-theme .home-lead h1 { max-width: 13ch; margin: 1.45rem 0 1.5rem; font-size: clamp(3.8rem, 6.5vw, 7.1rem); }
-.home-lead__copy > p:not(.home-eyebrow) { max-width: 40ch; margin: 0; font: 400 clamp(.95rem, 1.1vw, 1.15rem)/1.75 "Manrope", sans-serif; color: #ffffffdf; }
-.home-lead__actions { display: flex; gap: 2.4rem; align-items: center; flex-wrap: wrap; margin-top: 2.5rem; }
-.home-lead__actions a { display: inline-flex; align-items: center; min-height: 44px; color: #fff; border-bottom: 1px solid #ffffffc4; font: 600 .77rem "Manrope", sans-serif; letter-spacing: .06em; text-decoration: none; }
-.home-portfolio { max-width: 1700px; margin: 0 auto; padding: clamp(6rem, 9vw, 10rem) clamp(.6rem, 2.2vw, 2rem) clamp(5rem, 8vw, 9rem); background: #fff; }
-.editorial-site.dock-theme .home-portfolio h2 { margin: 0 0 clamp(3.5rem, 6vw, 6rem); text-align: center; font: 500 .8rem/1.4 "Manrope", sans-serif; letter-spacing: .37em; text-transform: uppercase; }
-.home-portfolio__grid { columns: 3; column-gap: 6px; }
-.home-portfolio__tile { display: block; margin-bottom: 6px; break-inside: avoid; color: inherit; text-decoration: none; }
-.home-portfolio__tile img { display: block; width: 100%; height: auto; background: #eeece8; }
-.home-portfolio__tile:focus-visible { outline: 3px solid #a44b42; outline-offset: 2px; }
-.home-portfolio__after { display: flex; justify-content: center; align-items: center; gap: 1.2rem 2rem; flex-wrap: wrap; padding: clamp(4rem, 7vw, 7rem) 1rem 0; text-align: center; }
-.home-portfolio__after p { margin: 0; font: 400 clamp(1.6rem, 2.3vw, 2.5rem)/1.25 "Bodoni Moda", Georgia, serif; }
-.home-portfolio__after a, .home-note a { display: inline-flex; align-items: center; min-height: 44px; border-bottom: 1px solid currentColor; color: inherit; font: 600 .78rem "Manrope", sans-serif; text-decoration: none; }
-.home-note { max-width: 1250px; margin: 0 auto; padding: clamp(5rem, 8vw, 9rem) clamp(1.4rem, 5vw, 5rem); border-top: 1px solid #dedbd5; text-align: center; }
-.editorial-site.dock-theme .home-note h2 { margin: 1.6rem 0 1rem; font-size: clamp(2.7rem, 5vw, 5.5rem); }
-.home-note > p:not(.home-eyebrow) { max-width: 58ch; margin: 0 auto; color: #5e5c57; font: 400 1rem/1.8 "Manrope", sans-serif; }
+/* A gallery wall for CameraBoss: photography, white space and precise typography. */
+.editorial-site.dock-theme[data-page="/"] { background: #fff; color: #171717; }
+.editorial-site.dock-theme[data-page="/"] .editorial-header { background: #fff; border-bottom: 1px solid #dedede; backdrop-filter: none; }
+.editorial-site.dock-theme[data-page="/"] .editorial-nav { height: 74px; }
+.editorial-site.dock-theme[data-page="/"] .editorial-nav :is(a, button) { font-weight: 500; letter-spacing: .05em; }
+.editorial-site.dock-theme[data-page="/"] .editorial-links .nav-enquire { border-color: #171717; }
+.editorial-site.dock-theme[data-page="/"] .editorial-links :is(a:hover, a[aria-current=page]) { color: #171717; }
+.editorial-site.dock-theme[data-page="/"] :is(.home-opening h1, .home-note h2) { font-family: "Bodoni Moda", Georgia, serif !important; font-weight: 400 !important; text-transform: none !important; }
+.home-eyebrow { margin: 0; font: 500 .7rem/1.4 "Manrope", sans-serif; letter-spacing: .17em; text-transform: uppercase; }
+.home-opening { background: #fff; }
+.home-opening__pictures { display: grid; grid-template-columns: 25% 50% 25%; height: clamp(560px, 67svh, 880px); overflow: hidden; background: #e8e5df; }
+.home-opening__pictures img { display: block; width: 100%; height: 100%; min-width: 0; object-fit: cover; }
+.home-opening__pictures img:first-child { object-position: 50% 35%; }
+.home-opening__pictures img:nth-child(2) { object-position: 50% 49%; }
+.home-opening__pictures img:last-child { object-position: 50% 35%; }
+.home-opening__statement { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, 270px); align-items: end; gap: clamp(2rem, 7vw, 7rem); padding: clamp(3.4rem, 6vw, 6rem) clamp(1.3rem, 4vw, 5rem) clamp(3.8rem, 6vw, 6rem); border-bottom: 1px solid #171717; }
+.editorial-site.dock-theme .home-opening h1 { margin: 1.3rem 0 0; font-size: clamp(3.6rem, 7.3vw, 8.8rem); line-height: .98 !important; letter-spacing: -.058em; }
+.home-opening h1 em { font-style: italic; font-weight: 400; }
+.home-opening__aside { padding-bottom: .35rem; }
+.home-opening__aside p { margin: 0 0 2rem; font: 400 clamp(.94rem, 1.15vw, 1.1rem)/1.65 "Manrope", sans-serif; }
+.home-opening__aside span { display: block; margin-bottom: 1.4rem; font: 500 .68rem/1.5 "Manrope", sans-serif; letter-spacing: .09em; text-transform: uppercase; }
+.home-opening__aside a, .home-portfolio__after a, .home-note a { display: inline-flex; align-items: center; min-height: 44px; border-bottom: 1px solid currentColor; color: inherit; font: 500 .82rem "Manrope", sans-serif; text-decoration: none; }
+.home-portfolio { max-width: 1800px; margin: 0 auto; padding: 0 clamp(8px, 1.2vw, 18px) clamp(5rem, 8vw, 9rem); background: #fff; }
+.home-portfolio__heading { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 1.1rem .2rem 1rem; border-bottom: 1px solid #d8d8d8; margin-bottom: clamp(1rem, 2vw, 2rem); }
+.editorial-site.dock-theme .home-portfolio h2, .home-portfolio__heading span { margin: 0; font: 500 .74rem/1.4 "Manrope", sans-serif; letter-spacing: .11em; text-transform: uppercase; }
+.home-portfolio__heading span { color: #656565; }
+.home-portfolio__grid { columns: 3; column-gap: clamp(8px, 1.2vw, 18px); }
+.home-portfolio__tile { display: block; margin-bottom: clamp(8px, 1.2vw, 18px); break-inside: avoid; color: inherit; text-decoration: none; }
+.home-portfolio__tile img { display: block; width: 100%; height: auto; background: #eeeae5; }
+.home-portfolio__tile:focus-visible { outline: 2px solid #171717; outline-offset: 3px; }
+.home-portfolio__after { display: flex; justify-content: space-between; align-items: end; gap: 1.5rem; flex-wrap: wrap; margin-top: clamp(3.5rem, 6vw, 7rem); padding-top: 1.4rem; border-top: 1px solid #171717; }
+.home-portfolio__after p { margin: 0; font: 400 clamp(2rem, 4vw, 4.7rem)/1.08 "Bodoni Moda", Georgia, serif; letter-spacing: -.04em; }
+.home-note { max-width: 1300px; margin: 0 auto; padding: clamp(5rem, 8vw, 9rem) clamp(1.4rem, 5vw, 5rem); border-top: 1px solid #dedede; text-align: center; }
+.editorial-site.dock-theme .home-note h2 { margin: 1.6rem 0 1rem; font-size: clamp(2.7rem, 5vw, 5.5rem); letter-spacing: -.045em; }
+.home-note > p:not(.home-eyebrow) { max-width: 58ch; margin: 0 auto; color: #505050; font: 400 1rem/1.8 "Manrope", sans-serif; }
 .home-note nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem 2rem; margin-top: 2rem; }
-.home-locations { display: grid; grid-template-columns: 1fr 3fr; gap: 2rem; align-items: start; padding: 3.5rem clamp(1.5rem, 5vw, 5rem); border-top: 1px solid #d9d8d3; }
+.home-locations { display: grid; grid-template-columns: 1fr 3fr; gap: 2rem; align-items: start; padding: 3.5rem clamp(1.5rem, 5vw, 5rem); border-top: 1px solid #d9d9d9; }
 .home-locations > div { display: flex; flex-wrap: wrap; gap: 1rem 2.5rem; }
 .home-locations a { color: inherit; border-bottom: 1px solid transparent; font: 500 clamp(.95rem, 1.3vw, 1.2rem) "Manrope", sans-serif; text-decoration: none; }
 .home-locations a:hover { border-color: currentColor; }
-.editorial-site.dock-theme[data-page="/"] a:focus-visible { outline: 2px solid #a44b42; outline-offset: 5px; }
-@media (hover: hover) and (pointer: fine) {
-  .home-portfolio__tile img { transition: opacity 180ms ease; }
-  .home-portfolio__tile:hover img { opacity: .88; }
-}
-@media (max-width: 900px) { .home-lead__copy { width: 85%; } }
+.editorial-site.dock-theme[data-page="/"] a:focus-visible { outline: 2px solid #171717; outline-offset: 5px; }
+@media (hover: hover) and (pointer: fine) { .home-portfolio__tile img { transition: opacity 180ms ease; } .home-portfolio__tile:hover img { opacity: .87; } }
+@media (max-width: 900px) { .home-opening__statement { grid-template-columns: 1fr; gap: 1.8rem; } .home-opening__aside { display: flex; flex-wrap: wrap; align-items: end; gap: 1rem 2rem; } .home-opening__aside p { max-width: 38ch; margin: 0; flex: 1 1 100%; } .home-opening__aside span { margin: 0; } .home-opening__pictures { height: clamp(470px, 65svh, 730px); } }
 @media (max-width: 700px) {
-  .home-lead { min-height: min(700px, calc(100svh - 70px)); }
-  .home-lead__image { object-position: center 42%; }
-  .home-lead__shade { background: linear-gradient(0deg, #090807df 0%, #09080798 32%, transparent 75%); }
-  .home-lead__copy { width: 100%; padding: 5rem 1.5rem 4rem; }
-  .editorial-site.dock-theme .home-lead h1 { max-width: 13ch; font-size: clamp(2.8rem, 11vw, 4.8rem); }
-  .home-lead__copy > p:not(.home-eyebrow) { font-size: .9rem; }
-  .home-portfolio { padding: 5rem 6px 5rem; }
-  .editorial-site.dock-theme .home-portfolio h2 { margin-bottom: 3.5rem; font-size: .75rem; }
-  .home-portfolio__grid { columns: 2; column-gap: 4px; }
-  .home-portfolio__tile { margin-bottom: 4px; }
-  .home-portfolio__after { display: block; padding-top: 4rem; }
-  .home-portfolio__after a { margin-top: 1rem; }
+  .editorial-site.dock-theme[data-page="/"] .editorial-nav { height: 64px; }
+  .home-opening__pictures { grid-template-columns: 1fr 1fr; grid-template-rows: minmax(390px, 58svh) 190px; height: auto; }
+  .home-opening__pictures img:nth-child(2) { grid-column: 1 / -1; grid-row: 1; object-position: 50% 48%; }
+  .home-opening__pictures img:first-child { grid-column: 1; grid-row: 2; }
+  .home-opening__pictures img:last-child { grid-column: 2; grid-row: 2; }
+  .home-opening__statement { padding: 3.1rem 1.2rem 3.5rem; }
+  .editorial-site.dock-theme .home-opening h1 { font-size: clamp(3.2rem, 11vw, 5.5rem); }
+  .home-opening__aside p { font-size: .93rem; }
+  .home-portfolio { padding-inline: 6px; }
+  .home-portfolio__heading { padding: 1rem .3rem; align-items: start; }
+  .home-portfolio__heading span { text-align: right; font-size: .65rem; }
+  .home-portfolio__grid { columns: 2; column-gap: 6px; }
+  .home-portfolio__tile { margin-bottom: 6px; }
+  .home-portfolio__after { display: block; margin: 3.5rem .5rem 0; }
+  .home-portfolio__after a { margin-top: 1.2rem; }
   .home-note { padding: 5rem 1.4rem; }
   .home-locations { display: block; padding: 3rem 1.4rem; }
   .home-locations > div { margin-top: 1.3rem; }

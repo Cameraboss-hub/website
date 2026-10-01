@@ -19,6 +19,16 @@ const stories = storyOrder.map((slug) => {
 });
 const titles = new Map(selectedWork.map((work) => [work.slug, work.title]));
 const storySlugs = new Set(stories.map((story) => story.slug));
+const openingPhotos = [
+  { slug: "cynthiaandoswaldo", index: 2 },
+  { slug: "joandjonny", index: 2 },
+  { slug: "opeyemiweddingportrait", index: 7 },
+].map(({ slug, index }) => {
+  const story = stories.find((entry) => entry.slug === slug);
+  const photo = story?.photos[index];
+  if (!photo) throw new Error(`Missing opening photograph: ${slug}/${index}`);
+  return photo;
+});
 
 // Keep the layout stable while the lazy-loaded cover photographs arrive.
 const coverDimensions: Record<string, readonly [number, number]> = {
@@ -76,25 +86,40 @@ const portfolio = storyPhotos.flatMap((photo, index) => {
   current="/"
   ogImage={lead.image}
 >
-  <section class="home-lead" aria-labelledby="home-title">
-    <picture class="home-lead__media">
-      <source media="(max-width: 700px)" srcset={coverSrcSet("cynthiaandoswaldo")} sizes="100vw" />
-      <img class="home-lead__image" src={coverSrc("joandjonny", 1600)} srcset={coverSrcSet("joandjonny")} sizes="100vw" alt="A CameraBoss wedding celebration" width="1800" height="1200" fetchpriority="high" />
-    </picture>
-    <div class="home-lead__shade" aria-hidden="true"></div>
-    <div class="home-lead__copy">
-      <p class="home-eyebrow">CameraBoss / Photography & film</p>
-      <h1 id="home-title">Wedding photography for the way it felt.</h1>
-      <p>Weddings, portraits and the moments between, photographed across the UK and beyond.</p>
-      <div class="home-lead__actions">
-        <a href="#portfolio">View portfolio</a>
-        <a href="/contact/">Enquire</a>
+  <section class="home-opening" aria-labelledby="home-title">
+    <div class="home-opening__pictures" aria-label="CameraBoss wedding and portrait photography">
+      {openingPhotos.map((photo, index) => (
+        <img
+          src={photo.src}
+          srcset={photo.srcset}
+          sizes={index === 1 ? "(max-width: 700px) 100vw, 50vw" : "(max-width: 700px) 50vw, 25vw"}
+          alt={photo.alt}
+          width={photo.width}
+          height={photo.height}
+          fetchpriority={index === 1 ? "high" : undefined}
+          loading="eager"
+          decoding="async"
+        />
+      ))}
+    </div>
+    <div class="home-opening__statement">
+      <div>
+        <p class="home-eyebrow">CameraBoss / Photography &amp; film</p>
+        <h1 id="home-title">The day is yours.<br /><em>The feeling stays.</em></h1>
+      </div>
+      <div class="home-opening__aside">
+        <p>Wedding and portrait photography for people who want to remember how it felt to be there.</p>
+        <span>London · Leicester · Across the UK</span>
+        <a href="/contact/">Start a conversation</a>
       </div>
     </div>
   </section>
 
   <section class="home-portfolio" id="portfolio" aria-labelledby="home-portfolio-title">
-    <h2 id="home-portfolio-title">Portfolio</h2>
+    <div class="home-portfolio__heading">
+      <h2 id="home-portfolio-title">Selected photographs</h2>
+      <span>Weddings / Portraits / People</span>
+    </div>
     <div class="home-portfolio__grid">
       {portfolio.map((photo) => (
         <a class="home-portfolio__tile" href={photo.href} aria-label={photo.label}>
