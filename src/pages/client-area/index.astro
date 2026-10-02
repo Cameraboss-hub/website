@@ -102,7 +102,9 @@ const galleryLd = {
     <div class="portfolio-archive__grid" id="portfolio-archive-grid">
       {archiveItems.map((item) => (
         <a class="portfolio-archive__card" href={item.href} data-search={item.title.toLocaleLowerCase()} data-year={item.iso?.slice(0, 4) || "undated"}>
-          <img src={item.cover} alt="" width="480" height="360" loading="lazy" decoding="async" />
+          {item.cover_unavailable
+            ? <span class="portfolio-archive__cover-type" aria-hidden="true">CameraBoss / Archive</span>
+            : <img src={item.cover} alt="" width="480" height="360" loading="lazy" decoding="async" />}
           <span class="portfolio-archive__card-copy"><strong>{item.title}</strong><small>{item.date || "Gallery"}</small></span>
         </a>
       ))}

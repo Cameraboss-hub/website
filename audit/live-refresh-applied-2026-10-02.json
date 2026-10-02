@@ -231,5 +231,12 @@
   "prose_updates": [
     "/Wedding-videos/"
   ],
-  "new_source_routes": []
+  "new_source_routes": [],
+  "additional_seo_corrections": [
+    {
+      "path": "/Liverpool-wedding-photographer/",
+      "reason": "Removed an unconfirmed £219 starting-price claim from the meta description without inventing a replacement price.",
+      "description": "Wedding photographer in Liverpool for natural, documentary-style coverage. CameraBoss captures real moments across Merseyside. Check your date availability."
+    }
+  ]
 }

@@ -29,8 +29,9 @@ without an owner approval step. Draft articles are excluded from the site.
 Content files live in cms/seo and cms/posts; upload media lives in
 public/images/uploads. src/data/cms-routes.json protects existing route
 identity. Source snapshots remain in src/data. Validation rejects route
-changes, missing SEO records, duplicate archived blog URLs, unsafe article
-markup, and broken internal links/local images in new published posts.
+changes, missing SEO records, duplicate archived blog URLs, and broken
+internal links/local images in new published posts. It strips executable
+markup from new article bodies.
 
 The public /admin/ page links to the hosted editor. It is not an authentication
 system and does not grant access. Invite individual email collaborators
@@ -48,7 +49,7 @@ npm test
 ```
 
 npm test runs unit tests, the production build and migration checks against
-.vercel/output/static. audits/ are not used; current reports are in audit/.
+.vercel/output/static. Current verification reports are in audit/.
 The current branch preview is
 https://website-git-codex-site-prep-20260929-cameraboss.vercel.app/.
 

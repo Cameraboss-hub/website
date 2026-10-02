@@ -1,5 +1,11 @@
 # WordPress decision and staging requirements
 
+**2 October update:** WordPress is not configured. Pages CMS has been prepared
+for direct agency blog publishing and SEO editing on the existing Astro site.
+Owner connection, individual invitations and hosted publication testing are
+still required; see CMS-OWNER-SETUP.md and LAUNCH-READINESS.md. This document
+remains a reference if broader WordPress editing is requested later.
+
 The 30 September 2026 rebuild is an Astro site. WordPress could make routine
 editing easier for a third-party SEO team, especially if they must change
 landing pages and templates themselves. It would also be a **second content
