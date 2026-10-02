@@ -1,29 +1,40 @@
 # CameraBoss website
 
-This is the CameraBoss marketing-site rebuild. The public domain currently
-serves Pixieset; this repository is a deployment candidate, **not** a signal
-to change DNS. See [LAUNCH-READINESS.md](LAUNCH-READINESS.md) for the current
-checks and remaining decisions.
+CameraBoss’s Astro marketing site is deployed to Vercel previews. The public
+domain still serves Pixieset. **Do not change DNS from this repository.**
+See [LAUNCH-READINESS.md](LAUNCH-READINESS.md) for the current launch decision.
 
-As audited on 30 September 2026, the site contains 191 blog posts at their
-original `/blog/<slug>/` paths, 45 imported page records, a redesigned home
-page, and a curated 18-photograph wedding and portrait portfolio at
-`/client-area/`. Imported blog and page images are served from Supabase's
-`blog` bucket or local assets. The enquiry form is provided by CameraBoss CRM
-on `/contact/` and pages that retained an embed. Historical client-gallery
-links still lead to Pixieset while original-photo delivery is prepared on
-Google Drive and the NAS.
+As checked on 2 October 2026, the source website has 237 sitemap URLs:
+191 blog posts, the blog index and 45 other routes. Their original paths
+remain available. The approved redesign adds 55 location pages in total,
+five curated wedding stories with 51 display photographs, a searchable
+portfolio, wedding films, pricing and enquiry pages. Blog/page images use
+Supabase’s existing blog bucket and local assets. Complete client collections
+and downloads remain on Pixieset; Google Drive/NAS originals are not yet
+verified archives.
 
-The Astro site uses the Vercel adapter and prerenders the marketing content.
-The current source sitemap has 237 URLs. `tests/legacy-urls.json` and
-`src/data/seo-baseline.json` record route and metadata parity. Portfolio
-selection and source attribution live in `src/data/portfolio.json`; the full
-historical card list is retained as data in `src/data/client-area.json` but is
-no longer shown as a public client-download index.
+## Content management
 
-The current branch preview is
-`https://website-6g9hte0fv-cameraboss.vercel.app/`. It is a preview only;
-the public domain remains on Pixieset.
+[Pages CMS](https://app.pagescms.org/) is configured in [.pages.yml](.pages.yml).
+It is **prepared but not connected or invited yet**. Follow
+[CMS-OWNER-SETUP.md](CMS-OWNER-SETUP.md), then give the agency
+[SEO-AGENCY-GUIDE.md](SEO-AGENCY-GUIDE.md).
+
+The agency can edit SEO titles/descriptions for 292 existing routes and write
+new articles through a visual editor. Existing imported article bodies remain
+unchanged. Saving published content commits it to the selected Git branch.
+After activation on main, successful Vercel builds publish automatically,
+without an owner approval step. Draft articles are excluded from the site.
+
+Content files live in cms/seo and cms/posts; upload media lives in
+public/images/uploads. src/data/cms-routes.json protects existing route
+identity. Source snapshots remain in src/data. Validation rejects route
+changes, missing SEO records, duplicate archived blog URLs, unsafe article
+markup, and broken internal links/local images in new published posts.
+
+The public /admin/ page links to the hosted editor. It is not an authentication
+system and does not grant access. Invite individual email collaborators
+through Pages CMS; do not share GitHub, Vercel, Supabase or owner passwords.
 
 ## Development and verification
 
@@ -36,12 +47,24 @@ npm run check
 npm test
 ```
 
-`npm test` runs the unit tests, production build, and migration checks against
-`.vercel/output/static`. The public domain and DNS are outside this workflow.
+npm test runs unit tests, the production build and migration checks against
+.vercel/output/static. audits/ are not used; current reports are in audit/.
+The current branch preview is
+https://website-git-codex-site-prep-20260929-cameraboss.vercel.app/.
 
-## Hosting choice
+The enquiry action opens CameraBoss CRM at
+https://cameraboss-crm.vercel.app/book/cameraboss/general-enquiry.
+The marketing site cannot confirm inbox delivery itself.
 
-This codebase is Astro, not a WordPress theme. If the SEO agency needs to edit
-pages and templates in WordPress, follow [WORDPRESS-MIGRATION.md](WORDPRESS-MIGRATION.md)
-and prove URL, metadata, image, and form parity on a WordPress staging site
-before any cutover. No WordPress host or staging instance is configured here.
+## Hosting and recovery
+
+Vercel’s production branch is main. Work in codex/ branches, never force-push.
+Content is captured at build time, so restoring a deployment also restores
+the content it rendered. Also revert the offending Git commit before another
+deployment, so later builds do not reintroduce it.
+
+Vercel currently reports the Hobby plan; commercial launch needs an eligible
+plan or host. No WordPress instance is configured. The CMS workflow supports
+the agency’s requested blog/SEO scope without a WordPress rebuild; see
+[WORDPRESS-MIGRATION.md](WORDPRESS-MIGRATION.md) if full template/page editing
+in WordPress later becomes a requirement.

@@ -22,8 +22,11 @@ class MigrationTests(unittest.TestCase):
   for path in json.loads((ROOT/'tests/legacy-urls.json').read_text()):
    with self.subTest(path=path):self.assertTrue((BUILD/(path.strip('/')+'/index.html' if path!='/' else 'index.html')).is_file())
  def test_all_recorded_metadata_preserved(self):
+  # Deliberate CMS edits supersede the imported baseline; routes stay protected.
+  cms={record['path']:record for file in (ROOT/'cms/seo').glob('*.json') for record in [json.loads(file.read_text())]}
   for path,expected in json.loads((ROOT/'src/data/seo-baseline.json').read_text()).items():
    with self.subTest(path=path):
+    expected=cms.get(path,expected)
     p=HTML(page(path));self.assertEqual(p.title,expected['title'])
     if expected['description']:self.assertEqual(next(x['content'] for x in p.attrs('meta') if x.get('name')=='description'),expected['description'])
  def test_public_gallery_links_to_complete_pixieset_collections(self):
@@ -124,7 +127,7 @@ Cardiff|Bangor|Newport|Swansea|Wrexham|Belfast|Bangor, County Down|Derry'''.repl
   for path in ['/Wedding-videos/','/experience/']:
    with self.subTest(path=path):self.assertIn('youtube',page(path))
  def test_homepage_metadata_and_specific_links(self):
-  p=HTML(page('/'));self.assertEqual(p.title,'Nigerian Wedding Photographer in London & across UK')
+  p=HTML(page('/'));self.assertEqual(p.title,'Nigerian Wedding Photographer in London | Cameraboss')
   descriptions=[x['content'] for x in p.attrs('meta') if x.get('name')=='description']
   self.assertIn('Trusted Yoruba wedding photographer in London',descriptions[0])
   hrefs={x.get('href') for x in p.attrs('a')}

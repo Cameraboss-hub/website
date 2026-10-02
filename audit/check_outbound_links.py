@@ -58,7 +58,8 @@ def probe(url):
 
 with concurrent.futures.ThreadPoolExecutor(max_workers=12) as pool:
     records = sorted(pool.map(probe, sorted(urls)), key=lambda row: row["url"])
-target = ROOT / "audit/outbound-link-check-2026-09-30.json"
+date = datetime.datetime.now(datetime.timezone.utc).date().isoformat()
+target = ROOT / f"audit/outbound-link-check-{date}.json"
 target.write_text(json.dumps({"checked_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
                               "links": records}, indent=2) + "\n")
 broken = [row for row in records if row.get("status") in (404, 410)]

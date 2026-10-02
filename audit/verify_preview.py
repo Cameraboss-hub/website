@@ -13,7 +13,8 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 BASE = sys.argv[1].rstrip("/") if len(sys.argv) > 1 else ""
 if not BASE.startswith("https://"):
     raise SystemExit("Usage: python3 audit/verify_preview.py https://preview-host")
-PATHS = json.loads((ROOT / "tests/legacy-urls.json").read_text())
+PATHS = sorted(set(json.loads((ROOT / "tests/legacy-urls.json").read_text())) |
+               set(json.loads((ROOT / "src/data/cms-routes.json").read_text()).values()) | {"/admin/"})
 ALIASES = json.loads((ROOT / "src/data/legacy-aliases.json").read_text())
 
 
@@ -56,7 +57,8 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=12) as pool:
     records = list(pool.map(fetch, items))
 result = {"checked_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
           "preview": BASE, "routes": records}
-target = ROOT / "audit/preview-crawl-2026-09-30.json"
+date = datetime.datetime.now(datetime.timezone.utc).date().isoformat()
+target = ROOT / f"audit/preview-crawl-{date}.json"
 target.write_text(json.dumps(result, indent=2) + "\n")
 errors = [record for record in records if not record["ok"]]
 print("pages", len(PATHS), "redirects", len(ALIASES), "failed", len(errors))

@@ -1,0 +1,97 @@
+media:
+  input: public/images/uploads
+  output: /images/uploads
+  extensions: [jpg, jpeg, png, webp, avif]
+  rename: random
+
+settings:
+  hide: true
+  content:
+    merge: true
+  commit:
+    identity: app
+
+content:
+  - name: new-posts
+    label: Blog posts — new articles
+    type: collection
+    path: cms/posts
+    format: json
+    subfolders: false
+    exclude: [.gitkeep]
+    filename:
+      template: "{title}.json"
+      field: create
+    operations:
+      create: true
+      rename: false
+      delete: false
+    view:
+      primary: title
+      fields: [title, date, published]
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        label: Article title
+        type: string
+        required: true
+      - name: published
+        label: Published — saving updates the website
+        type: boolean
+        default: false
+        description: Keep this off while writing. Switch it on and save to publish automatically after the build finishes.
+      - name: date
+        label: Publication date
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: meta_title
+        label: SEO title
+        type: string
+        description: Leave blank to use the article title.
+      - name: meta_description
+        label: Meta description
+        type: text
+        required: true
+      - name: og_image
+        label: Featured photograph
+        type: image
+      - name: html
+        label: Article
+        type: rich-text
+        required: true
+        options:
+          format: html
+  - name: seo
+    label: Existing pages & articles — SEO
+    type: collection
+    path: cms/seo
+    format: json
+    subfolders: false
+    filename:
+      template: "{title}.json"
+      field: false
+    operations:
+      create: false
+      rename: false
+      delete: false
+    view:
+      primary: path
+      fields: [path, title]
+      sort: path
+      order: asc
+    fields:
+      - name: path
+        label: Page address — protected
+        type: string
+        readonly: true
+      - name: title
+        label: SEO title
+        type: string
+        required: true
+      - name: description
+        label: Meta description
+        type: text
+        description: Saving publishes this SEO update automatically after the build finishes.

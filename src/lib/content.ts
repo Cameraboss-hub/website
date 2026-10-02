@@ -8,6 +8,7 @@ import postsData from "../data/posts.json";
 import imageDimsData from "../data/image-dims.json";
 import pagesData from "../data/pages.json";
 import galleriesData from "../data/galleries.json";
+import { cmsPosts } from "./cms";
 
 export interface Post {
   slug: string;
@@ -472,7 +473,7 @@ function dedupeHeadings(html: string, title: string): string {
   });
 }
 
-export const posts: Post[] = (postsData as Post[])
+export const posts: Post[] = [...(postsData as Post[]), ...cmsPosts]
   .map((p) => ({ ...p, meta_title: seoFor(`/blog/${p.slug}/`, { title: p.meta_title || p.title }).title, meta_description: seoFor(`/blog/${p.slug}/`, { title: p.title, description: p.meta_description }).description, html: enhanceImages(fixLinks(dedupeHeadings(clean(p.html), p.title)), p.title) }))
   .sort((a, b) => {
     const da = parseDate(a.date)?.getTime() ?? 0;
