@@ -33,7 +33,8 @@ No DNS or production-branch change was made.
   zero known vulnerabilities after compatible dependency updates.
 - Preview HTTP checks passed for all 293 recorded/generated page paths and
   all 43 historical redirects. Original case-sensitive blog URLs are intact.
-- All 224 local display/social-image variants exist. Vercel-hosted checks
+- All 224 local display/social-image variants exist and return HTTP 200 with
+  image content types on the final preview. Vercel-hosted checks
   verified all 3,558 remote image URLs currently rendered by the site.
   Initial rate-limit/server errors cleared on a slower recheck.
 - Three old Pixieset covers remained unavailable with 403 responses. Moses
@@ -59,6 +60,12 @@ No DNS or production-branch change was made.
 
 Stable preview:
 https://website-git-codex-site-prep-20260929-cameraboss.vercel.app/
+
+The final repair commit, 0a7dc26, received a successful Vercel deployment.
+The deployed archive search shows the repaired Adesewa name card and its
+unchanged Pixieset collection link. Main remains 2e7caaf; it has no branch
+protection requiring content approval. The GitHub App's actual hosted save
+and Vercel acceptance still require the activation test below.
 
 ## Agency publishing
 
@@ -122,6 +129,7 @@ external CRM changes. Never force-push.
 - audit/live-refresh-applied-2026-10-02.json
 - audit/preview-crawl-2026-10-02.json
 - audit/rendered-images-2026-10-02.json
+- audit/local-image-delivery-2026-10-02.json
 - audit/hosted-image-recheck-2026-10-02.json
 - audit/archive-cover-repairs-2026-10-02.json
 - audit/outbound-link-check-2026-10-02.json
