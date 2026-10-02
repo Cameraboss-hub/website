@@ -1,0 +1,3 @@
+{
+  "buildCommand": "npm run build && CAMERABOSS_VERIFY_IMAGES=1 node scripts/check-remote-images.mjs"
+}
