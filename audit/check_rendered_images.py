@@ -17,7 +17,8 @@ from html.parser import HTMLParser
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 BUILD = ROOT / '.vercel/output/static'
-PREVIEW = sys.argv[1].rstrip('/') if len(sys.argv) > 1 else ''
+INVENTORY = '--inventory' in sys.argv
+PREVIEW = next((arg.rstrip('/') for arg in sys.argv[1:] if arg.startswith('https://')), '')
 ORIGIN = 'https://www.cameraboss.co.uk'
 OWNED = {'www.cameraboss.co.uk', 'cameraboss.co.uk'}
 images = {}
@@ -62,6 +63,8 @@ def probe(item):
         if not PREVIEW: return {**row, 'ok': True, 'method': 'local-file'}
         target = PREVIEW + parsed.path + ('?' + parsed.query if parsed.query else '')
     else:
+        if INVENTORY:
+            return {**row, 'ok': None, 'method': 'not-probed', 'reason': 'Remote network verification pending'}
         target = url
     for method in ('HEAD', 'GET'):
         try:
@@ -82,7 +85,8 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=20) as pool:
 now = datetime.datetime.now(datetime.timezone.utc)
 report = {'checked_at': now.isoformat(), 'preview': PREVIEW or None, 'images': rows}
 (ROOT / f'audit/rendered-images-{now.date().isoformat()}.json').write_text(json.dumps(report, indent=2) + '\n')
-failed = [row for row in rows if not row['ok']]
-print('unique images', len(rows), 'failed', len(failed))
+failed = [row for row in rows if row['ok'] is False]
+pending = [row for row in rows if row['ok'] is None]
+print('unique images', len(rows), 'failed', len(failed), 'remote pending', len(pending))
 for row in failed: print(json.dumps(row))
 if failed: raise SystemExit(1)

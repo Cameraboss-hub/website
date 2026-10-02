@@ -4,6 +4,7 @@ import concurrent.futures
 import datetime
 import json
 import pathlib
+import subprocess
 import sys
 import urllib.error
 import urllib.parse
@@ -28,18 +29,16 @@ opener = urllib.request.build_opener(NoRedirect)
 
 def fetch(item):
     kind, path, expected = item
-    request = urllib.request.Request(BASE + path, headers={"User-Agent": "CameraBoss migration QA"})
     try:
-        with opener.open(request, timeout=30) as response:
-            code = response.status
-            location = response.headers.get("Location", "")
-            content_type = response.headers.get("Content-Type", "")
-            if kind == "page":
-                response.read(1024)
-    except urllib.error.HTTPError as error:
-        code = error.code
-        location = error.headers.get("Location", "")
-        content_type = error.headers.get("Content-Type", "")
+        response = subprocess.run([
+            "curl", "--globoff", "-sS", "--connect-timeout", "8", "--max-time", "20",
+            "--output", "/dev/null", "--write-out", "%{response_code}\\n%{content_type}\\n%{redirect_url}",
+            "--user-agent", "CameraBoss migration QA", BASE + path,
+        ], capture_output=True, text=True, timeout=22)
+        if response.returncode:
+            return {"kind": kind, "path": path, "ok": False, "error": response.stderr.strip()}
+        status, content_type, location = response.stdout.split("\n", 2)
+        code = int(status)
     except Exception as error:
         return {"kind": kind, "path": path, "ok": False, "error": str(error)}
     if kind == "page":
