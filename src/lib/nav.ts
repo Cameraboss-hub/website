@@ -32,7 +32,7 @@ export const right: NavItem[] = [
   { label: "Blog", href: "/blog/" },
   { label: "Galleries", href: "/client-area/" },
   { label: "Videos", href: "/Wedding-videos/" },
-  { label: "Contact", href: "/contact/" },
+  { label: "Enquire", href: "/contact/" },
 ];
 
 /** The drawer's top group: every link that sits on the desktop bar itself. */

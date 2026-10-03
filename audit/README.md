@@ -11,3 +11,24 @@ The scripts perform read-only network requests and write only their local eviden
 ## Website-first repair checks
 
 Use `npm test`, `npm run check` and, with port 3200 running, `python3 audit/verify-repairs.py`. The older scripts above preserve assumptions from the pre-repair audit, including the old gallery routes; do not use them as current sign-off checks without updating those assumptions. `repairs-http.json`, `image-savings.json` and `repair-*.log` describe the repaired copy.
+
+## 29–30 September live-source refresh
+
+The newer JSON inventories here record the public Pixieset state inspected on
+29–30 September 2026. `live-gallery-inventory-2026-09-29.json` lists 261
+distinct publicly listed collections. `live-page-blocks-2026-09-29.json`
+records the 45-page block comparison. `editorial-text-parity-2026-09-30.json`
+is the final 236-route comparison; its seven explained differences are noted
+per route in the report and `compare_editorial_text.py`.
+
+The import and refresh scripts keep a trail of how source assets were matched.
+Several read public HTML snapshots saved under `/private/tmp` on the audit
+machine. They are dated migration tools, not build steps. Do not run them as
+part of deployment or assume the public source remains unchanged. The current
+site data is in `src/data/`; rerun the comparison before any cutover. The
+older untracked `gallery-review-2026-09-29.json` was not modified.
+
+`verify_preview.py` crawled all 237 recorded source paths and 43 historical
+redirects on the 30 September Vercel preview; the responses are saved in
+`preview-crawl-2026-09-30.json`. A preview URL can expire under Vercel's
+deployment-retention policy, so rerun this check on the final deployment.

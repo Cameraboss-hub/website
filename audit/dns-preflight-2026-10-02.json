@@ -1,0 +1,111 @@
+{
+  "checked_date": "2026-10-02",
+  "dns_modified": false,
+  "registrar": {
+    "name": "101domain GRS Ltd",
+    "handle": "101DOMAIN",
+    "source": "https://rdap.nominet.uk/uk/domain/cameraboss.co.uk"
+  },
+  "nameservers": [
+    "nsa.whogohost.com.",
+    "nsb.whogohost.com."
+  ],
+  "registry_status": [
+    "client transfer prohibited"
+  ],
+  "dns_customer_portal": "unconfirmed",
+  "pending_transfer": "must be checked in owner account; registry lock does not establish this",
+  "vercel_project": "website",
+  "vercel_team": "cameraboss",
+  "vercel_plan": "hobby",
+  "domains": {
+    "cameraboss.co.uk": {
+      "aValues": [
+        "104.16.185.173"
+      ],
+      "cnames": [],
+      "recommendedIPv4": [
+        {
+          "rank": 1,
+          "value": [
+            "216.198.79.1",
+            "64.29.17.1"
+          ]
+        },
+        {
+          "rank": 2,
+          "value": [
+            "76.76.21.21"
+          ]
+        }
+      ],
+      "recommendedCNAME": [
+        {
+          "rank": 1,
+          "value": "cd7b3284add1af60.vercel-dns-017.com."
+        },
+        {
+          "rank": 2,
+          "value": "cname.vercel-dns.com."
+        }
+      ],
+      "nameservers": [
+        "nsb.whogohost.com",
+        "nsa.whogohost.com"
+      ],
+      "misconfigured": true,
+      "source": "Authenticated Vercel domain configuration API"
+    },
+    "www.cameraboss.co.uk": {
+      "aValues": [
+        "104.16.187.173",
+        "104.16.185.173",
+        "104.16.188.173",
+        "104.16.189.173",
+        "104.16.186.173"
+      ],
+      "cnames": [
+        "domain.pixieset.com."
+      ],
+      "recommendedIPv4": [
+        {
+          "rank": 1,
+          "value": [
+            "216.198.79.1",
+            "64.29.17.1"
+          ]
+        },
+        {
+          "rank": 2,
+          "value": [
+            "76.76.21.21"
+          ]
+        }
+      ],
+      "recommendedCNAME": [
+        {
+          "rank": 1,
+          "value": "cd7b3284add1af60.vercel-dns-017.com."
+        },
+        {
+          "rank": 2,
+          "value": "cname.vercel-dns.com."
+        }
+      ],
+      "nameservers": [
+        "nsb.whogohost.com",
+        "nsa.whogohost.com"
+      ],
+      "misconfigured": true,
+      "source": "Authenticated Vercel domain configuration API"
+    }
+  },
+  "gallery": {
+    "name": "gallery.cameraboss.co.uk",
+    "observed_cname": "domain.pixieset.com.",
+    "change_planned": false
+  },
+  "observed_cached_remaining_ttl_seconds_approx": 11400,
+  "zone_backup_required": true,
+  "execution_status": "blocked draft; DNS changes not authorised"
+}

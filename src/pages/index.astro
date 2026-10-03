@@ -1,32 +1,225 @@
 ---
-// Static marketing page — prerendered to HTML at build time even though the
-// site runs in `server` output mode overall (see astro.config.mjs).
 export const prerender = true;
 
-import BaseLayout from "../layouts/BaseLayout.astro";
-import DockExperience from "../components/sections/DockExperience.astro";
-import DockIntro from "../components/sections/DockIntro.astro";
-import Hero from "../components/sections/Hero.astro";
-import About from "../components/sections/About.astro";
-import PortfolioGrid from "../components/sections/PortfolioGrid.astro";
-import BookingCta from "../components/sections/BookingCta.astro";
-import FilmCompany from "../components/sections/FilmCompany.astro";
-import Packages from "../components/sections/Packages.astro";
-import ExploreMore from "../components/sections/ExploreMore.astro";
-import Footer from "../components/Footer.astro";
+import PageLayout from "../layouts/PageLayout.astro";
+import selectedWork from "../data/portfolio.json";
+import publishedStories from "../data/portfolio-stories.json";
+import { coverSrc, coverSrcSet } from "../lib/portfolio-images";
+import "../styles/home-new.css";
+
+const lead = selectedWork.find((work) => work.slug === "joandjonny")!;
+const storyOrder = [
+  "joandjonny", "cynthiaandoswaldo", "vanessawedding",
+  "temiandfiyin", "opeyemiweddingportrait",
+];
+const stories = storyOrder.map((slug) => {
+  const story = publishedStories.find((entry) => entry.slug === slug);
+  if (!story) throw new Error(`Missing homepage story: ${slug}`);
+  return story;
+});
+const titles = new Map(selectedWork.map((work) => [work.slug, work.title]));
+const storySlugs = new Set(stories.map((story) => story.slug));
+const joAndJonnyCover = selectedWork.find((work) => work.slug === "joandjonny");
+if (!joAndJonnyCover) throw new Error("Missing Jo and Jonny cover");
+// Lead with the weddings John selected. Full-width frames remain landscape;
+// the portrait covers from Mayo and Emmanuel and Faith and Jack stay in the grid.
+const openingStoryPhotos = [
+  { slug: "cynthiaandoswaldo", index: 7, position: "50% 47%", mobilePosition: "50% 49%" },
+  { slug: "joandjonny", index: 6, position: "50% 47%", mobilePosition: "50% 48%" },
+].map(({ slug, index, position, mobilePosition }) => {
+  const story = stories.find((entry) => entry.slug === slug);
+  const photo = story?.photos[index];
+  if (!photo) throw new Error(`Missing opening photograph: ${slug}/${index}`);
+  if (photo.width <= photo.height) throw new Error(`Opening photograph must be landscape: ${slug}/${index}`);
+  return { ...photo, position, mobilePosition };
+});
+const openingPhotos = [
+  { src: joAndJonnyCover.image, srcset: `${coverSrcSet(joAndJonnyCover.slug)}, ${joAndJonnyCover.image} 3600w`,
+    alt: "Jo and Jonny together on their wedding day", width: 3600, height: 2400,
+    position: "50% 48%", mobilePosition: "80% 50%" },
+  ...openingStoryPhotos,
+];
+const openingPhotoPaths = new Set(openingPhotos.map((photo) => photo.src));
+
+// Keep the layout stable while the lazy-loaded cover photographs arrive.
+const coverDimensions: Record<string, readonly [number, number]> = {
+  "faithandjack-1": [960, 1353],
+  felixandlina: [960, 1286],
+  carmenandben: [960, 1301],
+  bambna: [960, 640],
+  akinpelu: [960, 1200],
+  iyanuwedding: [960, 1194],
+  jumokeandstephen: [960, 768],
+  mayoandemmanuel: [960, 1438],
+  dana: [960, 1200],
+  bridalshoot: [960, 1200],
+  princessweddingportraits: [960, 1200],
+  finemodelbluesuit: [960, 1200],
+  reddressmodel: [960, 1440],
+};
+const coverPriority = new Map(["faithandjack-1", "mayoandemmanuel"].map((slug, index) => [slug, index]));
+const covers = selectedWork.filter((work) => !storySlugs.has(work.slug))
+  .sort((a, b) => (coverPriority.get(a.slug) ?? 999) - (coverPriority.get(b.slug) ?? 999))
+  .map((work) => {
+  const dimensions = coverDimensions[work.slug];
+  if (!dimensions) throw new Error(`Missing homepage cover dimensions: ${work.slug}`);
+  return {
+    href: work.source_gallery,
+    label: `Open ${work.title} gallery`,
+    alt: `${work.title}, photographed by CameraBoss`,
+    src: coverSrc(work.slug),
+    srcset: coverSrcSet(work.slug),
+    width: dimensions[0],
+    height: dimensions[1],
+  };
+});
+const storyPhotos = Array.from({ length: Math.max(...stories.map((story) => story.photos.length)) }, (_, index) =>
+  stories.flatMap((story) => {
+    const photo = story.photos[index];
+    return photo && !openingPhotoPaths.has(photo.src) ? [{
+      href: `/stories/${story.slug}/`,
+      label: `Open ${titles.get(story.slug)} gallery: ${photo.alt}`,
+      alt: photo.alt,
+      src: photo.src,
+      srcset: photo.srcset,
+      width: photo.width,
+      height: photo.height,
+    }] : [];
+  }),
+).flat();
+// Weave cover-only galleries among the published stories for a wider range of work.
+const wovenPhotos = storyPhotos.flatMap((photo, index) => {
+  const cover = index % 4 === 0 ? covers[Math.floor(index / 4)] : undefined;
+  return cover ? [cover, photo] : [photo];
+});
+const portfolio = [
+  {
+    href: "/blog/a-newcastle-anglo-nigerian-wedding-at-beamish-hall-joanna-jonathon/",
+    label: "Explore Joanna and Jonathon’s wedding at Beamish Hall",
+    alt: "Joanna and Jonathon together in traditional wedding attire",
+    src: "/images/selected-work/joanna-jonathon.webp",
+    srcset: undefined,
+    width: 1280,
+    height: 1600,
+  },
+  ...wovenPhotos,
+  ...covers.slice(Math.ceil(storyPhotos.length / 4)),
+];
 ---
 
-<BaseLayout title="CameraBoss | Nigeria & London Wedding Photographer">
-  <main id="main-content">
-    <DockIntro />
-    <Hero />
-    <DockExperience />
-    <PortfolioGrid />
-    <About />
-    <FilmCompany />
-    <Packages />
-    <ExploreMore />
-    <BookingCta />
-  </main>
-  <Footer />
-</BaseLayout>
+<PageLayout
+  title="Nigerian Wedding Photographer in London & across UK"
+  description="Trusted Yoruba wedding photographer in London & African wedding photographer in the UK. Serving in Leicester, Midlands & Manchester with creative wedding photography."
+  current="/"
+  ogImage={lead.image}
+>
+  <section class="home-opening" aria-labelledby="home-title">
+    <div class="home-opening__pictures" aria-label="CameraBoss wedding photography" data-hero-slider>
+      <div class="home-opening__track" data-hero-track>
+        {[...openingPhotos, openingPhotos[0]].map((photo, index) => (
+          <img
+            src={photo.src.replace("-960.webp", "-1600.webp")}
+            srcset={photo.srcset}
+            sizes="100vw"
+            alt={index === openingPhotos.length ? "" : photo.alt}
+            aria-hidden={index === openingPhotos.length ? "true" : undefined}
+            width={photo.width}
+            height={photo.height}
+            style={`--hero-position:${photo.position};--hero-mobile-position:${photo.mobilePosition}`}
+            fetchpriority={index === 0 ? "high" : "low"}
+            loading="eager"
+            decoding="async"
+          />
+        ))}
+      </div>
+      <div class="home-opening__progress" aria-hidden="true"><span data-hero-progress></span></div>
+    </div>
+    <div class="home-opening__statement">
+      <div>
+        <p class="home-eyebrow">CameraBoss / Photography &amp; film</p>
+        <h1 id="home-title">The day is yours.{" "}<br /><em>The feeling stays.</em></h1>
+      </div>
+      <div class="home-opening__aside">
+        <p>Wedding and portrait photography for people who want to remember how it felt to be there.</p>
+        <span>London · Leicester · Across the UK</span>
+        <a href="/contact/">Start a conversation</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-portfolio" id="portfolio" aria-labelledby="home-portfolio-title">
+    <div class="home-portfolio__heading">
+      <h2 id="home-portfolio-title">Selected photographs</h2>
+      <span>Weddings / Portraits / People</span>
+    </div>
+    <div class="home-portfolio__grid">
+      {portfolio.map((photo) => (
+        <a class="home-portfolio__tile" href={photo.href} aria-label={photo.label}>
+          <img src={photo.src} srcset={photo.srcset} sizes="(max-width: 700px) calc(50vw - 12px), (max-width: 1600px) calc(33vw - 26px), 510px" alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" decoding="async" />
+        </a>
+      ))}
+    </div>
+    <div class="home-portfolio__after">
+      <p>There is more to every photograph.</p>
+      <a href="/client-area/">Explore the galleries</a>
+    </div>
+  </section>
+
+  <section class="home-note" aria-labelledby="home-note-title">
+    <p class="home-eyebrow">CameraBoss / London · Leicester · Across the UK</p>
+    <h2 id="home-note-title">The day, as it felt.</h2>
+    <p>Wedding and portrait photography shaped by people, place and feeling. From Nigerian and African celebrations to quieter portraits, we make space for the moments that matter to you.</p>
+    <nav aria-label="Explore CameraBoss">
+      <a href="/about/">About us</a>
+      <a href="/client-area/?tag=portrait">Portraits</a>
+      <a href="/blog/">Journal</a>
+      <a href="/contact/">Get in touch</a>
+    </nav>
+  </section>
+
+  <section class="home-locations" aria-label="Photography locations">
+    <p class="home-eyebrow">Where we work</p>
+    <div>
+      <a href="/London-wedding-photographer/">London</a>
+      <a href="/Leicester-Wedding-Photographer/">Leicester</a>
+      <a href="/Birmingham-wedding-photographer/">Birmingham</a>
+      <a href="/manchester-wedding-photographer/">Manchester</a>
+      <a href="/locations/">All locations</a>
+    </div>
+  </section>
+</PageLayout>
+
+<script>
+  const slider = document.querySelector<HTMLElement>("[data-hero-slider]");
+  const track = slider?.querySelector<HTMLElement>("[data-hero-track]");
+  const progress = slider?.querySelector<HTMLElement>("[data-hero-progress]");
+  if (slider && track && progress) {
+    const count = track.children.length - 1;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let index = 0;
+    let timer: number | undefined;
+    const advance = () => {
+      index += 1;
+      track.style.transition = "transform 1200ms cubic-bezier(.65, 0, .25, 1)";
+      track.style.transform = `translateX(-${index * 100}%)`;
+      progress.style.transform = `scaleX(${Math.min(index + 1, count) / count})`;
+    };
+    const stop = () => window.clearInterval(timer);
+    const start = () => {
+      stop();
+      if (!reduced.matches && !document.hidden) timer = window.setInterval(advance, 5600);
+    };
+    track.addEventListener("transitionend", () => {
+      if (index !== count) return;
+      track.style.transition = "none";
+      track.style.transform = "translateX(0)";
+      index = 0;
+      progress.style.transform = `scaleX(${1 / count})`;
+    });
+    slider.addEventListener("mouseenter", stop);
+    slider.addEventListener("mouseleave", start);
+    document.addEventListener("visibilitychange", start);
+    reduced.addEventListener("change", start);
+    start();
+  }
+</script>

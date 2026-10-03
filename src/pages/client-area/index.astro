@@ -1,280 +1,145 @@
 ---
 export const prerender = true;
-
 import PageLayout from "../../layouts/PageLayout.astro";
-import ca from "../../data/client-area.json";
+import selectedWork from "../../data/portfolio.json";
+import clientArea from "../../data/client-area.json";
+import stories from "../../data/portfolio-stories.json";
+import { coverSrc, coverSrcSet } from "../../lib/portfolio-images";
+import "../../styles/portfolio.css";
 
-
-interface Slide { img: string; title: string; subtitle: string; button: string; href: string }
-interface Item {
-  slug: string; title: string; date: string; iso: string; cover: string;
-  pos: string; tags: string[]; href: string; hosted: boolean; photos: number;
-}
-
-const hero = ca.hero as Slide[];
-const tags = ca.tags as string[];
-
-// Client delivery stays on Pixieset. Never derive a collection URL from its display name.
-const items = (ca.items as Item[]).map(i => ({ ...i, hosted: false }));
-const PER_PAGE = 24;
-
-
-const listLd = {
+const order = [
+  "joandjonny", "cynthiaandoswaldo", "faithandjack-1", "mayoandemmanuel",
+  "iyanuwedding", "opeyemiweddingportrait", "reddressmodel", "dana", "felixandlina", "bambna",
+  "finemodelbluesuit", "princessweddingportraits", "carmenandben", "vanessawedding",
+  "temiandfiyin", "bridalshoot", "akinpelu", "jumokeandstephen",
+];
+const position = new Map(order.map((slug, index) => [slug, index]));
+const displayWork = [...selectedWork].sort((a, b) => (position.get(a.slug) ?? 999) - (position.get(b.slug) ?? 999));
+const featuredSlugs = new Set(selectedWork.map((work) => work.slug));
+const archiveItems = clientArea.items.filter((item) => !featuredSlugs.has(item.slug));
+const publishedStories = new Set(stories.map((story) => story.slug));
+const coverDimensions: Record<string, readonly [number, number]> = {
+  akinpelu: [1600, 2000], bambna: [1600, 1067], bridalshoot: [1600, 2000],
+  carmenandben: [1600, 2168], cynthiaandoswaldo: [1600, 2062], dana: [1600, 2000],
+  "faithandjack-1": [1600, 2254], felixandlina: [1600, 2144], finemodelbluesuit: [1600, 2000],
+  iyanuwedding: [1600, 1990], joandjonny: [1600, 1067], jumokeandstephen: [1600, 1280],
+  mayoandemmanuel: [1600, 2397], opeyemiweddingportrait: [1600, 2382],
+  princessweddingportraits: [1600, 2000], reddressmodel: [1600, 2400],
+  temiandfiyin: [1600, 1010], vanessawedding: [1600, 2000],
+};
+for (const work of displayWork) if (!coverDimensions[work.slug]) throw new Error(`Missing portfolio image dimensions: ${work.slug}`);
+const galleryLd = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  name: "Client Galleries — CameraBoss",
-  description: `${items.length} client galleries from CameraBoss weddings, portraits and events.`,
+  name: "Selected Wedding & Portrait Photography | CameraBoss",
+  description: "A considered selection of real weddings and portraits photographed by CameraBoss in the UK and beyond.",
   url: "https://www.cameraboss.co.uk/client-area/",
-  hasPart: items.slice(0, 60).map((i) => ({
-    "@type": "ImageGallery",
-    name: i.title,
-    url: i.href,
-    datePublished: i.iso || undefined,
-    thumbnailUrl: i.cover,
+  hasPart: selectedWork.map((work) => ({
+    "@type": "ImageObject",
+    name: work.title,
+    contentUrl: new URL(work.image, "https://www.cameraboss.co.uk").href,
+    creator: { "@type": "Organization", name: "CameraBoss" },
   })),
 };
 ---
 
 <PageLayout
-  title="Client Galleries | CameraBoss Wedding & Portrait Photography"
-  description="Browse CameraBoss client galleries — weddings, portraits and events across London, Leicester and Nigeria. Open your collection on Pixieset to view and download your photographs."
+  title="Wedding & Portrait Gallery | CameraBoss"
+  description="Selected wedding stories and portrait photography by CameraBoss. Explore the work, the people and the moments that make each celebration different."
   current="/client-area/"
-  ogImage={hero[0]?.img}
+  ogImage={displayWork[0].image}
 >
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(listLd)} />
-
-  <!-- ============ HERO SLIDESHOW ============ -->
-  <section class="ca-hero" data-hero aria-roledescription="carousel" aria-label="Featured work">
-    {hero.map((s, i) => (
-      <div
-        class="ca-hero__slide"
-        data-slide={i}
-        data-active={i === 0 ? "true" : "false"}
-        style={`background-image:url(${s.img})`}
-        role="group"
-        aria-label={`${i + 1} of ${hero.length}: ${s.title}`}
-      />
-    ))}
-
-    <button class="ca-hero__arrow ca-hero__arrow--prev" data-hero-prev type="button" aria-label="Previous slide">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-        <path d="M15 4 7 12l8 8" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
-    </button>
-    <button class="ca-hero__arrow ca-hero__arrow--next" data-hero-next type="button" aria-label="Next slide">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-        <path d="m9 4 8 8-8 8" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
-    </button>
-
-    <button type="button" data-hero-pause class="absolute bottom-4 right-4 z-20 border border-white/60 bg-black/60 px-4 py-3 text-xs text-white" aria-pressed="false">Pause slideshow</button>
-    <div class="ca-hero__body">
-      <p class="ca-hero__counter">
-        <span data-hero-current>01</span><span>/</span><span>{String(hero.length).padStart(2, "0")}</span>
-      </p>
-      <h1 class="ca-hero__title" data-hero-title>{hero[0]?.title}</h1>
-      <p class="ca-hero__subtitle" data-hero-subtitle>{hero[0]?.subtitle}</p>
-      <a class="ca-hero__cta" href={hero[0]?.href || "/Aworan/"} data-hero-cta>{hero[0]?.button}</a>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(galleryLd)} />
+  <section class="portfolio-hero" aria-labelledby="portfolio-title">
+    <div class="portfolio-hero__photo">
+      <img src="/images/selected-work/joandjonny.jpg" srcset={`${coverSrcSet("joandjonny")}, /images/selected-work/joandjonny.jpg 3600w`} sizes="100vw" alt="Jo and Jonny together on their wedding day" width="3600" height="2400" fetchpriority="high" decoding="async" />
+    </div>
+    <div class="portfolio-hero__copy">
+      <p class="portfolio-kicker">CameraBoss / Selected work</p>
+      <h1 id="portfolio-title">Weddings &amp; portraits</h1>
+      <p>Every celebration has its own rhythm. Choose a name and step into the photographs.</p>
     </div>
   </section>
 
-  <!-- ============ FILTERS + SEARCH ============ -->
-  <section class="mx-auto max-w-[1368px] px-6 pt-16 pb-10">
-    <div class="flex flex-col gap-7 border-b border-black/10 pb-6 md:flex-row md:items-end md:justify-between">
-      <div class="ca-tabs" role="tablist" aria-label="Filter galleries">
-        <button class="ca-tab" role="tab" aria-selected="true" data-tag="" type="button">All</button>
-        {tags.map((t) => (
-          <button class="ca-tab" role="tab" aria-selected="false" data-tag={t} type="button">{t}</button>
-        ))}
-      </div>
-      <div class="ca-search w-full md:w-64">
-        <label class="sr-only" for="ca-search-input">Search galleries</label>
-        <input id="ca-search-input" type="search" placeholder="Search" maxlength="32" autocomplete="off" data-search />
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-          <circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" stroke-linecap="round" />
-        </svg>
-      </div>
+  <section class="portfolio-work" id="selected-work" aria-label="Selected wedding and portrait photographs">
+    <div class="portfolio-intro"><p class="portfolio-kicker">Featured galleries</p><p>Every image has a story behind it.</p></div>
+    <div class="portfolio-filters" role="group" aria-label="Filter selected work">
+      <button type="button" data-portfolio-filter="all" aria-pressed="true">All work</button>
+      <button type="button" data-portfolio-filter="wedding" aria-pressed="false">Weddings</button>
+      <button type="button" data-portfolio-filter="portrait" aria-pressed="false">Portraits</button>
     </div>
-    <p class="mt-5 text-[11px] tracking-[0.24em] text-black/40 uppercase">
-      <span data-count>{items.length}</span> galleries
-    </p>
+    <div class="portfolio-grid">
+      {displayWork.map((work, index) => (
+        <figure class="portfolio-card" data-category={work.category}>
+          <a href={work.source_gallery} class="portfolio-card__link">
+            <span class="portfolio-card__image">
+              <img src={coverSrc(work.slug)} srcset={coverSrcSet(work.slug)} sizes="(max-width: 760px) calc(50vw - 18px), (max-width: 1600px) calc(33vw - 36px), 500px" alt={`${work.title} — ${work.category} photography by CameraBoss`} width={coverDimensions[work.slug][0]} height={coverDimensions[work.slug][1]} loading={index < 3 ? "eager" : "lazy"} decoding="async" />
+            </span>
+            <figcaption><span class="portfolio-card__title">{work.title}</span><span class="portfolio-card__type">{work.category === "wedding" ? "Wedding" : "Portrait"}</span></figcaption>
+          </a>
+          {publishedStories.has(work.slug) && <a class="portfolio-card__edit" href={`/stories/${work.slug}/`}>View the website edit</a>}
+        </figure>
+      ))}
+    </div>
   </section>
 
-  <!-- ============ GALLERY GRID ============ -->
-  <section class="mx-auto max-w-[1368px] px-6 pb-14">
-    <div class="ca-grid" data-grid>
-      {items.map((g, i) => (
-        <a
-          class="ca-card"
-          href={g.href}
-          data-item
-          data-tags={g.tags.join(" ")}
-          data-name={g.title.toLowerCase()}
-          target={g.hosted ? undefined : "_blank"}
-          rel={g.hosted ? undefined : "noopener"}
-        >
-          <div class="ca-card__photo">
-            {g.hosted && g.photos > 0 && <span class="ca-card__badge">{g.photos} photos</span>}
-            <img
-              src={g.cover}
-              alt={`${g.title} — CameraBoss client gallery`}
-              style={`object-position:${g.pos}`}
-              width="800"
-              height="533"
-              loading={i < 6 ? "eager" : "lazy"}
-              decoding="async"
-            />
-          </div>
-          <h2 class="ca-card__title">{g.title}</h2>
-          <p class="ca-card__date">{g.date}</p>
+  <section class="portfolio-archive" aria-labelledby="portfolio-archive-title">
+    <div class="portfolio-archive__intro">
+      <div><p class="portfolio-kicker">The archive</p><h2 id="portfolio-archive-title">More stories to explore</h2></div>
+      <p>Browse the rest of our client galleries. Each name opens the original collection on Pixieset; viewing and downloads follow that collection’s settings.</p>
+    </div>
+    <div class="portfolio-archive__controls">
+      <label for="portfolio-search">Find a gallery</label>
+      <input id="portfolio-search" type="search" placeholder="Search by name" autocomplete="off" />
+      <label for="portfolio-year">Year</label>
+      <select id="portfolio-year">
+        <option value="all">All years</option>
+        {[...new Set(archiveItems.map((item) => item.iso?.slice(0, 4)).filter(Boolean))].sort().reverse().map((year) => <option value={year}>{year}</option>)}
+        <option value="undated">Undated</option>
+      </select>
+    </div>
+    <p class="portfolio-archive__count" id="portfolio-count" aria-live="polite">{archiveItems.length} galleries</p>
+    <div class="portfolio-archive__grid" id="portfolio-archive-grid">
+      {archiveItems.map((item) => (
+        <a class="portfolio-archive__card" href={item.href} data-search={item.title.toLocaleLowerCase()} data-year={item.iso?.slice(0, 4) || "undated"}>
+          {item.cover_unavailable
+            ? <span class="portfolio-archive__cover-type" aria-hidden="true">CameraBoss / Archive</span>
+            : <img src={item.cover} alt="" width="480" height="360" loading="lazy" decoding="async" />}
+          <span class="portfolio-archive__card-copy"><strong>{item.title}</strong><small>{item.date || "Gallery"}</small></span>
         </a>
       ))}
     </div>
-    <p class="ca-empty" data-empty hidden>No galleries match that search.</p>
+    <button class="portfolio-archive__more" id="portfolio-more" type="button" hidden>Show more galleries</button>
   </section>
 
-  <!-- ============ PAGINATION ============ -->
-  <nav class="ca-pagination mx-auto max-w-[1368px] px-6 pb-28" data-pagination aria-label="Gallery pages"></nav>
+  <script>
+    const filters = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-portfolio-filter]"));
+    const cards = Array.from(document.querySelectorAll<HTMLElement>(".portfolio-card"));
+    const activate = (category: string) => {
+      filters.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.portfolioFilter === category)));
+      cards.forEach((card) => { card.hidden = category !== "all" && card.dataset.category !== category; });
+    };
+    filters.forEach((button) => button.addEventListener("click", () => activate(button.dataset.portfolioFilter || "all")));
+    const initial = new URLSearchParams(window.location.search).get("tag");
+    if (initial === "wedding" || initial === "portrait" || initial === "portraits") activate(initial === "portraits" ? "portrait" : initial);
 
-  <script is:inline define:vars={{ PER_PAGE }}>
-    (() => {
-      /* ---------- hero slideshow ---------- */
-      const hero = document.querySelector("[data-hero]");
-      if (hero) {
-        const slides = [...hero.querySelectorAll("[data-slide]")];
-        const meta = [...slides].map((s) => s.getAttribute("aria-label") || "");
-        const titleEl = hero.querySelector("[data-hero-title]");
-        const subEl = hero.querySelector("[data-hero-subtitle]");
-        const curEl = hero.querySelector("[data-hero-current]");
-        const copy = window.__caHero || [];
-        const cta = hero.querySelector("[data-hero-cta]");
-        let i = 0;
-        let timer;
-        let paused = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        const pause = hero.querySelector("[data-hero-pause]");
-        const updatePause = () => { if (pause) { pause.textContent = paused ? "Play slideshow" : "Pause slideshow"; pause.setAttribute("aria-pressed", String(paused)); } };
-        const show = (n) => {
-          i = (n + slides.length) % slides.length;
-          slides.forEach((s, k) => s.setAttribute("data-active", k === i ? "true" : "false"));
-          if (curEl) curEl.textContent = String(i + 1).padStart(2, "0");
-          const c = copy[i];
-          if (c && titleEl) titleEl.textContent = c.title;
-          if (c && subEl) subEl.textContent = c.subtitle;
-          if (c && cta) { cta.textContent = c.button; cta.href = c.href; }
-        };
-        const start = () => { clearInterval(timer); if (!paused) timer = setInterval(() => show(i + 1), 6000); updatePause(); };
-        pause?.addEventListener("click", () => { paused = !paused; start(); });
-        hero.querySelector("[data-hero-prev]")?.addEventListener("click", () => { show(i - 1); start(); });
-        hero.querySelector("[data-hero-next]")?.addEventListener("click", () => { show(i + 1); start(); });
-        start();
-        void meta;
-      }
-
-      /* ---------- filter + search + pagination ---------- */
-      const grid = document.querySelector("[data-grid]");
-      if (!grid) return;
-      const cards = [...grid.querySelectorAll("[data-item]")];
-      const pager = document.querySelector("[data-pagination]");
-      const empty = document.querySelector("[data-empty]");
-      const countEl = document.querySelector("[data-count]");
-      const tabs = [...document.querySelectorAll(".ca-tab")];
-      const search = document.querySelector("[data-search]");
-      const query = new URLSearchParams(location.search);
-      let tag = query.get("tag") || "";
-      let q = query.get("q") || "";
-      let page = Math.max(1, Number.parseInt(query.get("page") || "1", 10) || 1);
-
-      const matches = (c) =>
-        (!tag || (c.dataset.tags || "").split(" ").includes(tag)) &&
-        (!q || (c.dataset.name || "").includes(q));
-
-      function syncUrl() {
-        const url = new URL(location.href);
-        for (const [key, value] of [["tag", tag], ["q", q], ["page", page > 1 ? String(page) : ""]]) {
-          if (value) url.searchParams.set(key, value); else url.searchParams.delete(key);
-        }
-        history.replaceState(null, "", url);
-      }
-      function render() {
-        const hits = cards.filter(matches);
-        const pages = Math.max(1, Math.ceil(hits.length / PER_PAGE));
-        page = Math.min(page, pages);
-        const from = (page - 1) * PER_PAGE;
-        const visible = new Set(hits.slice(from, from + PER_PAGE));
-        cards.forEach((c) => { c.hidden = !visible.has(c); });
-        if (countEl) countEl.textContent = String(hits.length);
-        if (empty) empty.hidden = hits.length > 0;
-
-        if (!pager) return;
-        pager.innerHTML = "";
-        if (pages < 2) return;
-        const btn = (label, target, opts = {}) => {
-          const b = document.createElement("button");
-          b.type = "button";
-          b.className = "ca-page";
-          b.textContent = label;
-          if (opts.current) b.setAttribute("aria-current", "true");
-          if (opts.disabled) b.disabled = true;
-          else b.addEventListener("click", () => {
-            page = target;
-            syncUrl();
-            render();
-            grid.scrollIntoView({ behavior: "smooth", block: "start" });
-          });
-          pager.appendChild(b);
-        };
-        btn("prev", page - 1, { disabled: page === 1 });
-        for (let p = 1; p <= pages; p++) {
-          if (pages > 9 && Math.abs(p - page) > 2 && p !== 1 && p !== pages) {
-            if (Math.abs(p - page) === 3) {
-              const s = document.createElement("span");
-              s.className = "ca-page";
-              s.textContent = "…";
-              pager.appendChild(s);
-            }
-            continue;
-          }
-          btn(String(p).padStart(2, "0"), p, { current: p === page });
-        }
-        btn("next", page + 1, { disabled: page === pages });
-      }
-
-      tabs.forEach((t) =>
-        t.addEventListener("click", () => {
-          tabs.forEach((x) => x.setAttribute("aria-selected", String(x === t)));
-          tag = t.dataset.tag || "";
-          page = 1;
-          syncUrl();
-          render();
-        }),
-      );
-      let deb;
-      search?.addEventListener("input", () => {
-        clearTimeout(deb);
-        deb = setTimeout(() => {
-          q = search.value.trim().toLowerCase();
-          page = 1;
-          syncUrl();
-          render();
-        }, 140);
-      });
-
-      tabs.forEach(t => t.setAttribute("aria-selected", String((t.dataset.tag || "") === tag)));
-      if (search) search.value = q;
-      window.addEventListener("popstate", () => {
-        const state = new URLSearchParams(location.search);
-        tag = state.get("tag") || ""; q = state.get("q") || "";
-        page = Math.max(1, Number.parseInt(state.get("page") || "1", 10) || 1);
-        tabs.forEach(t => t.setAttribute("aria-selected", String((t.dataset.tag || "") === tag)));
-        if (search) search.value = q;
-        render();
-      });
-      render();
-    })();
+    const search = document.querySelector<HTMLInputElement>("#portfolio-search");
+    const year = document.querySelector<HTMLSelectElement>("#portfolio-year");
+    const more = document.querySelector<HTMLButtonElement>("#portfolio-more");
+    const count = document.querySelector<HTMLElement>("#portfolio-count");
+    const archive = Array.from(document.querySelectorAll<HTMLElement>(".portfolio-archive__card"));
+    let shown = 24;
+    const renderArchive = () => {
+      const term = search?.value.trim().toLocaleLowerCase() || "";
+      const selectedYear = year?.value || "all";
+      const matches = archive.filter((card) => card.dataset.search?.includes(term) && (selectedYear === "all" || card.dataset.year === selectedYear));
+      archive.forEach((card) => { card.hidden = !matches.includes(card) || matches.indexOf(card) >= shown; });
+      if (count) count.textContent = matches.length ? `Showing ${Math.min(shown, matches.length)} of ${matches.length} galleries` : "No galleries found";
+      if (more) more.hidden = matches.length <= shown;
+    };
+    search?.addEventListener("input", () => { shown = 24; renderArchive(); });
+    year?.addEventListener("change", () => { shown = 24; renderArchive(); });
+    more?.addEventListener("click", () => { shown += 24; renderArchive(); });
+    renderArchive();
   </script>
-  <script
-    slot="head"
-    is:inline
-    set:html={`window.__caHero=${JSON.stringify(hero.map((h) => ({ title: h.title, subtitle: h.subtitle, button: h.button, href: h.href })))}`}
-  />
 </PageLayout>

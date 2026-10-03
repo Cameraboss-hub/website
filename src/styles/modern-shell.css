@@ -1,0 +1,75 @@
+/* Shared site chrome. The imported articles keep their original block geometry. */
+.editorial-site.dock-theme { --font-display: "Manrope", "Helvetica Neue", Arial, sans-serif; --color-paper: #fff; --color-ink: #171717; --color-accent: #a5232e; --editorial-paper: #fff; --editorial-dark: #171717; --editorial-line: #ddd; --editorial-muted: #595959; background: #fff; color: #171717; font-family: "Manrope", "Helvetica Neue", Arial, sans-serif; }
+.editorial-site.dock-theme :is(h1, h2, h3, h4) { font-family: "Manrope", "Helvetica Neue", Arial, sans-serif; }
+.editorial-site.dock-theme #main-content { padding-top: 0; }
+.editorial-site.dock-theme .editorial-header {
+  position: sticky;
+  inset: auto;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  background: #fffffff5;
+  border: 0;
+  border-bottom: 1px solid #deddd7;
+  border-radius: 0;
+  box-shadow: none;
+  backdrop-filter: blur(14px);
+}
+.editorial-site.dock-theme .editorial-nav { width: min(1480px, calc(100% - 80px)); height: 82px; padding: 0; }
+.editorial-site.dock-theme .editorial-brand { gap: 0; }
+.editorial-site.dock-theme .editorial-brand img { width: 160px; height: auto; }
+.editorial-site.dock-theme .editorial-brand span { display: none; }
+.editorial-site.dock-theme .editorial-links { gap: clamp(1rem, 2.4vw, 2.4rem); }
+.editorial-site.dock-theme .editorial-nav :is(a, button) { font-family: "Manrope", "Helvetica Neue", Arial, sans-serif; font-size: .69rem; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; }
+.editorial-site.dock-theme .editorial-links .nav-enquire { min-height: 44px; padding: .65rem 1.15rem; border: 1px solid #191919; border-radius: 0; background: #191919; color: #fff; }
+.editorial-site.dock-theme .editorial-links .nav-enquire:hover { background: #fff; color: #191919; }
+.editorial-site.dock-theme .mobile-booking { display: none; }
+.editorial-site.dock-theme .editorial-dropdown { border-radius: 0; border-color: #ddd; background: #fff; box-shadow: 0 18px 35px #00000017; }
+.editorial-site.dock-theme .editorial-links :is(a:hover, a[aria-current=page]) { color: #171717; }
+.editorial-site.dock-theme .editorial-links .nav-enquire[aria-current="page"] { color: #fff; }
+.editorial-site.dock-theme .editorial-links .nav-enquire[aria-current="page"]:hover { color: #171717; }
+.editorial-site.dock-theme .editorial-footer { background: #171717; color: #fff; font-family: "Manrope", "Helvetica Neue", Arial, sans-serif; }
+.editorial-site.dock-theme .editorial-footer :is(p, a, h2) { color: #fff; }
+.editorial-site.dock-theme .editorial-footer .footer-identity img { filter: brightness(0) invert(1); }
+.editorial-site.dock-theme .editorial-footer .footer-enquire:hover { color: #191919; }
+.editorial-site.dock-theme .editorial-footer .footer-content a:hover { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
+.editorial-site.dock-theme .footer-invitation { padding-block: clamp(4.5rem, 8vw, 8rem); border-color: #ffffff39; }
+.editorial-site.dock-theme .footer-invitation h2 { max-width: 15ch; margin: 1rem 0 0; font: 400 clamp(3.2rem, 6vw, 6rem)/1.08 "Bodoni Moda", Georgia, serif; letter-spacing: -.045em; font-family: "Bodoni Moda", Georgia, serif !important; font-weight: 400 !important; line-height: 1.08 !important; text-transform: none !important; }
+.editorial-site.dock-theme .footer-invitation .eyebrow { letter-spacing: .13em; font-size: .7rem; }
+.editorial-site.dock-theme .footer-enquire { display: inline-flex; min-height: 48px; min-width: 125px; justify-content: center; padding: .85rem 1.3rem; border: 1px solid #fff; font: 600 .8rem "Manrope", sans-serif; text-decoration: none; }
+.editorial-site.dock-theme .footer-enquire:hover { background: #fff; color: #171717; }
+.editorial-site.dock-theme .footer-content { padding-block: 4rem; }
+.editorial-site.dock-theme .footer-identity p { font-size: .8rem; line-height: 1.7; }
+.editorial-site.dock-theme .footer-identity > a:last-child { font-size: .73rem; border-bottom: 1px solid #ffffff9a; padding-bottom: .4rem; }
+.editorial-site.dock-theme .footer-content nav ul { font-size: .76rem; gap: 1rem 1.4rem; }
+.editorial-site.dock-theme .footer-bottom { font-size: .72rem; }
+.editorial-site.dock-theme :is(a, button, input, select, textarea):focus-visible { outline: 2px solid #a5232e; outline-offset: 4px; }
+.editorial-site.dock-theme .cb-mnav__panel { background: #fff; box-shadow: -12px 0 38px #00000024; }
+.editorial-site.dock-theme .cb-mnav__head { background: #fff; border-color: #ddd; }
+.editorial-site.dock-theme .cb-mnav__close { margin-right: 0; }
+.editorial-site.dock-theme .cb-mnav__link { font: 500 1.35rem/1.2 "Manrope", sans-serif; text-transform: none; letter-spacing: -.035em; }
+.editorial-site.dock-theme .cb-mnav__link--sub { font-size: .78rem; font-weight: 600; letter-spacing: .01em; }
+.editorial-site.dock-theme .cb-mnav__cta a { border-radius: 0; background: #191919; font: 600 .82rem "Manrope", sans-serif; letter-spacing: .02em; text-transform: none; }
+.editorial-site.dock-theme .cb-mnav__label, .editorial-site.dock-theme .cb-mnav__meta a { font-family: "Manrope", sans-serif; letter-spacing: .08em; }
+.editorial-site.dock-theme[data-page="/blog/"] :is(.journal-masthead, .journal-library) { background: #fff; }
+.editorial-site.dock-theme[data-page="/blog/"] :is(.journal-feature-link, .journal-card-photo) { border-radius: 0; }
+.editorial-site.dock-theme[data-page="/blog/"] .journal-feature-link { border: 0; background: #fff; }
+.editorial-site.dock-theme[data-page="/blog/"] .journal-feature-copy { background: #fff; }
+.editorial-site.dock-theme :is(.editorial-about, .editorial-film, .editorial-packages, .editorial-explore, .editorial-booking, .photo-chapters) { background: #fff; }
+.editorial-site.dock-theme[data-page="/blog/"] .journal-feature-copy h2 { font-size: clamp(1.6rem, 2.5vw, 2.45rem); line-height: 1.2; font-weight: 500; letter-spacing: -.045em; }
+.editorial-site.dock-theme[data-page="/blog/"] .journal-card h3 { font-weight: 500; letter-spacing: -.04em; font-size: clamp(1.2rem, 1.8vw, 1.55rem); }
+.editorial-site.dock-theme[data-page="/blog/"] :is(.journal-heading-row h1, .journal-library-heading h2, .journal-feature-copy h2, .journal-card h3) { font-family: "Bodoni Moda", Georgia, serif !important; font-weight: 400 !important; text-transform: none !important; }
+.editorial-site.dock-theme[data-page="/blog/"] .journal-read { justify-content: flex-start; }
+@media (max-width: 1023px) {
+  .editorial-site.dock-theme .editorial-nav { width: calc(100% - 44px); height: 70px; }
+  .editorial-site.dock-theme .editorial-brand img { width: 145px; }
+  .editorial-site.dock-theme .mobile-booking { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; margin-left: auto; padding: .5rem .85rem; background: #191919; color: #fff; text-decoration: none; }
+}
+@media (max-width: 700px) {
+  .editorial-site.dock-theme .footer-invitation { align-items: flex-start; padding-block: 4.5rem; }
+  .editorial-site.dock-theme .footer-invitation h2 { font-size: clamp(2.8rem, 11vw, 4.5rem); }
+  .editorial-site.dock-theme .footer-content { padding-block: 3.5rem; }
+  .editorial-site.dock-theme .footer-content nav ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

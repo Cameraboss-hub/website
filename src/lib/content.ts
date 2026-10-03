@@ -8,6 +8,7 @@ import postsData from "../data/posts.json";
 import imageDimsData from "../data/image-dims.json";
 import pagesData from "../data/pages.json";
 import galleriesData from "../data/galleries.json";
+import { cmsPosts } from "./cms";
 
 export interface Post {
   slug: string;
@@ -405,8 +406,9 @@ export function fixLinks(html: string): string {
   // No verified replacement for the closed/missing studio or discontinued product page.
   // Retain the text instead of sending readers to an unrelated destination.
   out = out.replace(/<a\b([^>]*?)href="https:\/\/www\.(?:bossstudiosvip\.com\/?|vanguardworld\.co\.uk\/collections\/bags\/products\/veo-select-59t-gr)"[^>]*>([\s\S]*?)<\/a>/gi, "$2");
-  // Dead hrefs Pixieset emitted for unlinked elements
-  out = out.replace(/href="null"/gi, 'href="#"').replace(/href="undefined"/gi, 'href="#"');
+  // Pixieset exported literal null/undefined hrefs on dozens of article links.
+  // Keep the words, but do not present a non-working link to readers.
+  out = out.replace(/<a\b[^>]*\bhref="(?:null|undefined)"[^>]*>([\s\S]*?)<\/a>/gi, "$1");
 
   // Pixieset's own template default, left behind on two pages.
   out = out.replace(/href="https?:\/\/(?:website|www)\.pixieset\.com\/contact\/?"/gi, 'href="/contact/"');
@@ -471,7 +473,7 @@ function dedupeHeadings(html: string, title: string): string {
   });
 }
 
-export const posts: Post[] = (postsData as Post[])
+export const posts: Post[] = [...(postsData as Post[]), ...cmsPosts]
   .map((p) => ({ ...p, meta_title: seoFor(`/blog/${p.slug}/`, { title: p.meta_title || p.title }).title, meta_description: seoFor(`/blog/${p.slug}/`, { title: p.title, description: p.meta_description }).description, html: enhanceImages(fixLinks(dedupeHeadings(clean(p.html), p.title)), p.title) }))
   .sort((a, b) => {
     const da = parseDate(a.date)?.getTime() ?? 0;
@@ -506,9 +508,8 @@ export const pages: Page[] = (pagesData as Page[]).map((p) => ({
   ...p,
   meta_description: seoFor(p.path, { title: p.title, description: p.meta_description?.trim() || META_FALLBACK[p.path] || "" }).description,
   title: seoFor(p.path, { title: tidyTitle(p.title) }).title,
-  // The CRM swap runs last, and deliberately after clean(): clean() strips every
-  // <script> from imported markup, so an embed inserted any earlier would have
-  // its injector removed again and the form would never load.
+  // Replace the legacy Studio Ninja iframe after cleaning imported markup.
+  // The CRM's full-page form works; its cross-origin iframe is refused.
   html: swapStudioNinjaForCrm(
     enhanceImages(fixLinks(demoteExtraH1s(clean(p.html))), p.h1 || tidyTitle(p.title).split("|")[0].trim()),
     enquiryEmbedHtml(),

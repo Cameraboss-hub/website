@@ -3,6 +3,10 @@ export const prerender = true;
 
 import PageLayout from "../layouts/PageLayout.astro";
 import { pages, canonicalFor, isThinDuplicate } from "../lib/content";
+import LocationDirectory from "../components/LocationDirectory.astro";
+import LocationLanding from "../components/LocationLanding.astro";
+import { locationPages, locationByPath } from "../data/locations";
+import "../styles/locations-new.css";
 
 export function getStaticPaths() {
   // Routes handled by dedicated files — never let the catch-all shadow them.
@@ -10,10 +14,20 @@ export function getStaticPaths() {
     "/", "/blog/", "/galleries/", "/blog", "/galleries",
     "/contact/", "/contact",           // hand-built pages
     "/about/", "/about",
+    "/pricing/", "/pricing",           // hand-built pricing page
     "/Wedding-videos/", "/Wedding-videos",  // dedicated films page
     "/client-area/", "/client-area",        // 301s to /galleries/
   ]);
-  return pages
+  const importedPaths = new Set(pages.map((page) => page.path));
+  const newLocations = locationPages.filter((location) => !importedPaths.has(location.path)).map((location) => ({
+    path: location.path,
+    title: location.title,
+    meta_description: location.description,
+    og_image: "",
+    h1: "",
+    html: "",
+  }));
+  return [...pages, ...newLocations]
     .filter((p) => !reserved.has(p.path))
     .map((p) => ({
       params: { path: p.path.replace(/^\/|\/$/g, "") },
@@ -22,24 +36,32 @@ export function getStaticPaths() {
 }
 
 const { page } = Astro.props;
+const location = locationByPath.get(page.path);
+const isLocationDirectory = page.path === "/locations/";
 
 // 26 of the 31 imported pages already open with their own <h1> inside the
 // Pixieset markup (a banner or hero heading). Rendering page.h1 as well gave
 // every one of them two <h1>s — a visible duplicate title and a real SEO
 // problem. Only add the heading where the imported markup has none.
 const hasOwnH1 = /<h1[\s>]/i.test(page.html);
+const firstBlock = /<div\s+class="block-container ([^"]+)/.exec(page.html);
+const firstBlockText = firstBlock
+  ? page.html.slice(firstBlock.index, firstBlock.index + 3500).replace(/<[^>]*>/g, " ").replace(/\s+/g, " ")
+  : "";
+const hasLegacyBookingBanner = firstBlock?.[1].startsWith("block-button") &&
+  /(?:now booking|we are booking|now booking for)/i.test(firstBlockText.slice(0, 240));
 ---
 
 <PageLayout
-  title={page.title}
-  description={page.meta_description}
-  ogImage={page.og_image || undefined}
+  title={location?.title || (isLocationDirectory ? "Wedding Photographer Locations Across the UK | CameraBoss" : page.title)}
+  description={location?.description || (isLocationDirectory ? "Explore 55 CameraBoss wedding photography locations across England, Scotland, Wales and Northern Ireland. See real work and check availability for your date." : page.meta_description)}
+  ogImage={location?.image || page.og_image || undefined}
   current={page.path}
   canonical={canonicalFor(page.path)}
   noindex={isThinDuplicate(page.path)}
 >
-  <article>
-    {/* A couple of imported pages (pricing, Editorial Shoot) have no <h1> at
+  {isLocationDirectory ? <LocationDirectory /> : location ? <LocationLanding location={location} /> : <article class:list={["imported-page", { "imported-page--legacy-banner": hasLegacyBookingBanner }]}>
+    {/* A few imported pages (such as Editorial Shoot) have no <h1> at
         all — neither did they on Pixieset. Give them one for search engines
         and screen readers without changing the design. */}
     {!hasOwnH1 && !page.h1 && (
@@ -65,5 +87,5 @@ const hasOwnH1 = /<h1[\s>]/i.test(page.html);
         set:html={page.html}
       />
     </div>
-  </article>
+  </article>}
 </PageLayout>

@@ -1,3 +1,5 @@
+# Superseded: read LAUNCH-READINESS.md, CMS-OWNER-SETUP.md and DNS-CUTOVER.md before deploying. This initial runbook does not describe the current deployed project.
+
 # CameraBoss — deploy to GitHub + Vercel
 
 Everything Claude Code needs to get this repo onto
