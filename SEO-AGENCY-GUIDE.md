@@ -7,9 +7,11 @@ Access is prepared, but invitations and the hosted publication test are still pe
 
 Editor: https://app.pagescms.org/
 
-Use the individual email address invited by CameraBoss and follow the email
-sign-in prompt. There is no shared CameraBoss password. You do not need the
-owner’s Pixieset, GitHub, Vercel or Supabase login.
+Choose **Continue with email**, enter the individual address invited by
+CameraBoss, and enter the six-digit sign-in code delivered to your inbox.
+Use a fresh code each time the editor requests sign-in. There is no shared
+CameraBoss password and you do not need a GitHub account. You do not need the
+owner's Pixieset, GitHub, Vercel or Supabase login.
 
 Select Cameraboss-hub / website and the branch agreed with CameraBoss:
 main is the production content branch after launch activation. Use the

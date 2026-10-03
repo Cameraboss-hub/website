@@ -15,6 +15,32 @@ https://app.pagescms.org/. Pages CMS collaborators can edit configured content
 and media, but cannot manage the configuration or invite other collaborators.
 Use email collaborators, not GitHub repository write access.
 
+## Agreed access — 3 October 2026
+
+John chose the recommendation to retain hosted Pages CMS and invite agency
+members using their **own individual email addresses**. A shared
+social@cameraboss.co.uk mailbox and a replacement password-based CMS are no
+longer part of this setup. No new mailbox, password or agency account has been
+created.
+
+The owner signs in with Cameraboss-hub on GitHub to connect the website once.
+Agency members use email sign-in and receive a six-digit code in their own
+inbox. They do not need a GitHub account or any owner credentials. The current
+upstream authentication configuration expires each code after five minutes.
+
+Publication requires no owner content approval: saving SEO, or saving a new
+article with Published enabled, triggers the existing GitHub/Vercel build.
+The update appears after that build succeeds. Git history and eligible Vercel
+rollback targets retain the recovery path.
+
+Activation remains pending: owner service-terms consent and GitHub connection,
+the agency email list, invitations, and an end-to-end hosted publication test.
+Continue testing on codex/site-prep-20260929 until production launch is
+approved separately. Do not merge main or change DNS merely to activate CMS.
+
+Sources: [sign-in implementation](https://github.com/pagescms/pagescms/blob/main/components/sign-in.tsx),
+[authentication configuration](https://github.com/pagescms/pagescms/blob/main/lib/auth.ts).
+
 ## One-time owner steps
 
 1. Open https://app.pagescms.org/ and sign in using the CameraBoss GitHub
