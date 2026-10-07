@@ -17,7 +17,7 @@ import urllib.request
 import xml.etree.ElementTree as ET
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-STAMP = "2026-10-02"
+STAMP = datetime.datetime.now(datetime.timezone.utc).date().isoformat()
 OUT = pathlib.Path("/private/tmp/cameraboss-final-live-" + STAMP)
 OUT.mkdir(exist_ok=True)
 SITE = "https://www.cameraboss.co.uk"

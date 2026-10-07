@@ -21,23 +21,21 @@ const titles = new Map(selectedWork.map((work) => [work.slug, work.title]));
 const storySlugs = new Set(stories.map((story) => story.slug));
 const joAndJonnyCover = selectedWork.find((work) => work.slug === "joandjonny");
 if (!joAndJonnyCover) throw new Error("Missing Jo and Jonny cover");
-// Lead with the weddings John selected. Full-width frames remain landscape;
-// the portrait covers from Mayo and Emmanuel and Faith and Jack stay in the grid.
-const openingStoryPhotos = [
-  { slug: "cynthiaandoswaldo", index: 7, position: "50% 47%", mobilePosition: "50% 49%" },
-  { slug: "joandjonny", index: 6, position: "50% 47%", mobilePosition: "50% 48%" },
-].map(({ slug, index, position, mobilePosition }) => {
-  const story = stories.find((entry) => entry.slug === slug);
-  const photo = story?.photos[index];
-  if (!photo) throw new Error(`Missing opening photograph: ${slug}/${index}`);
-  if (photo.width <= photo.height) throw new Error(`Opening photograph must be landscape: ${slug}/${index}`);
-  return { ...photo, position, mobilePosition };
-});
+// Exact photographs and order from the current Pixieset homepage slider.
+// Keep Jo and Jonny as the opening frame; all six source frames follow it.
+const pixiesetSlides = [
+  { src: "/images/hero/pixieset-01-london.jpg", alt: "Moses and Marie celebrating their wedding", width: 2500, height: 2000, position: "41% 41%", mobilePosition: "49% 45%", srcset: undefined },
+  { src: "/images/hero/pixieset-02-leicester.jpg", alt: "Wedding portrait in traditional attire", width: 2500, height: 3125, position: "45% 26%", mobilePosition: "48% 28%", srcset: undefined },
+  { src: "/images/hero/pixieset-03-portrait.jpg", alt: "Bride in a white gown on a terrace", width: 2500, height: 3125, position: "50% 50%", mobilePosition: "50% 48%", srcset: undefined },
+  { src: "/images/hero/pixieset-04-civil.jpg", alt: "Couple together on the staircase at their civil wedding", width: 2500, height: 3750, position: "39% 59%", mobilePosition: "46% 42%", srcset: undefined },
+  { src: "/images/hero/pixieset-05-destination.jpg", alt: "Newlyweds beside a vintage white car", width: 2500, height: 1607, position: "24% 59%", mobilePosition: "38% 50%", srcset: undefined },
+  { src: "/images/hero/pixieset-06-nigeria.jpg", alt: "Couple in teal traditional wedding attire", width: 2500, height: 3125, position: "27% 30%", mobilePosition: "47% 31%", srcset: undefined },
+];
 const openingPhotos = [
   { src: joAndJonnyCover.image, srcset: `${coverSrcSet(joAndJonnyCover.slug)}, ${joAndJonnyCover.image} 3600w`,
     alt: "Jo and Jonny together on their wedding day", width: 3600, height: 2400,
     position: "50% 48%", mobilePosition: "80% 50%" },
-  ...openingStoryPhotos,
+  ...pixiesetSlides,
 ];
 const openingPhotoPaths = new Set(openingPhotos.map((photo) => photo.src));
 
@@ -108,7 +106,7 @@ const portfolio = [
 ---
 
 <PageLayout
-  title="Nigerian Wedding Photographer in London & across UK"
+  title="Nigerian Wedding Photographer in London | Cameraboss"
   description="Trusted Yoruba wedding photographer in London & African wedding photographer in the UK. Serving in Leicester, Midlands & Manchester with creative wedding photography."
   current="/"
   ogImage={lead.image}
@@ -127,7 +125,7 @@ const portfolio = [
             height={photo.height}
             style={`--hero-position:${photo.position};--hero-mobile-position:${photo.mobilePosition}`}
             fetchpriority={index === 0 ? "high" : "low"}
-            loading="eager"
+            loading={index === 0 ? "eager" : "lazy"}
             decoding="async"
           />
         ))}
@@ -168,11 +166,12 @@ const portfolio = [
   <section class="home-note" aria-labelledby="home-note-title">
     <p class="home-eyebrow">CameraBoss / London · Leicester · Across the UK</p>
     <h2 id="home-note-title">The day, as it felt.</h2>
-    <p>Wedding and portrait photography shaped by people, place and feeling. From Nigerian and African celebrations to quieter portraits, we make space for the moments that matter to you.</p>
+    <p>Wedding and portrait photography shaped by people, place and feeling. We photograph Nigerian, Ghanaian and other multicultural celebrations across London, Leicester, Manchester, Liverpool and the wider UK, alongside quieter portraits.</p>
     <nav aria-label="Explore CameraBoss">
       <a href="/about/">About us</a>
       <a href="/client-area/?tag=portrait">Portraits</a>
       <a href="/blog/">Journal</a>
+      <a href="/blog/the-ghanaian-wedding-in-the-uk-cultural-moments-kente-why-your-photographer-needs-to-be-ready/">Ghanaian weddings</a>
       <a href="/contact/">Get in touch</a>
     </nav>
   </section>
@@ -184,6 +183,7 @@ const portfolio = [
       <a href="/Leicester-Wedding-Photographer/">Leicester</a>
       <a href="/Birmingham-wedding-photographer/">Birmingham</a>
       <a href="/manchester-wedding-photographer/">Manchester</a>
+      <a href="/Liverpool-wedding-photographer/">Liverpool</a>
       <a href="/locations/">All locations</a>
     </div>
   </section>
@@ -198,11 +198,17 @@ const portfolio = [
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     let index = 0;
     let timer: number | undefined;
+    const preloadNext = () => {
+      const next = track.children[(index + 1) % count] as HTMLImageElement | undefined;
+      if (next) next.loading = "eager";
+    };
     const advance = () => {
+      preloadNext();
       index += 1;
       track.style.transition = "transform 1200ms cubic-bezier(.65, 0, .25, 1)";
       track.style.transform = `translateX(-${index * 100}%)`;
       progress.style.transform = `scaleX(${Math.min(index + 1, count) / count})`;
+      preloadNext();
     };
     const stop = () => window.clearInterval(timer);
     const start = () => {
@@ -220,6 +226,7 @@ const portfolio = [
     slider.addEventListener("mouseleave", start);
     document.addEventListener("visibilitychange", start);
     reduced.addEventListener("change", start);
+    preloadNext();
     start();
   }
 </script>

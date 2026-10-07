@@ -138,11 +138,10 @@ Cardiff|Bangor|Newport|Swansea|Wrexham|Belfast|Bangor, County Down|Derry'''.repl
   story_slugs={story['slug'] for story in stories}
   covers=[work for work in selected if work['slug'] not in story_slugs]
   hero_sources={img['src'].replace('-1600.webp','-960.webp') for img in p.attrs('img') if '--hero-position:' in img.get('style','')}
-  self.assertEqual(len(hero_sources),3)
+  self.assertEqual(len(hero_sources),7)
   self.assertEqual(hero_sources,{
    '/images/selected-work/joandjonny.jpg',
-   '/images/stories/cynthiaandoswaldo/08-960.webp',
-   '/images/stories/joandjonny/07-960.webp',
+   *{f'/images/hero/pixieset-{i:02d}-{name}.jpg' for i,name in enumerate(['london','leicester','portrait','civil','destination','nigeria'],1)},
   })
   story_sources={photo['src'] for story in stories for photo in story['photos']}
   self.assertEqual(len(tiles),sum(len(story['photos']) for story in stories)-len(hero_sources & story_sources)+len(covers)+1)

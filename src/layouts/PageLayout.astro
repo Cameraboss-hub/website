@@ -9,6 +9,7 @@ import "../styles/modern-shell.css";
 import "../styles/interior-refined.css";
 import EditorialMotion from "../components/EditorialMotion.astro";
 import Analytics from "../components/Analytics.astro";
+import CookieConsent from "../components/CookieConsent.astro";
 import SiteInteractions from "../components/SiteInteractions.astro";
 import { seoFor } from "../lib/seo";
 import SiteHeader from "../components/SiteHeader.astro";
@@ -82,6 +83,13 @@ const orgLd = {
     "https://wa.me/447823714814",
   ],
 };
+const websiteLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "CameraBoss",
+  url: site,
+  publisher: { "@id": `${site}/#business` },
+};
 ---
 
 <!doctype html>
@@ -134,11 +142,13 @@ const orgLd = {
     <meta property="og:locale" content="en_GB" />
 
     <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteLd)} />
     <slot name="head" />
   </head>
   <body id="top" class="editorial-site cinematic-interior white-theme dock-theme" data-page={Astro.url.pathname}>
     <a href="#main-content" class="skip-link">Skip to content</a>
     <SiteHeader current={current} />
+    <CookieConsent />
     <main id="main-content">
       <slot />
     </main>
