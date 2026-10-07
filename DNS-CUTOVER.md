@@ -1,8 +1,9 @@
 # CameraBoss DNS cutover — preparation only
 
-Prepared 2 October 2026. **BLOCKED DRAFT: no DNS changes are authorised by
-this document.** Resolve LAUNCH-READINESS.md first. John performs the later
-cutover. The marketing site and client-gallery subdomain are separate.
+Prepared 2 October 2026; reviewed 7 October 2026. **BLOCKED DRAFT: do not
+change DNS until the gates in LAUNCH-READINESS-2026-10-07.md are resolved.**
+John has asked for the website cutover once the full checks pass. The
+marketing site and client-gallery subdomain are separate.
 
 ## Confirmed ownership and current service
 
@@ -14,7 +15,7 @@ and check the actual registrar account for any transfer in progress. The
 registry's `client transfer prohibited` status is a lock, not proof that no
 transfer has been requested.
 
-The current public records observed on 2 October are:
+The current public records rechecked on 7 October are:
 
 | Name | Type | Current value |
 | --- | --- | --- |
@@ -22,16 +23,18 @@ The current public records observed on 2 October are:
 | www.cameraboss.co.uk | CNAME | domain.pixieset.com. |
 | gallery.cameraboss.co.uk | CNAME | domain.pixieset.com. |
 
-Cached remaining TTLs were approximately 11,400 seconds. The actual zone TTL
+Cached remaining TTLs were approximately 11,400 seconds on 2 October. The actual zone TTL
 must be read from the DNS account before planning a change. Capture the full
 zone first, including A/AAAA, CNAME, MX, TXT, CAA, DNSSEC and verification
 records. The table is an observation, not a substitute for that backup.
 
 ## Vercel's current recommendations
 
-Both cameraboss.co.uk and www.cameraboss.co.uk are already attached to the
-CameraBoss `website` project. The apex is configured to redirect to www.
-They are currently marked misconfigured because they still point to Pixieset.
+At the last authenticated configuration check on 2 October, both
+cameraboss.co.uk and www.cameraboss.co.uk were attached to the CameraBoss
+`website` project, with the apex set to redirect to www. They were marked
+misconfigured because they pointed to Pixieset. This run could not read back
+the current Domains panel, so that state must be confirmed again.
 
 The authenticated domain-configuration API returned these exact preferred
 recommendations for both names:

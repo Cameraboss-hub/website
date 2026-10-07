@@ -11,7 +11,10 @@ Pixieset gallery subdomain must remain on Pixieset for client delivery.
   pages and the homepage. The new build contains all 237 paths and **292
   sitemap URLs** in total. The build emits 294 HTML files, including its 404
   and noindex admin entry pages. All generated internal links and local image
-  paths pass the migration tests.
+  paths pass the migration tests. On the deployed Vercel preview, **all 293
+  checked page routes return 200 and all 48 legacy aliases return the
+  expected 301**. The first concurrent crawl had 72 transport timeouts;
+  every one passed on a slower retry. See `audit/preview-crawl-2026-10-07.json`.
 - A fresh source crawl returned 200 for **236/237** sitemap paths. Pixieset
   blocked the automated homepage fetch with 403; the homepage was inspected
   successfully in Chrome. Of the 236 fetched pages, 230 saved article/page
@@ -35,10 +38,12 @@ Pixieset gallery subdomain must remain on Pixieset for client delivery.
   See `audit/gallery-links-2026-10-07.json`.
 - The built image inventory has **3,788 unique URLs**: 230 local, 3,280
   Supabase, 256 Pixieset and 22 YouTube. All local files exist. The 3,558
-  remote URLs are unchanged from the full 2 October successful probe, while
-  the six added slides are local copies of the exact current Pixieset homepage
-  photographs. See `audit/rendered-image-summary-2026-10-07.json`; regenerate
-  the full URL inventory with `python3 audit/check_rendered_images.py --inventory`.
+  remote URLs returned valid images in a fresh 7 October probe. The bulk run
+  initially met 63 Supabase 429 rate limits; all 63 passed on a slower retry.
+  The six added slides are local copies of the exact current Pixieset
+  homepage photographs. See `audit/rendered-image-summary-2026-10-07.json`
+  and `audit/remote-images-2026-10-07.json`; regenerate the full URL
+  inventory with `python3 audit/check_rendered_images.py --inventory`.
 - At 390 × 844, the homepage, client directory, blog, contact and films have
   no horizontal overflow. The hero text sits below the photograph and the
   mobile menu control is 44px. The cookie notice stays out of the hero; its
@@ -47,6 +52,10 @@ Pixieset gallery subdomain must remain on Pixieset for client delivery.
 - Production dependencies passed `npm audit fix` with **zero known reported
   vulnerabilities**. `npm test` and `npm run check` pass. This reduces known
   risk; no website can be guaranteed “unhackable.”
+- The preview returns `X-Content-Type-Options: nosniff`,
+  `X-Frame-Options: DENY`, a restrictive `Permissions-Policy` and
+  `Referrer-Policy`, along with `X-Robots-Tag: noindex` while it is a preview.
+  The production sitemap and canonical URLs still target the www domain.
 - Nominet still lists registrar `101DOMAIN` and nameservers
   `nsa.whogohost.com` / `nsb.whogohost.com`. Public DNS still has apex A
   `104.16.185.173`; both `www` and `gallery` CNAME to
