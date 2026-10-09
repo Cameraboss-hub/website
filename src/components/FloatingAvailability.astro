@@ -14,6 +14,16 @@
       document.body.toggleAttribute("data-hero-passed", true);
     }
   }
+
+  // The shortcut is redundant on the contact page and can cover fields on
+  // narrow screens while visitors complete an embedded enquiry elsewhere.
+  const enquiry = document.querySelector<HTMLElement>(".cameraboss-enquiry");
+  if (enquiry && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(([entry]) => {
+      document.body.toggleAttribute("data-enquiry-visible", entry.isIntersecting);
+    });
+    observer.observe(enquiry);
+  }
 </script>
 
 <style>
@@ -39,6 +49,8 @@
   .availability-float:hover { background: #f7f5f1; border-color: #191919; color: #191919; }
   .availability-float:focus-visible { outline: 3px solid #a44b42; outline-offset: 3px; }
   :global(html:has(.cb-mnav.is-open)) .availability-float { opacity: 0; pointer-events: none; }
+  :global(body[data-page="/contact/"] .availability-float),
+  :global(body[data-enquiry-visible] .availability-float) { display: none; }
   @media (max-width: 700px) {
     .availability-float { right: 1rem; left: 1rem; min-height: 52px; }
     :global(body[data-page="/client-area/"] .availability-float) { display: none; }
