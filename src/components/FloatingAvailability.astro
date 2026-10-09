@@ -1,5 +1,21 @@
 <a class="availability-float" href="/contact/">Check your date availability</a>
 
+<script>
+  // Keep the mobile homepage photograph unobstructed. The header still has
+  // an enquiry link, and this floating shortcut appears after the hero.
+  const hero = document.querySelector<HTMLElement>(".home-opening__pictures");
+  if (hero) {
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(([entry]) => {
+        document.body.toggleAttribute("data-hero-passed", !entry.isIntersecting && entry.boundingClientRect.bottom <= 0);
+      });
+      observer.observe(hero);
+    } else {
+      document.body.toggleAttribute("data-hero-passed", true);
+    }
+  }
+</script>
+
 <style>
   .availability-float {
     position: fixed;
@@ -25,5 +41,10 @@
   :global(html:has(.cb-mnav.is-open)) .availability-float { opacity: 0; pointer-events: none; }
   @media (max-width: 700px) {
     .availability-float { right: 1rem; left: 1rem; min-height: 52px; }
+    :global(body[data-page="/"]:not([data-hero-passed]) .availability-float) {
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
   }
 </style>

@@ -43,9 +43,9 @@
 @media (max-width: 900px) { .home-opening__statement { grid-template-columns: 1fr; gap: 1.8rem; } .home-opening__aside { display: flex; flex-wrap: wrap; align-items: end; gap: 1rem 2rem; } .home-opening__aside p { max-width: 38ch; margin: 0; flex: 1 1 100%; } .home-opening__aside span { margin: 0; } .home-opening__pictures { height: calc(100svh - 70px); min-height: 470px; } }
 @media (max-width: 700px) {
   .editorial-site.dock-theme[data-page="/"] .editorial-nav { height: 64px; }
-  .home-opening__pictures { height: clamp(430px, 61svh, 680px); }
+  .home-opening__pictures { height: clamp(360px, 52svh, 540px); }
   .home-opening__track img { object-position: var(--hero-mobile-position); }
-  .home-opening__statement { padding: 3.1rem 1.2rem 3.5rem; }
+  .home-opening__statement { padding: 2rem 1.2rem 3.5rem; }
   .editorial-site.dock-theme .home-opening h1 { font-size: clamp(3.2rem, 11vw, 5.5rem); }
   .home-opening__aside p { font-size: .93rem; }
   .home-portfolio { padding-inline: 6px; }
