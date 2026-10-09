@@ -41,6 +41,7 @@
   :global(html:has(.cb-mnav.is-open)) .availability-float { opacity: 0; pointer-events: none; }
   @media (max-width: 700px) {
     .availability-float { right: 1rem; left: 1rem; min-height: 52px; }
+    :global(body[data-page="/client-area/"] .availability-float) { display: none; }
     :global(body[data-page="/"]:not([data-hero-passed]) .availability-float) {
       visibility: hidden;
       opacity: 0;
