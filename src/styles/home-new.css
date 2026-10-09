@@ -48,14 +48,14 @@
   .home-opening__statement { padding: 2rem 1.2rem 3.5rem; }
   .editorial-site.dock-theme .home-opening h1 { font-size: clamp(3.2rem, 11vw, 5.5rem); }
   .home-opening__aside p { font-size: .93rem; }
-  .home-portfolio { padding-inline: 6px; }
+  .home-portfolio { padding-inline: 6px; padding-bottom: 1rem; }
   .home-portfolio__heading { padding: 1rem .3rem; align-items: start; }
   .home-portfolio__heading span { text-align: right; font-size: .65rem; }
   .home-portfolio__grid { columns: 2; column-gap: 6px; }
   .home-portfolio__tile { margin-bottom: 6px; }
-  .home-portfolio__after { display: block; margin: 3.5rem .5rem 0; }
+  .home-portfolio__after { display: block; margin: 1.5rem .5rem 0; }
   .home-portfolio__after a { margin-top: 1.2rem; }
-  .home-note { padding: 5rem 1.4rem; }
+  .home-note { padding: 1.5rem 1.4rem 4rem; border-top: 0; }
   .home-locations { display: block; padding: 3rem 1.4rem; }
   .home-locations > div { margin-top: 1.3rem; }
 }

@@ -64,8 +64,13 @@
 .editorial-site.dock-theme[data-page="/blog/"] .journal-read { justify-content: flex-start; }
 @media (max-width: 1023px) {
   .editorial-site.dock-theme .editorial-nav { width: calc(100% - 44px); height: 70px; }
+  .editorial-site.dock-theme .editorial-brand { min-height: 44px; justify-content: center; }
   .editorial-site.dock-theme .editorial-brand img { width: 145px; }
+  .editorial-site.dock-theme .cb-burger { flex: 0 0 44px; }
   .editorial-site.dock-theme .mobile-booking { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; margin-left: auto; padding: .5rem .85rem; background: #191919; color: #fff; text-decoration: none; }
+}
+@media (max-width: 360px) {
+  .editorial-site.dock-theme .mobile-booking { display: none; }
 }
 @media (max-width: 700px) {
   .editorial-site.dock-theme .footer-invitation { align-items: flex-start; padding-block: 4.5rem; }

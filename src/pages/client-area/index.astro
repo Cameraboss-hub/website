@@ -51,9 +51,6 @@ const galleryLd = {
 >
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(galleryLd)} />
   <section class="portfolio-hero" aria-labelledby="portfolio-title">
-    <div class="portfolio-hero__photo">
-      <img src="/images/selected-work/joandjonny.jpg" srcset={`${coverSrcSet("joandjonny")}, /images/selected-work/joandjonny.jpg 3600w`} sizes="100vw" alt="Jo and Jonny together on their wedding day" width="3600" height="2400" fetchpriority="high" decoding="async" />
-    </div>
     <div class="portfolio-hero__copy">
       <p class="portfolio-kicker">CameraBoss / Selected work</p>
       <h1 id="portfolio-title">Weddings &amp; portraits</h1>
@@ -62,7 +59,6 @@ const galleryLd = {
   </section>
 
   <section class="portfolio-work" id="selected-work" aria-label="Selected wedding and portrait photographs">
-    <div class="portfolio-intro"><p class="portfolio-kicker">Featured galleries</p><p>Every image has a story behind it.</p></div>
     <div class="portfolio-filters" role="group" aria-label="Filter selected work">
       <button type="button" data-portfolio-filter="all" aria-pressed="true">All work</button>
       <button type="button" data-portfolio-filter="wedding" aria-pressed="false">Weddings</button>

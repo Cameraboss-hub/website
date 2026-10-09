@@ -26,7 +26,8 @@
 .editorial-site.dock-theme[data-page^="/stories/"] a:focus-visible { outline: 2px solid #a44b42; outline-offset: 5px; }
 @media (max-width: 760px) {
   .story-head { padding-top: 4.5rem; }
-  .story-cover { height: 62svh; min-height: 380px; }
+  .story-cover { height: auto; min-height: 0; }
+  .story-cover img { height: auto; }
   .story-photographs__intro { display: block; }
   .story-photographs__intro > p:last-child { margin-top: 1rem; }
   .story-photographs__grid { grid-template-columns: 1fr; gap: 1rem; }
