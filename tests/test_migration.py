@@ -80,7 +80,7 @@ class MigrationTests(unittest.TestCase):
   for path in self.FORM_PAGES:
    with self.subTest(path=path):
     text=page(path);p=HTML(text)
-    self.assertEqual(len([a for a in p.attrs('a') if a.get('href')=='https://cameraboss-crm.vercel.app/book/cameraboss/general-enquiry']),1)
+    self.assertEqual(len([a for a in p.attrs('a') if a.get('href')=='https://cameraboss-crm.vercel.app/book/cameraboss/general-enquiry']),0)
     self.assertEqual(len([f for f in p.attrs('iframe') if f.get('src')=='https://cameraboss-crm.vercel.app/book/cameraboss/general-enquiry?embed=1']),1)
     self.assertNotIn('coming soon',text)
  def test_refreshed_service_pages_reach_contact(self):
@@ -109,7 +109,7 @@ Cardiff|Bangor|Newport|Swansea|Wrexham|Belfast|Bangor, County Down|Derry'''.repl
     self.assertEqual(len(p.attrs('h1')),1)
     self.assertTrue(any(a.get('href')=='#enquire' for a in p.attrs('a')))
     self.assertTrue(any(a.get('id')=='enquire' for a in p.attrs('section')))
-    self.assertEqual(len([a for a in p.attrs('a') if a.get('href')=='https://cameraboss-crm.vercel.app/book/cameraboss/general-enquiry']),1)
+    self.assertEqual(len([a for a in p.attrs('a') if a.get('href')=='https://cameraboss-crm.vercel.app/book/cameraboss/general-enquiry']),0)
     self.assertEqual(len([f for f in p.attrs('iframe') if f.get('src')=='https://cameraboss-crm.vercel.app/book/cameraboss/general-enquiry?embed=1']),1)
   self.assertEqual(len(set(descriptions)),55)
  def test_no_studio_ninja_anywhere_in_the_build(self):

@@ -10,7 +10,7 @@ import { swapStudioNinjaForCrm, hasStudioNinjaEmbed } from "../src/lib/sn-embed.
 const PARSER =
   "https://app.studioninja.co/contactform/parser/0a800fc9-7a7c-1768-817a-a68817ea5956/0a800fc9-7ac4-1365-817b-0817cb5472ce";
 
-const EMBED = '<div class="cameraboss-enquiry"><iframe src="https://cameraboss-crm.vercel.app/book/cameraboss/general-enquiry?embed=1" title="CameraBoss enquiry form"></iframe><a href="https://cameraboss-crm.vercel.app/book/cameraboss/general-enquiry">Open the form in a full page</a></div>';
+const EMBED = '<div class="cameraboss-enquiry"><iframe src="https://cameraboss-crm.vercel.app/book/cameraboss/general-enquiry?embed=1" title="CameraBoss enquiry form"></iframe></div>';
 
 /** The shape the twelve migrated pages actually ship. */
 const block =

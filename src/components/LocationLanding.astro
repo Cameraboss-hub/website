@@ -63,5 +63,5 @@ const planning = location.planning || `Tell us your ${location.name} venue, cere
 
   <nav class="loc-nearby" aria-label="Nearby photography locations"><p class="loc-kicker">Also working nearby</p><div>{location.nearby.map((name) => { const nearby = locationByName.get(name); return nearby && <a href={nearby.path}>{name}</a>; })}<a href="/locations/">View all locations</a></div></nav>
 
-  <section class="loc-enquire" id="enquire" aria-labelledby="loc-enquire-title"><div class="loc-enquire__intro"><p class="loc-kicker">Your date / Your story</p><h2 id="loc-enquire-title">Check your {location.name} date.</h2><p>Tell us your date, venue and what you are planning in {location.name}. Complete the form here, and please mention the location in your plans.</p><a class="loc-textlink" href="/contact/">Open the contact page</a></div><EnquiryEmbed /></section>
+  <section class="loc-enquire" id="enquire" aria-labelledby="loc-enquire-title"><div class="loc-enquire__intro"><p class="loc-kicker">Your date / Your story</p><h2 id="loc-enquire-title">Check your {location.name} date.</h2><p>Tell us your date, venue and what you are planning in {location.name}.</p></div><EnquiryEmbed /></section>
 </div>

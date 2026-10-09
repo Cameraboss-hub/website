@@ -509,7 +509,7 @@ export const pages: Page[] = (pagesData as Page[]).map((p) => ({
   meta_description: seoFor(p.path, { title: p.title, description: p.meta_description?.trim() || META_FALLBACK[p.path] || "" }).description,
   title: seoFor(p.path, { title: tidyTitle(p.title) }).title,
   // Replace the legacy Studio Ninja iframe after cleaning imported markup.
-  // The published CRM form is available both inline and as a full-page link.
+  // The published CRM form is embedded directly in the imported page.
   html: swapStudioNinjaForCrm(
     enhanceImages(fixLinks(demoteExtraH1s(clean(p.html))), p.h1 || tidyTitle(p.title).split("|")[0].trim()),
     enquiryEmbedHtml(),
