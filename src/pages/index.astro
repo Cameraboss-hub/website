@@ -5,6 +5,7 @@ import PageLayout from "../layouts/PageLayout.astro";
 import selectedWork from "../data/portfolio.json";
 import publishedStories from "../data/portfolio-stories.json";
 import { coverSrc, coverSrcSet } from "../lib/portfolio-images";
+import EnquiryEmbed from "../components/EnquiryEmbed.astro";
 import "../styles/home-new.css";
 
 const lead = selectedWork.find((work) => work.slug === "joandjonny")!;
@@ -186,6 +187,11 @@ const portfolio = [
       <a href="/Liverpool-wedding-photographer/">Liverpool</a>
       <a href="/locations/">All locations</a>
     </div>
+  </section>
+
+  <section class="home-enquire" id="enquire" aria-labelledby="home-enquire-title">
+    <div class="home-enquire__intro"><p class="home-eyebrow">Your story starts here</p><h2 id="home-enquire-title">Tell us what you are planning.</h2><p>Share your date, location and the moments you want to remember. The CameraBoss team will take it from there.</p></div>
+    <EnquiryEmbed />
   </section>
 </PageLayout>
 

@@ -76,12 +76,12 @@ class MigrationTests(unittest.TestCase):
  FORM_PAGES=['/about/','/contact/','/pricing/','/pricing-NG/','/experience/',
   '/London-Wedding-Photography-Packages/','/Asian-wedding-photographer-Leicester/',
   '/Graduation-Photographer/','/Weddingchecklist/']
- def test_direct_crm_enquiry_link_replaces_every_studio_ninja_form(self):
+ def test_embedded_crm_enquiry_replaces_every_studio_ninja_form(self):
   for path in self.FORM_PAGES:
    with self.subTest(path=path):
     text=page(path);p=HTML(text)
     self.assertEqual(len([a for a in p.attrs('a') if a.get('href')=='https://cameraboss-crm.vercel.app/book/cameraboss/general-enquiry']),1)
-    self.assertFalse(any(a.get('src')=='https://cameraboss-crm.vercel.app/embed.js' for a in p.attrs('script')))
+    self.assertEqual(len([f for f in p.attrs('iframe') if f.get('src')=='https://cameraboss-crm.vercel.app/book/cameraboss/general-enquiry?embed=1']),1)
     self.assertNotIn('coming soon',text)
  def test_refreshed_service_pages_reach_contact(self):
   for path in ['/weddings/','/London-wedding-photographer/','/sheffield-wedding-photographer/',
@@ -110,7 +110,7 @@ Cardiff|Bangor|Newport|Swansea|Wrexham|Belfast|Bangor, County Down|Derry'''.repl
     self.assertTrue(any(a.get('href')=='#enquire' for a in p.attrs('a')))
     self.assertTrue(any(a.get('id')=='enquire' for a in p.attrs('section')))
     self.assertEqual(len([a for a in p.attrs('a') if a.get('href')=='https://cameraboss-crm.vercel.app/book/cameraboss/general-enquiry']),1)
-    self.assertFalse(p.attrs('iframe'))
+    self.assertEqual(len([f for f in p.attrs('iframe') if f.get('src')=='https://cameraboss-crm.vercel.app/book/cameraboss/general-enquiry?embed=1']),1)
   self.assertEqual(len(set(descriptions)),55)
  def test_no_studio_ninja_anywhere_in_the_build(self):
   for f in BUILD.rglob('*'):

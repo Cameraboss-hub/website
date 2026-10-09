@@ -158,3 +158,19 @@ const websiteLd = {
     <Analytics />
   </body>
 </html>
+
+<script>
+  // The CRM's embedded form reports its height as visitors move through steps.
+  // Check both the sender origin and frame window before resizing any iframe.
+  window.addEventListener("message", (event) => {
+    if (event.origin !== "https://cameraboss-crm.vercel.app") return;
+    if (event.data?.type !== "cameraboss:resize" || typeof event.data.height !== "number") return;
+    if (!Number.isFinite(event.data.height) || event.data.height < 200 || event.data.height > 5000) return;
+    for (const frame of document.querySelectorAll<HTMLIFrameElement>(".cameraboss-enquiry-frame")) {
+      if (frame.contentWindow === event.source) {
+        frame.style.height = `${Math.ceil(event.data.height)}px`;
+        break;
+      }
+    }
+  });
+</script>

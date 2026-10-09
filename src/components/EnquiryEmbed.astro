@@ -1,12 +1,11 @@
 ---
 /**
- * The Cameraboss CRM enquiry form opens as a full page. The CRM currently
- * refuses cross-origin framing, so an iframe here would be a dead end.
+ * The CRM serves the same published form here and on its full-page route.
  */
-import { ENQUIRY_PAGE_URL } from "../lib/crm";
+import { ENQUIRY_EMBED_URL, ENQUIRY_PAGE_URL } from "../lib/crm";
 ---
 
-<div class="cameraboss-enquiry-action">
-  <p>Tell us about your date and plans using the CameraBoss enquiry form.</p>
-  <a href={ENQUIRY_PAGE_URL}>Open the enquiry form</a>
+<div class="cameraboss-enquiry">
+  <iframe class="cameraboss-enquiry-frame" src={ENQUIRY_EMBED_URL} title="CameraBoss enquiry form" loading="lazy"></iframe>
+  <p>Prefer more space? <a href={ENQUIRY_PAGE_URL}>Open the form in a full page</a>.</p>
 </div>

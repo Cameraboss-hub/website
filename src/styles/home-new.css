@@ -38,6 +38,10 @@
 .home-locations > div { display: flex; flex-wrap: wrap; gap: 1rem 2.5rem; }
 .home-locations a { color: inherit; border-bottom: 1px solid transparent; font: 500 clamp(.95rem, 1.3vw, 1.2rem) "Manrope", sans-serif; text-decoration: none; }
 .home-locations a:hover { border-color: currentColor; }
+.home-enquire { padding: clamp(4.5rem, 8vw, 8rem) clamp(1.4rem, 5vw, 5rem); border-top: 1px solid #d9d9d9; background: #f8f7f5; }
+.home-enquire__intro { max-width: 860px; margin: 0 auto 2.5rem; text-align: center; }
+.editorial-site.dock-theme .home-enquire h2 { margin: .9rem 0 1rem; font: 400 clamp(2.8rem, 5vw, 5.2rem)/1.07 "Bodoni Moda", Georgia, serif !important; letter-spacing: -.045em; text-transform: none !important; }
+.home-enquire__intro > p:last-child { max-width: 52ch; margin: 0 auto; color: #53504d; font: 400 1rem/1.75 "Manrope", sans-serif; }
 .editorial-site.dock-theme[data-page="/"] a:focus-visible { outline: 2px solid #171717; outline-offset: 5px; }
 @media (hover: hover) and (pointer: fine) { .home-portfolio__tile img { transition: opacity 180ms ease; } .home-portfolio__tile:hover img { opacity: .87; } }
 @media (max-width: 900px) { .home-opening__statement { grid-template-columns: 1fr; gap: 1.8rem; } .home-opening__aside { display: flex; flex-wrap: wrap; align-items: end; gap: 1rem 2rem; } .home-opening__aside p { max-width: 38ch; margin: 0; flex: 1 1 100%; } .home-opening__aside span { margin: 0; } .home-opening__pictures { height: calc(100svh - 70px); min-height: 470px; } }

@@ -1,5 +1,5 @@
 /**
- * Swapping a legacy Studio Ninja iframe for a working CRM enquiry link.
+ * Swapping a legacy Studio Ninja iframe for the CameraBoss CRM form.
  *
  * Twelve migrated pages carry the booking form as raw markup in pages.json: a
  * `<iframe src="…/contactform/parser/…">` and, next to it, Studio Ninja's
@@ -30,8 +30,8 @@ export function hasStudioNinjaEmbed(html: string): boolean {
 /**
  * Replace the Studio Ninja block with the supplied enquiry action, in place.
  *
- * The action takes the iframe's position. Studio Ninja's resizer is removed.
- * A page carrying multiple old iframes gets just one working link.
+ * The replacement takes the iframe's position. Studio Ninja's resizer is removed.
+ * A page carrying multiple old iframes gets just one CRM form.
  */
 export function swapStudioNinjaForCrm(html: string, embedHtml: string): string {
   const source = html || "";

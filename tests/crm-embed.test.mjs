@@ -1,5 +1,5 @@
 /**
- * Unit tests for the Studio Ninja → direct CRM link swap in imported markup.
+ * Unit tests for the Studio Ninja → CRM form swap in imported markup.
  * A pure string transform, so it runs without a build.
  */
 import test from "node:test";
@@ -10,14 +10,14 @@ import { swapStudioNinjaForCrm, hasStudioNinjaEmbed } from "../src/lib/sn-embed.
 const PARSER =
   "https://app.studioninja.co/contactform/parser/0a800fc9-7a7c-1768-817a-a68817ea5956/0a800fc9-7ac4-1365-817b-0817cb5472ce";
 
-const EMBED = '<div class="cameraboss-enquiry-action"><a href="https://cameraboss-crm.vercel.app/book/cameraboss/general-enquiry">Open the enquiry form</a></div>';
+const EMBED = '<div class="cameraboss-enquiry"><iframe src="https://cameraboss-crm.vercel.app/book/cameraboss/general-enquiry?embed=1" title="CameraBoss enquiry form"></iframe><a href="https://cameraboss-crm.vercel.app/book/cameraboss/general-enquiry">Open the form in a full page</a></div>';
 
 /** The shape the twelve migrated pages actually ship. */
 const block =
   `<iframe height="616" style="min-width: 100%;" id="sn-form-lubat"\n        src="${PARSER}"\n        allowfullscreen>\n</iframe>\n` +
   `<script type="text/javascript" data-iframe-id="sn-form-lubat"\n        src="https://app.studioninja.co/client-assets/form-render/assets/scripts/iframeResizer.js"></script>`;
 
-test("puts the direct CRM link exactly where the Studio Ninja iframe stood", () => {
+test("puts the CRM form exactly where the Studio Ninja iframe stood", () => {
   const html = `<div class="block"><h2>Enquire</h2>${block}<p>After the form.</p></div>`;
   const out = swapStudioNinjaForCrm(html, EMBED);
 
@@ -66,10 +66,10 @@ test("leaves unrelated scripts alone while removing the resizer", () => {
   assert.ok(!out.includes("iframeResizer"));
 });
 
-test("places one form link even when a page carries two Studio Ninja iframes", () => {
+test("places one CRM form even when a page carries two Studio Ninja iframes", () => {
   const html = `<a></a><iframe src="${PARSER}"></iframe><b></b><iframe src="${PARSER}"></iframe><c></c>`;
   const out = swapStudioNinjaForCrm(html, EMBED);
-  assert.equal(out.split(EMBED).length - 1, 1, "exactly one CRM form link");
+  assert.equal(out.split(EMBED).length - 1, 1, "exactly one CRM form");
   assert.equal(hasStudioNinjaEmbed(out), false);
   assert.equal(out, `<a></a>${EMBED}<b></b><c></c>`);
 });

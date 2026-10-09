@@ -2,7 +2,7 @@
 export const prerender = true;
 
 import PageLayout from "../layouts/PageLayout.astro";
-import { ENQUIRY_PAGE_URL } from "../lib/crm";
+import EnquiryEmbed from "../components/EnquiryEmbed.astro";
 import "../styles/pricing-new.css";
 
 const offers = [
@@ -44,7 +44,7 @@ const offers = [
         <p class="price-kicker">CameraBoss / Pricing</p>
         <h1>Photography,<br /><em>your way.</em></h1>
         <p class="price-hero__lead">Wedding, engagement and portrait photography with space for the people and moments that matter to you. Start with a clear price, then make the coverage your own.</p>
-        <div class="price-hero__actions"><a class="price-button" href={ENQUIRY_PAGE_URL}>Check your date</a><a class="price-text-link" href="#collections">Explore starting prices</a></div>
+        <div class="price-hero__actions"><a class="price-button" href="#enquire">Check your date</a><a class="price-text-link" href="#collections">Explore starting prices</a></div>
       </div>
       <figure class="price-hero__image"><img src="/images/selected-work/joanna-jonathon.webp" alt="Joanna and Jonathon together in traditional wedding attire" width="1280" height="1600" fetchpriority="high" decoding="async" /><figcaption>Joanna &amp; Jonathon / A real CameraBoss wedding</figcaption></figure>
     </header>
@@ -57,6 +57,6 @@ const offers = [
 
     <aside class="price-quote"><p class="price-kicker">Kind words / Tosin &amp; T</p><blockquote>“Clean pictures and every moment was captured.”</blockquote><p>Traditional wedding in Nigeria / White wedding in Germany</p></aside>
 
-    <section class="price-last" aria-labelledby="price-last-title"><p class="price-kicker">Your date / Your story</p><h2 id="price-last-title">Let’s make something<br /><em>you will keep.</em></h2><p>Tell us what you are planning. We will reply with availability and a quote shaped around your day.</p><div><a class="price-button price-button--light" href="/contact/">Check your date availability</a><a class="price-text-link" href="/client-area/">Explore the galleries</a></div></section>
+    <section class="price-last" id="enquire" aria-labelledby="price-last-title"><p class="price-kicker">Your date / Your story</p><h2 id="price-last-title">Let’s make something<br /><em>you will keep.</em></h2><p>Tell us what you are planning. We will reply with availability and a quote shaped around your day.</p><EnquiryEmbed /><a class="price-text-link" href="/client-area/">Explore the galleries</a></section>
   </div>
 </PageLayout>

@@ -49,6 +49,8 @@
 .price-last{padding:clamp(5rem,8vw,9rem) clamp(1.4rem,5vw,6rem);background:#171717;color:#fff}
 .editorial-site.dock-theme .price-last h2{margin:1.3rem 0 1.5rem;max-width:15ch;font-size:clamp(3.2rem,6vw,7rem);line-height:1.06;color:#fff}
 .price-last>p:not(.price-kicker){max-width:53ch;margin:0;color:#e2e2e2;font:400 1rem/1.75 "Manrope",sans-serif}
+.price-last .cameraboss-enquiry{margin:2.8rem 0 1.5rem;padding:clamp(1rem,2vw,2rem);background:#fff;color:#191919}
+.price-last>.price-text-link{margin-top:.5rem}
 .price-button--light{background:#fff;border-color:#fff;color:#171717!important}
 .price-button--light:hover{background:transparent;color:#fff!important}
 .price-last .price-text-link{color:#fff}
