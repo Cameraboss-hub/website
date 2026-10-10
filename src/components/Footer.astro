@@ -32,7 +32,11 @@ const socials = [
 const year = new Date().getFullYear();
 ---
 <footer class="editorial-footer">
- <div class="section-shell footer-invitation"><div><p class="eyebrow">Something worth remembering</p><h2>Your day.<br /><em>Seen with heart.</em></h2></div><a href="/contact/" class="footer-enquire">Let’s make it yours <span aria-hidden="true">↗</span></a></div>
- <div class="section-shell footer-content"><div class="footer-identity"><a href="/" aria-label="CameraBoss home"><img src="/images/brand/cameraboss-logo.png" alt="CameraBoss" width="180" height="29" /></a><p>Wedding photography &amp; cinematic films.<br />Across the UK, Nigeria and beyond.</p><a href="https://www.instagram.com/thecameraboss" target="_blank" rel="noopener noreferrer">Follow the story / @thecameraboss ↗</a></div><nav aria-label="Footer"><ul>{nav.map(item=><li><a href={item.href}>{item.label}</a></li>)}</ul></nav></div>
- <div class="section-shell footer-bottom"><p>© {year} Cameraboss</p><ul>{socials.map(s=><li><a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}><img src={s.icon} alt="" width="18" height="18" /></a></li>)}</ul><a href="#top" aria-label="Back to top">Back to top ↑</a></div>
+ <div class="section-shell footer-invitation"><div><p class="eyebrow">CameraBoss / Photography &amp; film</p><h2>Let's talk about your day.</h2></div><a href="/contact/" class="footer-enquire">Enquire</a></div>
+ <div class="section-shell footer-content"><div class="footer-identity"><a href="/" aria-label="CameraBoss home"><img src="/images/brand/cameraboss-logo.png" alt="CameraBoss" width="180" height="29" /></a><p>Wedding photography &amp; cinematic films.<br />Across the UK, Nigeria and beyond.</p><a href="https://www.instagram.com/thecameraboss" target="_blank" rel="noopener noreferrer">Instagram / @thecameraboss</a></div><nav aria-label="Footer"><ul>{nav.map(item=><li><a href={item.href}>{item.label}</a></li>)}</ul></nav></div>
+ <div class="section-shell footer-bottom"><p>© {year} Cameraboss</p><ul>{socials.map(s=><li><a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}><img src={s.icon} alt="" width="18" height="18" /></a></li>)}</ul><button type="button" data-cookie-settings class="footer-cookie-settings">Cookie settings</button><a href="#top">Back to top</a></div>
 </footer>
+<style>
+  .footer-cookie-settings { min-height: 44px; border: 0; padding: 0; background: none; color: inherit; font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+  .footer-cookie-settings:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+</style>

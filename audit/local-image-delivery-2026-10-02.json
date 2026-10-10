@@ -1,0 +1,1351 @@
+{
+  "checked_at": "2026-10-02T16:48:28.532786+00:00",
+  "preview": "https://website-git-codex-site-prep-20260929-cameraboss.vercel.app",
+  "deployment_commit": "0a7dc26",
+  "images": [
+    {
+      "path": "/images/blog/live-20260929/10-stunning-outdoor-wedding-photography-locations-in-oxford.png",
+      "status": "200",
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "path": "/images/blog/live-20260929/best-uk-wedding-photography-locations.png",
+      "status": "200",
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "path": "/images/blog/live-20260929/best-wedding-venues-event-halls-bristol.png",
+      "status": "200",
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "path": "/images/blog/live-20260929/birmingham-wedding-venues-a-photographers-view.jpg",
+      "status": "200",
+      "content_type": "image/jpeg",
+      "ok": true
+    },
+    {
+      "path": "/images/blog/live-20260929/nigerian-wedding-photographer-birmingham.png",
+      "status": "200",
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "path": "/images/blog/live-20260929/nigerian-wedding-photographer-sheffield.png",
+      "status": "200",
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "path": "/images/blog/live-20260929/planning-african-nigerian-wedding-photography-uk.png",
+      "status": "200",
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "path": "/images/blog/live-20260929/top-event-halls-in-leicester-for-weddings-and-receptions.jpg",
+      "status": "200",
+      "content_type": "image/jpeg",
+      "ok": true
+    },
+    {
+      "path": "/images/brand/cameraboss-logo.png",
+      "status": "200",
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/joandjonny.jpg",
+      "status": "200",
+      "content_type": "image/jpeg",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/joanna-jonathon.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/akinpelu-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/akinpelu-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/akinpelu-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/bambna-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/bambna-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/bambna-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/bridalshoot-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/bridalshoot-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/bridalshoot-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/carmenandben-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/carmenandben-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/carmenandben-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/cynthiaandoswaldo-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/cynthiaandoswaldo-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/cynthiaandoswaldo-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/dana-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/dana-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/dana-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/faithandjack-1-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/faithandjack-1-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/faithandjack-1-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/felixandlina-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/felixandlina-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/felixandlina-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/finemodelbluesuit-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/finemodelbluesuit-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/finemodelbluesuit-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/iyanuwedding-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/iyanuwedding-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/iyanuwedding-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/joandjonny-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/joandjonny-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/joandjonny-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/jumokeandstephen-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/jumokeandstephen-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/jumokeandstephen-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/mayoandemmanuel-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/mayoandemmanuel-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/mayoandemmanuel-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/opeyemiweddingportrait-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/opeyemiweddingportrait-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/opeyemiweddingportrait-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/princessweddingportraits-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/princessweddingportraits-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/princessweddingportraits-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/reddressmodel-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/reddressmodel-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/reddressmodel-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/temiandfiyin-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/temiandfiyin-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/temiandfiyin-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/vanessawedding-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/vanessawedding-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/selected-work/web/vanessawedding-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/social/facebook.svg",
+      "status": "200",
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "path": "/images/social/instagram-1.svg",
+      "status": "200",
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "path": "/images/social/instagram-2.svg",
+      "status": "200",
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "path": "/images/social/pinterest.svg",
+      "status": "200",
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "path": "/images/social/tiktok.svg",
+      "status": "200",
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "path": "/images/social/youtube.svg",
+      "status": "200",
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/01-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/01-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/01-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/02-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/02-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/02-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/03-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/03-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/03-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/04-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/04-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/04-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/05-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/05-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/05-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/06-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/06-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/06-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/07-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/07-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/07-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/08-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/08-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/08-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/09-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/09-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/09-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/10-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/10-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/cynthiaandoswaldo/10-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/01-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/01-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/01-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/02-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/02-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/02-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/03-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/03-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/03-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/04-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/04-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/04-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/05-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/05-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/05-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/06-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/06-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/06-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/07-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/07-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/07-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/08-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/08-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/08-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/09-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/09-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/09-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/10-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/10-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/10-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/11-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/11-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/joandjonny/11-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/01-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/01-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/01-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/02-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/02-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/02-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/03-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/03-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/03-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/04-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/04-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/04-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/05-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/05-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/05-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/06-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/06-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/06-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/07-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/07-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/07-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/08-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/08-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/08-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/09-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/09-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/opeyemiweddingportrait/09-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/01-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/01-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/01-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/02-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/02-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/02-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/03-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/03-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/03-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/04-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/04-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/04-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/05-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/05-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/05-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/06-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/06-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/06-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/07-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/07-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/07-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/08-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/08-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/08-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/09-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/09-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/09-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/10-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/10-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/10-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/11-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/11-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/11-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/12-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/12-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/temiandfiyin/12-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/01-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/01-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/01-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/02-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/02-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/02-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/03-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/03-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/03-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/04-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/04-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/04-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/05-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/05-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/05-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/06-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/06-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/06-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/07-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/07-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/07-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/08-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/08-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/08-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/09-1600.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/09-480.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "path": "/images/stories/vanessawedding/09-960.webp",
+      "status": "200",
+      "content_type": "image/webp",
+      "ok": true
+    }
+  ]
+}

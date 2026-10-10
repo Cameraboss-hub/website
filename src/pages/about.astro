@@ -3,152 +3,169 @@ export const prerender = true;
 
 import PageLayout from "../layouts/PageLayout.astro";
 import EnquiryEmbed from "../components/EnquiryEmbed.astro";
-import AnnouncementBar from "../components/AnnouncementBar.astro";
+import "../styles/about-new.css";
 
 const B = "https://htwwyqfattodfaybqgev.supabase.co/storage/v1/object/public/blog/";
+const site = "https://www.cameraboss.co.uk";
 
+// Each portrait is paired with the name immediately following it in the saved Pixieset About page.
 const team = [
-  { name: "Taiwo T.",      role: "Business Manager Photographer",   img: B + "a01545a3_CBP03614-a86ba7dd-1500.webp" },
-  { name: "Godfather Ope", role: "Lead Videographer",               img: B + "b845783a_CBP02666-40217914-1500.webp" },
-  { name: "Shugar D",      role: "Make-up Artist / Comm Manager",   img: B + "4241bc8e_CBP03659-39f17dbf-1500.webp" },
-  { name: "John D",        role: "Lead Creative Photographer",      img: B + "db80852d_4C8A1664-7f1cf850-1500.webp" },
+  { name: "Taiwo T.", role: "Business manager & photographer", image: B + "a01545a3_CBP03614-a86ba7dd-1500.webp", small: B + "5a5e0990_CBP03614-ff260019-500.webp", medium: B + "86434676_CBP03614-9e361944-1000.webp", position: "35% 39%" },
+  { name: "Godfather Ope", role: "Lead videographer", image: B + "09a9ed94_IMG_4022-d1480a23-1500.webp", small: B + "48b74ba8_IMG_4022-8605ade7-500.webp", medium: B + "9fe7853d_IMG_4022-e715b4ba-1000.webp", position: "52% 23%" },
+  { name: "Shugar D", role: "Make-up artist & communications manager", image: B + "b845783a_CBP02666-40217914-1500.webp", small: B + "3571b75a_CBP02666-176cded0-500.webp", medium: B + "14e325c1_CBP02666-767cc78d-1000.webp", position: "36% 27%" },
+  { name: "John D", role: "Lead creative photographer", image: B + "4241bc8e_CBP03659-39f17dbf-1500.webp", small: B + "f4beaafc_CBP03659-6ebcda7b-500.webp", medium: B + "a38436a6_CBP03659-0facc326-1000.webp", position: "50% 50%" },
 ];
 
-const meetImg = B + "507e921d_CBP05221-94d4cea5-1500.webp";
-
-const press = [
-  { title: "Rave TV NEWS",         body: "Rave Tv interviewed John Durojaye at his exhibition in Lagos titled AWORAN",                       img: B + "df98694e_CBP04773-15c68077-1500.webp" },
-  { title: "Silver Bird TV",       body: "John Lekan on Silverbird talking on the revolution of Photography and camera.",                    img: B + "4f604864_PHOTO-2025-03-17-06-03-32-cb343ef6-1500.webp" },
-  { title: "Channels Tv",          body: "Channels TV interviewing John Durojaye: Cameraboss during his exhibition AWORAN in Lagos",         img: B + "f9ecb6ce_PHOTO-2025-03-14-19-31-13-a5d7e665-1500.webp" },
-  { title: "The Nation Newspaper", body: "Life coverage of Aworan Exhibition",                                                               img: B + "6b60931d_CBP05218-ea882594-1500.webp" },
-  { title: "Vanguard News Paper",  body: "A column on the National Newspaper",                                                               img: B + "4f7c9d36_Screenshot2025-04-08at11.51.47-e0b40b2e-1500.webp" },
-  { title: "This Day Newspaper",   body: "Live Art exhibition in Lagos Nigeria covered by This Day Newspaper",                               img: B + "e43f7b82_Screenshot2025-04-02at14.45.40-d24ba161-1500.webp" },
-  { title: "TVC Live",             body: "TVC live interview with the Cameraboss: John Durojaye",                                            img: B + "2d67adb1_Screenshot2026-07-16at17.30.00-c23cf38c-1500.webp" },
-  { title: "Aworan Exhibition",    body: "Aworan Exhibition in Lagos — twenty art pieces marking twelve years as a professional photographer.", img: B + "68af2c68_Screenshot2026-07-16at17.31.34-af6d875b-1500.webp" },
+const stories = [
+  { name: "Jo and Jonny", detail: "A celebration of two cultures", href: "/stories/joandjonny/", image: "/images/stories/joandjonny/02-960.webp", small: "/images/stories/joandjonny/02-480.webp", alt: "Jo and Jonny together beneath a warmly lit staircase at their wedding" },
+  { name: "Temi and Fiyin", detail: "Portraits and tradition", href: "/stories/temiandfiyin/", image: "/images/stories/temiandfiyin/02-960.webp", small: "/images/stories/temiandfiyin/02-480.webp", alt: "Temi smiling in a blue gele and beaded outfit" },
+  { name: "Cynthia and Oswaldo", detail: "The quieter moments", href: "/stories/cynthiaandoswaldo/", image: "/images/stories/cynthiaandoswaldo/06-960.webp", small: "/images/stories/cynthiaandoswaldo/06-480.webp", alt: "Cynthia in her wedding dress, holding flowers in the church" },
 ];
 
-const award = {
-  title: "Cameraboss Named Creative Visionary of the Year in London",
-  body: "British-Nigerian photographer and creative director John Olalekan Durojaye, aka Cameraboss, has been named Creative Visionary of the Year 2025/2026 by the Global Reputation Forum at a prestigious ceremony in London.",
-  img: B + "6d99e977_CBP07157-6f925fcc.webp",
-};
-
-const jsonLd = {
+const aboutLd = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
+  "@id": `${site}/about/#page`,
+  name: "About CameraBoss",
   mainEntity: {
     "@type": "Organization",
+    "@id": `${site}/#business`,
     name: "CameraBoss",
-    url: "https://www.cameraboss.co.uk",
-    founder: { "@type": "Person", name: "John Olalekan Durojaye", alternateName: "Cameraboss", jobTitle: "Photographer & Creative Director" },
-    employee: team.map((t) => ({ "@type": "Person", name: t.name, jobTitle: t.role })),
+    founder: { "@type": "Person", name: "John Olalekan Durojaye", alternateName: "John Lekan", jobTitle: "Photographer and creative director" },
+    employee: team.map(({ name, role, image }) => ({ "@type": "Person", name, jobTitle: role, image })),
   },
 };
 ---
 
 <PageLayout
-  title="About Camera Boss | London Wedding Photographer & Creative Team"
-  description="Meet the CameraBoss team — a photography and videography collective led by award-winning photographer John Olalekan Durojaye, covering weddings across the UK and Nigeria."
+  title="About CameraBoss | Meet John Lekan & the Creative Team"
+  description="Meet John Lekan and the CameraBoss photography and film team. Discover how we photograph Nigerian, Ghanaian and multicultural weddings in London, Leicester and across the UK."
   current="/about"
-  ogImage={team[3].img}
+  ogImage="/images/about/john-lekan-shooting.webp"
 >
-  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(aboutLd)} />
 
-  <AnnouncementBar />
+  <section class="about-hero" aria-labelledby="about-title">
+    <div class="about-hero__copy">
+      <p class="about-kicker">CameraBoss / About us</p>
+      <h1 id="about-title">The people behind <em>the photographs.</em></h1>
+      <p class="about-hero__lead">We make wedding photographs and films that feel like the people in them.</p>
+      <p>Led by photographer John Lekan, CameraBoss brings a close-knit creative team to celebrations across London, Leicester, the wider UK and Nigeria. We pay attention to the grand gestures, the in-between moments and the traditions that make a day yours.</p>
+      <div class="about-hero__links"><a href="#meet-the-team">Meet the team</a><a href="/client-area/">See the work</a></div>
+    </div>
+    <figure class="about-hero__image">
+      <img src="/images/about/john-lekan-shooting.webp" width="600" height="777" alt="John Lekan preparing to photograph a bride on her wedding day" fetchpriority="high" decoding="async" />
+      <figcaption>John on a wedding day / CameraBoss</figcaption>
+    </figure>
+  </section>
 
-  <!-- Hero: heading left, arch portraits right -->
-  <section class="mx-auto max-w-[1368px] px-6 pt-16 pb-20 md:pt-24">
-    <div class="grid gap-14 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.6fr)] lg:gap-16">
-      <div>
-        <h1 class="font-[family-name:var(--font-display)] text-4xl leading-[1.08] font-normal md:text-5xl">
-          Professional Photography and Videography Team
-        </h1>
-        <p class="mt-10 max-w-md text-[15px] leading-[1.75] text-black/65">
-          A dedicated co-working team leading every aspect of your production and creative journey.
-          From concept to execution, our team brings together experts across production, direction,
-          design, and strategy—ensuring a seamless and collaborative experience on every project.
-          Each member plays a crucial role on set, delivering excellence with creativity, precision,
-          and purpose.
-        </p>
+  <section class="about-intro about-shell" aria-labelledby="about-intro-title">
+    <p class="about-kicker">The photographer</p>
+    <div class="about-intro__grid">
+      <h2 id="about-intro-title">Hi, I’m John Lekan.</h2>
+      <div class="about-prose">
+        <p>Photography found me after years studying communication and information technology. It gave me a way to tell the stories I had always been drawn to: people, family, beauty and the moments when a room comes alive.</p>
+        <p>I met my wife while doing what I love, so I know that a wedding is more than a sequence of photographs. It is a gathering of histories, people and promises. That understanding shapes how I work with every couple.</p>
+        <p>Our team photographs Nigerian, Ghanaian and other multicultural weddings, alongside portraits and celebrations of every kind. We guide you when the light or the moment calls for it, then make space for you to be fully present.</p>
+        <a class="about-text-link" href="/experience/">How we work together</a>
       </div>
+    </div>
+  </section>
 
-      <ul class="grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-4">
-        {team.map((m) => (
-          <li class="text-center">
-            <div class="cb-arch">
-              <img src={m.img} alt={m.name} loading="lazy" />
-            </div>
-            <p class="mt-5 text-[15px] tracking-[0.05em] text-black/70">{m.name}</p>
-            <p class="mt-1.5 text-[10px] leading-relaxed tracking-[0.16em] text-black/45 uppercase">{m.role}</p>
-          </li>
+  <section class="about-team" id="meet-the-team" aria-labelledby="about-team-title">
+    <div class="about-shell">
+      <div class="about-section-heading">
+        <div><p class="about-kicker">CameraBoss / The team</p><h2 id="about-team-title">Good work is made together.</h2></div>
+        <p>Photography, film, production and the people who make a day feel easy. Meet the team behind the work.</p>
+      </div>
+      <ul class="about-team__grid">
+        {team.map((person) => (
+          <li><figure>
+            <div class="about-team__portrait"><img src={person.medium} srcset={`${person.small} 500w, ${person.medium} 1000w, ${person.image} 1500w`} sizes="(max-width: 640px) 44vw, (max-width: 1024px) 22vw, 280px" alt={`Portrait of ${person.name}, ${person.role} at CameraBoss`} width="800" height="1000" loading="lazy" decoding="async" style={`object-position: ${person.position}`} /></div>
+            <figcaption><strong>{person.name}</strong><span>{person.role}</span></figcaption>
+          </figure></li>
         ))}
       </ul>
     </div>
   </section>
 
-  <!-- Nice to meet You -->
-  <section class="bg-[#f1f1f0]">
-    <div class="mx-auto grid max-w-[1368px] gap-0 px-6 py-16 md:grid-cols-2 md:py-0">
-      <div class="md:py-16">
-        <img src={meetImg} alt="The CameraBoss team" loading="lazy" class="h-full max-h-[640px] w-full object-cover" />
-      </div>
-      <div class="flex flex-col items-center justify-center px-4 py-14 text-center md:px-14">
-        <h2 class="font-[family-name:var(--font-display)] text-3xl font-light md:text-4xl">Nice to meet You</h2>
-        <p class="mt-4 text-[11px] tracking-[0.28em] text-black/60 uppercase">We are Creatives</p>
-        <div class="mt-10 max-w-md space-y-5 text-[15px] leading-[1.75] text-black/60">
-          <p>
-            At Cameraboss, we don't just take photos — we tell stories, capture emotions, and create
-            timeless moments. Behind every shot is a passionate team of creatives who live and breathe
-            visual storytelling.
-          </p>
-          <p>
-            Led by award-winning photographer John Olalekan Durojaye (Cameraboss), our team is a blend
-            of photographers, videographers, editors, and creative directors who bring experience,
-            artistry, and vision to every project. From weddings and portraits to fashion campaigns and
-            brand storytelling, we bring a personal touch to every frame.
-          </p>
-        </div>
-        <a href="/contact" class="mt-10 rounded-full border border-black/35 px-10 py-3.5 text-[11px] tracking-[0.22em] uppercase transition-colors hover:bg-[var(--color-ink)] hover:text-white">
-          Let's Connect
-        </a>
-      </div>
+  <section class="about-video about-shell" aria-labelledby="about-video-title">
+    <div class="about-video__intro">
+      <p class="about-kicker">Behind the scenes / In motion</p>
+      <h2 id="about-video-title">A little closer to the day.</h2>
+      <p>Watch John and the team make portraits with a client. The conversation, movement and care behind the camera matter as much as the frame you take home.</p>
     </div>
-  </section>
-
-  <!-- Press -->
-  <section class="mx-auto max-w-[1368px] px-6 py-24">
-    <div class="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
-      {press.map((p) => (
-        <article class="text-center">
-          <div class="aspect-[3/4] overflow-hidden bg-black/5">
-            <img src={p.img} alt={p.title} loading="lazy"
-              class="h-full w-full object-cover transition-transform duration-700 hover:scale-105" />
-          </div>
-          <h3 class="mt-6 font-[family-name:var(--font-display)] text-2xl font-light">{p.title}</h3>
-          <p class="mt-3 text-sm leading-relaxed text-black/55">{p.body}</p>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <!-- Award -->
-  <section class="border-t border-black/8 bg-white/60">
-    <div class="mx-auto grid max-w-[1368px] items-center gap-12 px-6 py-24 md:grid-cols-2">
-      <div class="aspect-[4/5] overflow-hidden bg-black/5">
-        <img src={award.img} alt={award.title} loading="lazy" class="h-full w-full object-cover" />
-      </div>
+    <div class="about-video__layout">
       <div>
-        <p class="text-[11px] tracking-[0.35em] text-[var(--color-accent)] uppercase">Recognition</p>
-        <h2 class="mt-5 font-[family-name:var(--font-display)] text-3xl leading-snug font-light md:text-4xl">
-          {award.title}
-        </h2>
-        <p class="mt-6 text-[15px] leading-[1.8] text-black/60">{award.body}</p>
-        <a href="/blog/cameraboss-crowned-creative-visionary-of-the-year/"
-           class="mt-9 inline-block border-b border-[var(--color-ink)] pb-1 text-[11px] tracking-[0.25em] uppercase transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]">
-          Read More
-        </a>
+        <div class="about-video__frame" id="about-video-frame">
+          <button class="about-video__poster" data-about-video type="button" aria-label="Play CameraBoss behind-the-scenes video from Instagram">
+            <img src="/images/about/cameraboss-bts-reel-cover.jpg" width="640" height="1136" alt="John photographing a client outdoors while another CameraBoss team member works beside him" loading="lazy" decoding="async" />
+            <span class="about-video__play" aria-hidden="true">Play film</span>
+          </button>
+        </div>
+        <p class="about-video__credit">From <a href="https://www.instagram.com/reel/DbnVNZmjLvB/" target="_blank" rel="noopener noreferrer">@thecameraboss on Instagram</a>. The player loads only when you press play.</p>
+      </div>
+      <div class="about-video__beside">
+        <p class="about-video__eyebrow">The feeling behind the frame</p>
+        <p class="about-video__statement">A little direction. Room to be yourselves. Photographs that bring you back.</p>
+        <img src="/images/stories/joandjonny/06-960.webp" srcset="/images/stories/joandjonny/06-480.webp 480w, /images/stories/joandjonny/06-960.webp 960w" sizes="(max-width: 760px) 90vw, 43vw" width="960" height="640" alt="Jo and Jonny with their wedding party around the cake" loading="lazy" decoding="async" />
+        <a class="about-text-link" href="/stories/joandjonny/">See Jo and Jonny’s story</a>
       </div>
     </div>
   </section>
-<section class="bg-white py-16"><h2 class="mb-8 text-center font-display text-3xl">Let’s work together</h2><EnquiryEmbed /></section>
+
+  <section class="about-work" aria-labelledby="about-work-title">
+    <div class="about-shell">
+      <div class="about-section-heading">
+        <div><p class="about-kicker">What we make together</p><h2 id="about-work-title">The day, as it felt.</h2></div>
+        <p>From quiet portraits to the colour and energy of a full celebration, every story deserves its own pace.</p>
+      </div>
+      <div class="about-work__grid">
+        {stories.map((story) => (
+          <a href={story.href} class="about-work__story">
+            <img src={story.image} srcset={`${story.small} 480w, ${story.image} 960w`} sizes="(max-width: 680px) 90vw, 30vw" width="720" height="900" alt={story.alt} loading="lazy" decoding="async" />
+            <span><strong>{story.name}</strong><small>{story.detail}</small></span>
+          </a>
+        ))}
+      </div>
+      <a class="about-text-link" href="/client-area/">Explore more photographs</a>
+    </div>
+  </section>
+
+  <section class="about-exhibition about-shell" aria-labelledby="about-exhibition-title">
+    <div class="about-exhibition__copy">
+      <p class="about-kicker">Beyond the wedding day</p>
+      <h2 id="about-exhibition-title">The stories keep growing.</h2>
+      <p>Aworan, John’s exhibition in Lagos, brought his portrait and documentary practice into a gallery. The original CameraBoss site also records conversations about the work with Rave TV, Silverbird TV, Channels TV and TVC, alongside coverage in The Nation, Vanguard and ThisDay.</p>
+      <a class="about-text-link" href="/Aworan/">Discover Aworan</a>
+    </div>
+    <div class="about-exhibition__images">
+      <img src={B + "6f853e32_CBP05221-a289703c-1000.webp"} width="1000" height="750" alt="An interview about Aworan inside the Lagos exhibition gallery" loading="lazy" decoding="async" />
+      <img src={B + "1ad27881_CBP04773-239b3eee-1000.webp"} width="1000" height="750" alt="A visitor examining photographs at the Aworan exhibition" loading="lazy" decoding="async" />
+    </div>
+  </section>
+
+  <section class="about-recognition about-shell" aria-labelledby="about-recognition-title">
+    <img src={B + "33e4840c_CBA09822-51a0e486-1000.webp"} width="1000" height="667" alt="John Lekan holding his Creative Visionary of the Year award with fellow attendees in London" loading="lazy" decoding="async" />
+    <div><p class="about-kicker">Recognition / 2025–2026</p><h2 id="about-recognition-title">Creative Visionary of the Year.</h2><p>John Olalekan Durojaye was named Creative Visionary of the Year by the Global Reputation Forum in London. The recognition belongs alongside the everyday work we value most: the trust of the people who invite us to photograph their lives.</p><a class="about-text-link" href="/blog/cameraboss-crowned-creative-visionary-of-the-year/">Read the story</a></div>
+  </section>
+
+  <section class="about-enquire" id="enquire" aria-labelledby="about-enquire-title">
+    <div class="about-shell"><p class="about-kicker">Make something memorable</p><h2 id="about-enquire-title">Tell us about your day.</h2><p>Share your date, place and the people you are bringing together. We would love to hear what matters to you.</p><EnquiryEmbed /></div>
+  </section>
+
+  <script is:inline>
+    document.querySelector("[data-about-video]")?.addEventListener("click", (event) => {
+      const button = event.currentTarget;
+      const host = document.getElementById("about-video-frame");
+      if (!(button instanceof HTMLButtonElement) || !host || host.querySelector("iframe")) return;
+      const frame = document.createElement("iframe");
+      frame.src = "https://www.instagram.com/reel/DbnVNZmjLvB/embed/";
+      frame.title = "CameraBoss behind the scenes: John and the team photographing a client";
+      frame.allow = "autoplay; encrypted-media; picture-in-picture";
+      frame.allowFullscreen = true;
+      host.append(frame);
+      button.hidden = true;
+    });
+  </script>
 </PageLayout>

@@ -1,0 +1,63 @@
+<a class="availability-float" href="/contact/">Check your date availability</a>
+
+<script>
+  // Keep the mobile homepage photograph unobstructed. The header still has
+  // an enquiry link, and this floating shortcut appears after the hero.
+  const hero = document.querySelector<HTMLElement>(".home-opening__pictures");
+  if (hero) {
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(([entry]) => {
+        document.body.toggleAttribute("data-hero-passed", !entry.isIntersecting && entry.boundingClientRect.bottom <= 0);
+      });
+      observer.observe(hero);
+    } else {
+      document.body.toggleAttribute("data-hero-passed", true);
+    }
+  }
+
+  // The shortcut is redundant on the contact page and can cover fields on
+  // narrow screens while visitors complete an embedded enquiry elsewhere.
+  const enquiry = document.querySelector<HTMLElement>(".cameraboss-enquiry");
+  if (enquiry && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(([entry]) => {
+      document.body.toggleAttribute("data-enquiry-visible", entry.isIntersecting);
+    });
+    observer.observe(enquiry);
+  }
+</script>
+
+<style>
+  .availability-float {
+    position: fixed;
+    right: clamp(1rem, 3vw, 3rem);
+    bottom: calc(1rem + env(safe-area-inset-bottom));
+    z-index: 49;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    padding: .85rem 1.3rem;
+    background: #191919;
+    border: 1px solid #f7f5f1;
+    color: #fff;
+    box-shadow: 0 8px 28px #0004;
+    font: 600 .78rem/1.3 "Manrope", sans-serif;
+    letter-spacing: .025em;
+    text-align: center;
+    text-decoration: none;
+  }
+  .availability-float:hover { background: #f7f5f1; border-color: #191919; color: #191919; }
+  .availability-float:focus-visible { outline: 3px solid #a44b42; outline-offset: 3px; }
+  :global(html:has(.cb-mnav.is-open)) .availability-float { opacity: 0; pointer-events: none; }
+  :global(body[data-page="/contact/"] .availability-float),
+  :global(body[data-enquiry-visible] .availability-float) { display: none; }
+  @media (max-width: 700px) {
+    .availability-float { right: 1rem; left: 1rem; min-height: 52px; }
+    :global(body[data-page="/client-area/"] .availability-float) { display: none; }
+    :global(body[data-page="/"]:not([data-hero-passed]) .availability-float) {
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+</style>

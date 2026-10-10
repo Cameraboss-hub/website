@@ -1,0 +1,59 @@
+---
+const analyticsEnabled = Boolean(import.meta.env.PUBLIC_GA_ID || import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN);
+---
+<section class="cookie-choice" data-cookie-choice data-analytics-enabled={analyticsEnabled ? "true" : "false"} hidden aria-label="Cookie choices">
+  <div class="cookie-choice__copy">
+    <strong>Your privacy matters</strong>
+    <p>We use essential storage to remember your choice. {analyticsEnabled ? "With your permission, we also use analytics to understand how the site is used." : "Optional analytics are currently switched off."} You can change your choice at any time.</p>
+  </div>
+  <div class="cookie-choice__actions">
+    {analyticsEnabled ? (
+      <>
+        <button type="button" data-cookie-reject>Essential only</button>
+        <button type="button" data-cookie-accept>Accept analytics</button>
+      </>
+    ) : <button type="button" data-cookie-reject>Got it</button>}
+  </div>
+</section>
+
+<script>
+  const choice = document.querySelector<HTMLElement>("[data-cookie-choice]");
+  const settings = document.querySelector<HTMLButtonElement>("[data-cookie-settings]");
+  const analyticsEnabled = choice?.dataset.analyticsEnabled === "true";
+  const key = analyticsEnabled ? "cameraboss-analytics-consent-v1" : "cameraboss-cookie-notice-v1";
+  const saved = () => {
+    try { return localStorage.getItem(key); } catch { return null; }
+  };
+  if (choice && settings) {
+    let openedFromSettings = false;
+    choice.hidden = saved() === "accepted" || saved() === "rejected";
+    settings.addEventListener("click", () => {
+      openedFromSettings = true;
+      choice.hidden = false;
+      choice.scrollIntoView({ behavior: "smooth", block: "start" });
+      choice.querySelector<HTMLButtonElement>("button")?.focus();
+    });
+    const save = (value: "accepted" | "rejected") => {
+      try { localStorage.setItem(key, value); } catch { /* The choice still applies for this page. */ }
+      choice.hidden = true;
+      document.dispatchEvent(new CustomEvent("cameraboss:analytics-consent", { detail: value }));
+      if (openedFromSettings) settings.focus({ preventScroll: true });
+      openedFromSettings = false;
+    };
+    choice.querySelector<HTMLButtonElement>("[data-cookie-accept]")?.addEventListener("click", () => save("accepted"));
+    choice.querySelector<HTMLButtonElement>("[data-cookie-reject]")?.addEventListener("click", () => save("rejected"));
+  }
+</script>
+
+<style>
+  .cookie-choice[hidden] { display: none; }
+  .cookie-choice { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1rem clamp(1.2rem, 4vw, 5rem); background: #f5f2ec; border-bottom: 1px solid #d8d4cb; color: #1e1e1e; font-family: "Manrope", Arial, sans-serif; }
+  .cookie-choice__copy { max-width: 68ch; }
+  .cookie-choice strong { font-size: .9rem; }
+  .cookie-choice p { margin: .3rem 0 0; font-size: .78rem; line-height: 1.55; }
+  .cookie-choice__actions { display: flex; flex-wrap: wrap; gap: .5rem; flex-shrink: 0; }
+  .cookie-choice button { min-height: 44px; border: 1px solid #262626; border-radius: 0; padding: .6rem 1rem; background: transparent; color: inherit; font: 600 .76rem "Manrope", Arial, sans-serif; cursor: pointer; }
+  .cookie-choice button:last-child { background: #262626; color: white; }
+  .cookie-choice button:focus-visible { outline: 2px solid #1e1e1e; outline-offset: 3px; }
+  @media (max-width: 700px) { .cookie-choice { display: block; } .cookie-choice__actions { margin-top: .8rem; } .cookie-choice button { flex: 1; } }
+</style>

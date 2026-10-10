@@ -5,7 +5,6 @@ import "../styles/immersive.css";
 import "../styles/photo-pattern.css";
 import "../styles/white.css";
 import "../styles/dock.css";
-import EditorialMotion from "../components/EditorialMotion.astro";
 import Analytics from "../components/Analytics.astro";
 import SiteInteractions from "../components/SiteInteractions.astro";
 import { seoFor } from "../lib/seo";
@@ -116,7 +115,6 @@ const websiteLd = {
     <slot />
     <MobileNav current="/" />
     <SiteInteractions />
-    <EditorialMotion />
     <Analytics />
   </body>
 </html>

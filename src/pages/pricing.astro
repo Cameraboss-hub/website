@@ -1,0 +1,62 @@
+---
+export const prerender = true;
+
+import PageLayout from "../layouts/PageLayout.astro";
+import EnquiryEmbed from "../components/EnquiryEmbed.astro";
+import "../styles/pricing-new.css";
+
+const offers = [
+  {
+    number: "01",
+    name: "Weddings",
+    from: "£2,500",
+    detail: "Photography that follows the whole celebration, from the people and traditions to the moments in between.",
+    note: "Coverage begins at eight hours. Tell us about your plans so we can confirm the right photography, film and album options for your day.",
+  },
+  {
+    number: "02",
+    name: "Engagements",
+    from: "£500",
+    detail: "Time together before the wedding, photographed in places that feel like you.",
+    note: "Sessions include two locations and an outfit change. We will shape the details around your plans.",
+  },
+  {
+    number: "03",
+    name: "Portraits",
+    from: "£150",
+    detail: "Individual, couple, family and professional portraits with room to be yourself.",
+    note: "In the studio or on location. Tell us what the photographs are for and we will recommend a session.",
+  },
+];
+---
+
+<PageLayout
+  title="Affordable Nigerian Wedding Photographer in London – Packages"
+  description="Explore CameraBoss wedding photography, engagement and portrait starting prices. Wedding coverage from £2,500, engagement sessions from £500 and portraits from £150."
+  current="/pricing/"
+  ogImage="/images/selected-work/joanna-jonathon.webp"
+>
+  <div class="price-page">
+    <nav class="price-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Pricing</span></nav>
+
+    <header class="price-hero">
+      <div class="price-hero__copy">
+        <p class="price-kicker">CameraBoss / Pricing</p>
+        <h1>Photography,<br /><em>your way.</em></h1>
+        <p class="price-hero__lead">Wedding, engagement and portrait photography with space for the people and moments that matter to you. Start with a clear price, then make the coverage your own.</p>
+        <div class="price-hero__actions"><a class="price-button" href="#enquire">Check your date</a><a class="price-text-link" href="#collections">Explore starting prices</a></div>
+      </div>
+      <figure class="price-hero__image"><img src="/images/selected-work/joanna-jonathon.webp" alt="Joanna and Jonathon together in traditional wedding attire" width="1280" height="1600" fetchpriority="high" decoding="async" /><figcaption>Joanna &amp; Jonathon / A real CameraBoss wedding</figcaption></figure>
+    </header>
+
+    <section class="price-intro" aria-labelledby="price-intro-title"><p class="price-kicker">The approach</p><div><h2 id="price-intro-title">One day. Your version of it.</h2><p>No two celebrations follow the same script. Tell us where you are celebrating, what traditions matter, and the moments you most want to keep. We will recommend the coverage that fits your plans and confirm everything in your quote.</p></div></section>
+
+    <section class="price-collections" id="collections" aria-labelledby="price-collections-title"><div class="price-section-heading"><p class="price-kicker">Photography &amp; film</p><h2 id="price-collections-title">Where we begin.</h2><p>These are starting prices. The final quote depends on your date, location and the coverage you choose.</p></div><div class="price-collection-list">{offers.map((offer) => <article class="price-collection"><span class="price-collection__number">{offer.number}</span><div class="price-collection__main"><h3>{offer.name}</h3><p>{offer.detail}</p><p class="price-collection__note">{offer.note}</p></div><div class="price-collection__end"><p><span>From</span><strong>{offer.from}</strong></p><a href="/contact/">Ask about {offer.name.toLowerCase()}</a></div></article>)}</div></section>
+
+    <section class="price-process" aria-labelledby="price-process-title"><div><p class="price-kicker">How it works</p><h2 id="price-process-title">A conversation comes first.</h2></div><ol><li><span>01 / Tell us your plans</span><p>Share your date, place and the kind of celebration or session you are planning.</p></li><li><span>02 / Shape your coverage</span><p>We will talk through photography, film and the details that matter to you.</p></li><li><span>03 / Make it yours</span><p>Receive a quote for the coverage we have discussed before you decide.</p></li></ol></section>
+
+    <aside class="price-quote"><p class="price-kicker">Kind words / Tosin &amp; T</p><blockquote>“Clean pictures and every moment was captured.”</blockquote><p>Traditional wedding in Nigeria / White wedding in Germany</p></aside>
+
+    <section class="price-last" id="enquire" aria-labelledby="price-last-title"><p class="price-kicker">Your date / Your story</p><h2 id="price-last-title">Let’s make something<br /><em>you will keep.</em></h2><p>Tell us what you are planning. We will reply with availability and a quote shaped around your day.</p><EnquiryEmbed /><a class="price-text-link" href="/client-area/">Explore the galleries</a></section>
+  </div>
+</PageLayout>

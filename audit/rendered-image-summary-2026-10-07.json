@@ -1,0 +1,26 @@
+{
+  "checked_at": "2026-10-07T12:45:27.396944+00:00",
+  "unique_images": 3788,
+  "local_images": 230,
+  "local_missing": 0,
+  "remote_images": 3558,
+  "remote_by_host": {
+    "htwwyqfattodfaybqgev.supabase.co": 3280,
+    "i.ytimg.com": 22,
+    "images.pixieset.com": 256
+  },
+  "added_since_2026_10_02": [
+    "https://www.cameraboss.co.uk/images/hero/pixieset-01-london.jpg",
+    "https://www.cameraboss.co.uk/images/hero/pixieset-02-leicester.jpg",
+    "https://www.cameraboss.co.uk/images/hero/pixieset-03-portrait.jpg",
+    "https://www.cameraboss.co.uk/images/hero/pixieset-04-civil.jpg",
+    "https://www.cameraboss.co.uk/images/hero/pixieset-05-destination.jpg",
+    "https://www.cameraboss.co.uk/images/hero/pixieset-06-nigeria.jpg"
+  ],
+  "removed_since_2026_10_02": [],
+  "previous_remote_probe": {
+    "date": "2026-10-02",
+    "passed": 3558,
+    "failed": 0
+  }
+}

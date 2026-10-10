@@ -1,26 +1,10 @@
 ---
 /**
- * The Cameraboss CRM enquiry form.
- *
- * The CRM's own injector builds the iframe and keeps its height in step as the
- * form reveals follow-up questions, so there is nothing to size or script here.
- * The questions themselves live in the CRM, which is why changing them never
- * needs a website deploy.
+ * The CRM serves the same published form here and on its full-page route.
  */
-import { ENQUIRY_BRAND, ENQUIRY_EMBED_SCRIPT, ENQUIRY_FORM, ENQUIRY_PAGE_URL } from "../lib/crm";
+import { ENQUIRY_EMBED_URL } from "../lib/crm";
 ---
 
-<div class="mx-auto max-w-[860px] px-6">
-  <script
-    is:inline
-    type="text/javascript"
-    src={ENQUIRY_EMBED_SCRIPT}
-    data-brand={ENQUIRY_BRAND}
-    data-form={ENQUIRY_FORM}
-  ></script>
-  <noscript>
-    <p class="text-sm">
-      <a href={ENQUIRY_PAGE_URL} class="underline">Open the enquiry form</a>
-    </p>
-  </noscript>
+<div class="cameraboss-enquiry">
+  <iframe class="cameraboss-enquiry-frame" src={ENQUIRY_EMBED_URL} title="CameraBoss enquiry form" loading="lazy"></iframe>
 </div>

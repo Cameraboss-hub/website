@@ -1,0 +1,67 @@
+---
+import type { LocationPage } from "../data/locations";
+import { locationByName, locationStory } from "../data/locations";
+import { getPost, thumbFor } from "../lib/content";
+import EnquiryEmbed from "./EnquiryEmbed.astro";
+
+interface Props { location: LocationPage }
+const { location } = Astro.props;
+const story = locationStory(location);
+const guide = location.guideSlug ? getPost(location.guideSlug) : undefined;
+if (location.guideSlug && !guide) throw new Error(`Missing location guide: ${location.guideSlug}`);
+const storyImage = story.image || "/images/selected-work/joandjonny.jpg";
+const heroImage = location.image || storyImage;
+const proofImage = location.proofImage || storyImage;
+const guideImage = guide ? thumbFor(guide) : null;
+const planning = location.planning || `Tell us your ${location.name} venue, ceremony time and whether the reception is at the same address. We can then plan couple portraits and family photographs around the real journey of your day, leaving space for the moments nobody can schedule.`;
+---
+
+<div class="loc-page">
+  <nav class="loc-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/locations/">Locations</a><span>/</span><span aria-current="page">{location.name}</span></nav>
+
+  <header class:list={["loc-hero", { "loc-hero--long-title": location.name.length > 11 && !location.name.includes(" ") }]}>
+    <div class="loc-hero__copy">
+      <p class="loc-kicker">CameraBoss <span>/</span> {location.region}</p>
+      <h1>{location.name}<br />{" "}<em>wedding photographer.</em></h1>
+      <p>{location.lede}</p>
+      <a class="loc-button" href="#enquire">Check your {location.name} date</a>
+    </div>
+    <div class="loc-hero__photo"><img src={heroImage} alt={location.imageAlt || story.title} style={`object-position:${location.focus || "50% 42%"}`} width="1200" height="900" loading="eager" fetchpriority="high" decoding="async" /><span>01 / {location.name}</span></div>
+  </header>
+
+  <section class="loc-intro" aria-labelledby="loc-intro-title">
+    <div><p class="loc-kicker">A thoughtful approach</p><span class="loc-rule"></span></div>
+    <div><h2 id="loc-intro-title">{location.heading}</h2><p>{location.body}</p><a class="loc-textlink" href="/client-area/">Explore the portfolio</a></div>
+  </section>
+
+  <section class="loc-planning" aria-labelledby="loc-planning-title">
+    <div class="loc-planning__heading"><p class="loc-kicker">Planning your coverage</p><h2 id="loc-planning-title">Wedding photography in {location.name}, with a plan that fits your day.</h2></div>
+    <div><p>{planning}</p><p>CameraBoss photographs the ceremony, the people and the moments between. Tell us what traditions, family groups or portrait settings matter to you, and we can discuss photography and film coverage that gives each part enough room.</p><a class="loc-textlink" href="#enquire">Ask about availability in {location.name}</a></div>
+  </section>
+
+  <section class="loc-proof" aria-labelledby="loc-proof-title">
+    <div class="loc-proof__heading"><div><p class="loc-kicker">From the CameraBoss journal</p><h2 id="loc-proof-title">See how we photograph a real story.</h2></div>{location.evidenceNote && <p class="loc-proof__note">{location.evidenceNote}</p>}</div>
+    <a class="loc-proof__feature" href={`/blog/${story.slug}/`}>
+      <img src={proofImage} alt={story.title} width="1200" height="800" loading="lazy" decoding="async" />
+      <div><span class="loc-kicker">{location.storyContext}</span><h3>{story.title}</h3><span class="loc-textlink">Read the story</span></div>
+    </a>
+    {guide && <a class="loc-proof__secondary" href={`/blog/${guide.slug}/`}>
+      {guideImage && <img src={guideImage} alt="" width="300" height="220" loading="lazy" decoding="async" />}
+      <div><span class="loc-kicker">More from the journal</span><h3>{guide.title}</h3><span class="loc-textlink">Read more</span></div>
+    </a>}
+  </section>
+
+  <section class="loc-service" aria-labelledby="loc-service-title">
+    <p class="loc-kicker">The experience</p>
+    <h2 id="loc-service-title">Every part of the story deserves a place.</h2>
+    <div class="loc-service__grid">
+      <div><span>01</span><h3>People first</h3><p>The small exchanges, proud families and joyful chaos are as important as the formal moments.</p></div>
+      <div><span>02</span><h3>Portraits with purpose</h3><p>Beautifully composed photographs without letting a photoshoot take over your wedding.</p></div>
+      <div><span>03</span><h3>Your traditions</h3><p>Space for every ceremony, outfit and celebration that makes the day yours.</p></div>
+    </div>
+  </section>
+
+  <nav class="loc-nearby" aria-label="Nearby photography locations"><p class="loc-kicker">Also working nearby</p><div>{location.nearby.map((name) => { const nearby = locationByName.get(name); return nearby && <a href={nearby.path}>{name}</a>; })}<a href="/locations/">View all locations</a></div></nav>
+
+  <section class="loc-enquire" id="enquire" aria-labelledby="loc-enquire-title"><div class="loc-enquire__intro"><p class="loc-kicker">Your date / Your story</p><h2 id="loc-enquire-title">Check your {location.name} date.</h2><p>Tell us your date, venue and what you are planning in {location.name}.</p></div><EnquiryEmbed /></section>
+</div>

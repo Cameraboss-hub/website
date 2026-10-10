@@ -2,6 +2,8 @@ import type { APIRoute } from "astro";
 import { posts, pages, isoDate, thumbFor, isThinDuplicate } from "../lib/content";
 
 import videos from "../data/videos.json";
+import stories from "../data/portfolio-stories.json";
+import { locationPages } from "../data/locations";
 
 
 export const prerender = true;
@@ -25,6 +27,10 @@ export const GET: APIRoute = async () => {
     if (isThinDuplicate(path)) continue;
     urls.push({ loc: `${SITE}${path}`, priority: "0.8" });
   }
+  const importedPaths = new Set(pages.map((page) => page.path));
+  for (const location of locationPages) {
+    if (!importedPaths.has(location.path)) urls.push({ loc: `${SITE}${location.path}`, priority: "0.8" });
+  }
 
   // Wedding films page, with a thumbnail per film.
   urls.push({
@@ -33,16 +39,25 @@ export const GET: APIRoute = async () => {
     images: (videos as any[]).slice(0, 10).map((v) => `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`),
   });
 
+  // Publicly curated stories only. Private client delivery collections stay out.
+  for (const story of stories) {
+    urls.push({
+      loc: `${SITE}/stories/${story.slug}/`,
+      priority: "0.7",
+      images: story.photos.map((photo) => `${SITE}${photo.src}`),
+    });
+  }
+
   // Every imported blog post, preserving its original case-sensitive path.
   for (const p of posts) {
     // Image entries help Google surface a photographer's work in image search.
-    const imgs = [...p.html.matchAll(/<img[^>]+src="(https:\/\/[^"]+)"/gi)].map((m) => m[1]);
+    const imgs = [...p.html.matchAll(/<img[^>]+src="([^"]+)"/gi)].map((m) => m[1]);
     const hero = thumbFor(p);
     urls.push({
       loc: `${SITE}/blog/${p.slug}/`,
       lastmod: isoDate(p.date) || undefined,
       priority: "0.7",
-      images: [...new Set([hero, ...imgs].filter(Boolean) as string[])].slice(0, 10),
+      images: [...new Set(([hero, ...imgs].filter(Boolean) as string[]).map((image) => new URL(image, SITE).href))].slice(0, 10),
     });
   }
 

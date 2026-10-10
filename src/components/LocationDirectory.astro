@@ -1,0 +1,51 @@
+---
+import { locationStory, locationByName, serviceAreas } from "../data/locations";
+import { referenceLocationGroups } from "../data/coverage-locations";
+import { coverSrc, coverSrcSet } from "../lib/portfolio-images";
+
+const featuredNames = ["London", "Leicester", "Oxford", "Sheffield"];
+const featured = featuredNames.map((name) => locationByName.get(name)!);
+const leadWeddings = [
+  {
+    name: "Joanna and Jonathon",
+    alt: "Joanna and Jonathon in traditional wedding attire",
+    href: "/blog/a-newcastle-anglo-nigerian-wedding-at-beamish-hall-joanna-jonathon/",
+    src: "/images/selected-work/joanna-jonathon.webp",
+    srcset: undefined,
+    width: 1280,
+    height: 1600,
+  },
+  {
+    name: "Cynthia and Oswaldo",
+    alt: "Cynthia and Oswaldo leaving their wedding celebration",
+    href: "/stories/cynthiaandoswaldo/",
+    src: coverSrc("cynthiaandoswaldo"),
+    srcset: coverSrcSet("cynthiaandoswaldo"),
+    width: 1600,
+    height: 2062,
+  },
+];
+const referenceNames = new Set<string>(referenceLocationGroups.flatMap((group) => group.places));
+const otherAreas = serviceAreas.map((group) => ({
+  region: group.region,
+  places: group.places.filter((name) => !referenceNames.has(name)),
+})).filter((group) => group.places.length > 0);
+if (referenceLocationGroups.some((group) => group.places.some((name) => !locationByName.has(name)))) {
+  throw new Error("Every photographed reference location must have a CameraBoss page");
+}
+---
+
+<div class="loc-directory">
+  <header class="loc-dir-hero">
+    <div class="loc-dir-hero__copy"><p class="loc-kicker">CameraBoss / Across the UK</p><h1>Every place.<br />{" "}<em>Every feeling.</em></h1><p>Find your part of the UK, explore our published work where we have it, and tell us about the celebration you are planning. Each location page has its own way to ask about your date.</p><a class="loc-button" href="/contact/">Enquire about your date</a></div>
+    <div class="loc-dir-hero__images">{leadWeddings.map((wedding, index) => <a href={wedding.href} aria-label={`Explore ${wedding.name} wedding photographs`}><img src={wedding.src} srcset={wedding.srcset} sizes="(max-width: 1000px) 50vw, 25vw" alt={wedding.alt} width={wedding.width} height={wedding.height} loading={index === 0 ? "eager" : "lazy"} decoding="async" /><span>{wedding.name}</span></a>)}</div>
+  </header>
+
+  <section class="loc-dir-featured" aria-labelledby="loc-featured-title"><div class="loc-dir-section-heading"><p class="loc-kicker">Start exploring</p><h2 id="loc-featured-title">Places in focus.</h2></div><div class="loc-dir-featured__grid">{featured.map((page) => { const story = locationStory(page); return <a href={page.path}><img src={page.image || story.image || "/images/selected-work/joandjonny.jpg"} alt="" width="700" height="850" loading="lazy" decoding="async" /><span><strong>{page.name}</strong><small>{page.region}</small></span></a>; })}</div></section>
+
+  <section class="loc-dir-list" aria-labelledby="loc-all-title"><div class="loc-dir-section-heading"><p class="loc-kicker">Across the United Kingdom</p><h2 id="loc-all-title">Where we work.</h2><p>Choose your town or city for a planning page and a direct enquiry. Published wedding work is identified by its real location; other pages show related work without claiming it happened there.</p></div><div class="loc-dir-list__grid">{referenceLocationGroups.map((group) => <div class="loc-dir-list__group"><h3>{group.region}</h3><span class="loc-dir-list__rule" aria-hidden="true"></span><ul>{group.places.map((name) => { const page = locationByName.get(name)!; return <li><a class="loc-dir-list__link" href={page.path}>{name}</a></li>; })}</ul></div>)}</div></section>
+
+  <section class="loc-dir-regions" aria-labelledby="loc-regions-title"><div class="loc-dir-section-heading"><p class="loc-kicker">Further afield</p><h2 id="loc-regions-title">More places to ask us about.</h2><p>These service areas were already listed by CameraBoss. If yours is not linked to a dedicated page yet, tell us the venue and date so we can discuss travel and availability.</p></div><div class="loc-dir-regions__grid">{otherAreas.map((group) => <div><h3>{group.region}</h3><div>{group.places.map((name) => { const page = locationByName.get(name); return page ? <a href={page.path}>{name}</a> : <span>{name}</span>; })}</div></div>)}</div></section>
+
+  <section class="loc-last" aria-labelledby="loc-dir-last-title"><p class="loc-kicker">Have somewhere else in mind?</p><h2 id="loc-dir-last-title">We can come to you.</h2><p>Tell us the venue, date and what you are planning. We will talk through the details together.</p><a class="loc-button loc-button--light" href="/contact/">Start your enquiry</a></section>
+</div>

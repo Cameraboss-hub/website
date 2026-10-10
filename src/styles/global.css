@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand palette — refine once brand guidelines / exact hex values are confirmed */
-  --color-ink: #252822;
-  --color-paper: #f6f3ed;
-  --color-accent: #813d40; /* red accent from the "Camera BOSS" wordmark */
+  /* White and black lead; red is reserved for small links and focus accents. */
+  --color-ink: #171717;
+  --color-paper: #fff;
+  --color-accent: #a5232e;
 
   /* Typography
      "Quincy CF" (display serif) is a licensed font used in the Figma file —
@@ -95,6 +95,42 @@ body {
 }
 .post-body strong { font-weight: 600; color: var(--color-ink); }
 .post-prose hr { border: 0; border-top: 1px solid rgba(0,0,0,.12); margin: 3em 0; }
+
+/* The September 2026 articles were authored as standalone custom-code blocks.
+   Their source CSS targeted body/h1 globally, so preserve the prose and scope
+   its readable measure and typography here instead. */
+.seo-article {
+  width: min(100% - 2.5rem, 780px);
+  margin: 0 auto 5rem;
+  padding: clamp(1.5rem, 4vw, 3.75rem);
+  background: #fff;
+  font-family: Georgia, serif;
+  color: #30332e;
+  line-height: 1.85;
+}
+.seo-article h2, .seo-article h3 {
+  margin: 2em 0 .65em;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.3;
+}
+.seo-article h2 { font-size: clamp(1.4rem, 3vw, 1.85rem); }
+.seo-article h3 { font-size: 1.25rem; }
+.seo-article p, .seo-article ul, .seo-article ol { margin: 0 0 1.2em; }
+.seo-article ul, .seo-article ol { padding-left: 1.5em; }
+.seo-article ul { list-style: disc; }
+.seo-article ol { list-style: decimal; }
+.seo-article li { margin-bottom: .45em; }
+.seo-article .intro-block {
+  margin-bottom: 2rem;
+  padding: 1.1rem 1.4rem;
+  border-left: 3px solid var(--color-accent);
+  background: var(--color-paper);
+  font-style: italic;
+}
+.seo-article a { color: var(--color-accent); text-decoration: underline; text-underline-offset: 3px; }
+.seo-article img { max-width: 100%; height: auto; }
 
 .post-body table { width: 100%; border-collapse: collapse; margin: 2em 0; font-size: 0.95rem; }
 .post-body th, .post-body td { border: 1px solid rgba(0,0,0,.12); padding: 0.7em 0.9em; text-align: left; }
@@ -796,6 +832,8 @@ html.cb-nav-locked, html.cb-nav-locked body { overflow: hidden; }
 [hidden] { display: none !important; }
 .skip-link { position: fixed; left: 1rem; top: -8rem; z-index: 100; padding: .8rem 1rem; background: white; color: #1a1a1a; }
 .skip-link:focus { top: 1rem; }
+.cameraboss-enquiry { width: min(100%, 860px); margin-inline: auto; color: #191919; }
+.cameraboss-enquiry-frame { display: block; width: 100%; height: 720px; min-height: 480px; border: 0; background: #fff; }
 :focus-visible { outline: 2px solid #b3242a; outline-offset: 4px; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }

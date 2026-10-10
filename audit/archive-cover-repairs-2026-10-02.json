@@ -1,0 +1,22 @@
+[
+  {
+    "slug": "bridalinspo2",
+    "title": "Bridal inspo 2",
+    "source_cover": "https://images.pixieset.com/75662419/201bcdf1a3f53eb80fd49c39a0c52068-xlarge.jpg",
+    "action": "Use a typographic archive card; original cover returns 403; keep collection link unchanged."
+  },
+  {
+    "slug": "mosesblissandmarie",
+    "title": "Moses Bliss and Marie",
+    "source_cover": "https://images.pixieset.com/88642027/49ab9acaa66771b0bcf950f59aba5e5c-xlarge.jpg",
+    "replacement": "https://htwwyqfattodfaybqgev.supabase.co/storage/v1/object/public/blog/b3320213_e6681ebaf944bcbebe02f58686aaabb0-57aac73b-1000.webp",
+    "source_article": "/blog/Ghana-wedding-moses-bliss-wed-marie-best-photographer-in-Accra/",
+    "action": "Use verified public photograph of the same wedding."
+  },
+  {
+    "slug": "adesewawedding",
+    "title": "Adesewa Wedding",
+    "source_cover": "https://images.pixieset.com/79854607/d507203043a03554c30c1823fd6c55bb-xlarge.jpg",
+    "action": "Use a typographic archive card; original cover returns 403; keep collection link unchanged."
+  }
+]
