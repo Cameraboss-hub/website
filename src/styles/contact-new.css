@@ -2,17 +2,19 @@
 .contact-page *{box-sizing:border-box}
 .contact-page a{color:inherit;text-decoration:none}
 .contact-kicker{margin:0;font:600 .68rem/1.5 "Manrope",sans-serif;letter-spacing:.16em;text-transform:uppercase}
+.contact-photo-strip{display:grid;grid-template-columns:1.1fr .9fr 1fr;height:clamp(250px,30vw,410px);overflow:hidden;border-bottom:1px solid #ddd}
+.contact-photo-strip img{display:block;width:100%;height:100%;min-width:0;object-fit:cover}
+.contact-photo-strip img:first-child{object-position:48% 45%}
+.contact-photo-strip img:nth-child(2){object-position:50% 48%}
+.contact-photo-strip img:nth-child(3){object-position:50% 38%}
 .contact-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);min-height:650px;border-bottom:1px solid #ddd}
 .contact-hero__copy{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:clamp(4rem,7vw,8rem) clamp(1.4rem,5vw,6rem)}
 .editorial-site.dock-theme .contact-page :is(h1,h2){font-family:"Bodoni Moda",Georgia,serif!important;font-weight:400!important;letter-spacing:-.045em;text-transform:none!important}
 .editorial-site.dock-theme .contact-hero h1{margin:2rem 0 1.8rem;font-size:clamp(4.4rem,7.2vw,8.5rem);line-height:1.02}
 .contact-hero__copy>p:not(.contact-kicker){max-width:43ch;margin:0;color:#454545;font:400 clamp(.98rem,1.2vw,1.12rem)/1.8 "Manrope",sans-serif}
 .contact-hero__form{width:100%;margin-top:clamp(2rem,4vw,3.5rem);scroll-margin-top:90px}
-.contact-hero__aside{display:flex;flex-direction:column;justify-content:center;padding:clamp(3.5rem,6vw,7rem) clamp(1.4rem,4vw,5rem);background:#f5f5f5}
-.contact-hero__aside ol{list-style:none;margin:2rem 0 0;padding:0;border-top:1px solid #c8c8c8}
-.contact-hero__aside li{display:grid;grid-template-columns:3rem 1fr;gap:1rem;align-items:baseline;padding:1.6rem 0;border-bottom:1px solid #d4d4d4}
-.contact-hero__aside li span{font:600 .68rem "Manrope",sans-serif;letter-spacing:.1em}
-.contact-hero__aside li p{max-width:26ch;margin:0;font:400 clamp(1.15rem,1.8vw,1.6rem)/1.5 "Manrope",sans-serif;letter-spacing:-.025em}
+.contact-hero__photo{position:relative;min-height:100%;margin:0;overflow:hidden;background:#e7e2d9}
+.contact-hero__photo img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:50% 50%}
 .contact-details{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,7vw,8rem);padding:clamp(5rem,8vw,9rem) clamp(1.4rem,5vw,6rem);border-bottom:1px solid #ddd}
 .editorial-site.dock-theme .contact-details h2{margin:1.2rem 0 1rem;font-size:clamp(3.3rem,5vw,5.5rem);line-height:1.08}
 .contact-details>div:first-child>p:last-child{max-width:45ch;color:#555;font:400 1rem/1.75 "Manrope",sans-serif}
@@ -26,5 +28,5 @@
 .contact-next>div{display:flex;flex-wrap:wrap;gap:.8rem 2rem;border-top:1px solid #bbb}
 .contact-next a{display:inline-flex;align-items:center;min-height:60px;border-bottom:1px solid transparent;font:500 .84rem "Manrope",sans-serif}
 .contact-next a:hover{border-color:#171717}
-@media(max-width:900px){.contact-hero,.contact-details{grid-template-columns:1fr}.contact-hero{min-height:0}.contact-hero__aside{padding-block:4rem}}
-@media(max-width:700px){.contact-hero__copy{padding:4.5rem 1.4rem}.editorial-site.dock-theme .contact-hero h1{font-size:clamp(3.7rem,13vw,5.4rem)}.contact-details__links a{grid-template-columns:1fr;gap:.25rem;padding:1rem 0}.contact-next>div{display:block}.contact-next a{display:flex}}
+@media(max-width:900px){.contact-hero,.contact-details{grid-template-columns:1fr}.contact-hero{min-height:0}.contact-hero__photo{min-height:0;height:clamp(280px,65vw,430px)}.contact-hero__photo img{object-position:50% 38%}}
+@media(max-width:700px){.contact-photo-strip{grid-template-columns:1fr 1.2fr 1fr;height:230px}.contact-hero__copy{padding:4rem 1.4rem 3.5rem}.editorial-site.dock-theme .contact-hero h1{font-size:clamp(3.7rem,13vw,5.4rem)}.contact-details__links a{grid-template-columns:1fr;gap:.25rem;padding:1rem 0}.contact-next>div{display:block}.contact-next a{display:flex}}
